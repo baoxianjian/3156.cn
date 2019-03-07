@@ -1,0 +1,191 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/tipso.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/date/WdatePicker.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/tipso.js"></script>
+<style>
+    .pagin{
+
+       width: auto;
+
+    }
+	.details_info{width:710px;height:auto;overflow:hidden;background:#F5F9FC;border:1px solid #ccc;padding:10px;position:absolute;left:0;top:35px;display:none;z-index:999;}
+	i{ font-style:normal}
+	.details_info .con_info{line-height:16px;text-align:left; height:16px; clear:both;}
+	.details_info .con_info_left{min-width:90px;display:inline-block;float:left;}
+	.details_info .con_info_right{line-height:17px;}
+	.details_info a{font-size:18px;position:absolute;top:0;right:10px;font-family:"微软雅黑"}
+	.place{
+		position:fixed;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.formbody{
+		margin-top:10px;
+	}
+	.adv_top{padding:0 0 0 10px;}
+</style>           
+<script type="text/javascript"> 
+$(document).ready(function(e) { 
+    $(".select1").uedSelect({   
+        width : 345             
+    });                         
+    $(".select2").uedSelect({   
+        width : 167             
+    });
+    $(".select3").uedSelect({
+        width : 94
+    });
+  
+
+   //审核多选
+    $('#J_audit_ok').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(2);
+        $.post('makeshtml',$('#del').serialize(),function(data){
+            if ( data.status ){
+				layer.alert(data.msg,1);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            }else{
+                layer.alert(data.msg);
+				return false;
+            }
+         },'json');
+        return false;
+    })
+	
+	//审核多选
+    $('#J_contact_ok').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(2);
+        $.post('contacts',$('#del').serialize(),function(data){
+            if ( data.status ){
+				layer.alert(data.msg,1);
+                setTimeout(function () {
+                    location.reload();
+                }, 1000);
+            }else{
+                layer.alert(data.msg);
+				return false;
+            }
+         },'json');
+        return false;
+    })
+});
+
+function mysubmit(obj){
+	obj.submit();
+	return false;
+}
+</script>
+
+
+
+{|include file="$HEADER_END"|} 
+    <div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li>厂商管理</li>
+    </ul>
+    </div>
+    <div class="formbody">
+  	<div id="tab2" class="tabson">
+    
+    <form action="shtml" id="seek" method="post"  onsubmit="mysubmit(this);return false;">
+        <ul class="seachform">
+            <li><label>是否生成过：</label>  
+                <div class="vocation">
+                <select class="select3" name="ischeck">
+                    <option value="">全部</option>
+                    <option value="2" {|if $seekArr['ischeck'] == 2|} selected="selected"{|/if|}>未生成</option>
+                    <option value='1' {|if $seekArr['ischeck'] == 1|} selected="selected"{|/if|}>已生成</option>
+                </select>
+                </div>
+            </li>
+            <li>公司编号：<input type=text name="cmp_id" value="{|$seekArr['cmp_id']|}" ></li>
+            <li><input id='seekBtn' type="submit" class="scbtn" value="查询"/></li>
+        </ul>
+    </form>
+    
+    <ul class="toolbar" style="margin:10px 0;">
+        <li id="J_audit_ok"><span><img src="{|$STYLE_URL|}/images/yes-icon.png" /></span>生成招商页</li>
+        <li id="J_contact_ok"><span><img src="{|$STYLE_URL|}/images/yes-icon.png" /></span>生成联系方式</li>
+     </ul>
+	 <div class="pagin" style="float:right;line-height:35px;"><div class="message">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" type="checkbox" value=""/></th>
+        <th>用户名<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>公司编号</th>
+        <th>公司名称</th>
+        <th>注册时间</th>
+        <th>会员到期时间</th>
+        <th>厂商等级</th>
+        <th>生成状态</th>
+        </tr>
+        </thead>
+        <tbody>
+		
+        <form action="del" method="post" id='del'>
+            {|foreach $list as $k=>$v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['cmp_id']|}" /></td>
+                <td>{|$v['user_name']|}</td>
+                <td>{|$v['cmp_id']|}</td>
+                <td>{|$v['cmp_name']|}</td>
+                <td>{|$v['start_time']|}</td>
+                <td>{|$v['end_time']|}</td>
+                <td>{|$v['cmp_lv']|}</td>
+                <td>{|if $v['is_check']|}已生成 <a href="{|$WWW_URL|}/{|$v['static_url']|}" target="_blank">浏览</a>{|else|}未生成{|/if|}</td>
+                </tr> 
+            {|/foreach|}
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+            <input type="hidden" name='audit' value='' disabled="disabled">
+
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+<script type="text/javascript"> 
+$("#usual1 ul").idTabs(); 
+$('.tablelist tbody tr:odd').addClass('odd');
+$(function() {
+	$('.tip1').tipso({
+		useTitle: false
+	});
+});
+</script>
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

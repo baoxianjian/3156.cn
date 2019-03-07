@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+.c_right{
+	width:948px;
+	float:left;
+	height:970px;
+	border:1px solid #e0e0e0;
+}
+.c_right p{
+	margin-bottom:50px;
+}
+.c_right .sorry{
+	float:left;
+	font-size:14px;
+	height:100%;
+	width:266px;
+	padding-left:230px;
+}
+.c_right li{
+	font-size:14px;
+	margin-bottom:15px;
+}
+.c_right li a{
+	text-decoration:underline;
+	color:#fb8200;
+}

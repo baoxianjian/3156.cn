@@ -1,0 +1,5 @@
+@charset "utf-8";
+
+.pagin{width:470px;height:30px;margin:20px auto 0;line-height:30px;text-align:center;}
+.pagin span{width:30px;height:30px;float:left;}
+.pagin a{float:left;padding:0 10px;display:block;height:30px;min-width:15px;border:1px solid #e6e6e6;margin-right:5px;}

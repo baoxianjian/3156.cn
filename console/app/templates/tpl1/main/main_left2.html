@@ -1,0 +1,84 @@
+ {|include file="$HEADER"|}
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+
+
+</head>
+
+<body style="background:#f0f9fd;">
+	<div class="lefttop"><span></span>业务</div>
+    
+    <dl class="leftmenu">
+        
+    <dd>
+    <div class="title">
+    <span><img src="{|$STYLE_URL|}/images/leftico01.png" /></span>广告管理
+    </div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/ggresource/list" target="rightFrame">广告资源管理</a><i></i></li>
+         <li><cite></cite><a href="/ggqueue/list" target="rightFrame">广告单管理</a><i></i></li>
+        <li><cite></cite><a href="/ggposition/list" target="rightFrame">广告位管理</a><i></i></li>
+        <li><cite></cite><a href="/ggmanage/list" target="rightFrame">分组管理</a><i></i></li>
+        <li><cite></cite><a href="/ggmaterials/list" target="rightFrame">素材管理</a><i></i></li>
+        <li><cite></cite><a href="/ggstandard/list" target="rightFrame">规格管理</a><i></i></li>
+        <li><cite></cite><a href="/ggtemplate/list" target="rightFrame">模板管理</a><i></i></li>
+        </ul>     
+    </dd>        
+        <dd>
+    <div class="title">
+    <span><img src="{|$STYLE_URL|}/images/sousuo-icon.png" /></span>搜索引擎管理
+    </div>
+        <ul class="menuson">
+
+        <li class=""><cite></cite><a href="/generalize/index" target="rightFrame">推广管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/keywords/list" target="rightFrame">关键字管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/ads/list" target="rightFrame">广告管理</a><i></i></li>   
+        <li class=""><cite></cite><a href="/adposition/list" target="rightFrame">广告位管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/main/syn" target="rightFrame">数据同步</a><i></i></li>
+
+        </ul>    
+    </dd>
+    <dd>
+    <div class="title">
+    <span><img src="{|$STYLE_URL|}/images/leftico02.png" /></span>留言管理
+    </div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/need/list" target="rightFrame">需求留言管理</a><i></i></li>
+         <li><cite></cite><a href="/intent/list" target="rightFrame">意向留言管理</a><i></i></li>
+        <li><cite></cite><a href="/stationinfo/list" target="rightFrame">站内来电询单</a><i></i></li>     
+        <li><cite></cite><a href="/blacklist/list" target="rightFrame">黑名单</a><i></i></li>
+    </ul>     
+    </dd> 
+    
+
+    
+    
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/tongji-icon.png" /></span>统计管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/count/adlist" target="rightFrame">广告点击统计</a><i></i></li>
+        <li><cite></cite><a href="/count/click" target="rightFrame">流量点击统计</a><i></i></li>
+    </ul>
+    
+    </dd>   
+    
+    </dl>
+    
+</body>
+</html>

@@ -1,0 +1,185 @@
+{|include file="$HEADER"|}
+<!--<link href="{|$STYLE_URL|}/swfupload/css/default.css" rel="stylesheet" type="text/css" />-->
+<script type="text/javascript" src="{|$STYLE_URL|}/swfupload/swfupload.js"></script> 
+<script src="http://img1.3156.cn/res/js/dev/3156.js"></script> 
+<script type="text/javascript">
+    var swfu;
+    window.onload = function() {
+        swfupload_settings.flash_url="{|$STYLE_URL|}/swfupload/swfupload.swf",
+        swfupload_settings.post_params={"PHPSESSID" : "{|$session_id|}"};
+        swfupload_settings.button_image_url="{|$STYLE_URL|}/swfupload/images/TestImageNoText_65x29.png";
+        swfu = new SWFUpload(swfupload_settings);
+     };
+</script>
+<script type="text/javascript">
+   $(document).ready(function(){
+	  $('#sitepage').blur(function(){
+		   if($('#sitepage').val()==''){
+			   $('#cp').html('网站页面不能为空!').css('color','red');
+		   }		   
+		   if($('#sitepage').val()!=''){
+			   $('#cp').html('可以使用').css('color','green');
+		   }		   
+	  })
+	  $('#title').blur(function(){
+		   if($('#title').val()==''){
+			   $('#ti').html('站点标题不能为空!').css('color','red');
+		   }
+		   if($('#title').val()!=''){
+			   $('#ti').html('可以使用').css('color','green');
+		   }
+	  }) 
+	  $('#infor').blur(function(){
+		   if($('#infor').val()==''){
+			   $('#in').html('链接详情不能为空!').css('color','red');
+		   }
+		   if($('#infor').val()!=''){
+			   $('#in').html('可以使用').css('color','green');
+		   }
+	  })
+	  $('#links').blur(function(){
+		   if($('#links').val()==''){
+			   $('#lin').html('链接地址不能为空，且格式为:http://www.3156.cn!').css('color','red');
+		   }
+		   if($('#links').val()!=''){
+			  var reg=/^(http|https|ftp):\/\/[a-zA-Z0-9]+\.[a-zA-Z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/;   
+		        if(!reg.test($('#links').val())){   
+		            $('#lin').html("请输入正确的链接地址,格式为:http://www.3156.cn").css('color','red');   
+		        }else{   
+		           $('#lin').html('可以使用').css('color','green');
+		        }   
+			 
+		   }
+	  }) 
+	  $('#order').blur(function(){
+		   if($('#order').val()==''){
+			   $('#px').html('排序不能为空，且为整数型!').css('color','red');
+		   }
+		   if($('#order').val()!=''){
+			   var str=$('#order').val();
+			   var reg = /^[1-9]*$/;
+				if(reg.test(str)){
+			       $('#px').html('可以使用').css('color','green');
+				}else{
+				   $('#px').html('排序格式不正确，应该为整数型!').css('color','red');
+				}
+		   }
+	  }) 
+   })
+</script>
+<script type="text/javascript">
+function check(){		                
+	   if ($('#sitepage').val()=='')
+        {
+		   $('#cp').html('网站页面不能为空!').css('color','red');
+          return false;
+        } 
+      
+	  if($('#title').val()==''){
+		  $('#ti').html('站点标题不能为空!').css('color','red');
+			  return false;
+	    }	
+     
+      if($('#infor').val()==''){
+    	  $('#in').html('链接详情不能为空!').css('color','red');
+             return false; 
+       }
+      if($('#links').val()==''){
+    	  $('#lin').html('链接地址不能为空，且格式为:http://www.3156.cn!').css('color','red');
+		  return false;
+	   }
+	  if($('#order').val()==''){
+		   $('#px').html('排序不能为空，且为整数型!').css('color','red');
+		  return false;
+	   }
+	  if($('#lin').html()=='请输入正确的链接地址,格式为:http://www.3156.cn'){		  
+		  return false;
+	   }
+	
+      if($('#order').val()!=''){
+			   var str=$('#order').val();
+			   var reg = /^[1-9]*$/;
+				if(!reg.test(str)){			   
+				   $('#px').html('排序格式不正确，应该为整数型!').css('color','red');
+				   return false;
+				 }			
+	    }
+	  return true; 
+  }
+</script>
+<style>
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.formbody{
+	margin-top:40px;
+}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li><a href="/friendlinks/list">友情链接管理</a></li>
+       <li>友情链接{|$TIP_NAME|}</li>
+    </ul>
+    </div>
+    <div class="formbody">
+    <div class="formtitle"><span>友情链接{|$TIP_NAME|}</span></div>
+    <form action="edit" method="post" onsubmit="return check();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+        <li ><label>*网站页面：</label><input name="row[sitepage]" type="text" class="dfinput" value="{|$row['sitepage']|}" id="sitepage"/><i id="cp">请输入网站页面</i></li>    
+        <li ><label>*站点标题：</label><input name="row[title]" type="text" class="dfinput" value="{|$row['title']|}" id="title"/><i id="ti">请输入站点标题</i></li> 
+        <li ><label>*链接详情：</label><input name="row[infor]" type="text" class="dfinput" value="{|$row['infor']|}" id="infor"/><i id="in">请输入链接详情</i></li>     
+        <li><label>*显示方式：</label><cite><input name="row[show_way]" type="radio" value="1" {|$show_way_checked[1]|} />文字&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="row[show_way]" type="radio" value="2" {|$show_way_checked[2]|} />图片</cite></li>
+       <li id="chanpingid"><label>*链接地址：</label><input name="row[links]" type="text" class="dfinput" value="{|$row['links']|}" id="links"/><i id="lin">请输入链接地址，格式:http://www.3156.cn，必填</i></li>            
+        <li>
+			            
+			<body>
+				<textarea name="content" class="textinput" id="J_ueditor_content" cols="" rows="" class="J_ueditor_content"></textarea>
+				<div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:none;">
+				<a href="" class="pop_close" id="J_fresh_upload_close">删除</a>
+				<ul class="cc">
+				<li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count" style="display:inline;">4</span>张</li>
+				</ul>
+				</div>
+				<span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span> 
+				...
+				<script>
+				var fast_upload_config = {
+						size_limit : 1024,		//图片大小限制
+						num_limit : 1,		//数量限制
+						types : '*'			//上传图片类型，多个类型请用,隔开 如：png,jpg,jpge
+					};
+				KK.ready(document, function(){
+					KK.use('jquery', 'global', 'swfupload', function(){
+				    	KK.Util.swfHandle();
+				    });
+				});
+				</script>
+				</body>
+			                        
+            
+        </li>
+        
+        <li><label>*排序：</label><input name="row[order]" type="text" class="dfinput" value="{|$row['order']|}" id="order"/><i id="px">请输入排序，为整数型。</i></li>
+     
+        <li><label>&nbsp;</label><input  type="submit"  class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}  
+
+
+

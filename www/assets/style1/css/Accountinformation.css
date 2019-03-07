@@ -1,0 +1,43 @@
+@charset "utf-8";
+/* CSS Document */
+
+.c_right{
+	height:710px;
+}
+.c_right .prev{
+	display:inline-block;
+	width:85px;
+	text-align:right;
+}
+.c_right li{
+	height:40px;
+	font-size:14px;
+	margin:0 0 15px 40px;
+	line-height:40px;
+}
+.c_right li.small{
+	margin-bottom:8px;
+}
+.c_right .red{
+	color:#e31515;
+	margin-right:5px;
+}
+.c_right li span.end_sex{
+	margin-left:188px;
+}
+.c_right .btn1{
+	margin:10px 0 0 170px;
+}
+.c_right .p_title{
+}
+.c_right .p_title .img_p{
+	margin-left:22px;
+	width:16px;
+	height:16px;
+	background:url(../img/agent/write.png);
+	display:inline-block;
+	margin-bottom:-2px;
+}
+.c_right .p_title .img_p:hover{
+	background:url(../img/agent/write1.png);
+}

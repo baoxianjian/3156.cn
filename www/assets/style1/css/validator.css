@@ -1,0 +1,40 @@
+.onShow
+{
+    padding-left:5px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+	color:#aaa;
+}
+.onFocus
+{
+    padding-left:5px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+	color:#f00;
+}
+.onError
+{
+    padding-left:5px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+	color:#f00;
+}
+.onCorrect
+{
+    padding-left:5px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+	color:#aaa;
+}
+.onLoad
+{
+    padding-left:5px;
+	font-size: 12px;
+	line-height:22px; 
+	vertical-align:middle;
+	color:#aaa;
+} 

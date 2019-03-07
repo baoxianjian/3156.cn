@@ -1,0 +1,102 @@
+{|include file="$HEADER"|}
+
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/keyworddel.js"></script>
+<style type="text/css">
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.tools form{
+	overflow:hidden;
+	padding:10px 0 10px 10px;
+	background:#F5F9FB;
+}
+label{margin-right:15px;}
+.toolbar a{width:75px;height:35px;display:block;}
+</style>
+
+{|include file="$HEADER_END"|}
+
+    <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>关键字管理</li>
+		</ul>
+	</div>
+	<div class="tools" style="margin-top:40px;">
+		<form action="list" method="get">
+			<label for="">关键字：<input type="text" name="kw_name" class="scinput"  value={|$srow['kw_name']|}></label>
+			<!--
+			<label for="">热门程度：<input type="text" name="hot" class="scinput"  value={|$srow['hot']|}></label>
+			<label for="">
+				关键字类型：<select name="type" class="scinput" value={|$srow['type']|}>
+				<option value="" selected="selected">===请选择===</option>    
+				<option value="1"  {|if $srow['type']==1|}selected="selected"{|/if|}>正常</option>
+				<option value="2"  {|if $srow['type']==2|}selected="selected"{|/if|}>过滤</option>          
+				</select>
+			</label>
+			-->
+			<label for="">
+				状态：<select name="ss_state" class="scinput" value={|$srow['ss_state']|}>
+				<option value="" selected="selected">全部</option> 
+				<option value="1" {|if $srow['ss_state']==1|}selected="selected"{|/if|}>正常</option>
+				<option value="2" {|if $srow['ss_state']==2|}selected="selected"{|/if|}>停用</option>          
+				</select>
+			</label>                                           
+			<input name="" type="submit"  class="scbtn"  value="搜索"/>
+		</form> 
+		<ul class="toolbar">
+			<li class=""><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+			<li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+		</ul>
+
+        
+  <!--        <ul class="toolbar1">
+        <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>
+  -->  
+    </div>
+    
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <!--<th><input name="" type="checkbox" value=""  id="checkAll"/></th>-->
+        <th>关键词编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <!--<th>关键字类型</th>-->
+        <th>关键字</th>
+        <th>搜索次数</th>
+        <!--<th>热门程度</th>-->
+        <th>状态</th>
+        <th>添加日期</th>       
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody> 
+     {|foreach $list as $row|}              
+        <tr>
+        <!--<td><input name="checkdel[]" type="checkbox" value="{|$v['kw_id']|}" /></td>-->
+        <td>{|$row['kw_id']|}</td>
+        <!--<td>{|if $row['type']==1|}正常{|else|}过滤{|/if|}</td>-->
+        <td>{|$row['kw_name']|}</td>
+        <td>{|$row['sk_count']|}</td>
+        <!--<td>{|$row['hot']|}</td>-->
+        <td>{|if $row['ss_state']==1|}正常{|else|}停用{|/if|}</td>
+        <td>{|date('Y-m-d H:i:s',$row['dateline'])|}</td>        
+        <td><a href="edit-id-{|$row['kw_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;&nbsp;&nbsp;<a onclick="delConfirm('{|$row['kw_id']|}','del'); return false;" href="{|$row['del_url']|}" class="tablelink"> 删除</a></td>
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+
+    </table>
+
+   {|$pagehtml|}
+    
+  {|include file="$FOOTER"|}
+   
+    

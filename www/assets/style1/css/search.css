@@ -1,0 +1,97 @@
+@charset "utf-8";
+*{margin:0; padding:0; list-style-type: none;text-decoration:none;}
+img{border:0;}
+.warp{width:100%;}
+.index_warp{width:1000px;height:auto;overflow:hidden;margin:0 auto;}
+.hot_search{width:998px;height:30px;line-height:30px;float:left;margin:25px 0;border:1px solid #e6e6e6;font-size:13px;color:#333;}
+.hot_search a{color:#333;margin-right:20px;}
+.hot_search a:hover{color:#fb8200;text-decoration: underline}
+
+.index_warp .content{width:938px;height:auto;overflow:hidden;border:1px solid #e6e6e6;padding:20px 30px;}
+.index_warp .content .left{width:459px;height:auto;overflow:hidden;float:left;border-right:1px solid #e6e6e6;}
+.index_warp .content .right{width:400px;height:auto;overflow:hidden;float:right;padding-left:78px;}
+.index_warp .content .top{width:478px;height:auto;overflow:hidden;}
+.index_warp .content p{width:478px;height:25px;text-indent:30px;overflow:hidden;margin-bottom:15px;font-size:18px;color:#333;font-family:"微软雅黑";background:url(../img/search_ico.png) no-repeat left 0;}
+.index_warp .content .department{margin-top:15px;background:url(../img/search_ico.png) no-repeat left -24px;}
+.index_warp .content .symptoms{background:url(../img/search_ico.png) no-repeat left -63px;}
+.index_warp .content .measurement{margin-top:15px;background:url(../img/search_ico.png) no-repeat left -91px;}
+.index_warp .content .drug li{float:left;line-height:38px;}
+.index_warp .content .drug li a{width:87px;height:38px;text-align:center;display:block;border:1px solid #e6e6e6;margin-right:9px;margin-bottom:11px;font-size:15px;color:#0000ff;}
+.index_warp .content .drug li a:hover{color:#fb8200;border-color:#fb8200;}
+
+.index_warp .search_ewm{width:968px;height:auto;color:#333;overflow:hidden;border:1px solid #e6e6e6;margin-top:15px;padding:15px;}
+.index_warp .search_ewm .ewm{width:305px;height:auto;overflow:hidden;border-right:1px solid #e6e6e6;float:left;}
+.index_warp .search_ewm img{float:left;margin-right:10px;}
+.index_warp .search_ewm p{font-size:22px;margin-bottom:15px;}
+.index_warp .search_ewm span{line-height:25px;font-size:14px;}
+.index_warp .pic_content{width:1000px;height:auto;overflow:hidden;margin-top:15px;}
+.index_warp .pic_content a{margin-right:4px;}
+.index_warp .pic_content .cur{margin-right:0;}
+
+
+.index_warp .s_info_3156{width:978px;height:auto;font-size:13px;font-family:"宋体";line-height:25px;color:#333;overflow:hidden;border:1px solid #e6e6e6;padding:10px;margin-top:15px;background:#f8f8f8;text-indent:2em;}
+.warp .search_title{width:100%;height:40px;line-height:40px;background:#f2f2f2;margin:15px 0;}
+.warp .search_title span{width:1000px ;height:40px;display:inline-block;margin-left:236px;}
+.warp .search_title span a{margin-right:15px;color:#333333;height:38px;display:block;float:left;}
+.warp .search_title span .cur,.warp .search_title span a:hover{color:#ff6700;border-bottom:2px solid #ff6700;}
+.warp .search_left{width:235px;height:auto;overflow:hidden;float:left;margin-top:26px;}
+.warp .search_left .content{width:153px;height:auto;overflow:hidden;margin:0 auto;}
+.warp .search_left .pro_cat{width:153px;height:35px;background:#5eb544;text-align:center;line-height:35px;color:#fff;}
+.warp .search_left .con{width:151px;height:auto;overflow:hidden;background:#f5fcea;border:1px solid #b1de81;border-top:none;}
+.warp .search_left .Drug_class,.warp .search_left .Drug_jx{width:141px;height:auto;overflow:hidden;padding:10px 5px;}
+.warp .search_left .t{font-size:14px;color:#323234;font-weight:bold;background:url(../img/t_bg.png) no-repeat left center;text-indent:12px;margin-bottom:10px;}
+.warp .search_left .drug_list{width:111px;height:auto;overflow:hidden;margin:0 auto;}
+.warp .search_left li{font-size:12px;float:left;width:55px;line-height:25px;}
+.warp .search_left li a{color:#666;}
+.warp .search_left li a:hover{color:#fb8200;text-decoration: underline}
+.warp .search_left .Drug_jx{background:#e7f8d4;}
+.warp .search_center{width:630px;margin-right:60px;height:auto;overflow:hidden;float:left;}
+.warp .search_center .result{font-size:12px;color:#666;margin-bottom:10px;}
+.warp .search_center .medicine{width:630px;height:auto;overflow:hidden;margin-bottom:15px;}
+.warp .medicine p{font-size:16px;line-height:20px;margin-bottom:15px;}
+.warp .medicine p a{color:#0000ff;}
+.warp .medicine p a:hover{text-decoration:underline;}
+.warp .key_word{color:#f00;}
+.warp .medicine p .recommended{color:#fff;width:32px;height:16px;text-align:center;line-height:16px;font-size:12px;margin-left:15px;display:inline-block;background:#fb8200;}
+.warp .medicine img{float:left;margin-right:10px;margin-top:5px;}
+.warp .medicine .search_txt{font-size:12px;width:499px;height:70px;overflow:hidden;line-height:25px;display:inline-block;}
+.warp .medicine .search_txt a{color:#0000ff;}
+.warp .medicine .name a{color:#008000;font-size:12px;line-height:25px;}
+.warp .page_num{width:480px;height:32px;float:left;margin-bottom:20px;line-height:32px;}
+.warp .page_num a{width:30px;height:30px;color:#0003ca;text-align:center;border:1px solid #e6e6e6;display:inline-block;float:left;margin-right:12px;}
+.warp .page_num .cur{border:none;color:#000;}
+.warp .page_num span{float:left;width:30px;height:30px;display:inline-block;}
+.warp .page_num .page{width:72px;height:30px;}
+.warp .Relevant_search{width:630px;height:auto;overflow:hidden;margin-bottom:15px;}
+.warp .Relevant_search p{width:80px;font-family:"微软雅黑";line-height:30px;height:auto;overflow:hidden;float:left;color:#494949;}
+.warp .Relevant_search .search_t{width:550px;height:auto;overflow:hidden;float:right;}
+.warp .Relevant_search a{margin-right:10px;line-height:30px;color:#0000ff;}
+
+
+.warp .search_right{width:250px;height:auto;overflow:hidden;float:left;padding-left:20px;border-left:1px solid #e6e6e6;}
+.warp .search_right .txt{width:250px;height:96px;margin-top:15px;}
+.warp .search_right .txt a{color:#00f;}
+.warp .search_right .txt a:hover{text-decoration:underline;}
+.warp .search_right .search_txt_con{width:250px;max-height:66px;overflow:hidden;font-size:13px;line-height:22px;margin-top:10px;display:inline-block;}
+.warp .online_zx{width:248px;height:165px;border:1px solid #e6e6e6;margin-top:15px;}
+.warp .online_zx .title_{width:248px;height:42px;line-height:42px;text-align:center;border-bottom:1px solid #e6e6e6;background:#f9f9f9;color:#333;}
+.warp .online_zx .zx_style{width:212px;height:86px;padding:18px;}
+.warp .online_zx .zx_style p{line-height:30px;font-size:14px;color:#323232;}
+.warp .online_zx .zx_style p a{margin-right:5px;}
+.warp .bottom_img{margin-left:235px;float:left;margin-bottom:10px;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

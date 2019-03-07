@@ -1,0 +1,124 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:0 0 10px 10px;
+		height:auto;
+		overflow:hidden;
+	}
+	.tools form .scbtn{
+		margin-top:10px;
+	}
+	.edit{
+		display:block;
+	}
+
+
+
+</style>
+
+ <div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="###">首页</a></li>
+		<li>产品标签管理</li>
+	</ul>
+</div>
+
+<div class="tools">
+    
+
+        <form action="list" method="post" >   
+            标签：<input type="text" name="name" class="scinput"  value={|$srow['name']|} >&nbsp; &nbsp; 
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+ 		<div class="pagin" style="float:right; margin:10px 10px 10px 0;">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+      
+    
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" name="" type="checkbox" value=""/></th>
+        <th>标签</th>
+        <th>产品数</th>
+        <th>添加时间</th>
+        <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['key_id']|}">
+                <td><input name="check[]" type="checkbox" value="{|$row['key_id']|}" /></td>
+                <td>{|$row['name']|}</td>
+                <td>{|$row['count']|}</td>
+                <td>{|$row['dateline']|}</td>
+                <td><a onclick="return delConfirm('{|$row['id']|}');" href="{|$row['del_url']|}" class="tablelink"> 删除</a></td>
+            </tr>
+        {|/foreach|}
+        <input name="status" value="0" class="J_status" type="hidden" />
+        </form>
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+<script>
+$('.J_delAll').click(function(){
+	var $this = $(this);
+	var status = $this.data('status');
+	$('.J_status').val(status);
+	if ( $("[name='check[]']:checked").length <= 0 ){
+	  layer.alert('未选择删除数据');
+	  return false;
+	}
+	if(status === 1){
+		msg = '一旦删除将会无法恢复，您确定删除？';
+	}else{
+		msg = '您确定要恢复？';
+	}
+	$.layer({
+		shade: [0],
+		area: ['auto','auto'],
+		dialog: {
+			msg: msg,
+			btns: 2,                    
+			type: 5,
+			btn: ['确定','取消'],
+			yes: function(){
+			 $.post('del',$('#del').serialize(),function(data){
+
+				if ( data.status ){
+					layer.alert(data.info,1);
+					setTimeout(function () { 
+						location.reload();
+					}, 100);
+				}else{
+					layer.alert(data.info);
+				}
+
+			 },'json');
+			},
+		}
+	  });
+	return false;
+})
+</script>
+{|include file="$FOOTER"|}  

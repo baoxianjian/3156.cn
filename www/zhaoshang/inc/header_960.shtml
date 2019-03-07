@@ -1,0 +1,124 @@
+<script type="text/javascript" src="/assets/style1/js/jquery-1.7.2.min.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="http://img1.3156.cn/res/css/2.0/www/page.css" media="all" />-->
+<link rel="stylesheet" type="text/css" href="http://img1.3156.cn/res/css/2.0/www/zhaoshang_top.css" media="all" />
+<link rel="stylesheet" type="text/css" href="http://img1.3156.cn/res/css/2.0/www/footer.css" media="all" />
+<script type="text/javascript">
+	$(document).ready(function(){
+    $(".search-select").bind({
+        mouseover: function() {
+            $(this).find("dl").show();
+            $(".search-trigger span").css("background","url("+"http://img1.3156.cn/res/img/2.0/trigger.png"+")"+" "+"no-repeat"+" "+"48px"+" "+"center");
+        },
+        mouseleave: function() {
+            $(this).find("dl").hide();
+            $(".search-trigger span").css("background","url("+"http://img1.3156.cn/res/img/2.0/search_trigger.png"+")"+" "+"no-repeat"+" "+"48px"+" "+"center")/*.css('background','url(../../img/2.0/search_trigger.png) ')*/;
+        }
+    });
+	
+	
+	
+	
+    $(".search-select dl").mouseleave(function() {
+        $(this).hide();
+    });
+    $(".search-select dl>dd").bind({
+        mouseover: function() {
+            $(this).addClass("searchOn").css("color", "#fff").siblings().removeClass("searchOn").css("color", "#999");
+        },
+        click: function() {
+            $("#search-form").attr("action", "http://s.3156.cn/" + $(this).attr("s-type"));
+			if(($("#search-form input[name=seek]").val()=='输入您要找的公司')||($("#search-form input[name=seek]").val()=='输入您要找的产品')){
+				$("#search-form input[name=seek]").attr("def", "输入您要找的" + $(this).text());
+            	$("#search-form input[name=seek]").val("输入您要找的" + $(this).text());
+			}
+/*			else{
+				$(".search-select span").text();
+			}
+            
+*/			$(".search-select span").text($(this).text());
+            $(this).parent().hide();
+        }
+    });
+    $("#search-form").submit(function() {
+        if ($("input[name='kw']").val() == $("input[name='kw']").attr("def")) {
+            $("input[name='kw']").val('')
+        }
+    });
+    $("#search-form input[name=kw]").val("输入您要找的产品");
+    $(".search-select dl>dd").eq(0).click();
+	
+	
+	})
+</script>
+<div class="topbar">
+    <div class="warp">
+        <ul class="left">
+            <li class="cur"><a href="http://www.3156.cn/product/">药品库</a></li>
+            <li><a href="shuju.3156.cn">数据中心</a></li>
+            <li><a href="ziuxn.3156.cn">医药资讯</a></li>
+            <li><a href="http://www.3156.cn/daili/">医药代理</a></li>
+            <!--<li id="top_left"><a href="http://m.3156.cn" target="_blank">手机药品网</a></li>-->
+            <li><a href="http://www.3156.cn/company/">医药公司</a></li>
+        </ul>
+        <ul class="right">
+            <li class="cur">你好<span id="u_name"></span></li>
+            <li><a  href="http://user.3156.cn/user/login">请登录</a></li>
+            <li><a style="color:#F53535;" href="http://user.3156.cn/user/register">免费注册</a><a href="###" id="er"></a></li>
+            <li class="img img_h">
+                <a href="javascript:void(0);"><img src="../../assets/style1/img/weixin.png"/></a>
+                <span style="display: none;" class="er_block"></span>
+            </li>
+            <li class="img"><a href="http://weibo.com/qgypw"><img src="../../assets/style1/img/weibo.png" alt="微博" title="微博"/></a></li>
+        </ul>
+    </div>
+</div>
+<div class="zhaoshang_header header" style="height:80px;padding-top:10px;">
+        <div class="logo">
+            <a href="http://www.3156.cn" target="_blank" title="3156医药网" ></a>
+        </div>
+		<div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="search/sreach_list" class="searchOn">产品</dd>
+                            <dd s-type="search/company_list">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3156.cn/search/sreach_list?seek=" method="get" target="_blank">
+                    <input type="text" name="seek" value="输入您要找的产品" class="search-On" def="输入您要找的产品" onFocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onBlur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <input type="submit" class="search-btn" hidefocus="" value="搜索">
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <a href="http://www.3156.cn/daili/fbxq/"  class="search-btn btn1" target="_blank">发布需求</a>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E5%84%BF%E7%A7%91">儿科</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E8%B4%B4%E5%89%82">感冒</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E9%99%8D%E5%8E%8B">止咳</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E5%A3%AE%E9%98%B3">壮阳</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E7%9A%AE%E8%82%A4">皮肤</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E8%A1%A5%E8%82%BE">补肾</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E6%AD%A2%E7%97%9B">止痛</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E6%AD%A2%E8%A1%80">止血</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=OTC">OTC</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E4%BF%9D%E5%81%A5%E5%93%81">保健品</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E5%8C%BB%E7%96%97%E5%99%A8%E6%A2%B0">医疗器械</a>
+            </div>
+            <!--/search-key-->
+        </div>
+		<!--#include virtual="ad.shtml"-->
+    </div>

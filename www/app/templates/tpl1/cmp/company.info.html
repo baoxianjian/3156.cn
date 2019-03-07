@@ -1,0 +1,113 @@
+{|include file="$USER_HEADER"|}
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/common.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+
+    <script type="text/javascript">
+        function getPicList()
+        {
+            $.post("/uploads/list",{ajax:1,mark:'license'},function(data){
+                var strHtml="";
+                for(var i=0;i<data.length;i++)
+                {
+                strHtml+="<tr>"+
+                            "<td>"+data[i].dateline+"</td>"+
+                            "<td>"+data[i].up_name+"</td>"+
+                            "<td><a href=\""+data[i].file_path+"\" target=\"_blank\" class=\"Preview\">预览</a></td>"+
+                         "</tr>";
+                }
+                $("#tbody_license").html(strHtml);
+                
+            },'json');
+        }
+    </script>
+{|include file="$USER_HEADER_END"|}
+{|include file="$USER_LEFT"|} 
+        <div class="user_right">
+                <p class="Topic"><a href="/company/info-ac-edit"><i></i></a>公司资料</p>
+                <div class="Content">
+
+                    <div class="left">公司名称：</div>
+                    <div class="right">{|$row['cmp_name']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司LOGO：</div>
+                    <div class="right"><img src="{|$row['logo_src']|}" /></div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司简介：</div>
+                    <div class="right">{|$row['cmp_intro']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司性质：</div>
+                    <div class="right">{|$row['cmp_kind']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">注册资金：</div>
+                    <div class="right">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司所在地：</div>
+                    <div class="right">{|$row['city_code']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司地址：</div>
+                    <div class="right">{|$row['cmp_addr']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">联系人：</div>
+                    <div class="right">{|$row['link_man']|}</div>
+                </div>
+                
+                <div class="Content">
+                    <div class="left">联系电话：</div>
+                    <div class="right">{|$row['telephone']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">邮编：</div>
+                    <div class="right">{|$row['postcode']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">手机：</div>
+                    <div class="right">{|$row['mobile']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">传真：</div>
+                    <div class="right">{|$row['fax']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司网址：</div>
+                    <div class="right">{|$row['web_url']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">成立时间：</div>
+                    <div class="right">{|$row['build_date']|}</div>
+                </div>
+                <div class="Content">
+                    <div class="left">证件上传：</div>
+                    <div class="right">
+                    <table cellpadding="0" border="0" cellspacing="0">
+                    <thead>
+                        <tr class="first_line">
+                            <td>上传时间</td>
+                            <td>证件名称</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_license">
+                        <script type="text/javascript">getPicList();</script>
+                    </tbody>
+                </table>
+                    
+                    
+                    </div>
+                </div>
+
+
+        </div>
+  <div style="display: none;">
+      <!--统计--> 
+     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255043288'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255043288' type='text/javascript'%3E%3C/script%3E"));</script>
+     <script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+    </div>
+{|include file="$USER_FOOTER"|} 

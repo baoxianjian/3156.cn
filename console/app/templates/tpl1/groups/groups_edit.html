@@ -1,0 +1,188 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style type="text/css">
+.forminfo li label{min-width:92px;text-align:right;}
+</style>
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>                      <a href=""></a>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+</div>    
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>用户组/角色{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+         
+        {|if $show_id_input|}                       
+            <li><label>用户组ID：</label><input type="text" {|$id_disabled|} class="dfinput" value="{|$id|}" /><i id="sg_id"></i></li>
+        {|/if|}
+        <li><label>组名(角色)名称：</label><input name="row[sg_name]" type="text" class="dfinput" value="{|$row['sg_name']|}"/><i id="sg_id">管理员名称，必填</i></li>    
+        <li><label>权 限 级 别：</label><input name="row[sg_level]" id="sg_level" type="text" class="dfinput" value="{|$row['sg_level']|}" /><i>数字，小于等于所在组的权限级别且小于等于当前管理员的权限级别</i></li>
+        <li><label>备　　　注：</label><textarea name="row[remark]" cols="" rows="" class="textinput">{|$row['remark']|}</textarea></li>
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+$('#startTime').datetimepicker({
+    lang:'ch',
+    timepicker:true,
+    format:'Y-m-d H:i:s',
+    formatDate:'Y-m-d H:i:s',
+    
+});
+
+$('#endTime').datetimepicker({
+    lang:'ch',
+    timepicker:true,
+    format:'Y-m-d H:i:s',
+    formatDate:'Y-m-d H:i:s',
+    
+});
+
+$(".input").blur(function(){
+var name = $(this).attr("name");
+if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+    return ;
+}
+$.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+    if ( data.status == 0 ){
+        $("[name="+name+"]").parent().children("i").css("color","red");
+    }else{
+        $("[name="+name+"]").parent().children("i").css("color","green"); 
+    }
+    $("[name="+name+"]").parent().children("i").text(data.info);
+},'json')
+})
+
+$('#sure').click(function(){
+$.post("/generalize/doGeEdit",$("form").serialize(),function(data){
+    if ( data.status ){
+        layer.alert(data.info,1);
+        location.reload();
+    }else{
+        layer.alert(data.info);
+    }
+},'json')
+})
+
+</script>
+<script>
+ 
+$("#title").blur(function(){
+	 if($("#title").val()==""){
+		 $("#guang").html("标题不能为空！").css("color","red");
+	}
+	 if($("#title").val()!=""){
+		$("#guang").html("可以使用").css("color","green");
+	 }	
+})
+$("#keywords").blur(function(){
+	 if($("#keywords").val()==""){
+		 $("#guan").html("关键字不能为空！").css("color","red");
+	}
+	 if($("#keywords").val()!=""){
+		$("#guan").html("可以使用").css("color","green");
+	 }	
+})
+
+$("#cpinput").blur(function(){
+	if($("#cpinput").val()==""){
+		 $("#cp").html("产品id不能为空且在数据库中存在！").css("color","red");}
+	else{
+				var reg = /^[1-9]{1,}$/;
+				if ( reg.test($(this).val()) == false ){
+					$("#cp").html("产品id要为整数且在数据库中存在！").css("color","red");
+				}else{
+					$("#cp").html("可以使用").css("color","green");		
+				}						
+			}
+
+});
+
+$("#qyinput").blur(function(){
+	if($("#qyinput").val()==""){
+		 $("#qy").html("企业id不能为空且在数据库中存在！").css("color","red");}
+	else{
+				var reg = /^[1-9]{1,}$/;
+				if ( reg.test($(this).val()) == false ){
+					$("#qy").html("企业id要为整数且在数据库中存在！").css("color","red");
+				}else{
+					$("#qy").html("可以使用").css("color","green");		
+				}						
+			}
+
+});
+
+
+$("#url").blur(function(){
+	 if($("#url").val()==""){
+		 $("#lianjie").html("连接地址不能为空！").css("color","red");
+	}else{
+		var reg = /^((([hH][tT][tT][pP][sS]?|[fF][tT][pP])\:\/\/)?([\w\.\-]+(\:[\w\.\&%\$\-]+)*@)?((([^\s\(\)\<\>\\\"\.\[\]\,@;:]+)(\.[^\s\(\)\<\>\\\"\.\[\]\,@;:]+)*(\.[a-zA-Z]{2,4}))|((([01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}([01]?\d{1,2}|2[0-4]\d|25[0-5])))(\b\:(6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|[1-9]\d{0,3}|0)\b)?((\/[^\/][\w\.\,\?\'\\\/\+&%\$#\=~_\-@]*)*[^\.\,\?\"\'\(\)\[\]!;<>{}\s\x7F-\xFF])?)$/;
+		if ( reg.test($(this).val()) == false ){
+			$("#lianjie").html("连接地址格式不对！").css("color","red");
+		}else{
+			$("#lianjie").html("可以使用").css("color","green");		
+		}	
+		
+	}
+	 
+})
+
+$('#order').blur(function(){
+	   	     
+		 if($("#order").val()==""){
+			 $("#shu").html("排序不能为空！").css("color","red");
+		}else{
+			var reg = /^[1-9]{1,}$/;
+			if ( reg.test($(this).val()) == false ){
+				$("#shu").html("排序要为整数！").css("color","red");
+			}else{
+				$("#shu").html("可以使用").css("color","green");		
+			}						
+		}
+					
+	});	
+
+$('#qiye').click(function(){
+	
+	$("#qiyeid").show()
+	$("#chanpingid").hide();
+	
+});
+$('#chanping').click(function(){
+	
+	$("#chanpingid").show()
+	$("#qiyeid").hide();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

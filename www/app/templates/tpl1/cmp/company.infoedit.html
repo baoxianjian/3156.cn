@@ -1,0 +1,422 @@
+{|include file="$USER_HEADER"|}
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/Common.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+    
+    <link href="{|$STYLE_URL|}/swfupload/css/default.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/swfupload/swfupload.js"></script>  
+    <script type="text/javascript" src="{|$STYLE_URL|}/area/area.js"></script> 
+    <script type="text/javascript" src="{|$STYLE_URL|}/style1/js/common.js"></script> 
+    <script type="text/javascript">
+        var swfu;
+        var swfu2;
+        
+        
+var swfupload_settings2 = {
+//flash_url : "{|$STYLE_URL|}/swfupload/swfupload.swf",
+upload_url: "/uploads/upload",
+// post_params: {"PHPSESSID" : "{|$session_id|}"},
+file_size_limit : "100 MB",
+file_types : "*.jpg;*.jpeg;*.gif;*.png",
+file_types_description : "All Image Files",
+file_upload_limit : 100,
+file_queue_limit : 0,
+custom_settings : {
+    progressTarget : "fsUploadProgress2",
+    cancelButtonId : "btnCancel2"
+}, 
+debug: false,
+
+// Button settings
+//button_image_url: "{|$STYLE_URL|}/swfupload/images/TestImageNoText_65x29.png",
+button_width: "65",
+button_height: "29",
+button_placeholder_id: "spanButtonPlaceHolder2",
+button_text: '<span class="theFont">上传</span>',
+button_text_style: ".theFont { font-size: 16; }",
+button_text_left_padding: 12,
+button_text_top_padding: 3,
+
+// The event handler functions are defined in handlers.js
+file_queued_handler : fileQueued,
+file_queue_error_handler : fileQueueError,
+file_dialog_complete_handler : fileDialogComplete,
+upload_start_handler : uploadStart,
+upload_progress_handler : uploadProgress,
+upload_error_handler : uploadError,
+upload_success_handler : uploadSuccess,
+upload_complete_handler : uploadComplete,
+queue_complete_handler : queueComplete2    // Queue plugin event
+};
+
+
+    
+    
+// This event comes from the Queue Plugin
+function queueComplete2(numFilesUploaded) {
+    var status = document.getElementById("divStatus");
+    status.innerHTML = numFilesUploaded + " file" + (numFilesUploaded === 1 ? "" : "s") + " uploaded.";
+    
+    getPicList();  
+}
+        
+        window.onload = function() {
+            swfupload_settings.flash_url="{|$STYLE_URL|}/swfupload/swfupload.swf",
+            swfupload_settings.post_params={"PHPSESSID" : "{|$session_id|}"};
+            swfupload_settings.button_image_url="{|$STYLE_URL|}/swfupload/images/TestImageNoText_65x29.png";
+            swfupload_settings.upload_success_handler=uploadSuccess1;
+            
+            
+            swfu = new SWFUpload(swfupload_settings);
+             
+            swfupload_settings2.flash_url="{|$STYLE_URL|}/swfupload/swfupload.swf",
+            swfupload_settings2.post_params={"PHPSESSID" : "{|$session_id|}"};
+            swfupload_settings2.button_image_url="{|$STYLE_URL|}/swfupload/images/TestImageNoText_65x29.png"; 
+            swfu2 = new SWFUpload(swfupload_settings2);
+         };
+      
+      
+      
+function uploadSuccess1(file, serverData) {
+    try {
+            document.getElementById('logo_src').value=serverData;
+            document.getElementById('test').innerHTML=serverData;  
+            document.getElementById('img_show').src=serverData;
+            
+        var progress = new FileProgress(file, this.customSettings.progressTarget);
+        progress.setComplete();
+        progress.setStatus("Complete.");
+        progress.toggleCancel(false);
+
+    } catch (ex) {
+        this.debug(ex);
+    }
+} 
+      
+      
+
+        
+        function delPic(id)
+        {
+            $.post("/uploads/del",{ajax:1,id:'id'},function(data){
+                    
+            },'json');   
+        }
+        
+        
+    //删除
+    function delConfirm(id)
+    {
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                    $.post("/uploads/del",{ajax:1,id:id},function(data){
+                    var temp=layer.alert(data.info, data.status, !1); 
+                    setTimeout("layer.close("+temp+");getPicList();", data.timeout);
+                    },'json')
+                }, 
+            }
+          });
+          return false;
+    }
+            
+
+    function getPicList()
+    {
+        $.post("/uploads/list",{ajax:1,mark:'license'},function(data){
+            var strHtml="";
+            for(var i=0;i<data.length;i++)
+            {
+            strHtml+="<tr>"+
+                        "<td>"+data[i].dateline+"</td>"+
+                        "<td>"+data[i].up_name+"</td>"+
+                        "<td><a href=\""+data[i].file_path+"\" target=\"_blank\" class=\"Preview\">预览</a><a onclick=\"delConfirm("+data[i].up_id+")\" href=\"javascript:void(0)\">删除</a></td>"+
+                     "</tr>";
+            }
+            $("#tbody_license").html(strHtml);
+            
+        },'json');
+    }
+    </script>   
+    
+    
+{|include file="$USER_HEADER_END"|}
+{|include file="$USER_LEFT"|}  
+
+        <div class="user_right">
+                <p class="Topic">公司资料</p>
+                <form action="/company/info" method="post" >
+                <input type="hidden" name="ac" value="save" />
+                
+                
+                
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>公司名称：</div>
+                    <div class="right">
+                        <input type="text" name="row[cmp_name]" value="{|$row['cmp_name']|}" class="Edit_txt"/>
+                        <span class="Notes">公司名称</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司简介：</div>
+                    <div class="right">
+                        <textarea name="row[cmp_intro]" id="" cols="30" rows="10" class="text_area">{|$row['cmp_intro']|}</textarea>
+                        <span class="Notes">公司简介</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">公司LOGO：</div>
+                    <div class="right">
+                    
+                        <img src="img/upload_pic.png" alt="" width="100" height="70" class="upload_pic"/>
+                        <div class="upload_file">
+                            <!-- <p class="file_name">证件名称：<input type="text" class="file_txt"/></p>-->
+                            <!--
+                            <p class="file"><a href="javascript:void(0)"><img src="img/Garbage_ico.png" alt=""/></a><span>201303025_1654</span></p>
+                            <p class="file_name">上传证件：<a href="javascript:void(0)"><img src="img/add_pic.png" alt="" width="84" height="25"/></a><span class="pic_Prompt">建议您上传大于160*120 小于400*300 </span></p>
+                            -->
+                            
+                            
+                            <div class="fieldset flash" id="fsUploadProgress">
+                                <span class="legend">Upload Queue</span>
+                            </div>
+                            <div id="divStatus">0 Files Uploaded</div>
+                            <div>
+                                <span id="spanButtonPlaceHolder"></span>
+                                <input id="btnCancel" style="display: none; margin-left: 2px; font-size: 8pt; height: 29px;" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled"/>
+                                <input id="logo_src" name="row[logo_src]" type="hidden"  value="{|$row['logo_src']|}">
+                                <img id="img_show" width="100" src="{|$row['logo_src_temp']|}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>公司所在地：</div>
+                    <div class="right">
+                    <!--
+                        <select name="" id="province">
+                            <option value="请选择你所在的省">请选择省</option>
+                            <option value="sichuan">四川</option>
+                        </select>
+                    -->    
+
+                        <input type="hidden" name="row[citycode]" id="citycode" value="{|$row['city_code']|}">
+                        <select style="width: 90px;" id="common_search_bar_work_location" class="admin_text_select_border" onchange="change_location(this.value,'sublocation');location_get_value(this);">
+                            <option selected="selected" value="0">--请选择--</option>
+                            {|foreach $area_rowset as $rowcity|}
+                            <option value="{|$rowcity['codeid']|}" {|$area_sel[$rowcity['codeid']]|}>{|$rowcity['name']|}</option>
+                            {|/foreach|}
+                        </select>
+                        
+                         <select style="width: 90px;" id="sublocation" onchange="change_location(this.value,'sublocation2');location_get_value(this);">
+                            <option selected="selected" value="0">--请选择--</option>
+                            {|foreach $sub_area_rowset['child'] as $subrow|}
+                            <option value="{|$subrow['codeid']|}" {|$sub_area_sel[$subrow['codeid']]|} >{|$subrow['name']|}</option>
+                            {|/foreach|}
+                        </select>
+                        
+                        <select style="width: 90px;" id="sublocation2" class="admin_text_select_border" onchange="location_get_value(this);">
+                            <option selected="selected" value="0">--请选择--</option>
+                            {|foreach $min_sub_rowset['child'] as $minsub_row|} 
+                            <option value="{|$minsub_row['codeid']|}" {|$min_sub_sel[$minsub_row['codeid']]|}>{|$minsub_row['name']|}</option>
+                            {|/foreach|}
+                        </select>
+                        
+                        
+                        
+                        
+                        <!--
+                        <select name="" id="city">
+                            <option value="请选择你所在的市">请选择市</option>
+                            <option value="chengdu">成都</option>
+                        </select>
+                        <select name="" id="country">
+                            <option value="请选择你所在的县/区">请选择县/区</option>
+                            <option value="金牛">金牛区</option>
+                        </select>
+                        -->
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>公司地址：</div>
+                    <div class="right">
+                        <input type="text" name="row[cmp_addr]" value="{|$row['cmp_addr']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>联系人：</div>
+                    <div class="right">
+                        <input type="text" name="row[link_man]" value="{|$row['link_man']|}"  class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>联系电话：</div>
+                    <div class="right">
+                        <input type="text" name="row[telephone]" value="{|$row['telephone']|}"  class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>邮编：</div>
+                    <div class="right">
+                        <input type="text" name="row[postcode]" value="{|$row['postcode']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>手机：</div>
+                    <div class="right">
+                        <input type="text" name="row[mobile]" value="{|$row['mobile']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>传真：</div>
+                    <div class="right">
+                        <input type="text" name="row[fax]" value="{|$row['fax']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>公司网址：</div>
+                    <div class="right">
+                        <input type="text" name="row[web_url]" value="{|$row['web_url']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                
+                    <div class="left">公司性质：</div>
+                    <div class="right">             
+                    <select name="row[cmp_kind]" id="Nature">
+                        <option value="0">点击选择</option>
+                        {|foreach $kinds as $k=>$v|} 
+                        <option value="{|$k|}" {|$kinds_sel[$k]|}>{|$v|}</option>
+                        {|/foreach|}
+                    </select>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">成立时间：</div>
+                    <div class="right">
+                        <input type="text" name="row[build_date]" value="{|$row['build_date']|}" class="Edit_txt"/>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                
+     <!--
+                        
+        $row['cmp_type']=$in['companytype'];
+
+
+        $row['cmp_state']=$in['stat'];
+        $row['start_time_temp']=$in['starttime']['time'];
+        $row['end_time_temp']=$in['endtime'];
+
+        $row['x__cmp_integral']=$in['compintegral'];
+        $row['static_url']=$in['staticurl'];
+        $row['enrol_fund']=$in['enrolfund'];
+        $row['cmp_kind_temp']=$in['cpkind'];
+        
+        $row['shopcard_src']=$in['shopcardsrc'];
+        $row['licence_pic']=$in['licencesrc'];
+        $row['rank']=$in['rank'];
+        $row['page_banner']=$in['companybanner'];
+        $row['page_url']=$in['pageurl'];
+        $row['page_type']=$in['pagetype'];
+        $row['page_tpl']=$in['temptype'];
+        $row['cmp_img']=$in['companyimg'];
+        $row['show_credential']=$in['locker'];
+        $row['is_edit']=$in['isedit'];
+        $row['cmp_ip']=$in['ip'];
+        $row['phone_flag']=$in['phoneflag'];
+        $row['x__agent_flag']=$in['agentflag'];
+
+        $row['money']=$in['money'];                 
+                
+     -->           
+                
+                <div class="Content">
+                    <div class="left">证件上传：</div>
+                    <div class="right">
+                        <img src="img/upload_pic.png" alt="" width="100" height="70" class="upload_pic"/>
+                        
+
+        
+                        <div class="upload_file">
+                            <!-- <p class="file_name">证件名称：<input type="text" class="file_txt"/></p>-->
+                            <!--
+                            <p class="file"><a href="javascript:void(0)"><img src="img/Garbage_ico.png" alt=""/></a><span>201303025_1654</span></p>
+                            <p class="file_name">上传证件：<a href="javascript:void(0)"><img src="img/add_pic.png" alt="" width="84" height="25"/></a><span class="pic_Prompt">建议您上传大于160*120 小于400*300 </span></p>
+                            -->
+                            
+                            
+                            <div class="fieldset flash" id="fsUploadProgress2">
+                                <span class="legend">Upload Queue</span>
+                            </div>
+                            <div id="divStatus">0 Files Uploaded</div>
+                            <div>
+                                <span id="spanButtonPlaceHolder2"></span>
+                                <input id="btnCancel2" style="display: none;" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
+                                <!--
+                                <input id="img_url" name="row[img_url]" type="hidden"  value="{|$row['img_url']|}">
+                                <img id="img_show" width="100" src="{|$row['img_url_temp']|}" />
+                                -->
+                            </div>
+                            
+                            
+                        </div>        
+                            
+                            
+
+                    </div>
+                </div>
+                
+                <!--
+                <div class="Content">
+                    <div class="right">
+                        <input type="submit" class="sub" value="保存"/>
+                        <input type="button" class="Cancel sub" value="取消"/>
+                    </div>
+                </div>
+                -->
+                
+                
+                <table cellpadding="0" border="0" cellspacing="0">
+                    <thead>
+                        <tr class="first_line">
+                            <td>上传时间</td>
+                            <td>证件名称</td>
+                            <td>操作</td>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody_license">
+                        <script type="text/javascript">getPicList();</script>
+                    </tbody>
+                </table>
+
+              <!--  <button class="Submit">提交</button>-->
+                <input type="submit" class="Submit" value="提交">
+                
+        </form>
+        </div>
+
+   <div id="test"></div> 
+   <div style="display: none;">
+      <!--统计--> 
+     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255043288'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s95.cnzz.com/z_stat.php%3Fid%3D1255043288' type='text/javascript'%3E%3C/script%3E"));</script>
+     <script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+    </div>  
+{|include file="$USER_FOOTER"|} 

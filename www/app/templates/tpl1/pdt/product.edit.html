@@ -1,0 +1,501 @@
+ {|include file="$USER_HEADER"|}
+ 
+<script>
+    $(document).ready(function () {
+    //验证码切换
+   $('#code').click(function(){
+
+        $(this).attr('src','CreateCode?'+Math.random())
+
+   })
+
+    //提交
+    $('#btn').click(function(){
+
+        var _this = $(this);
+        $.post('doedit',$('#upForm').serialize(),function(data){
+
+            if ( data.status ){
+
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+
+            }else{
+
+                layer.alert(data.info);
+            }
+
+        },'json');
+
+         return false;
+
+    })
+
+     //异步联动
+    $('body').on('change','#type1_id',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#type2_id').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+
+                    $('#type2_id').append("<option value="+data[i]['pt_id']+">"+data[i]['pt_name']+"</option>");
+
+                }
+            }else{
+
+                $('#type2_id').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+
+    if ( $("[name='zb_type']:checked").val() == 1 ){
+
+        $("#Hidden_area").show();
+        $("[name='zb_type'][value='2']").prop('disabled','disabled');
+        $("[name='zb_type'][value='3']").prop('disabled','disabled');
+
+    }else{
+
+        $("#Hidden_area").hide();
+
+    }
+
+    //医保类型变动中标区域
+    $("[name='medicare_type']").change(function(){
+
+        if ( $("[name='medicare_type']").val() != 1 ){
+
+            $("[name='zb_type'][value='1']").prop('checked','checked');
+            $("[name='zb_type'][value='2']").prop('disabled','disabled');
+            $("[name='zb_type'][value='3']").prop('disabled','disabled');
+            $("#Hidden_area").show();
+
+        }else{
+
+
+             $("[name='zb_type'][value='1']").removeAttr('checked');
+             $("[name='zb_type'][value='2']").removeAttr('disabled');
+             $("[name='zb_type'][value='3']").removeAttr('disabled');
+             $("#Hidden_area").hide();
+
+        }
+       
+
+    })
+
+    if ( $("[name='link']:checked").val() != 1 ){
+
+        $("#link_div").show();
+
+    }else{
+
+        $("#link_div").hide();
+
+    }
+
+     //联系方式
+   $("[name='link']").click(function(){
+
+        if ( $(this).val() == 1 ){
+
+            $("#link_div").hide();
+
+        }else{
+
+            $("#link_div").show(); 
+
+        }
+
+   })
+
+   //中标区域
+   $("[name='zb_type']").click(function(){
+
+        if ( $(this).val() == 1 ){
+
+            $("#Hidden_area").show();
+
+        }else{
+
+            $("#Hidden_area").hide();
+
+        }
+
+   })
+
+
+
+
+});
+</script>
+</head>
+<body>
+    <div class="topbar">
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a href="javascript:void(0);">品牌区域</a></li>
+                <li><a href="javascript:void(0);">数据中心</a></li>
+                <li><a href="javascript:void(0);">咨询频道</a></li>
+                <li><a href="javascript:void(0);">招中标信息</a></li>
+                <li><a href="javascript:void(0);">手机药品网</a></li>
+            </ul>
+            <ul class="right">
+                <li class="cur">
+                    欢迎您，
+                    <span>summer</span>
+                    <i></i>
+                    <div class="down_menu" style="display:none;">
+                        <a href="javascript:void(0)">用户中心</a>
+                        <a href="javascript:void(0)">公司资料</a>
+                        <a href="javascript:void(0)">产品管理</a>
+                        <a href="javascript:void(0)">代理信息</a>
+                        <a href="javascript:void(0)">退出登录</a>
+                    </div>
+                </li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/weixin.png" alt="微信" title="微信"/></a></li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/logo.png" alt="3156医药网" title="3156医药网"/></a>
+        </div>
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="project" class="searchOn">产品</dd>
+                            <dd s-type="article">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3158.cn/main/project.html" method="get" target="-blank">
+                    <input type="text" name="kw" value="输入您要找的项目" class="search-On" def="输入您要找的项目" onfocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onblur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <button type="submit" class="search-btn btn1" hidefocus="">发布需求</button>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a href="javascript:void(0);">儿科</a>
+                <a href="javascript:void(0);">感冒</a>
+                <a href="javascript:void(0);">止咳消炎</a>
+                <a href="javascript:void(0);">壮阳</a>
+                <a href="javascript:void(0);">皮肤妇科</a>
+                <a href="javascript:void(0);">补肾</a>
+                <a href="javascript:void(0);">止痛</a>
+                <a href="javascript:void(0);">止血</a>
+            </div>
+            <!--/search-key-->
+        </div>
+        <div class="drug">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/pic.png" alt=""/></a>
+        </div>
+        <ul class="nav">
+            <li><a href="javascript:void(0);">首页</a></li>
+            <li><a href="javascript:void(0);">医药招商</a></li>
+            <li><a href="javascript:void(0);">药品招商</a></li>
+            <li><a href="javascript:void(0);">OTC</a></li>
+            <li><a href="javascript:void(0);">保健品</a></li>
+            <li><a href="javascript:void(0);">药妆</a></li>
+            <li><a href="javascript:void(0);">医疗器械</a></li>
+            <li><a href="javascript:void(0);">医药代理</a></li>
+            <li><a href="javascript:void(0);">医药资讯</a></li>
+            <li><a href="javascript:void(0);">疾病查询</a></li>
+            <li><a href="javascript:void(0);">医药公司</a></li>
+            <li><a href="javascript:void(0);">药品库</a></li>
+            <li><a href="javascript:void(0);">医药数据库</a></li>
+        </ul>
+    </div>
+    <div class="warp">
+        <form action="doedit" id="upForm" method="POST" enctype="multipart/form-data">
+        <div class="user_left">
+            <ul class="user_menu">
+                <li class="Com"><p class="menu_title"><a href="index.html" title="" target="_self">用户中心首页</a></p></li>
+                <li>
+                    <p class="menu_title z_info">账户信息</p>
+                    <a href="G_Per_data.html" title="" target="_self">个人资料</a>
+                    <a href="G_Com_data.html" title="" target="_self">公司资料</a>
+                </li>
+                <li>
+                    <p class="menu_title z_Safety">账户安全</p>
+                    <a href="G_change_password.html" title="" target="_self">修改密码</a>
+                    <a href="IP_records.html" title="" target="_self">IP登录记录</a>
+                </li>
+                <li>
+                    <p class="menu_title c_admin" >产品管理</p>
+                    <a href="edit-ac-add" title="" target="_self" class="cur">发布产品</a>
+                    <a href="list" title="" target="_self">产品列表管理</a>
+                    <a href="AD_refresh.html" title="" target="_self">广告位刷新</a>
+                </li>
+                <li>
+                    <p class="menu_title d_info">代理信息</p>
+                    <a href="My_agent_info.html" title="" target="_self">我的代理信息</a>
+                    <a href="VIP_info_service.html" title="" target="_self">VIP代理信息服务 <span>︾</span> </a>
+                    <a href="Ordinary_agent_info.html" class="sub" title="" target="_self">免费会员代理信息</a>
+                    <a href="Senior_agent_info.html" class="sub" title="" target="_self">高级会员代理信息</a>
+                    <a href="Call_info.html" class="sub" title="" target="_self">站内来电信息</a>
+                </li>
+                <li class="Com"><p class="menu_title z_sta"><a href="Establishment_of_self-help.html" title="" target="_self">自助建站</a></p></li>
+                <li class="Com"><p class="menu_title x_notice"><a href="System_Notice.html" title="" target="_self">系统公告</a></p></li>
+            </ul>
+        </div>
+        <div class="user_right">
+                <p class="Topic">发布产品</p>
+                <input type="hidden" name="pdt_id" value="{|$list['pdt_id']|}">
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>产品名称：</div>
+                    <div class="right">
+                        <input name="name" type="text" class="Edit_txt checkInput" value="{|$list['name']|}" />
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">产品卖点：</div>
+                    <div class="right">
+                        <textarea name="selling_points" cols="" rows="" class="text_area">{|$list['selling_points']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>商品照片：</div>
+                    <div class="right">
+                        <img src="{|$STYLE_URL|}/img/upload_pic.png" alt="" width="100" height="70" class="upload_pic"/>
+                        <div class="upload_file">
+                            <p class="file"><a href="javascript:void(0)"><img src="{|$STYLE_URL|}/img/Garbage_ico.png" alt=""/></a><span>201303025_1654</span></p><b>格式为JPG、JPEG、GIF，为了您的产品图片得到更好的展示，建议您上传 大于300*225小于400*300，请勿上传带其他网站水印、联系方式等图片、否则不给予审核！</b>
+                            <p class="file_name"><a href="javascript:void(0)"><img src="{|$STYLE_URL|}/img/add_pic.png" alt="" width="84" height="25"/></a></p>
+                        </div>
+                        <input type="submit" class="sub" value="保存"/>
+                        <input type="button" class="Cancel sub" value="取消"/>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>产品类型：</div>
+                    <div class="right">
+                        <select name="type1_id" id="type1_id" style="width:200px;height:38px;border:1px solid #ccc;line-height:38px;font-size:16px">                   
+                                {|if $list['type1_id']['value']!=NULL|}
+                                    <option value="{|$list['type1_id']['value']|}">{|$list['type1_id']['name']|}</option>
+                                {|else|}
+                                    <option value="">选择类别</option>
+                                {|/if|}
+                                {|foreach $group as $k=>$v|}
+                                    <option value="{|$v['pt_id']|}" >{|$v['pt_name']|}</option>
+                                {|/foreach|}
+                        </select>
+                        <select name="type2_id" id="type2_id" style="width:200px;height:38px;border:1px solid #ccc;line-height:38px;font-size:16px">
+                                 {|if $list['type2_id']['value']!=NULL|}
+                                    <option value="{|$list['type2_id']['value']|}">{|$list['type2_id']['name']|}</option>
+                                {|else|}
+                                    <option value="">选择类别</option>
+                                {|/if|}
+                        </select>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>医保类型：</div>
+                    <div class="right">
+                         <select name="medicare_type" id="standard" style="width:200px;height:38px;border:1px solid #ccc;line-height:38px;font-size:16px">
+                                {|if $list['medicare_type']!=NULL|}<option value="{|$list['medicare_type']['value']|}">{|$list['medicare_type']['name']|}</option>{|/if|}
+                                <option value="1">非医保</option>
+                                <option value="2">医保甲类型</option>
+                                <option value="3">医保乙类型</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>是否中标：</div>
+                    <div class="right">
+
+                        <label class="one"><input name="zb_type" type="radio" {|if $list['zb_type']==1|}checked="checked"{|/if|} value="1" />是</label>
+                        <label class="one"><input name="zb_type" {|if $list['zb_type']==2 ||  ($list['zb_type']!=1 && $list['zb_type']!=3)|}checked="checked"{|/if|} type="radio" value="2" />否</label>
+                        <label><input name="zb_type" type="radio" {|if $list['zb_type']==3|}checked="checked"{|/if|} value="3" />不在页面显示</label>
+                        <p class="Regional Hidden_area" style="" id="Hidden_area"><span class="bid">中标区域：</span><input class="Edit_txt" name="zb_area" type='text'  value="{|$list['zb_area']|}" /></p>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>批准文号：</div>
+                    <div class="right">
+                        <input name="confirm_code" type="text" class="Edit_txt checkInput" value="{|$list['confirm_code']|}" />
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>生产厂家：</div>
+                    <div class="right">
+                        <input name="producer" type="text" class="Edit_txt checkInput" value="{|$list['producer']|}" />
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left"><span class="Required">*</span>招商区域：</div>
+                    <div class="right">
+                        <input name="area" type="text" class="Edit_txt checkInput" value="{|$list['area']|}" />
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">专利号：</div>
+                    <div class="right">
+                        <input name="patent_code" type="text" class="Edit_txt checkInput" value="{|$list['patent_code']|}" />
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">规格：</div>
+                    <div class="right">
+                        <textarea name="spec" cols="" rows="" class="Edit_txt">{|$list['spec']|}</textarea>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">剂型：</div>
+                    <div class="right">
+                       <select name="medicament_type" style="width:200px;height:38px;border:1px solid #ccc;line-height:38px;font-size:16px">
+                        {|if $list['medicament_type']!=NULL|}<option value="{|$list['medicament_type']|}">{|$list['medicament_type']|}</option>{|/if|}
+                            <option value="药片">药片</option>
+                            <option value="胶囊">胶囊</option>
+                            <option value="冲剂">冲剂</option>
+                    </select>
+                        <span class="Notes">请填写正确的手机号码，一遍潜在客服及时与您取得联系</span>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">成分：</div>
+                    <div class="right">
+                        <textarea name="component" cols="" rows="" class="product_con">{|$list['component']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">用法用量：</div>
+                    <div class="right">
+                        <textarea name="usage" cols="" rows="" class="product_con">{|$list['usage']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">功能主治：</div>
+                    <div class="right">
+                       <textarea name="function" cols="" rows="" class="product_con">{|$list['function']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">代理条件：</div>
+                    <div class="right">
+                        <textarea name="supply_term" cols="" rows="" class="product_con">{|$list['supply_term']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">提供支持：</div>
+                    <div class="right">
+                        <textarea name="offer" cols="" rows="" class="product_con">{|$list['offer']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">备注：</div>
+                    <div class="right">
+                        <textarea name="remark" cols="" rows="" class="product_con">{|$list['remark']|}</textarea>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">联系方式：</div>
+                    <div class="right Methods">
+                        <label class="one"><input name="link" type="radio" checked="checked" value="1" />使用公司联系方式</label>
+                        <label><input name="link" type="radio" value="2" />使用自己联系方式使用独立联系方式</label>
+                            <div class="Independent" id="link_div" style="">
+                                <p class="Regional"><span>公司名：</span><input name="link_cmp_name" type="text" class="Reg linkInput" value="{|$list['link_cmp_name']|}" /></p>
+                                <p class="Regional"><span>联系人：</span><input name="link_man" type="text" class="Reg linkInput" value="{|$list['link_man']|}" /></p>
+                                <p class="Regional"><span>联系电话：</span><input name="link_tel" type="text" class="Reg linkInput" value="{|$list['link_tel']|}" /></p>
+                                <p class="Regional"><span>QQ：</span><input name="link_qq" type="text" class="Reg linkInput" value="{|$list['link_qq']|}" /></p>
+                                <p class="Regional"><span>邮箱：</span><input name="link_email" type="text" class="Reg linkInput" value="{|$list['link_email']|}" /></p>
+                                <p class="Regional"><span>传真：</span><input name="link_fax" type="text" class="Reg linkInput" value="{|$list['link_fax']|}" /></p>
+                                <p class="Regional"><span>网址：</span><input name="web_url" type="text" class="Reg linkInput" value="{|$list['web_url']|}" /></p>
+                                <p class="Regional"><span>地址：</span><input name="link_address" type="text" class="Reg linkInput" value="{|$list['link_address']|}" /></p>
+                            </div>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="left">验证码：</div>
+                    <p class="Regional">
+                    <input type="text" name="code" class="Reg checkInput" style="width:150px;height:33px;border:1px solid #ccc;border-radius:4px;vertical-align:middle;" ><img src="CreateCode" id="code" style="vertical-align:middle;margin-left:10px;" alt="">
+                     </p>
+                </div>
+                {|foreach $TOKEN as $k=>$v|}
+                    <input type="hidden" name="{|$k|}" value="{|$v|}">
+                {|/foreach|}
+                 <input type="hidden" name="ac" value="{|$ac|}">
+                <button class="Submit" id="btn">提交</button>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+    <div class="footer">
+        <div class="info_3156" >
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="{|$STYLE_URL|}/img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="javascript:void(0)"> www.miitbeian.gov.cn</a></P>
+                <P><a href="javascript:void(0)">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a></P>
+                <P><a href="javascript:void(0)">医药招商网站 版权所有 违版必究51YES网站统计系统</a></P>
+            </div>
+        </div>
+
+
+    </div>
+    <div style="display: none;">
+  <!--统计--> 
+     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255043151'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255043151' type='text/javascript'%3E%3C/script%3E"));</script>
+     <script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+    </div>
+</body>
+</html>

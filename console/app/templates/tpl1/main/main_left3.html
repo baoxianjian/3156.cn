@@ -1,0 +1,45 @@
+ {|include file="$HEADER"|}
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+
+
+</head>
+
+
+
+
+<body style="background:#f0f9fd;">
+	<div class="lefttop"><span></span>用户</div>
+    
+    <dl class="leftmenu">
+
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/huiyuan-icon.png" /></span>会员管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/cmpcompany/list" target="rightFrame">厂商管理</a><i></i></li>
+        <li><cite></cite><a href="/agency/list" target="rightFrame">代理商管理</a><i></i></li>
+        <li><cite></cite><a href="/zhaoshang/shtml" target="rightFrame">招商页批量生成</a><i></i></li>
+    </ul>
+    
+    </dd>   
+    
+    </dl>
+    
+</body>
+</html>

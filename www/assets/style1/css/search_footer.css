@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+.footer{width:100%;height:auto;overflow:hidden;border-top:1px solid #e6e6e6;margin-top:15px;}
+.footer .menu{width:421px;height:30px;margin:15px auto 0;font-size:13px;font-family:"宋体"}
+.footer .menu li{float:left;line-height:30px;width:70px;background:url(../img/menu_bg.png) no-repeat right center;}
+.footer .menu li a{color:#666;width:70px;height:30px;text-align:center;display:block;}
+.footer .menu li a:hover{color:#fb8200;}
+.footer .menu li.cur{background:none;}
+.footer p{color:#666;font-size:13px;text-align:center;line-height:30px;}

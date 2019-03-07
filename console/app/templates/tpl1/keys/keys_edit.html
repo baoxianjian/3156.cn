@@ -1,0 +1,32 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">分类管理</a></li>
+    <li><a href="#">添加分类</a></li>
+    </ul>
+</div>    
+    <div class="formbody">
+    
+    <div class="formtitle" style="margin-top:24px;"><span>分类{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+        <li><label>关&nbsp;&nbsp;键&nbsp;字：</label><input name="row[key_name]" type="text" class="dfinput" value="{|$row['key_name']|}"/><i id="sa_id">分类名称，必填</i></li>
+        <li><label>链接地址：</label><input name="row[key_url]" type="text" class="dfinput" value="{|$row['key_url']|}"/><i id="sa_id">英文别名，必填</i></li>
+        <li><label>频　　率：</label><input name="row[key_num]" type="text" class="dfinput" value="{|$row['key_num']|}"/></li>
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|include file="$FOOTER"|}

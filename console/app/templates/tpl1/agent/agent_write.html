@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../../../assets/style1/js/jquery-1.10.2.js"></script>
+<title>无标题文档</title>
+<style>
+*{padding:0;margin:0;}
+li{ list-style-type:none; margin:0 0 15px 0;}
+body{color:#333333; font-size:9pt;}
+ul{ margin:0 0 0 20px;}
+i{ color:#e31515; font-style:normal; margin-right:3px;}
+li>span{ display:inline-block; width:70px;text-align:right;}
+.for_select{ display:none;}
+label{ margin:0 20px 0 5px; }
+li .message{width:370px; padding:20px; overflow:hidden; height:auto; border:1px solid #ccc; background:#cccccc;}
+textarea{ width:370px; height:140px;}
+.input_text{ width:200px; height:25px;}
+.bao{ display:inline-block;width:720px;}
+.type{display:inline-block;padding:4px 8px;margin:0 6px 10px 0;cursor:pointer;}
+.type:hover{color:#fff;background:#fb8200;}
+.choose p{ margin:10px 0 10px 0;}
+</style>
+<script>
+$(function(){
+//获取地区数据
+	var REGION_DATA = '',
+		REGION_HTML = '<option value="">--请选择代理区域--</option>',
+		REGION_DATA_ITEMS = '';
+	
+
+	$.ajax({
+		url : 'http://img.3156.cn/uploads/subarea',
+		type : 'post',
+		dataType : 'jsonp',
+		jsonp: "callback",
+		success : function(data){
+			if(data.state == true) {
+				REGION_DATA = data.data;
+				$.each(REGION_DATA, function(i, o){
+					REGION_HTML += '<option value="'+ i +'">'+ o.name +'</option>';
+				});
+				try {
+					if (typeof (REGION_HTML) != "undefined") {
+						$('.J_area_html').html(REGION_HTML);
+					}
+				} catch (e) {
+				}
+				$('.J_area_html').change(function(){
+					var pid =  $(".J_area_html").val();
+					REGION_DATA_ITEMS = REGION_DATA[pid]['items'];
+					REGION_HTML = '';
+					$.each(REGION_DATA_ITEMS, function(i, o){
+						REGION_HTML += '<li><label><input type="checkbox" id="areas" name="row[areas][]" value="'+ i +'">'+ o.name +'</label></li>';
+					});
+					try {
+						if (typeof (REGION_HTML) != "undefined") {
+							$('.J_region_html').html(REGION_HTML);
+							$('.J_region').show();
+						}
+					} catch (e) {
+					}
+				});
+			}else{
+				alert('地区数据获取失败！');
+			}
+		}
+	});
+   
+    $("input[name='quick[]']").change(function(e) {
+		e.preventDefault();
+		var _this = $(this),
+			_text = _this.val();
+			_checked = _this.attr("checked");
+		var v = $("textarea[name='row[content]']").val();
+		if($(this).is(':checked')){
+			if (v == "请您填写留言" || v ==='') {
+				v = _text ;
+			} else {
+				v = v + _text ;
+			}
+			$("textarea[name='row[content]']").val(v);
+		}else{
+			v = v.replace(_text, '');
+			$("textarea[name='row[content]']").val(v);
+		}
+    }); 
+});
+
+</script>
+</head>
+<body>
+<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center">首页</a></li>
+            <li>代理留言管理</li>
+        </ul>
+</div>
+<ul>
+	<li>
+    	<span><i>*</i>产品名称：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<select class="select"><i>*</i>代理区域：</select>
+    	<select class="select J_area_html" id="J_area_html">请选择省份
+            </select>
+        <div class="for_select region J_region">
+            <ul class="J_region_html"></ul>
+        </div>
+        <div class="qu">
+        <ul>
+        </ul>
+        </div>
+    </li>
+    <li>
+    	<span><i>*</i>代理渠道：</span>
+        <input type="checkbox" name="channel[]"  id="dao1" value="1"/><label for="dao1">连锁药店</label>
+        <input type="checkbox" name="channel[]"  id="dao2" value="2"/><label for="dao2">批发物流</label>
+        <input type="checkbox" name="channel[]"  id="dao3" value="3"/><label for="dao3">零售终端</label>
+        <input type="checkbox" name="channel[]"  id="dao4" value="4"/><label for="dao4">医院临床</label>
+        <input type="checkbox" name="channel[]"  id="dao5" value="5"/><label for="dao5">会议营销</label>
+    </li>
+    <li>
+    	<span><i>*</i>有效时间：</span>
+        <input type="radio" name="row[end_time]" id="time1" value="1"/><label for="time1">一个月</label>
+        <input type="radio" name="row[end_time]" id="time2" value="2"/><label for="time2">一个季度</label>
+        <input type="radio" name="row[end_time]" id="time3" value="3"/><label for="time3">半年</label>
+        <input type="radio" name="row[end_time]" id="time4" value="4"/><label for="time4">一年</label>
+    </li>
+    <li>
+    	<span style="float:left;"><i>*</i>产品类别：</span>
+        <div class="bao">
+                <span class="type">卫生用品</span>
+                <span class="type">贴剂</span>
+                <span class="type">医疗设备</span>
+                <span class="type">药用辅料</span>
+                <span class="type">原料药</span>
+                <span class="type">药妆</span>
+                <span class="type">消毒剂</span>
+                <span class="type">计生用品</span>
+                <span class="type">OTC</span>
+                <span class="type">中药材</span>
+                <span class="type">中间体</span>
+              	<span class="type">诊断试剂</span>
+                <span class="type">医疗器械</span>
+                <span class="type">西药产品</span>
+                <span class="type">中药产品</span>
+                <span class="type">药品包装</span>
+                <span class="type">保健品</span>
+        </div>
+    </li>
+    <li>
+    	<span style="float:left;"><i>*</i>代理留言：</span>
+        <div class="message">
+        <textarea></textarea>
+        <div class="choose">
+            	<p>快捷留言</p>
+                <ul>
+                	<li><input type="checkbox" id="choose1" /><label for="choose1">请寄给我外包装盒！</label></li>
+                    <li><input type="checkbox" id="choose2" /><label for="choose2">请寄给我合同样本！</label></li>
+                    <li><input type="checkbox" id="choose3" /><label for="choose3">我希望代理此产品，请速与我联系！</label></li>
+                    <li><input type="checkbox" id="choose4" /><label for="choose4">请寄给我详细资料！</label></li>
+                    <li><input type="checkbox" id="choose5" /><label for="choose5">请寄给我样品！</label></li>
+                </ul>
+         </div>
+         </div>
+    </li>
+    <li>
+    	<span><i>*</i>代理商：</span>
+        <input type="radio" name="type" /><label>公司</label>
+        <input type="radio" name="type" /><label>个人</label>
+        
+    </li>
+    <li>
+    	<span><i>*</i>单位名称：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<span><i>*</i>联系人：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<span><i>*</i>联系电话：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<span>传真：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<span>QQ：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li>
+    	<span>邮箱：</span>
+        <input type="text" class="input_text" />
+    </li>
+    <li><input type="submit" value="提交留言" /></li>
+</ul>
+</body>
+</html>

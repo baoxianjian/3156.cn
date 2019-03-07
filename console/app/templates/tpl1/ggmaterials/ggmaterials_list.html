@@ -1,0 +1,226 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<style>
+.seachform li{
+	width:260px;
+	margin-right:0;
+}
+.seachform_1{margin-bottom:10px;}
+</style>
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+        width : 345           
+    });
+    $(".select2").uedSelect({
+        width : 167  
+    });
+    $(".select3").uedSelect({
+        width : 100
+    });
+
+    $('.del').click(function(){
+        var t = $(this).attr('t');
+        var k = $(this).attr('k');
+        var mark = $(this).attr('mark');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post("del-t-"+t+"-k-"+k+"-ggm_id-"+mark,{check:mark},function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                },
+            }
+          });
+        return false;
+    })
+
+    $('#delAll').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post('del',$('#del').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+            }
+          });
+        return false;
+        
+    })
+
+});
+</script>
+
+{|include file="$HEADER_END"|} 
+     <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li>素材管理</li>
+        </ul>
+    </div>  
+    <div class="formbody" >
+    
+    
+  	<div id="tab2" class="tabson">
+    
+    <div class="adv_top" style="margin-top:30px;">
+        <form action="list" method="post" id="seek">
+            <ul class="seachform">
+             <li><label>素材类型：</label>  
+                <div class="vocation">
+                <select class="select3" name="ggm_type">
+                <option value="0">全部</option>
+                <option value='1' {|if $row['ggm_type']==1|} selected='selected' {|/if|}>文字</option>
+                <option value='2' {|if $row['ggm_type']==2|} selected='selected' {|/if|}>图片</option>
+                </select>
+                </div>
+            </li>   
+            <li><label>审核状态：</label>  
+                 <div class="vocation">
+                 <select class="select3" name="audit_state">
+                 <option value="0">全部</option>
+                 <option value='1' {|if $row['audit_state']==1|} selected='selected' {|/if|}>待审核</option>
+                 <option value='2' {|if $row['audit_state']==2|} selected='selected' {|/if|}>审核通过</option>
+                 <option value='3' {|if $row['audit_state']==3|} selected='selected' {|/if|}>审核未通过</option>
+                 </select>
+                 </div>
+             </li>
+             <!--
+              <li><label>使用状态：</label>  
+            <div class="vocation">
+            <select class="select3" name="__use_count">
+            <option value="0">全部</option>
+            <option value='1' {|if $row['__use_count']==1|} selected='selected' {|/if|}>使用</option>
+            <option value='2' {|if $row['__use_count']==2|} selected='selected' {|/if|}>未使用</option>
+            </select>
+            </div>
+            </li>
+            -->
+            <!--<li><label>所属规格：</label><input name="standard" type="text" class="scinput" value="{|$row['standard']|}"/></li>-->
+          </ul>
+          <ul class="seachform seachform_1">
+          	<li><label>素材名称：</label><input name="title" type="text" class="scinput" value="{|$row['title']|}"/></li>
+            <li><label>素材编号：</label><input name="ggm_id" type="text" class="scinput" value="{|$row['ggm_id']|}"/></li>
+            <li><label>公司编号：</label><input name="mod_id" type="text" class="scinput" value="{|$row['mod_id']|}"/></li>
+            <li><input name="" type="submit" class="scbtn" value="查询"/></li>
+            </ul>
+        </form>
+    </div>
+    <ul class="toolbar">
+        <li class="click"><a href="/ggmaterials/edit-ac-add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>
+     </ul>
+     <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th width="35px;"><input id="checkAll" type="checkbox" value=""/></th>
+        <th>素材编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>素材名称</th>
+        <th>广告语</th>
+        <th>素材类型</th>
+        <th>公司名称</th>
+        <th>图片名称</th>
+        <th>所属规格</th>
+   <!--      <th>审核状态</th> -->
+   <!--     <th>使用状态</th>-->
+        <th>更新时间</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+            {|foreach $list as $k=>$v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['ggm_id']|}" /></td>
+                <td>{|$v['ggm_id']|}</td>
+                <td>{|$v['title']|}</td>
+                <td>{|$v['slogan']|}</td>
+                <td>{|$v['ggm_type']|}</td>
+                <td>{|$v['cmp_name']|}/{|$v['mod_id']|}</td>
+                <td>{|$v['src']|}</td>
+                <td>{|$v['standard']|}</td>
+          <!--       <td>{|$v['audit_state']|}</td> -->
+               <!-- <td>{|$v['__use_count']|}</td>-->
+                <td>{|$v['timestamp']|}</td>
+                <td><a href="edit-t-{|$v['t']|}-k-{|$v['k']|}-ac-edit-ggm_id-{|$v['ggm_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;<a href="del-t-{|$v['t']|}-k-{|$v['k']|}-ggm_id-{|$v['ggm_id']|}" mark="{|$v['ggm_id']|}" t="{|$v['t']|}" k="{|$v['k']|}" class="tablelink del"> 删除</a></td>
+                </tr> 
+            {|/foreach|}
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

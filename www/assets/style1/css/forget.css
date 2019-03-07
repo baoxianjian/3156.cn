@@ -1,0 +1,189 @@
+@charset "utf-8";
+/* CSS Document */
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+}
+input{
+	border:none;
+}
+li{
+	list-style-type:none;
+}
+body{
+	width:1200px;
+	margin:0 auto;
+	font-size:12px;
+}
+a{
+	color:#99999;
+	text-decoration:none;
+}
+.red{
+	color:#cc0000;
+}
+.top{
+	height:120px;
+	width:1200px;
+	border-bottom:1px solid #efefef;
+	margin-bottom:60px;
+}
+.content_bg{
+	position:absolute;
+	top:120px;
+	background:#ededed;
+	left:0;
+	height:536px;
+	z-index:-1;
+}
+.logo{
+	background:url(../img/zhuce/logo.png);
+	width:187px;
+	height:54px;
+	display:block;
+	margin:55px 400px 0 0;
+	float:left;
+}
+.left li,.welcome li{
+	float:left;
+	margin-right:8px;
+	margin-top:85px;
+	color:#999999;
+}
+.left li a,.welcome li a{
+	color:#999999;
+}
+.left li a:hover,.welcome li a:hover{
+	color:#ff9900;
+	text-decoration:underline;
+}
+.welcome {
+	float:right;
+}
+.welcome .red{
+	color:#cc0000;
+}
+.left{
+	float:left;
+}
+.content1{
+	height:528px;
+	width:1200px;
+	background:#e6f4fc;
+	border-radius:5px;
+	padding-top:56px;
+	margin-bottom:40px;
+}
+.c_top{
+	margin:0 0 0 160px;
+	height:33px;
+	border-bottom:1px solid #bbbbbb;
+}
+.c_top .green{
+	color:#339933;
+	font-family:'微软雅黑';
+	font-size:20px;
+	margin-right:5px;
+}
+.c_top .small{
+	color:#999999;
+}
+.step{
+	margin:50px 0 0 345px;
+}
+.step li{
+	width:88px;
+	height:56px;
+	float:left;
+	margin:0 120px 65px 0;
+}
+.step li .active_img{
+	display:none;
+}
+.step_ul{
+	clear:both;
+	display:none;
+}
+.step_ul .wang{
+	vertical-align:middle;
+	margin:0 20px 0 360px;
+}
+.step_ul p{
+	font-size:22px;
+	font-family:'微软雅黑';
+	color:#333333;
+}
+.step_ul .ul_t{
+	clear:both;
+	margin:0 0 0 357px;
+}
+.step_ul .step2{
+	clear:both;
+	margin:0 0 0 255px;
+}
+.step_ul .step2 ul{
+	margin-left:55px;
+}
+.step_ul li{
+	height:48px;
+	margin:0 0 28px 0;
+	font-size:14px;
+	font-weight:bold;
+	color:#333333;
+}
+.step_ul .red{
+	margin:0 10px;
+}
+.step_ul .zhan{
+	color:#e6f4fc;
+}
+.step_ul li .end{
+	font-size:12px;
+	color:#999999;
+	font-weight:normal;
+}
+.step_ul img{
+	margin-left:100px;
+}
+.step_ul li input{
+	height:46px;
+	width:315px;
+	border:1px solid rgb(204, 204, 204);
+	vertical-align:middle;
+	border-radius:5px;
+	padding-left:5px;
+	line-height:46px;
+	margin:0 15px 0 5px;
+}
+.step_ul .you{
+	margin-bottom:30px;
+	font-size:14px;
+	display:block;
+}
+.step_ul .lianxi{
+	display:block;
+	margin:0 0 25px 175px;
+	color:#999999;
+}
+.step_ul .lianxi a{
+	text-decoration:underline;
+	color:#3366cc;
+}
+.step_ul .now{
+	margin-top:80px;
+}
+input.btn{
+	width:170px;
+	height:45px;
+	cursor:pointer;
+	background:url(../img/zhuce/btn_bg.png) repeat-x;
+	border-radius:5px;
+	color:#fff;
+	font-size:14px;
+	font-weight:bold;
+	margin-left:500px;
+	
+}
+

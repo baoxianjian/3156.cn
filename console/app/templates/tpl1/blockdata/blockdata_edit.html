@@ -1,0 +1,324 @@
+{|include file="$HEADER"|}
+<style type="text/css">
+	.placeul li{line-height:40px;margin:0;}
+	.placeul li a{color:#333;}
+    .hide{display:none;}
+    .show{display:block;}
+	.forminfo li{min-height:34px;line-height:34px;}
+	.forminfo li label{text-align:right;}
+</style>
+<script type="text/javascript">
+function getSubBlocks(o)
+{
+    var gid=parseInt(o.value);
+    if(gid<1){return;}
+    
+    url="/blockdata/blocks";
+    $.post(url,{ajax:1,gid:gid},function(data){
+
+        var sel_bb=$('#sel_bb_id');
+
+        var len=data.length;
+        var opt_str="<option value=''>---请选择---</option>";
+
+        for(var i=0; i<len; i++)
+        {
+            opt_str+="<option value='"+data[i].bb_id+"' bt='"+data[i].bb_type+"'>"+data[i].bb_name+"</option>";
+        }
+        sel_bb.empty();
+        sel_bb.append(opt_str);
+
+    },'json'); 
+}
+
+
+function changeView(o)
+{
+   var id="opt_bb_id_"+o.value;
+   var bt=$("#"+id).attr('bt');
+   
+   if(bt==1)
+   {
+       $("#li_img_url").hide();
+   }
+   else
+   {
+       $("#li_img_url").show();
+   }
+   
+}
+</script>
+
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">区块数据</a></li>
+			<li>{|$TIP_NAME|}</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>区块数据{|$TIP_NAME|}</span></div>
+
+    <form action="edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+        {|if $row['bd_id']|}
+        <li><label>数据 I D：</label>{|$row['bd_id']|}</li>
+        {|/if|}
+        <li><label>所属区块：</label>
+          <select onchange="getSubBlocks(this)" name="row[bg_id]" class="scinput">
+            <option value="">---请选择---</option>
+            {|foreach $group_list as $v|}
+            <option value="{|$v['bg_id']|}" {|$group_selected[$v['bg_id']]|}>{|$v['bg_name']|}</option>
+            {|/foreach|}
+          </select>
+          <select onchange="changeView(this);" id="sel_bb_id" name="row[bb_id]" class="scinput">
+            <option value="">---请选择---</option>
+            {|foreach $block_list as $v|}
+            <option id="opt_bb_id_{|$v['bb_id']|}" value="{|$v['bb_id']|}" bt="{|$v['bb_type']|}" {|$block_selected[$v['bb_id']]|}>{|$v['bb_name']|}</option>
+            {|/foreach|}
+          </select>
+          <i id="i_bg_id">必选</i>
+        </li>
+        
+        <li><label>所属模块：</label>
+          <select name="row[mod_type]" class="scinput">
+            <option value="">---请选择---</option>
+                {|foreach $mt_list as $k=>$v|}
+                <option value="{|$k|}" {|$mt_selected[$k]|}>{|$v|}</option>
+                {|/foreach|}
+          </select>
+          <i id="i_mod_type">必选</i>
+        </li>
+        
+        <li><label>标　　题：</label><input name="row[title]" type="text" class="dfinput" value="{|$row['title']|}" id="title"/><i id="i_title">必填</i></li>
+        <li><label>链接地址：</label><input name="row[link_url]" type="text" class="dfinput" value="{|$row['link_url']|}" id="link_url"/><i id="i_link_url">必填</i></li>
+        
+        <li id="li_img_url" {|$img_url_show[$row['bb_type']]|}>
+            <label>上传图片：</label>
+            <div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:block; float:left;">
+                <a href="" class="pop_close" id="J_fresh_upload_close">关闭</a>
+                <ul class="cc">
+                    <li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count">1</span>张</li>
+                </ul>
+                
+                <div id="upload_old_show">
+                    <img src="{|$row['img_url']|}" height="100" width="100">
+                    <input name="flashatt[0][path]" value="{|$row['img_url']|}" type="hidden">
+                </div>
+                <span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span>
+            </div>
+            <script>
+            var fast_upload_config = {
+                    size_limit : 1024,        //图片大小限制
+                    num_limit : 1,        //数量限制
+                    types : '*.jpg;*.jpeg;*.gif;*.png',            //上传图片类型
+                    pic_data : {'sid':'12312312','uid':1,'mt':2,'mid':3,'mm':'xxx'} //赋值JSON数组
+                };
+            KK.ready(document, function(){
+                KK.use('jquery', 'global', 'swfupload', function(){
+                    KK.Util.swfHandle();
+                });
+            });
+            </script>
+        </li>
+        
+        <li><label>摘　　要：</label><textarea name="row[abstract]" cols="" rows="" class="textinput">{|$row['abstract']|}</textarea></li>
+        
+        <li><label>排　　序：</label><input name="row[order]" type="text" class="dfinput" maxlength="5" value="{|$row['order']|}" id="order"/><i id="i_order">数字</i></li>
+       
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+
+$(".input").blur(function(){
+var name = $(this).attr("name");
+if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+    return ;
+}
+
+ xxxx
+});
+
+var CL= new Array(4); 
+    
+function  mysubmit()
+{
+    if(!checkAll())
+    {
+        titleCheck();
+        keywordsCheck();
+        urlCheck();
+        myCheck();
+    }
+    return checkAll();
+}
+
+function checkAll()
+{
+    for(var i=0;i<CL.length;i++)
+    {                  
+        if(!isDefined(CL[i]) || !CL[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function myCheck()
+{
+    var type=2;
+    var id=$('#qyinput').val();
+
+    if(!isDefined($('#qiye').attr('checked')))
+    {
+        type=1;
+        id=$('#cpinput').val(); 
+    }
+     
+     
+    $.post("/ads/checkid",{ajax:1,t:type,id:id},function(data){
+        if ( data.status==1 ){
+            //layer.alert(data.info,1);
+            CL[2]=1;
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","green");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","green"); 
+            }
+        }else{
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","red");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","red"); 
+            }
+            
+            CL[2]=0;
+            layer.alert(data.info,data.status);
+        }
+    },'json');
+    return false;
+}
+
+
+
+var titleCheck=function (){
+     if($("#title").val()==""){
+         $("#guang").html("标题不能为空！").css("color","red");
+         CL[0]=0;
+    }
+     if($("#title").val()!=""){
+        $("#guang").html("可以使用").css("color","green");
+        CL[0]=1;
+     }
+}
+var keywordsCheck=function(){
+     if($("#keywords").val()==""){
+         $("#guan").html("关键字不能为空！").css("color","red");
+         CL[1]=0;
+    }
+     if($("#keywords").val()!=""){
+        $("#guan").html("可以使用").css("color","green");
+        CL[1]=1;
+     }    
+}
+var urlCheck=function(){
+     if($("#url").val()==""){
+         $("#lianjie").html("连接地址不能为空！").css("color","red");
+         CL[3]=0;
+    }else{
+        var reg = /^((([hH][tT][tT][pP][sS]?|[fF][tT][pP])\:\/\/)?([\w\.\-]+(\:[\w\.\&%\$\-]+)*@)?((([^\s\(\)\<\>\\\"\.\[\]\,@;:]+)(\.[^\s\(\)\<\>\\\"\.\[\]\,@;:]+)*(\.[a-zA-Z]{2,4}))|((([01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}([01]?\d{1,2}|2[0-4]\d|25[0-5])))(\b\:(6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|[1-9]\d{0,3}|0)\b)?((\/[^\/][\w\.\,\?\'\\\/\+&%\$#\=~_\-@]*)*[^\.\,\?\"\'\(\)\[\]!;<>{}\s\x7F-\xFF])?)$/;
+        if ( reg.test($(this).val()) == false ){
+            $("#lianjie").html("连接地址格式不对！").css("color","red");
+            CL[3]=0;
+        }else{
+            $("#lianjie").html("可以使用").css("color","green");        
+            CL[3]=1;
+        }    
+        
+    }  
+}
+
+
+
+$('#title').blur(titleCheck);
+$("#keywords").blur(keywordsCheck)
+
+$("#cpinput").blur(function(){
+myCheck();
+});
+
+$("#qyinput").blur(function(){
+myCheck();
+});
+
+
+$("#url").blur(urlCheck);
+
+/*
+$('#order').blur(function(){
+	   	     
+		 if($("#order").val()==""){
+			 $("#shu").html("排序不能为空！").css("color","red");
+             CL[4]=0;
+		}else{
+			var reg = /^[1-9]{1,}$/;
+			if ( reg.test($(this).val()) == false ){
+				$("#shu").html("排序要为整数！").css("color","red");
+                CL[4]=0;
+			}else{
+				$("#shu").html("可以使用").css("color","green");		
+                CL[4]=1;
+			}						
+		}
+					
+	});	
+*/
+$('#qiye').click(function(){
+	
+	$("#qiyeid").show()
+	$("#chanpingid").hide();
+	
+});
+$('#chanping').click(function(){
+	
+	$("#chanpingid").show()
+	$("#qiyeid").hide();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

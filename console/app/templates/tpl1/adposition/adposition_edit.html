@@ -1,0 +1,125 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style type="text/css">
+.forminfo li label{min-width:70px;text-align:right;}
+</style>
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">广告位管理</a></li>
+			<li>{|$TIP_NAME|}广告位</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>广告位{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+                                  
+        
+
+                    
+        <li><label>广告位名称：</label><input name="row[title]" type="text" class="dfinput" value="{|$row['title']|}" /><i></i>必填</li>
+        <li><label>广告编号：</label><input name="row[sg_id]" type="text" class="dfinput" value="{|$row['sg_id']|}" /><i>要投放的广告Id</i></li>
+        
+
+        <li>
+            <label>所在页面：</label>
+            <cite>
+                <input name="row[sgp_page]" type="radio" value="1" {|$sgp_page_checked[1]|} />首页&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="row[sgp_page]" type="radio" value="2" {|$sgp_page_checked[2]|} />产品搜索页&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="row[sgp_page]" type="radio" value="3" {|$sgp_page_checked[3]|} />企业搜索页&nbsp;&nbsp;&nbsp;&nbsp;
+            </cite>
+        </li>
+        
+        <li>
+            <label>所在区域：</label>
+            <cite>
+                <input id="sgpg_area_1" name="row[sgp_area]" type="radio" value="1" {|$sgp_area_checked[1]|} />上&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="sgpg_area_2" name="row[sgp_area]" type="radio" value="2" {|$sgp_area_checked[2]|} />下&nbsp;&nbsp;&nbsp;&nbsp;
+                <!--<input name="row[sgpg_area]" type="radio" value="3" {|$sgpg_area_checked[3]|} />左&nbsp;&nbsp;&nbsp;&nbsp;-->
+                <input id="sgpg_area_4" name="row[sgp_area]" type="radio" value="4" {|$sgp_area_checked[4]|} />右边
+            </cite>
+        </li>
+        <!--
+        <li>
+            <label>广告位类型：</label>
+            <cite>
+                <input name="row[sgp_type]" type="radio" value="1" {|$sgp_type_checked[1]|} />首页&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="row[sgp_type]" type="radio" value="2" {|$sgp_type_checked[2]|} />产品搜索页&nbsp;&nbsp;&nbsp;&nbsp;
+            </cite>
+        </li>
+        --> 
+        
+        <li><label>宽　　度：</label><input name="row[width]" type="text" class="dfinput" value="{|$row['width']|}" /><i>数字</i></li>    
+        <li><label>高　　度：</label><input name="row[height]" type="text" class="dfinput" value="{|$row['height']|}" /><i>数字</i></li>    
+         
+        <li><label>排　　序：</label><input name="row[order]" type="text" class="dfinput" value="{|$row['order']|}" /><i>数字越大排列越靠前</i></li>
+
+        
+       
+        
+        
+        
+
+       
+        <li><label>&nbsp;</label><input name="" type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+$('#startTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d H:i:s',
+        formatDate:'Y-m-d H:i:s',
+        
+});
+
+$('#endTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d H:i:s',
+        formatDate:'Y-m-d H:i:s',
+        
+});
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+$('#sure').click(function(){
+    $.post("/ads/doGeEdit",$("form").serialize(),function(data){
+        if ( data.status ){
+            layer.alert(data.info,1);
+            location.reload();
+        }else{
+            layer.alert(data.info);
+        }
+    },'json')
+})
+
+</script>

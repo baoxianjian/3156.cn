@@ -1,0 +1,190 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/uploadFile.js"></script>
+<script>
+
+ $(document).ready(function () {
+    
+    //表单验证
+    $('.checkInput').blur(function(){
+       var _this = $(this);
+       var _i =  _this.next('i');
+       switch (_this.attr('name')){
+          case 'title':
+            if ( _this.val().length > 30 || _this.val() == '' ){
+                _i.text('广告位名称长度不能大于30且不能为空');
+                _i.css('color','red');
+            }else{
+                $.post('AjaxCheckName',{name:_this.val()},function(data){
+                    if ( data.status ){
+                          _i.text(data.info);
+                          _i.css('color','green');
+                    }else{
+                        _i.text(data.info);
+                        _i.css('color','red')
+                    }
+                },'json');
+                _i.text('广告位名称可用');
+                _i.css('color','green');
+            }
+            break;
+          case 'price_level':
+                if ( /^\d{1,}$/.test(_this.val()) == false ){
+                    _i.text('价格档次格式不对');
+                    _i.css('color','red');
+                }else{
+                    _i.text('价格档次可用');
+                    _i.css('color','green');
+                }
+            break;
+        case 'order':
+            if ( /^\d{1,}$/.test(_this.val()) == false ){
+                _i.text('排序格式不对');
+                _i.css('color','red');
+            }else{
+                _i.text('排序可用');
+                _i.css('color','green');
+            }
+            break;
+      }
+    })
+    
+    //模板类型显示
+    $('.tpl').click(function(){
+        if ( $(this).attr('mark') == 1 ){
+            $('#ggType').val('文字');
+        }else if( $(this).attr('mark') == 2 ){
+            $('#ggType').val('图片');
+        }
+    })
+
+    //异步联动
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#ggpg_2').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+
+                    $('#ggpg_2').append("<option value="+data[i]['ggpg_id']+">"+data[i]['title']+"</option>");
+
+                }
+                 $('#ggpg_2').append("<option value=''>不选择</option>");
+            }else{
+
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+
+
+    //提交
+    $('#btn').click(function(){
+
+        var _this = $(this);
+        $.post('doedit',$('form').serialize(),function(data){
+
+            if ( data.status ){
+
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+
+            }else{
+
+                layer.alert(data.info);
+            }
+
+        },'json');
+
+         return false;
+
+    })
+
+   
+
+ });
+
+</script>
+<style type="text/css">
+	.forminfo li label{
+		min-width:72px;
+		text-align:right;
+	}
+</style>
+{|include file="$HEADER_END"|}  
+	<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li><a href="/ggposition/list" target="rightFrame">广告位管理</a></li>
+            <li>添加广告位</li>
+        </ul>
+    </div> 
+    <div class="formbody" style="margin-top:40px;">
+    <div class="formtitle"><span>广告位管理</span></div>
+    <form action="doedit" method="POST" enctype="multipart/form-data">
+        <ul class="forminfo">
+       <!--  <li><label>素材类型</label><cite><input name="" type="radio" value="" checked="checked" />文字&nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="radio" value="" />图片</cite></li> -->
+        <li><label>广告位编号：</label><label style="text-align:left;">{|$list['ggp_id']|}</label><input type="hidden" name="ggp_id" value="{|$list['ggp_id']|}"></li>
+        <li>
+            <label>所属分组：</label>
+            <select name="ggpg_id" id="ggpg_1">                   
+                    {|if $list['group']!=NULL|}
+                        <option value="{|$list['group']['ggpg_id']|}">{|$list['group']['title']|}</option>
+                    {|else|}
+                        <option value="">选择分组</option>
+                    {|/if|}
+                    {|foreach $ggmanage_list as $k=>$v|}
+                        <option value="{|$v['ggpg_id']|}" >{|$v['title']|}</option>
+                    {|/foreach|}
+            </select>
+            <select name="ggpg_id2" id="ggpg_2" >
+                     {|if $list['group2']!=NULL|}
+                        <option value="{|$list['group2']['ggpg_id']|}">{|$list['group2']['title']|}</option>
+                    {|else|}
+                        <option value="">选择分组</option>
+                    {|/if|}
+            </select>
+        </li>
+        <li><label>广告位名称：</label><input name="title" type="text" class="dfinput checkInput" value="{|$list['title']|}" /><i>长度不能大于30且不能为空</i></li>
+        <li>
+            <label>模　　板：</label>
+            <select name="gg_tpl_id" id="standard">
+                    {|if $list['tpl']!=NULL|}
+                        <option value="{|$list['tpl']['ggt_id']|}" mark="{|$list['tpl']['ggt_type']|}">{|$list['tpl']['name']|}</option>
+                    {|else|}
+                        <option value="">选择分组</option>
+                    {|/if|}
+                    {|foreach $ggtemplate_list as $k=>$v|}
+                        <option value="{|$v['ggt_id']|}" mark="{|$v['ggt_type']|}" class='tpl' >{|$v['name']|}</option>
+                    {|/foreach|}
+            </select>
+        </li>
+        <li><label>广告位类型：</label><input class="dfinput" id="ggType" type='text' disabled="disabled" {|if $list['tpl']['ggt_type']==1|}value="文字"{|elseif $list['tpl']['ggt_type']==2|}value="图片"{|/if|} /></li>
+
+        <li><label>是否套红：</label><cite><input name="add_red" type="radio" {|if $list['add_red']==1 || $list['add_red']==NULL|}checked="checked"{|/if|} value="1" />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="add_red" {|if $list['add_red']==2|}checked="checked"{|/if|} type="radio" value="2" />否</cite></li>
+        <li><label>销售类型：</label><cite><input name="gg_sale_state" type="radio" {|if $list['gg_sale_state']==1 || $list['gg_sale_state']==NULL|}checked="checked"{|/if|} value="1" />付费&nbsp;&nbsp;&nbsp;&nbsp;<input name="gg_sale_state" {|if $list['gg_sale_state']==2|}checked="checked"{|/if|} type="radio" value="2" />配送&nbsp;&nbsp;&nbsp;&nbsp;<input name="gg_sale_state" type="radio" {|if $list['gg_sale_state']==3|}checked="checked"{|/if|} value="3" />免费</cite></li>
+
+        <li><label>价格档次：</label><input name="price_level" type="text" class="dfinput checkInput" value="{|$list['price_level']|}" /><i>价格档次，0代表未定价格，1代表第一档，2代表第二档，以此类推</i></li>
+         <li><label>排　　序：</label><input name="order" type="text" class="dfinput checkInput" value="{|$list['order']|}" /><i>值越大越靠前</i></li>
+        <li><label>备　　注：</label><textarea name="remark" cols="" rows="" class="textinput">{|$list['remark']|}</textarea></li>
+        <li><label>&nbsp;</label><input type="submit" id='btn' class="btn" value="提交"/></li>
+        {|foreach $TOKEN as $k=>$v|}
+            <input type="hidden" name="{|$k|}" value="{|$v|}">
+        {|/foreach|}
+        <input type="hidden" name="ac" value="{|$ac|}">
+        </ul>
+    </form>
+    
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+</div>    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>用户组/角色{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="grant" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <input name="row[sg_name]" type="hidden" class="dfinput" value="{|$row['sg_name']|}" />
+        
+        <ul class="forminfo">
+                                
+        <li>用户组ID：{|$id|}</li>
+        <li>组名称：{|$row['sg_name']|}</li>    
+        
+        <li>赋权：
+        
+        
+        {|foreach $permissions as $k1=>$v1|}
+            <div>
+            {|$k1|}
+                <div>
+                  {|foreach $v1 as $k2=>$v2|}
+                     {|$k2|}
+                        {|foreach $v2 as $v3|}
+                            <input type="checkbox" name="#{|$k2|}[]" value="{|$v3|}" {|$myp_checked[$k2][$v3]|} />{|$v3|}
+                        {|/foreach|} 
+                        <br/>      
+                  {|/foreach|} 
+                </div>
+            </div>
+            
+        {|/foreach|}
+        
+        
+        
+        
+        
+        
+        
+        
+        </li>
+        
+
+       
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|include file="$FOOTER"|}
+
+
+
+
+
+
+
+
+
+
+
+
+

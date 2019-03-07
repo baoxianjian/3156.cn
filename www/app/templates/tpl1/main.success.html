@@ -1,0 +1,242 @@
+{|include file="$HEADER"|} 
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/keywords.css"  />
+ <style>
+ .title{
+	width:1200px;
+	background:#f7f7f7;
+	display:inline-block;
+	height:95px;
+	margin-bottom:15px;
+	border:none;
+}
+.title li{
+	float:left;
+}
+.title .name{
+	float:left;
+	text-align:center;
+	width:68px;
+}
+.title .name img{
+	margin-top:22px;
+	margin-bottom:5px;
+	margin-left:5px;
+}
+.title .name span{
+	color:#4c4c4c;
+	font-weight:bold;
+}
+.title .type{
+	margin-top:12px;
+}
+.title .type a{
+	display:inline-block;
+	padding:0 5px;
+	height:22px;
+	line-height:22px;
+	margin:0 3px 2px 0;
+}
+.title .type a:hover{
+	color:#fb8200;
+	text-decoration:underline;
+}
+.title .type a.choose{
+	background:#fb8200;
+	color:#fff;
+}
+.title .type{
+	width:218px;
+	float:left;
+	padding-left:10px;
+	background: url(http://img1.3156.cn/res/img/2.0/keywords/line.png) no-repeat left 4px;
+	white-space:nowrap;
+	height:85px;
+}
+.title .type_last{
+	height:70px;
+	padding-top:15px;
+}
+.c_left{
+	width:945px;
+	border:1px solid #e6e6e6;
+	float:left;
+}
+ </style>   
+</head>
+<body>
+<div class="w_wrap">
+<div class="content msg_successful">
+	<div class="successful_prompt">
+		<p class="congratulations">恭喜您留言成功！</p>
+		<p class="successful_info">请保持手机畅通，确保医药公司快速与您取得联系！</p>
+	</div>
+	<div class="middle">
+			<ul class="title">
+			<li>
+				<div class="name">
+					<img src="http://img1.3156.cn/res/img/2.0/keywords/pic11.png" />
+					<br/>
+					<span>药品</span>
+				</div>
+				<ul class="type">
+            <!--    
+					 {|foreach $list_bkw[1] as $v|}
+                   <li><a target="_blank" href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|} >{|$v['bkw_name']|}</a></li>
+                     {|/foreach|}
+            -->   
+                    <li><a href="http://www.3156.cn/ztzhy.shtml" target="_blank">中药</a></li>
+                    <li><a href="http://www.3156.cn/ztotc.shtml" target="_blank">OTC</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztdj.shtml" target="_blank">独家</a></li>
+                    <li><a href="http://www.3156.cn/ztyb.shtml" target="_blank">医保</a></li>
+                    <li><a href="http://www.3156.cn/ztzb.shtml" target="_blank">中标</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztxiyao.shtml" target="_blank">西药</a></li>
+                    <li><a href="http://www.3156.cn/ztyz.shtml" target="_blank">药妆</a></li>
+                    <li><a href="http://www.3156.cn/ztmy.shtml" target="_blank">蒙药</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztzy.shtml" target="_blank">藏药</a></li>
+                    <li><a href="http://www.3156.cn/ztlc.shtml" target="_blank">临床</a></li>
+                    <li><a href="http://www.3156.cn/ztbjp.shtml" target="_blank">保健品</a></li>
+                    <li class="fen_big"><a href="http://www.3156.cn/ztylqx.shtml" target="_blank">医疗器械</a></li>                            
+                  
+				</ul>
+			</li>
+			<li>
+				<div class="name">
+					<img src="http://img1.3156.cn/res/img/2.0/keywords/pic22.png" />
+					<br/>
+					<span>症状</span>
+				</div>
+				<ul class="type">
+				<!--			 
+				    {|foreach $list_bkw[2] as $v|}
+                       <li><a target="_blank" href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                    {|/foreach|} 
+               -->
+               
+                     <li><a href="http://www.3156.cn/ztpx.shtml" target="_blank">贫血</a></li>
+                    <li><a href="http://www.3156.cn/ztby.shtml" target="_blank">鼻炎</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztgm.shtml" target="_blank">感冒</a></li>
+                    <li><a href="http://www.3156.cn/ztfx.shtml" target="_blank">腹泻</a></li>
+                    <li><a href="http://www.3156.cn/ztjq.shtml" target="_blank">脚气</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztfp.shtml" target="_blank">肥胖</a></li>
+                    <li><a href="http://www.3156.cn/ztzc.shtml" target="_blank">痔疮</a></li>
+                    <li><a href="http://www.3156.cn/ztgy.shtml" target="_blank">肝炎</a></li>
+                    <li class="fen_last"><a href="http://www.3156.cn/ztzl.shtml" target="_blank">肿瘤</a></li>
+                    <li><a href="http://www.3156.cn/ztbm.shtml" target="_blank">便秘</a></li>
+                    <li class="fen_big"><a href="http://www.3156.cn/ztgxy.shtml" target="_blank">高血压</a></li>
+                    <li><a href="http://www.3156.cn/ztgjy.shtml" target="_blank">关节炎</a></li>
+                    <li><a href="http://www.3156.cn/zttnb.shtml" target="_blank">糖尿病</a></li>
+                    <li class="fen_big"><a href="http://www.3156.cn/ztzqg.shtml" target="_blank">支气管炎</a></li>
+                   
+                    
+				</ul>
+			</li>
+			<li>
+				<div class="name">
+					<img src="http://img1.3156.cn/res/img/2.0/keywords/pic33.png" />
+					<br/>
+					<span>科室</span>
+				</div>
+				<ul class="type">
+                <!--
+				    {|foreach $list_bkw[3] as $v|}
+                         <li><a target="_blank" href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                   {|/foreach|}
+                -->
+                       <li><a href="http://www.3156.cn/ztfk.shtml" target="_blank">妇科</a></li>
+                        <li><a href="http://www.3156.cn/ztek.shtml" target="_blank">儿科</a></li>
+                        <li class="fen_last"><a href="http://www.3156.cn/ztyk.shtml" target="_blank">眼科</a></li>
+                        <li><a href="http://www.3156.cn/ztmiy.shtml" target="_blank">免疫</a></li>
+                        <li><a href="http://www.3156.cn/ztgk.shtml" target="_blank">骨科</a></li>
+                        <li class="fen_last"><a href="http://www.3156.cn/ztmn.shtml" target="_blank">泌尿</a></li>
+                        <li><a href="http://www.3156.cn/ztpf.shtml" target="_blank">皮肤</a></li>
+                        <li><a href="http://www.3156.cn/ztxhk.shtml" target="_blank">消化科</a></li>
+                        <li class="fen_big" style="margin-right:15px;"><a href="http://www.3156.cn/ztebhk.shtml" target="_blank">耳鼻喉科</a></li>
+                        <li class="fen_big"><a href="http://www.3156.cn/ztxnxg.shtml" target="_blank">心脑血管</a></li>
+                        
+                   
+				</ul>
+			</li>
+			<li>
+				<div class="name">
+					<img src="http://img1.3156.cn/res/img/2.0/keywords/pic44.png" />
+					<br/>
+					<span>剂型</span>
+				</div>
+				<ul class="type type_last">
+               <!-- 
+				   {|foreach $list_bkw[4] as $v|}
+                      <li><a target="_blank" href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                   {|/foreach|}
+               -->   
+                        <li><a href="http://www.3156.cn/ztjn.shtml" target="_blank">胶囊</a></li>
+                        <li><a href="http://www.3156.cn/ztcj.shtml" target="_blank">冲剂</a></li>
+                        <li class="fen_last"><a href="http://www.3156.cn/ztwj.shtml" target="_blank">丸剂</a></li>
+                        <li><a href="http://www.3156.cn/ztgj.shtml" target="_blank">膏剂</a></li>
+                        <li><a href="http://www.3156.cn/ztpj.shtml" target="_blank">喷剂</a></li>
+                        <li class="fen_last"><a href="http://www.3156.cn/zttj.shtml" target="_blank">贴剂</a></li>
+                        <li><a href="http://www.3156.cn/ztxy.shtml" target="_blank">洗液</a></li>
+                        <li><a href="http://www.3156.cn/ztpaj.shtml" target="_blank">片剂</a></li>
+                        <li class="fen_last"><a href="http://www.3156.cn/ztzsy.shtml" target="_blank">注射液</a></li>
+                        <li><a href="http://www.3156.cn/ztkfy.shtml" target="_blank">口服液</a></li>
+                                                      
+				</ul>
+			</li>
+		</ul>
+		<ul class="middle_menu">
+        {|gg('pid:171,gid:196')|}
+			</ul>
+	</div>
+    <div class="picScroll-left">
+		<div class="hd">
+			<ul></ul>
+			<span class="pic_title">近期热门产品</span>
+		</div>
+		<div class="bd">
+			<ul class="picList">
+            {|block('id:127')|}
+				
+			</ul>
+		</div>
+	</div>
+</div>    
+
+</div>
+<script type="text/javascript">
+	$(".middle_menu li a").mouseover(function(){
+		$(this).find("span").css({
+			"color":"#fff",
+			"background":"#fb8300"
+		})
+	}).mouseout(function(){
+		$(this).find("span").css({
+			"color":"#333",
+			"background":"none"
+		})
+	});
+	$(".msg_successful .title").children().css('border-bottom', '1px solid #fff')
+	$(".msg_successful .picScroll-left").slide({titCell:".hd ul",mainCell:".bd ul",autoPage:true,effect:"left",autoPlay:true,scroll:5,vis:5,trigger:"click"});
+	$(".msg_successful .picScroll-left .picList").find("li").each(function(){
+	$(this).mouseover(function(){
+		$(this).css("border-color","#fb8300");
+		$(this).find(".title").css({
+			"background":"#fb8300",
+			"color":"#fff"
+		})
+	}).mouseout(function(){
+		$(this).css("border-color","#e2e2e2");
+		$(this).find(".title").css({
+			"background":"none",
+			"color":"#515151"
+		})
+
+	})
+	
+	})
+</script>
+<div style="display:none">
+<script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+{|block('id:100')|}
+</div>
+{|block('id:139')|}
+</body>
+</html>

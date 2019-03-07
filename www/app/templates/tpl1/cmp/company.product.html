@@ -1,0 +1,127 @@
+{|include file="$HEADER"|} 
+<script type="text/javascript">var c_webid = '1302', referrer = document.referrer;</script>
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/page.css" /> 
+{|include file="$HEADER_END"|} 
+<style>
+/*移动通栏 start*/
+
+/*.Mobile_banner{width:100%;height:50px;background:#cd1010;position:absolute; right:0;z-index:9999;}*/
+.qust_contach { background:#cd1010;width:100%;height:50;position:fixed;left:0;bottom:0;z-index:9999; _position:absolute;_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||400)));}
+.center_txt{width:855px;height:50px;margin:0 auto;line-height:50px;font-size:24px;color:#fff;font-family:"微软雅黑";}
+.center_txt a{width:122px;height:38px;line-height:38px;color:#de0f0f;font-size:18px;background:#ffff00 url(http://img1.3156.cn/res/img/2.0/pruduct_display/mobile_ico.png) no-repeat 14px center;text-indent:36px;display:block;border-radius:4px;float:right;margin:5px 20px 0 0;}
+
+</style>
+<div class="warp Medicines_Co">
+        <p class="dqwz agent">当前位置：<a href="http://www.3156.cn/">3156医药网</a> > <a href="{|$WWW_URL|}/company">医药公司</a> > <a href="{|$WWW_URL|}/company/{|$row['cmp_id']|}/">{|$row['cmp_name']|}介绍</a></p>
+        <div class="C_name">
+            <div class="name_left">
+                <p class="company_n">{|$row['cmp_name']|}</p>
+                <p class="company_info">
+                    <span class="address">所在地：{|$row['city_name']|}</span>
+                    <span class="main_pru">主营产品:{|$row['main_products']|}</span>
+                </p>
+                <div class="all_show">
+                            123
+                </div>
+                <a href="#1f">我要代理</a>
+            </div>
+            <div class="name_right">
+                <img src="{|$IMG_URL|}/2.0/pruduct_display/gz.png" alt="" width="105" height="105"/>
+            </div>
+        </div>
+        <div class="left_list xq">
+            <div class="recruit">
+				<div class="recruit_menu">
+					<ul>
+                        {|if ($row['cmp_type'] == 6)|}<li class="cur"><a href="{|$WWW_URL|}/zhaoshang/{|$row['page_url']|}/"  target='_blank' >招商主页</a></li>{|/if|}
+                        <li><a href="{|$WWW_URL|}/company/{|$row['cmp_id']|}/" class="after">公司介绍</a></li>
+                        <li class="hover"><a href="{|$WWW_URL|}/company/product-id-{|$row['cmp_id']|}">产品展示</a></li>
+                        {|if ($row['cmp_type'] == 6)|}<li><a href="{|$WWW_URL|}/company/zixun-id-{|$row['cmp_id']|}">企业资讯</a></li>{|/if|}
+                    </ul>
+				</div>
+				<div class="list">
+							    
+					<ul>
+                    	{|foreach $list as $k=>$v|}
+						<li>
+							<a target="_blank" href="{|$v['linkurl']|}"><img {|if $v['img']|} src="{|$v['img']|}?w=240&h=180" {|else|} src="{|$STYLE_URL|}/img/3156b.jpg" {|/if|} width="240" height="180" alt="" /></a>
+							<a href="{|$v['linkurl']|}" class="pic_name">{|$v['name']|}</a>
+							<span>{|$v['spec']|}</span>
+							<a href="{|$v['linkurl']|}" class="apply">{|$v['function']|}</a>
+						</li>
+                        {|/foreach|}
+					</ul>		
+				</div>             
+				<div class="list_num">
+					{|$pagehtml|}
+				</div>            
+			</div>
+           <div class="msg_bord" id="1f">
+				<div class="xq_con_title">如果您想代理该产品，请留言，我们会第一时间联系您</div>
+				<div class="xq_content">
+					<p class="xq_con_text">尊敬的用户，您好！我们由衷的希望此信息对您有所帮助，同时也感谢您对我们的关注和支持 ，
+						希望您在和该公司联系的时候提及 <a href="javascript:void(0)">3156医药网</a> 或<a href="javascript:void(0)">3156.cn</a>  ，我们会做的更好！</p>
+
+				<script>var Cmp_id="{|$row['cmp_id']|}", modtype = "4", modid = "{|$row['cmp_id']|}", modtype = "company_pdt", referrer = document.referrer;</script>
+				<script src="{|$JS_URL|}/dev/assets/common/guestbook.js?v=20150414" type="text/javascript"></script>
+                </div>
+		   </div>
+        </div>
+        <div class="right_list product_right">
+            <div class="latest_msg">
+                <p class="latest_name">热门产品</p>            
+                {|if $list_pdt|}
+                {|foreach $list_pdt as $k=>$val |}
+                <div class='hot_product'>
+                <a href="{|$val['url']|}" target='_blank' ><img {|if $val['img']!='' |} src="{|$val['img']|}"{|else|} src="{|$STYLE_URL|}/img/3156a.jpg" {|/if|} ></a>
+                <a href="{|$val['url']|}" target='_blank' class="hot_name" >{|$val['name']|}</a>
+                <a href="{|$val['url']|}" target='_blank' class="hot_info" >{|$val['function']|}</a>
+               
+                </div>
+                {|/foreach|}
+                {|else|}
+                <span>暂无热门产品</span>
+                {|/if|}
+			</div>
+            <div class="sweep">
+				<div class="xq_wx" style="border-bottom:1px dashed #e2e2e2;">
+                    <img src="http://img1.3156.cn/res/img/2.0/pruduct_display/gz.png" alt=""/>  
+                    <p class="gw">3156微信公众号</p>
+                    <p class="gw_info">扫描微信二维码，医药数据随身查</p>
+                </div>
+                <div class="xq_wx">
+                    <img src="http://img1.3156.cn/res/img/2.0/pruduct_display/wb.png" alt=""/>
+                    <p class="gw">3156官方微博</p>
+                    <p class="gw_info">微博号“3156医药网”，给你最新的消息速递，实时掌握新方向</p>
+                </div>
+			</div>
+        </div>
+    </div>
+<div class="qust_contach" style="float:none">
+    <div class="center_txt">
+        <a href="#1f">我要代理</a>
+        如果您想代理该产品，请留言，我们会第一时间联系您！
+    </div>
+</div>
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:110"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:93"|}     
+
+{|include file="$FOOTER"|}
+<script type="text/javascript">
+	$(window).scroll( function() { 
+		var a=$(".xq_con_title").offset().top;  //红色条
+		var b=$(".qust_contach").offset().top;  //第一个层
+		if(b>=a){
+			$(".qust_contach").css({
+				filter:"alpha(opacity=0)",
+				opacity:"0"
+				});
+		}
+		else{
+			$(".qust_contach").css({
+				filter:"alpha(opacity=100)",
+				opacity:"1.0"
+				});
+		}
+	} );
+</script>

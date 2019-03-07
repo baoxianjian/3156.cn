@@ -1,0 +1,372 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+<script src="http://img1.3156.cn/res/js/dev/3156.js"></script>
+{|include file="$HEADER_END"|}
+</script> 
+<style>
+  .place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.adv_top{
+	margin-top:40px;
+}
+.adv_top li{
+	height:35px;
+	float:left;
+}
+.formbody{
+	margin-top:40px;
+}
+.forminfo1{
+	margin-left:10px;
+}
+.forminfo1 .label1{
+	display:inline-block;
+	width:65px;
+	height:34px;
+	line-height:34px;
+	float:left;
+}
+.forminfo1 li{
+	margin-bottom:13px;
+}
+.forminfo1 li i{
+	font-style:normal;
+	margin-left:5px;
+	color:#666666;
+}
+.forminfo1 li .type{
+	float:left;
+}
+.forminfo1 li .type span{
+	display:inline-block;
+	height:34px;
+	line-height:34px;
+	width:70px;
+}
+.type input{
+	vertical-align:middle;
+}
+textarea{
+	margin-top:10px;
+}
+.table1,.table2{
+	margin-top:10px;
+}
+#for_table1,#for_table2{
+	width:137px;
+	height:35px;
+	font-size:14px;
+	font-weight:bold;
+	line-height:35px;
+	text-align:center;
+	border-radius:3px;
+	cursor:pointer;
+}
+#for_table1:hover,#for_table2:hover{
+	color:#fff;
+	background:url(../../../../assets/style1/images/btnbg.png);
+}
+.table2 li{
+	margin-bottom:13px;
+}
+.table2{
+	display:none;
+}
+  </style>
+  <script>
+  $(function(){
+	  $('#for_table1').click(function(e) {
+		$('.table2').hide();
+		$('.table1').show();
+		$('#for_table2').removeClass('btn')
+		$(this).addClass('btn');
+	});
+	 $('#for_table2').click(function(e) {
+		$('.table1').hide();
+		$('.table2').show();
+		$('#for_table1').removeClass('btn')
+		$(this).addClass('btn');
+	});
+  });
+  
+  </script>
+<div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li><a href="/agents/list" target="rightFrame">代理留言管理</a></li>
+       <li>添加代理留言</li>
+    </ul>
+</div>
+    <div class="formbody">
+    <input type="button"  value="添加留言" class="btn" id="for_table1" /><input type="button"  id="for_table2" value="批量留言" />
+    <div class="table1">
+    <form action="add" method="post" name="myform" onsubmit="return check();">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo1">
+        <li><label class="label1">意向产品：</label><input name="row[pdt_name]" type="text" class="dfinput" id='pdt_name' value="{|$row['pdt_name']|}" /><i id='pdt'>输入产品名称</i></li>          
+                      
+        <li><label class="label1">意向区域：</label><input name="row[areas]" type="text" class="dfinput" id='areas' value="{|$row['areas']|}" /><i id='address'>选择代理区域</i></li>
+            
+        <li><label class="label1">联系人：</label><input name="row[link_man]" type="text" class="dfinput" id='link_man' value="{|$row['link_man']|}" /><i id='link'>请输入联系人</i></li> 
+        <li><label class="label1">电话：</label><input name="row[tel]" type="text" class="dfinput" id='tel' value="{|$row['tel']|}"  /><i id='num'>请输入电话，数字类型</i></li> 
+        <li><label class="label1">QQ:</label><input name="row[qq]" type="text" class="dfinput" id='qq' value="{|$row['qq']|}" /><i id='qqnum'>请输入qq，数字类型</i></li>
+        <li>
+        	<label class="label1" style="float:left;">产品类别：</label>
+            <div class="type">   
+            
+                {|foreach $tplist as $v|}
+                   <span><input type="radio" name="row[pdt_type1]" value={|$v['pt_id']|}  {|$pdt_type1_checked[$v['pt_id']]|}/><label >{|$v['pt_name']|}</label></span>{|if $v['pt_id']==8 || $v['pt_id']==641|}</br>{|/if|}				   
+                {|/foreach|}           
+            </div>
+            <i id='tp'></i>
+        </li>
+        <li style="clear:both;"><label class="label1">代理留言：</label><textarea name="row[content]" class="textinput" id='content'>{|$row['content']|}</textarea><i id='con'>请输入代理留言</i></label></li>
+              
+        <li><label>&nbsp;</label><input name="" type="submit" id="suer" class="btn" value="提交留言"/></li>
+        </ul>
+    </form>
+    </div>
+    <div class="table2">
+    	<form action="dofileinto" id="upForm" method="POST" enctype="multipart/form-data">
+		        <ul class="forminfo">
+		        <li><label>&nbsp;</label><a href="download">下载批量导入模板</a></li>
+		     <!--    <li><label>用户ID</label><input name="id" type="text" class="dfinput checkInput" value="" /><i></i></li> 
+		        <li><label>公司ID</label><input name="cmp_id" type="text" class="dfinput checkInput" value="" /><i></i></li>-->
+		        <li><label>上传批量留言</label><input type="file" name='upload'></li>
+		        <li><label>&nbsp;</label><input type="submit" id='btn' class="btn" value="确认保存"/></li>
+		        {|foreach $TOKEN as $k=>$v|}
+		            <input type="hidden" name="{|$k|}" value="{|$v|}">
+		        {|/foreach|}
+		        </ul>
+       </form>
+    </div>
+    </div>
+
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+   $(document).ready(function(){
+	  $('#pdt_name').blur(function(){
+		   if($('#pdt_name').val()==''){
+			   $('#pdt').html('产品名称不能为空!').css('color','red');
+		   }		   
+		   if($('#pdt_name').val()!=''){
+			   $('#pdt').html('可以使用').css('color','green');
+		   }		   
+	  })
+	  $('#areas').blur(function(){
+		   if($('#areas').val()==''){
+			   $('#address').html('意向区域不能为空!').css('color','red');
+		   }
+		   if($('#areas').val()!=''){
+			   $('#address').html('可以使用').css('color','green');
+		   }
+	  }) 
+	  $('#link_man').blur(function(){
+		   if($('#link_man').val()==''){
+			   $('#link').html('联系人不能为空!').css('color','red');
+		   }
+		   if($('#link_man').val()!=''){
+			   $('#link').html('可以使用').css('color','green');
+		   }
+	  })
+/*	  
+	  $('#tel').blur(function(){
+		   if($('#tel').val()==''){			  
+		   $('#num').html('请输入电话，数字类型').css('color','gray');
+		  }
+		//   if($('#tel').val()!=''){
+		//	   $('#num').html('可以使用').css('color','green');
+		//   }
+		 if($('#tel').val()!=''){
+			   var str=$('#tel').val();
+			   var reg = /^1[3458]\d{9}$/;
+				if(reg.test(str)){
+			       $('#num').html('可以使用').css('color','green');
+				}else{
+				   $('#num').html('联系方式格式不正确！').css('color','red');
+				}
+		   }
+	  })
+	  $('#qq').blur(function(){
+		 if($('#qq').val()==''){
+			  $('#qqnum').html('qq不能为空！').css('color','red');
+		  }
+	     if($('#qq').val()!=''){
+			  $('#qqnum').html('可以使用').css('color','green');
+		  }
+	  })
+*/	  
+	    $("input[name='row[pdt_type1]']").click(function () {
+           
+	    	 $('#tp').html('可以使用').css('color','green');
+        });
+        
+        
+	  $('#content').blur(function(){
+		   if($('#content').val()==''){
+			   $('#con').html('询单内容不能为空!').css('color','red');
+		   }
+		   if($('#content').val()!=''){
+			   $('#con').html('可以使用').css('color','green');
+		   }
+	  })	 
+   })
+</script>
+<script type="text/javascript">
+function check(){		                
+	   if ($('#pdt_name').val()=='')
+        {
+		   $('#pdt').html('产品名称不能为空!').css('color','red');
+          return false;
+        } 
+      
+	  if($('#areas').val()==''){
+		  $('#address').html('意向区域不能为空!').css('color','red');
+			  return false;
+	    }	
+     
+      if($('#link_man').val()==''){
+    	  $('#link').html('联系人不能为空!').css('color','red');
+             return false; 
+       }
+ /*     
+      if($('#num').html()=='联系方式格式不正确！'){
+    	  return false;
+      }
+     if($('#tel').val()!=''){    	
+		   var str=$('#tel').val();
+		   var reg = /^1[3458]\d{9}$/;
+			if(!reg.test(str)){		    
+			  $('#num').html('联系方式格式不正确！').css('color','red');
+			   return false;
+			}
+	   }
+	   
+	  if($('#qq').val()==''){
+		   $('#qqnum').html('qq不能为空!').css('color','red');
+		  return false;
+	 
+	   }
+*/	  
+	  var pdt_type=document.getElementsByName("row[pdt_type1]");              
+      var fla = false ;              
+      for(var i=0;i<pdt_type.length;i++){
+    	  
+            if(pdt_type[i].checked){
+                     fla = true ;
+                     break ;
+                  }
+              }
+        if(!fla){
+            	 $('#tp').html('产品类别不能为空!').css('color','red');
+             return false ;
+ 	    } 
+        
+    
+        
+             
+	  if($('#content').val()==''){	
+		  $('#cont').html('询单内容不能为空!').css('color','red');
+		  return false;
+	   }
+	     
+	  return true; 
+  }
+</script>
+<script type="text/javascript">
+//获取地区数据
+var REGION_DATA = '',
+	REGION_HTML = '<option value="">--请选择代理区域--</option>',
+	REGION_DATA_ITEMS = '';
+
+{|if {|$areas_str|}|}
+var areas_code={|$areas_str|};
+{|else|}
+var areas_code=array();
+{|/if|}
+var areas_code1="{|$row['areas_code1']|}";
+if(areas_code1.length==2)
+{
+     areas_code1=areas_code1+"0000";
+}
+
+function areaGetSelectedStr(codeId)
+{
+    if(codeId==areas_code1)
+    {
+        return 'selected="selected"';
+    }
+    return '';
+    
+}
+
+function  areaGetCheckedStr(codeId)
+{
+    for(var i=0;i<areas_code.length;i++)
+    {
+        if(areas_code[i]==codeId)
+        {
+            return 'checked="checked"';
+        }
+    }
+    return '';
+}
+
+var arearChange=function(){
+    var pid =  $(".J_area_html").val();
+    REGION_DATA_ITEMS = REGION_DATA[pid]['items'];
+    REGION_HTML = '';
+    $.each(REGION_DATA_ITEMS, function(i, o){
+        REGION_HTML += '<li><label><input type="checkbox" id="areas" name="row[areas_code][]" value="'+ i +'" '+areaGetCheckedStr(i)+'>'+ o.name +'</label></li>';
+    });
+    try {
+        if (typeof (REGION_HTML) != "undefined") {
+            $('.J_region_html').html(REGION_HTML);
+            $('.J_region').show();
+        }
+    } catch (e) {
+    }
+};
+
+$.ajax({
+	url : 'http://img.3156.cn/uploads/subarea',
+	type : 'post',
+	dataType : 'jsonp',
+	jsonp: "callback",
+	success : function(data){
+		if(data.state == true) {
+			REGION_DATA = data.data;
+			$.each(REGION_DATA, function(i, o){
+				REGION_HTML += '<option value="'+ i +'" '+areaGetSelectedStr(i)+'>'+ o.name +'</option>';
+			});
+			try {
+				if (typeof (REGION_HTML) != "undefined") {
+					$('.J_area_html').html(REGION_HTML);
+                    if(areas_code.length>0)
+                    {
+                         arearChange();
+                    }
+				}
+			} catch (e) {
+			}
+			$('.J_area_html').change(
+            
+                arearChange
+            
+            );
+		}else{
+			alert('地区数据获取失败！');
+		}
+	}
+});
+
+</script>

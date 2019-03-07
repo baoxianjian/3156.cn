@@ -1,0 +1,89 @@
+{|include file="$HEADER"|}
+ 
+<style type="text/css">
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.tools form{
+	overflow:hidden;
+	background:#F5F9FB;
+	padding:10px 0 10px 10px;
+}
+label{margin-right:15px;}
+.toolbar a{display:block;width:75px;height:35px;}
+</style>
+{|include file="$HEADER_END"|}
+<div class="place">
+	<span>位置：</span>
+    <ul class="placeul">
+    	<li><a href="###">首页</a></li>
+    	<li><a href="###">区块管理</a></li>
+        <li>区块分组</li>
+    </ul>
+</div>
+<div class="tools" style="margin-top:40px;">
+        <form action="list" method="post">
+            <label for="">分组编号：<input type="text" name="id" class="scinput" value={|$srow['id']|} ></label>
+            <label for="">分组编码：<input type="text" name="gc" class="scinput" value={|$srow['gc']|} ></label>
+            <label for="">分组名：<input type="text" name="gn" class="scinput" value={|$srow['gn']|} ></label>
+            <label>父级分组：
+            <select name="pc" class="scinput" >
+                <option value="0">全部</option>
+                {|foreach $list_pc as $v|}
+                <option value="{|$v['bg_code']|}" {|$pc_selected[$v['bg_code']]|}>{|$v['bg_name']|}</option>
+                {|/foreach|}
+                <option value="0000" {|$pc_selected['0000']|} ><<作为顶级>></option> 
+            </select>
+           </label>
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar">
+            <li class="click"><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+        </ul>      
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <!--<th><input name="" type="checkbox" value="" checked="checked"/></th>-->
+        <th>分组编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>分组编码</th>
+        <th>分组名</th>
+        <th>排序</th>
+        <th>添加时间</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['bg_id']|}">
+                <td>{|$row['bg_id']|}</td>
+                <td>{|$row['bg_code']|}</td>
+                <td>{|$row['bg_name']|}</td>
+                <td>{|$row['order']|}</td>
+                <td>{|$row['dateline']|}</td>
+                <td>
+                    <a href="edit-id-{|$row['bg_id']|}" class="tablelink">编辑</a>     
+                    <a onclick="return delConfirm('{|$row['bg_id']|}');" href="del-id-{|$row['bg_id']|}" class="tablelink"> 删除</a>
+                </td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+
+

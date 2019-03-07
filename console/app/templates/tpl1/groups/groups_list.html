@@ -1,0 +1,95 @@
+{|include file="$HEADER"|}
+
+
+<script type="text/javascript">
+/**/
+
+
+
+</script> 
+{|include file="$HEADER_END"|}
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:0 0 10px 10px;
+		height:auto;
+		overflow:hidden;
+	}
+	.tools form .scbtn{
+		margin-top:10px;
+	}
+	.click a{display:block;}
+</style>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">用户组管理</a></li>
+    </ul>
+</div>
+<div class="tools">
+
+    <form action="list" method="post" >
+        编号：<input type="text" name="id" class="scinput" value="{|$srow['id']|}" >&nbsp; &nbsp;           
+        组名：<input type="text" name="sg_name" class="scinput"  value="{|$srow['sg_name']|}" >&nbsp; &nbsp;     
+        <input type="submit" class="scbtn" value="查询"> 
+    </form>
+    <ul class="toolbar">
+        <li class="click"><a href="edit"> <span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+        <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+        <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+    </ul>
+    <ul class="toolbar1">
+
+   <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+    </ul>
+ 
+      
+    
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+            <th>编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+            <th>组名</th>
+            <th>创建者</th>
+            <th>组级别</th>
+            <th>添加日期</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['sa_id']|}">
+                <td>{|$row['sg_id']|}</td>
+                <td>{|$row['sg_name']|}</td>
+                <td>{|$row['sa_name']|}</td>
+                <td>{|$row['sg_level']|}</td>
+                <td>{|$row['dateline']|}</td>
+                <td>
+                    <a href="edit-id-{|$row['sg_id']|}" class="tablelink">编辑</a>
+                    <a href="grant-id-{|$row['sg_id']|}" class="tablelink">赋权</a>
+                    <a onclick="return delConfirm('{|$row['sg_id']|}');" href="del-id-{|$row['sg_id']|}" class="tablelink"> 删除</a>
+                </td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+
+

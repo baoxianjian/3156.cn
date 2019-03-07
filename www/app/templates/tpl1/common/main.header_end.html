@@ -1,0 +1,137 @@
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".topbar .right .cur").mouseover(function(){
+		var h=(($(".topbar .right .cur").width())-46)/2;
+		$(".down_menu").css("left",h);
+			$(".down_menu").show();
+		
+		}).mouseout(function(){
+			$(".down_menu").hide();
+		});
+		$(".topbar .right").find(".img:eq(0)").mouseover(function(){
+			$(".er_block").show();
+		}).mouseout(function(){
+			$(".er_block").hide();
+		})
+	})
+</script>
+</head>
+<body>
+<div class="topbar">
+        <div class="topbg"></div>
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a target="_blank" href="{|$NAV['product']|}">药品库</a></li>
+                <li><a target="_blank" href="{|$NAV['shuju']|}">数据中心</a></li>
+            	<li><a target="_blank" href="{|$NAV['zixun']|}">医药资讯</a></li>
+                <li><a target="_blank" href="http://www.3156.cn/daili/">医药代理</a></li>
+                <!--<li><a target="_blank" href="http://m.3156.cn">手机药品网</a></li>-->
+                <li id="top_left"><a target="_blank" href="{|$NAV['company']|}">医药公司</a></li>
+            </ul>
+            <ul class="right">
+                <li id="info_li_1">你好，<span id="u_name_1">游客</span></li>
+                <li id="info_li_2"><a  href="{|$USER_URL|}/user/login/" rel="nofollow">请登录</a></li>
+                <li id="info_li_3"><a style="color:#F53535;" href="{|$USER_URL|}/user/register/" rel="nofollow">免费注册</a><a href="###" id="er"></a></li>
+
+                <li id="info_li_4" class="cur" style="display: none;">
+                    欢迎您，
+                    <span id="u_name_2">baoxianjian</span>
+                    <i></i>
+                    <div id="info_div_menu" class="down_menu" style="display:none;"></div>
+                    <div id="info_div_1" style="display:none;">
+                        <a href="{|$USER_URL|}/agent/">用户中心</a>
+                        <a href="{|$WWW_URL|}/daili/fbxq/">发布代理信息</a>
+                        <a href="{|$USER_URL|}/books/list/" target="_blank" >我的代理信息</a> 
+                        <a href="{|$USER_URL|}/user/infor2/">账户信息</a>    
+                        <a href="{|$USER_URL|}/user/modify/">修改密码</a>
+                        <a href="{|$USER_URL|}/user/logout/">退出登录</a>
+                    </div>
+                    <div id="info_div_2" style="display:none;">
+                        <a href="{|$USER_URL|}/company/">用户中心</a>    
+                        
+                        <a href="{|$USER_URL|}/company/info/">公司资料</a>
+                        <a href="{|$USER_URL|}/product/edit/">发布产品</a>
+                        <a href="{|$USER_URL|}/comments/myinfo/">代理信息</a>
+                        <a href="{|$USER_URL|}/user/changepwd/">修改密码</a>                   
+                        <a href="{|$USER_URL|}/user/logout/">退出登录</a>                 
+                    </div>
+                </li>
+               				
+                <li class="img" style="position:relative;">
+					<a href="javascript:void(0);"><img src="{|$IMG_URL|}/2.0/weixin.png"/></a>
+					<span class="er_block"></span>
+				</li>
+                <li class="img"><a href="http://weibo.com/qgypw" rel="nofollow"><img src="{|$IMG_URL|}/2.0/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+            
+            
+            
+            
+        </div>
+    </div>
+    <div class="header">
+        <ul class="banner">{|gg('pid:51,gid:52')|}</ul>
+       <div class="logo">
+            <a href="{|$WWW_URL|}" title="3156医药网 全国药品网"></a>
+        </div>
+
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="search/sreach_list" class="searchOn" >产品</dd>
+                            <dd s-type="search/company_list" >公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3158.cn/" method="get" target="_blank">
+                    <input type="text" name="seek" value="输入您要找的产品" class="search-On" def="输入您要找的产品" onFocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onBlur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <a type="submit" class="search-btn btn1" hidefocus="" href='{|$WWW_URL|}/daili/fbxq/' target="_blank" >发布需求</a>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                
+                {|foreach $hot_keys as $k=>$v|}
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek={|$v['kw_name_encoded']|}">{|$v['kw_name']|}</a>
+                {|/foreach|}
+                <a target="_blank" href="http://top.3156.cn/" class="phb">医药招商排行榜</a>
+            </div>
+            <!--/search-key-->
+        </div>
+
+
+        <ul class="drug">
+        	{|gg('pid:51,gid:53')|}
+        </ul>
+        <ul class="nav">
+            <li><a {|$NAV_ACTIVE['main']|} href="{|$NAV['main']|}">首页</a></li>
+            <li><a {|$NAV_ACTIVE['yyzs']|} href="{|$NAV['yyzs']|}">医药招商</a></li>
+            <li><a {|$NAV_ACTIVE['ypzs']|} href="{|$NAV['ypzs']|}">药品招商</a></li>
+            <li><a {|$NAV_ACTIVE['otc']|} href="{|$NAV['otc']|}">OTC</a></li>
+            <li><a {|$NAV_ACTIVE['bjp']|} href="{|$NAV['bjp']|}">保健品</a></li>
+            <li><a {|$NAV_ACTIVE['yz']|} href="{|$NAV['yz']|}">药妆</a></li>
+            <li><a {|$NAV_ACTIVE['ylqx']|} href="{|$NAV['ylqx']|}">医疗器械</a></li>
+            <li><a {|$NAV_ACTIVE['daili']|} href="{|$NAV['daili']|}">医药代理</a></li>
+            <li><a {|$NAV_ACTIVE['zixun']|} href="{|$NAV['zixun']|}">医药资讯</a></li>
+            <li><a {|$NAV_ACTIVE['jibing']|} href="{|$NAV['jibing']|}">疾病查询</a></li>
+            <li><a {|$NAV_ACTIVE['company']|} href="{|$NAV['company']|}">医药公司</a></li>
+            <li><a {|$NAV_ACTIVE['product']|} href="{|$NAV['product']|}">药品库</a></li>
+            <li><a {|$NAV_ACTIVE['shuju']|} href="{|$NAV['shuju']|}">医药数据库</a></li>
+        </ul>
+    </div>

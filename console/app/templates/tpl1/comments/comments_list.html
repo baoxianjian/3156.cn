@@ -1,0 +1,131 @@
+{|include file="$HEADER"|}
+
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/keyworddel.js"></script>
+
+<script type="text/javascript">
+/**/
+$(document).ready(function(){
+
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+
+
+var delId=0;
+function comfirmDel(id)
+{
+    delId=id;
+    $("#tip_del").fadeIn(200); 
+}
+</script>
+
+{|include file="$HEADER_END"|}
+    
+    <div class="formbody">
+         <ul class="toolbar">
+            <li class=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span><a href="edit"> 添加</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+         </ul>
+    
+ <!--    
+    	<ul class="toolbar">
+        <li class=""><a href=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>搜索留言:</a></li>
+           
+         <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li> 
+         </ul>-->  
+ <!--   <ul class="toolbar1">
+        <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>       
+   -->      
+         <form action="list" method="get">
+                                   留言时间：<input type="text" name="dateline" class="scinput"  value={|$srow['dateline']|}>
+                                   意向产品：<input type="text" name="pdt_id" class="scinput"  value={|$srow['pdt_id']|}>
+                                意向区域：<input type="text" name="areas" class="scinput"  value={|$srow['areas']|}>  
+                                 意向公司：<input type="text" name="company" class="scinput"  value={|$srow['company']|}></br>                                
+                                     留 &nbsp;言&nbsp;人：<input type="text" name="user_id" class="scinput"  value={|$srow['user_id']|}>&nbsp;
+                                   联系电话：<input type="text" name="tel" class="scinput"  value={|$srow['tel']|}>                 
+                                   代 &nbsp;理 人：<input type="text" name="link_man" class="scinput"  value={|$srow['link_man']|}>
+<!--                                   
+                                   留言状态：<select style="border:1px solid gray;" name="free"  value={|$srow['online_state']|}>                                                    
+                         <option value="1" selected = "selected">正常</option>
+                         <option value="2">已删除</option>                      
+                     </select>  
+-->                                          
+                                   会员种类：<select class="scinput" name="online_state"  value={|$srow['online_state']|}>
+                         <option value="" selected = "selected">==请选择==</option>                                                                                       
+                         <option value="1"    {|if $srow['online_state']==1|}selected="selected"{|/if|} >免费</option>
+                         <option value="2"    {|if $srow['online_state']==2|}selected="selected"{|/if|} >收费</option>                      
+                     </select>                     
+               <input name="" type="submit"  class="scbtn" value="搜索"/>
+          </form>
+           
+    </div>
+              
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value=""  id="checkAll"/></th>
+<!--    <th>留言id<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>        
+        <th>模块类型</th>
+-->  
+        <th>留言时间</th>
+        <th>意向产品</th>
+        <th>意向公司</th>
+        <th>意向区域</th>
+        <th>联系人</th>
+<!--    <th>会员种类</th>                
+        <th>留言类型</th> 
+-->              
+        <th>留言人</th> 
+        <th>备注</th>                   
+<!--    <th>联系电话</th>      
+        <th>留言内容</th>                          
+        <th>审核状态</th>
+-->                           
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+     {|foreach $list as $row|}              
+        <tr>
+        <td><input name="checkdel[]" type="checkbox" value="{|$v['cmt_id']|}" /></td>
+        <td>{|$row['dateline']|}</td>
+ <!--   <td>{|$row['cmt_id']|}</td>-->    
+        <td>{|$row['pdt_names']|}</td>       
+        <td>{|$row['company']|}</td>
+        <td>{|$row['areas']|}</td>
+        <td>{|$row['link_man']|}</td>
+<!--    <td>{|if $row['online_state']==1|}免费{|elseif $row['online_state']==2|}收费{|/if|}</td>      
+        <td>{|if $row['cmt_type']==1|}企业{|elseif $row['cmt_type']==2|}产品{|elseif $row['cmt_type']==3|}咨询{|/if|}</td>
+-->
+        <td>{|$row['user_id']|}</td>
+        <td>备注</td> 
+<!--    <td>{|$row['tel']|}</td>
+        <td>{|$row['content']|}</td>
+        
+        <td>{|if $row['audit_state']==1|}待审核{|elseif $row['audit_state']==2|}通过审核{|elseif $row['audit_state']==3|}未通过{|/if|}</td>        
+-->        
+             
+        <td><a href="{|$row['del_url']|}"  id="del{|$row['cmt_id']|}" onclick="comfirmDel('{|$row['cmt_id']|}');return false;" class="tablelink">删除</a></td>
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+
+    </table>
+
+   {|$pagehtml|}
+    
+  {|include file="$FOOTER"|}
+    

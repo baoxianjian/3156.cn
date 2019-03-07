@@ -1,0 +1,119 @@
+{|include file="$USER_HEADER"|}
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/Common.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/date/WdatePicker.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+    	//JS 复选框控制 ----------------------------------------------- Statr//
+    		$("[name='check[]']").click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$('#checkAll').prop('checked','checked');//开启全选
+    			}else{
+    				$('#checkAll').removeAttr('checked');//关闭全选
+    			}
+    		})
+
+    		$('#checkAll').click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$("[name='check[]']").removeAttr('checked');
+
+
+    			}else{
+    				$("[name='check[]']").prop('checked','checked');
+    				$('#delAll').removeAttr('disabled');
+    			}
+    		});
+
+      })          
+</script>
+{|include file="$USER_HEADER_END"|}
+{|include file="$USER_LEFT"|} 
+        <div class="user_right IP product_list_ call">
+                <p class="Topic">站内来电信息</p>
+                <div class="Query agent_info Call_info">
+                   <form action="/comments/call" method="get">
+                    <div class="data">
+                        <input name="start_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})" type="text" Placeholder="2014/03/02" value={|$srow['start_time']|}>
+                        到
+                        <input name="end_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})" type="text" Placeholder="2014/03/08" value={|$srow['end_time']|}>
+                        
+                    </div>
+                    <input type="submit" class="Query_btn" value="查询">
+                   </form>
+                </div>
+                <div class="Refresh">
+                    <a href="javascript:void(0)" class="print">打印本页</a>
+                    <a href="javascript:void(0)" class="print print_all">打印查询所有结果</a>
+                    <img src="img/help.png" alt="" width="22" height="22" class="help"/>
+                    <div class="help_info">
+                        <p>1、设定打印期限(您可选择包括当天在内连续5天日期)；</p>
+                        <p> 2、点击查询信息；</p>
+                        <p> 3、打印所有查询结果(联系方式打印后正常显示)</p>
+
+                    </div>
+
+
+                    <span class="Result_num">查询结果【 留言总数为：<b>15</b>】</span>
+
+                </div>
+                <table cellpadding="0" border="0" cellspacing="0" style="margin-top:0;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" id="checkAll"/></th>
+                            <th>序号</th>
+                            <th>意向产品名称</th>
+                            <th>意向区域</th>
+                            <th>联系人</th>
+                            <th>联系电话</th>
+                            <th>发布日期</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                     {|foreach $list as $row |}
+                        <tr>
+                            <td><input type="checkbox" name="check[]"/></td>
+                            <td>{|$row['cmt_id']|}</td>
+                            <td><a href="javascript:void(0)" class="P_name">{|$row['content']|}</a></td>
+                            <td>{|$row['areas']|}</td>
+                            <td>{|$row['link_man']|}</td>
+                            <td>{|$row['tel']|}</td>
+                            <td>{|date('Y-m-d',$row['dateline'])|}</td>
+                        </tr> 
+                     {|/foreach|}                        
+                    </tbody>
+                </table>
+              {|$pagehtml|}
+        </div>
+    </div>
+    <div class="footer">
+        <div class="info_3156" >
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="javascript:void(0)"> www.miitbeian.gov.cn</a></P>
+                <P><a href="javascript:void(0)">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a></P>
+                <P><a href="javascript:void(0)">医药招商网站 版权所有 违版必究51YES网站统计系统</a></P>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

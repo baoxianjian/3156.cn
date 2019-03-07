@@ -1,0 +1,361 @@
+{|include file="$USER_HEADER"|}
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/Common.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/date/WdatePicker.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+    	//JS 复选框控制 ----------------------------------------------- Statr//
+    		$("[name='check[]']").click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$('#checkAll').prop('checked','checked');//开启全选
+    			}else{
+    				$('#checkAll').removeAttr('checked');//关闭全选
+    			}
+    		})
+
+    		$('#checkAll').click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$("[name='check[]']").removeAttr('checked');
+
+
+    			}else{
+    				$("[name='check[]']").prop('checked','checked');
+    				$('#delAll').removeAttr('disabled');
+    			}
+    		});
+
+
+            $('#hideall').click(function(){
+           
+                $("input[name='check[]']:checked").parent().parent().hide();
+            })
+    	
+      })          
+</script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $('#collect').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择数据');
+          return false;
+        }
+                 $.post('/comments/collectall',$('#formDelAll').serialize(),function (data){
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+       
+        return false;
+        
+    });
+   
+		    $('.newstar').click(function(){    	      
+		        $fid=$(this).attr('fid');
+		        $id=$(this).attr('mark'); 
+		        $type=$(this).attr('tp');
+		     $.post('/comments/Collection',{ajax:1,id:$id,fid:$fid,type:$type},function (data){            	   
+		                if ( data.status ){
+		                   layer.alert(data.info,1);
+		                   setTimeout(function () { 
+		                       location.reload();
+		                    }, 0);
+		                }else{
+		                    layer.alert(data.info);
+		                }
+		
+		             },'json');
+		  
+		       return false;
+		  
+		    });
+        /* 
+    
+     //异步联动
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#ggpg_2').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+
+                    $('#ggpg_2').append("<option value="+data[i]['ggpg_id']+">"+data[i]['title']+"</option>");
+
+                }
+                 $('#ggpg_2').append("<option value=''>全部</option>");
+            }else{
+
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+*/
+
+});
+
+//删除
+function recovery(id)
+{
+    $.layer({
+        shade: [0],
+        area: ['auto','auto'],
+        dialog: {
+            msg: '您确定恢复？',
+            btns: 2,                    
+            type: 5,
+            btn: ['确定','取消'],
+            yes: function(){
+                $.post('re',{ajax:1,id:id},function(data){
+               // if(data.status==1) {if($('#tr_'+id)){$('#tr_'+id).remove();}}
+                var temp=layer.alert(data.info, data.status, !1);
+                var tostr='';   
+                if(data.tourl=='_reload')
+                    {tostr="window.location.reload();";}
+                else
+                    {tostr="window.location='"+tourl+"'";}
+                
+                setTimeout("layer.close("+temp+");"+tostr, data.timeout);
+        },'json')
+            }, 
+        }
+      });
+      return false;
+}
+
+
+</script>
+<script type="text/javascript">
+function preview(oper) {
+if (oper < 10) {
+bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+sprnstr = "<!--startprint" + oper + "-->";//设置打印开始区域
+eprnstr = "<!--endprint" + oper + "-->";//设置打印结束区域
+prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18); //从开始代码向后取html
+
+prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+window.document.body.innerHTML = prnhtml;
+window.print();
+window.document.body.innerHTML = bdhtml;
+} else {
+window.print();
+}
+
+}
+</script>
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	padding:0 3em;
+    border: 0;
+    color: black;
+    background: white;
+    font: normal 10pt "Bakersville Old Face", "Times New Roman", Times, serif;
+    text-align: left;
+}
+table{
+	width:100%;
+	border-left:1px solid #333333;
+	border-bottom:1px solid #333333;
+	margin:20px 0;
+}
+table td{
+	border-top:1px solid #333333;
+	text-align:center;
+	border-right:1px solid #333333;
+	font-size:10pt;
+	height:30px;
+}
+.title,.foot{
+	width:100%;
+	text-align:center;
+	position:relative;
+	font-size:11pt;
+}
+.title{
+	margin-top:20px;
+}
+.title span.date,.foot span.page{
+	position:absolute;
+	right:4em;
+}
+</style>
+{|include file="$USER_HEADER_END"|}
+{|include file="$USER_LEFT"|} 
+        <div class="user_right IP product_list_ Ordinary">
+                <p class="Topic">查看我的代理信息</p>
+                <div class="Query agent_info">
+                 <form action="/comments/ordinary" method="get">
+                    <div class="data">
+                        <input name="start_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})" type="text" Placeholder="2014/03/02" value={|$srow['start_time']|}>
+                        到
+                        <input name="end_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})"  type="text" Placeholder="2014/03/08" value={|$srow['end_time']|}>
+                    </div>
+                    <div class="Filter Filter_txt">
+                        <span>电话：</span>
+                       <input type="text" class="txt" name="tel" value={|$srow['tel']|} >
+                    </div>
+                    <div class="Filter">
+                        <span>过滤重复电话：</span>
+                        <label for="" style="margin-right:10px;"><input type="radio" class="read" name="read" checked="checked"/>是</label>
+                        <label for=""><input type="radio" class="read" name="read"/>否</label>
+                    </div>
+                    <div class="Filter Filter_txt">
+                        <span>产品名称：</span>
+                       <input type="text" class="txt" name="pdt_names"  value={|$srow['pdt_names']|}>
+                    </div>
+                    <div class="style_">
+
+                        <div class="Filter">
+
+                              <span>类别：</span>
+                           <select name="pdt_type1" value={|$srow['pdt_type1']|}>
+                                <option value="3">卫生用品</option>
+                                <option value="5">贴剂</option>
+                                <option value="14">医疗设备</option>
+                                <option value="10">药用辅料</option>
+                                <option value="9">原料药</option>
+                                <option value="4">药妆</option>
+                                <option value="8">消毒剂</option>
+                                <option value="13">计生用品</option>
+                                <option value="1">OTC</option>
+                                <option value="6">中药材</option>
+                                <option value="7">中间体</option>
+                                <option value="12">诊断试剂</option>
+                                <option value="15">医疗器械</option>
+                                <option value="16">西医产品</option>
+                                <option value="17">中药产品</option>
+                                <option value="11">药品包装</option>
+                                <option value="2">保健品</option>
+                            </select>
+                        </div>
+                        <div class="Filter">
+
+                             <span>标签：</span>
+                            <select name="favorite" >
+                                <option value="" >全部</option>
+                                <option value="1" >收藏的</option>                               
+                                <option value="0" >未收藏的</option>
+                            </select>
+                        </div>
+                        <div class="Filter query_region">
+
+                             <span>区域：</span>
+                            <select name="areas" >
+                                <option value="四川">四川</option>
+                                <option value="重庆">重庆</option>
+                            </select>
+                            -
+                             <select name="" id="">
+                                <option value="成都">成都</option>
+                                <option value="沙坪坝">沙坪坝</option>
+                            </select>
+                        </div>
+                        <div class="Filter" style="width:180px;">
+                            <span>多区查询：</span>
+                            <label for="" style="margin-right:10px;"><input type="radio" class="read" name="query" checked="checked"/>是</label>
+                            <label for=""><input type="radio" class="read" name="query"/>否</label>
+                        </div>
+
+                    </div>
+                    <button class="Query_btn">查询</button>
+                  </form>
+                </div>
+                <div class="Refresh">
+                    <span class="Result_num">查询结果【 留言总数为：<b>15</b>】</span>
+                    <a class="print" id="collect" style="cursor:pointer;">收藏</a> 
+                    <a  class="print" id="hideall">排除</a>
+                     <button  class="print" onclick="preview('1')">打印本页</button>         
+                    <a href="javascript:void(0)" class="print print_all" onclick="preview('1')">打印查询所有结果</a>
+                    <img src="img/help.png" alt="" width="22" height="22" class="help"/>
+                    <div class="help_info">
+                        <p>1、设定打印期限(您可选择包括当天在内连续5天日期)；</p>
+                        <p> 2、点击查询信息；</p>
+                        <p> 3、打印所有查询结果(联系方式打印后正常显示)</p>
+                    </div>
+
+
+
+
+                </div>
+                <!--startprint1-->
+             <form id="formDelAll" method="post" action="delAll"  >
+             <input type="hidden" name="ajax" value="1" />   
+                <table cellpadding="0" border="0" cellspacing="0" style="margin-top:0;">
+                    <thead>
+                        <tr>
+                            <td><input type="checkbox" id="checkAll"/></td>
+                            <td style="font-weight:bold;">序号</td>
+                            <td style="font-weight:bold;">发布日期</td>
+                            <td style="font-weight:bold;">代理产品名称</td>
+                            <td style="font-weight:bold;">代理区域</td>
+                            <td style="font-weight:bold;">联系人</td>
+                            <td style="font-weight:bold;">联系方式</td>
+                            <td style="font-weight:bold;">收藏</td>
+                            <td style="font-weight:bold;">核实情况</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {|foreach $list as $row |}
+                        <tr>
+                            <td><input type="checkbox" name="check[]" value="{|$row['id']|}"/></td>
+                            <td>{|$row['id']|}</td>
+                            <td>{|date('Y-m-d',$row['dateline'])|}</td>
+                            <td><a href="javascript:void(0)" class="P_name">{|$row['pdt_name']|}</a></td>
+                            <td>{|$row['areas']|}</td>
+                            <td>{|$row['link_man']|}</td>
+                            <td><a href="javascript:void(0)">查看</a></td>
+                            <td><a class="newstar" fid="{|$row['favorite']|}" tp="{|$row['type']|}" {|if $row['favorite']==1|} style="background-position: left -48px;"{|/if|} mark="{|$row['id']|}"></a></td>
+                            <td><a href="javascript:void(0)">备注</a><div class="Remarks">留言已核实，属实，请厂家尽快联系</div></td>
+                        </tr>
+                    {|/foreach|}    
+                    </tbody>
+                </table>
+             </form>
+              <!--endprint1-->
+             {|$pagehtml|}
+        </div>
+    </div>
+    <div class="footer">
+        <div class="info_3156" >
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="javascript:void(0)"> www.miitbeian.gov.cn</a></P>
+                <P><a href="javascript:void(0)">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a></P>
+                <P><a href="javascript:void(0)">医药招商网站 版权所有 违版必究51YES网站统计系统</a></P>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+</html>

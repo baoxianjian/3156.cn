@@ -1,0 +1,438 @@
+<!DOCTYPE>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>药品详情页</title>
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/page.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/top.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/footer.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/scrolltopcontrol.js"></script>
+</head>
+<body>
+    <div class="topbar">
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a href="javascript:void(0);">品牌区域</a></li>
+                <li><a href="javascript:void(0);">数据中心</a></li>
+                <li><a href="javascript:void(0);">咨询频道</a></li>
+                <li><a href="javascript:void(0);">招中标信息</a></li>
+                <li><a href="javascript:void(0);">手机药品网</a></li>
+            </ul>
+            <ul class="right">
+                <li class="cur">欢迎，<span>客人</span></li>
+                <li><a href="javascript:void(0);">会员登录</a></li>
+                <li><a href="javascript:void(0);">免费注册</a></li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/weixin.png" alt="微信" title="微信"/></a></li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="banner"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/big_pic.png" alt="白云山大保健系列" title="白云山大保健系列"/></a></div>
+        <ul class="pic">
+            <li class="cur"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li class="cur"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+            <li><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/small_pic.png" alt="白云山王老吉" title="白云山王老吉"/></a></li>
+        </ul>
+        <div class="logo">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/logo.png" alt="3156医药网" title="3156医药网"/></a>
+        </div>
+
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="project" class="searchOn">产品</dd>
+                            <dd s-type="article">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3158.cn/main/project.html" method="get" target="-blank">
+                    <input type="text" name="kw" value="输入您要找的项目" class="search-On" def="输入您要找的项目" onFocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onBlur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <button type="submit" class="search-btn btn1" hidefocus="">发布需求</button>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a href="javascript:void(0);">儿科</a>
+                <a href="javascript:void(0);">感冒</a>
+                <a href="javascript:void(0);">止咳消炎</a>
+                <a href="javascript:void(0);">壮阳</a>
+                <a href="javascript:void(0);">皮肤妇科</a>
+                <a href="javascript:void(0);">补肾</a>
+                <a href="javascript:void(0);">止痛</a>
+                <a href="javascript:void(0);">止血</a>
+            </div>
+            <!--/search-key-->
+        </div>
+
+
+        <div class="drug">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/pic.png" alt=""/></a>
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/pic.png" alt=""/></a>
+        </div>
+        <ul class="nav">
+            <li><a href="javascript:void(0);">首页</a></li>
+            <li><a href="javascript:void(0);">医药招商</a></li>
+            <li><a href="javascript:void(0);">药品招商</a></li>
+            <li><a href="javascript:void(0);">OTC</a></li>
+            <li><a href="javascript:void(0);">保健品</a></li>
+            <li><a href="javascript:void(0);">药妆</a></li>
+            <li><a href="javascript:void(0);">医疗器械</a></li>
+            <li><a href="javascript:void(0);">医药代理</a></li>
+            <li><a href="javascript:void(0);">医药资讯</a></li>
+            <li><a href="javascript:void(0);">疾病查询</a></li>
+            <li><a href="javascript:void(0);">医药公司</a></li>
+            <li><a href="javascript:void(0);">药品库</a></li>
+            <li><a href="javascript:void(0);">医药数据库</a></li>
+        </ul>
+    </div>
+
+    <div class="warp drug_detail_not">
+        <p class="dqwz">当前位置：<a href="javascript:void(0);">3156医药网</a> > <a href="javascript:void(0);">医药招商信息 </a>> <a href="javascript:void(0);">江苏恒瑞医药股份有限公司</a> >
+            <a href="javascript:void(0)">芙欣罗红霉素分散片</a></p>
+        <div class="left_list xq drug_detail">
+            <div class="drug_name">
+                <p class="title"><span>已有<b>625</b>人访问</span>芙欣罗红霉素分散片</p>
+                <div class="con">
+                    <img src="{|$list['img']|}" width="298px" height="233px" alt=""/>
+                    <div class="drug_Intro">
+                        <p>【商 品 名】{|$list['name']|}</p>
+                        <p>【批准文号】{|$list['confirm_code']|}</p>
+                        <p>【药品类别】{|$list['type1_id']['pt_name']|}{|$list['type2_id']['pt_name']|}</p>
+                        <p>【医保类型】{|$list['medicare_type']|}</p>
+                        <p>【招商区域】{|$list['area']|}</p>
+                        <p>【药品剂型】{|$list['medicament_type']|}</p>
+                        <p>【是否中标】{|$list['zb_type']|}</p>
+                        <p>【药品规格】{|$list['spec']|}</p>
+                        <div class="code">
+                            <img src="{|$STYLE_URL|}/img/3156.png" alt=""/>
+                            <span>【快到手机里来】</span>
+                        </div>
+                        <input type="button" class="bt0" value="我要代理"/>
+                    </div>
+                </div>
+            </div>
+            <div class="text_con">
+                <p class="title">医药招商信息</p>
+                <div class="line_">
+                    <span class="info_name">【生产厂家】</span>
+                    <span class="info_con">{|$list['producer']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【代理条件】</span>
+                    <span class="info_con">{|$list['supply_term']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【提供支持】</span>
+                    <span class="info_con">{|$list['offer']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【产品买点】</span>
+                    <span class="info_con">{|$list['selling_points']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【备&nbsp;&nbsp;注】</span>
+                    <span class="info_con">{|$list['remark']|}</span>
+                </div>
+            </div>
+            <div class="text_con">
+                <p class="title">药品说明</p>
+                <div class="line_">
+                    <span class="info_name">【成分】</span>
+                    <span class="info_con">{|$list['component']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【用法用量】</span>
+                    <span class="info_con">{|$list['usage']|}</span>
+                </div>
+                <div class="line_">
+                    <span class="info_name">【主治功能】</span>
+                    <span class="info_con">{|$list['function']|}</span>
+                </div>
+            </div>
+            <div class="text_con co_info Contact_info">
+                <p class="title">联系方式</p>
+                <div class="line_">
+                    <div class="info_name">
+                        <p>单&nbsp;&nbsp;&nbsp;位：{|$list['cmp_name']|}</p>
+                        <p>电&nbsp;&nbsp;&nbsp;话：{|$list['link_tel']|}</p>
+                        <p>网&nbsp;&nbsp;&nbsp;址：<a href="{|$list['static_url']|}"> www.3156.cn/{|$list['static_url']|}</a></p>
+                        <p>Q &nbsp&nbsp&nbsp Q：{|$list['link_qq']|}</p>
+                    </div>
+                    <div class="info_con">
+                        <p>联系人：{|$list['link_man']|}</p>
+                        <p>所在地：{|$list['cmp_addr']|}</p>
+                        <p>邮编：{|$list['postcode']|}</p>
+                        <p>E-mail：<a href="javascript:void(0)"> {|$list['email']|}</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="text_con">
+                <span class="Drug_tips">温馨提示：</span>
+                <p class="tips_con">·联系时请说明该信息来自3156医药网，将会让您获得更多优惠。</p>
+                <p class="tips_con">·合作双方请谨慎。本网站为专业的药品招商平台，不为合作双方承担任何责任及风险，合作前请先核实查证对方证件及信息真实性，以确保您的利益不受损失。 </p>
+                <p class="tips_con">·本网站不销售药品，个人购买者请到医院或者药店咨询购买。</p>
+            </div>
+            <div class="xq_con_title">3156免费帮您找药品代理</div>
+            <div class="xq_content">
+                <p class="xq_con_text"> 尊敬的用户，您好！我们由衷的希望此信息对您有所帮助，同时也感谢您对我们的关注和支持 ，
+                    希望您在和该公司联系的时候提及 <a href="javascript:void(0)">3156医药网</a> 或<a href="javascript:void(0)">3156.cn</a>  ，我们会做的更好！</p>
+                <div class="xq_form_">
+                    <div class="xq_left xq_left2">
+                        <div class="menu_3156">
+                            <div class="line"></div>
+                            <div class="menu_title">3156医药网(医药行业第一门户)</div>
+                            <div class="menu_list" style="padding-top:65px;">
+                                <p>药品信息登记</p>
+                                <span>3156免费帮您找药品代理，为您省去烦心,我们做得开心</span>
+                            </div>
+                            <div class="menu_list">
+                                <p>药品信息登记</p>
+                                <span>3156免费帮您找药品代理，为您省去烦心,我们做得开心</span>
+                            </div>
+                            <div class="menu_list">
+                                <p>药品信息登记</p>
+                                <span>3156免费帮您找药品代理，为您省去烦心,我们做得开心</span>
+                            </div>
+                            <div class="bottom">
+                                <p>温馨提示：</p>
+                                <span>为了您尽快的得到产品需求和方便我们联系您，请填写真实信息，我们会为您提供更有效信息和更优质的服务，让您早日找到想要的代理产品</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <ul class="xq_right">
+                        <li style="position:relative;">
+                            <span><i>*</i>代理区域：</span>
+
+                            <select>
+                                <option value ="sichuan">四川</option>
+                                <option value ="chongqing">重庆</option>
+                                <option value="shanghai">上海</option>
+                                <option value="beijing">北京</option>
+                            </select>
+
+
+                            <div class="region">
+                                <ul>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                    <li><input type='checkbox' name='VoteOption1' value=1>万州区</li>
+                                </ul>
+
+                            </div>
+                        </li>
+                        <li>
+                            <span><i>*</i>代理渠道：</span>
+                            <ul class="channel">
+                                <li><input type='checkbox' name='VoteOption1' value=1>医院临床</li>
+                                <li><input type='checkbox' name='VoteOption1' value=1>医院临床</li>
+                                <li><input type='checkbox' name='VoteOption1' value=1>医院临床</li>
+                            </ul>
+                        </li>
+                        <li><span><i>*</i>联系人：</span><input type="text" class="right_txt" placeholder="请填写你的名字"/></li>
+                        <li><span><i>*</i>联系电话：</span><input type="text" class="right_txt"  placeholder="请填写你的联系电话"/></li>
+                        <li>
+                            <span>单位名称：</span><input type="text" class="right_txt" placeholder="请填写你单位的名称"/>
+                        </li>
+                        <li><span>Q &nbsp &nbspQ：</span><input type="text" class="right_txt" placeholder="请填写你的qq号码"/></li>
+                        <li><span>邮&nbsp&nbsp箱：</span><input type="text" class="right_txt" placeholder="请填写你常用的邮箱"/></li>
+                        <li class="msg"><span><i>*</i>代理留言：</span>
+                            <textarea name="" id="text" class="right_txt textarea" placeholder="消息来自3156医药网"></textarea>
+                            <div class="options_1 option" style="display:block;">
+                                <b>快捷留言：</b>
+                                <p><input type='checkbox' class="checkbox"  name='VoteOption1' value=1>我希望代理该产品，请速联系我！</p>
+                                <p><input type='checkbox' class="checkbox"  name='VoteOption1' value=1>请寄给我外包装盒！</p>
+                                <p><input type='checkbox' class="checkbox"  name='VoteOption1' value=1>合作政策是什么？</p>
+                                <p><input type='checkbox' class="checkbox"  name='VoteOption1' value=1>市场保证金是多少？</p>
+                                <p><input type='checkbox' class="checkbox"  name='VoteOption1' value=1>代理价多少？零售价是多少？</p>
+                            </div>
+                        </li>
+                        <li><input type="submit" class="sub" value="提交留言"/></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="agent_right">
+            <div class="Recommend right_OTC" style="border:0;border-right:1px solid #e6e6e6;">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药招商企业排行 </p>
+                <ul class="con">
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>推荐医药招商</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药新闻</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>企业动态</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend agent_online">
+                <p class="title">在线咨询</p>
+                <div class="con">
+                    <p><span>客服：</span><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a></p>
+                    <p>全天服务热线：18680473282</p>
+                    <p>客服邮箱：choose3156@163.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="A_class">
+            <div class="title">
+                <span><a href="javascript:void(0)">你可能感兴趣的产品</a></span>
+                <a href="javascript:void(0)">蛇胆川贝液儿科系列招商</a>
+                <a href="javascript:void(0)">蛇胆川贝液儿科系列招商</a>
+            </div>
+            <div class="pic">
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"  class="cur"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+                <a href="javascript:void(0)"  class="cur"><img src="img/pic_intersting.png" alt="" width="150" height="60"/><span>江西仁志生物科技有限公司</span></a>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="footer">
+        <div class="info_3156">
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="{|$STYLE_URL|}/img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="javascript:void(0)"> www.miitbeian.gov.cn</a></P>
+                <P><a href="javascript:void(0)">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a></P>
+                <P><a href="javascript:void(0)">医药招商网站 版权所有 违版必究51YES网站统计系统</a></P>
+            </div>
+        </div>
+    </div>
+    <div style="display: none;">
+  <!--统计--> 
+     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255043151'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255043151' type='text/javascript'%3E%3C/script%3E"));</script>
+     <script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+    </div>
+    <script>
+        $(".list_of1").slide({
+            titCell:".text",
+            targetCell:".text_info",
+            effect:"slideDown",
+            delayTime:300 ,
+            triggerTime:150,
+            defaultPlay:true,
+            returnDefault:true
+        });
+    </script>
+</body>
+</html>

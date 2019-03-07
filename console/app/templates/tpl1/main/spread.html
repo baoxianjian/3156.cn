@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="{|$style|}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="{|$style|}/css/Public.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$style|}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="{|$style|}/js/generalize.js"></script>
+<script src="{|$style|}/js/layer/layer.min.js"></script>
+</head>
+<body>
+
+  <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">推广管理</a></li>
+    <li><a href="#">推广列表</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <div class="tools">
+    
+      <ul class="toolbar">
+        <li class="click"><a href="/Console/editGe?add=1"><span><img src="{|$style|}/images/t01.png" /></span>添加</a></li>
+<!--         <li class="click"><span><img src="{|$style|}/images/t02.png" /></span>修改</li> -->
+        <li id="delAll"><span><img src="{|$style|}/images/t03.png" /></span>删除</li>
+     <!--    <li><span><img src="{|$style|}/images/t04.png" /></span>统计</li> -->
+        </ul>
+        
+        
+      <!--   <ul class="toolbar1">
+      <li><span><img src="{|$style|}/images/t05.png" /></span>设置</li>
+      </ul> -->
+    
+    </div>
+    
+    
+    <table class="tablelist">
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="checkAll" value=""/></th>
+        <th>推广编号<i class="sort"><img src="{|$style|}/images/px.gif" /></i></th>
+       <!--  <th>推广标题</th> -->
+        <th>推广类型</th>
+        <th>推广关键词</th>
+        <th>添加时间</th>
+        <th>起始时间</th>
+        <th>到期时间</th>
+        <th>推广排序</th>
+        <th>是否推荐</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <form>
+        <tbody>
+        {|foreach $list as $k=>$v|}
+            <tr>
+            <td><input name="check[]" type="checkbox" value="{|$v['ss_id']|}" /></td>
+            <td>{|$v['ss_id']|}</td>
+           <!--  <td>{|$v['title']|}</td> -->
+            <td>{|if $v['ss_type']==1|}产品{|elseif $v['ss_type']==10|}企业{|elseif $v['ss_type']==11|}产品+企业{|/if|}</td>
+            <td>{|$v['keywords']|}</td>
+            <td>{|date('Y-m-d',$v['dateline'])|}</td>
+            <td>{|date('Y-m-d',$v['start_time'])|}</td>
+            <td>{|date('Y-m-d',$v['end_time'])|}</td>
+            <td>{|$v['order']|}</td>
+            <td>{|if $v['recommend']!=0|}推荐{|else|}不是推荐{|/if|}</td>
+            <td>
+              {|if $v['ss_state']==1|}<a href="#" id="start" class="tablelink" index="{|$v['ss_state']|}" ss_id="{|$v['ss_id']|}" >已开启</a>{|else|}<a href="#" id="start" class="tablelink" index="{|$v['ss_state']|}" style="color:red" ss_id="{|$v['ss_id']|}" >已停用</a>{|/if|}&nbsp;&nbsp;
+              <a href="/Console/editGe?id={|$v['ss_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;<a href="#" name="del" ss_id="{|$v['ss_id']|}" class="tablelink"> 删除</a>
+            </td>
+            </tr> 
+        {|/foreach|}      
+        </tbody>
+      </form>
+    </table>
+    
+   
+    <div class="pagin">
+        {|$pageShow|}
+    </div>
+    
+     
+  <div class="tip">
+      <div class="tiptop"><span>提示信息</span><a></a></div>
+      
+    <div class="tipinfo">
+      <span><img src="{|$style|}/images/ticon.png" /></span>
+      <div class="tipright">
+      <p>一旦删除将无法恢复是否确定删除 ？</p>
+      <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+      </div>
+      </div>
+      
+      <div class="tipbtn">
+      <input type="button" id="sure" class="sure" value="确定" />&nbsp;
+      <input type="button"  class="cancel" value="取消" />
+      </div>
+  
+  </div>
+  
+  
+  
+  
+  </div> 
+    
+    <script type="text/javascript">
+  $('.tablelist tbody tr:odd').addClass('odd');
+  </script>
+
+</body>
+
+</html>

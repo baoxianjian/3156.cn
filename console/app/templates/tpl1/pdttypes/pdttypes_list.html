@@ -1,0 +1,258 @@
+{|include file="$HEADER"|}
+  <style>
+    .th{
+        background: url("{|$STYLE_URL|}/images/th.gif") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+        height: 34px;
+        border-bottom: 1px solid #b6cad2;
+        
+    }
+
+    .th li{
+        float: left;
+        height: 34px;
+        line-height: 34px;
+        text-align: left;
+        text-indent: 20px;
+        font-family: "微软雅黑";
+        font-weight: 800;
+        font-size: 9pt;
+        width: 33%;
+    }
+    .th .center_li{
+        text-align:left;
+		text-indetn:20px;
+    }
+    
+    .tr{
+         height: 34px;
+    }
+
+    .tr li{
+        
+        float: left;
+        /* border-right: 1px dotted #c7c7c7; */
+        background: url("{|$STYLE_URL|}/images/xuxian.png") repeat-y right;
+        height: 34px;
+        line-height: 34px;
+        width: 33.3333%;
+		text-indent:20px;
+		text-align:left;
+		
+    }
+
+	.place{
+	position:fixed;
+	z-index:999;
+	top:0;
+	left:0;
+	right:0;
+}
+    .pagin{
+
+        clear: both;
+    }
+
+    b{
+      font-size: 14px;
+    }
+	b.jian,b.jia{
+	display:inline-table;;
+	height:14px;
+	width:14px;
+	text-indent:-9999px;
+	margin-right:5px;
+	}
+	b.jian{
+	
+	background:url(/assets/style1/images/ht-icon.png) no-repeat left -21px;
+	}
+	b.jia{
+		background:url(/assets/style1/images/ht-icon.png) no-repeat left 10px;
+	}
+	.tools{margin-top:40px;}
+	.edit{display:block;}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+
+/*  $("[name='delete']").click(function(){
+    var id = $(this).attr('ss_id');
+    $.layer({
+      shade: [0],
+      area: ['auto','auto'],
+      dialog: {
+          msg: '一旦删除将会无法恢复，您确定删除？',
+          btns: 2,                    
+          type: 5,
+          btn: ['确定','取消'],
+          yes: function(){
+              location.href = 'list-ac-del-id-'+id;
+          }, 
+      }
+    });
+    return false;
+  });
+
+  $('#delAll').click(function(){
+    if ( $("[name='check[]']:checked").length <= 0 ){
+      layer.alert('未选择删除数据');
+      return false;
+    }
+    $.layer({
+      shade: [0],
+      area: ['auto','auto'],
+      dialog: {
+          msg: '一旦删除将会无法恢复，您确定删除？',
+          btns: 2,                    
+          type: 5,
+          btn: ['确定','取消'],
+          yes: function(){
+             // location.href = 'list-ac-del-id-'+id;
+              $('form').method = "post";
+              $('form').submit();
+          }, 
+      }
+    });
+  })*/
+
+$(".tr:odd").css('background','#f5f8fa');
+
+ $(".tr").mouseover(function(){
+    
+    $(this).css('background','#e5ebee');
+
+ })
+
+ $(".tr").mouseout(function(){
+    $(this).css('background','');
+    $(".tr:odd").css('background','#f5f8fa');
+ })
+
+/*$('.title').click(function(){
+
+  $(this).parent().parent().next('li').slideToggle();
+
+  if ( $(this).children("b").text() == '+' ){
+
+    $(this).children("b").text('-');
+
+  }else{
+
+    $(this).children("b").text('+');
+
+  }
+
+})*/
+
+$('body').on('click','.title',function(){
+  var _this = $(this);
+  if ( _this.children('b').text() == '+' ){
+       if ( _this.parent().parent().next('li').length == 0 ){
+        $.post('ajaxGroup',{groupId:_this.attr('mark')},function(data){
+          
+          if ( data.length > 0 ){
+
+            _this.parent().parent().parent().append('<li style="display:none"></li>');
+            for ( i=0; i<data.length; i++ ){
+           //   alert(_this.parent().parent().next('li').attr('class'));
+                //alert(data[i]['ggpg_id']);
+              _this.parent().parent().next('li').append("<ul><li><ul class='tr'><li></li><li mark="+data[i]['pt_id']+" class='title'>"+data[i]['pt_name']+"</li><li>&nbsp;&nbsp;&nbsp;&nbsp;<a href='edit-ac-edit-pt_id-"+data[i]['pt_id']+"-K-"+data[i]['K']+"-T-"+data[i]['T']+"'>编辑</a></li></ul></li></ul>");
+            }
+            _this.parent().parent().next('li').slideDown();
+
+             $(".tr").mouseover(function(){
+                
+                $(this).css('background','#e5ebee');
+
+             });
+
+             $(".tr").mouseout(function(){
+                $(this).css('background','');
+                $(".tr:odd").css('background','#f5f8fa');
+             });
+          }
+
+          _this.children('b').text('-').removeClass('jia').addClass('jian');
+        },'json');
+
+    }else{
+      _this.children('b').text('-').removeClass('jia').addClass('jian');
+      _this.parent().parent().next('li').slideDown();
+    }
+
+  }else{
+     _this.children('b').text('+').removeClass('jian').addClass('jia');
+     _this.parent().parent().next('li').slideUp();
+  }
+ 
+
+})
+
+});
+
+</script>
+
+
+
+ {|include file="$HEADER_END"|} 
+     <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>产品分类</li>
+		</ul>
+	</div> 
+    <div class="tools">
+      <ul class="toolbar">
+        <li class="click"><a href="edit?ac=add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加一级分类</a></li>
+<!--         <li class="click"><span><img src="/assets/console/images/t02.png" /></span>修改</li> -->
+      <!--   <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li> -->
+     <!--    <li><span><img src="/assets/console/images/t04.png" /></span>统计</li> -->
+        </ul>
+        
+        
+      <!--   <ul class="toolbar1">
+      <li><span><img src="/assets/console/images/t05.png" /></span>设置</li>
+      </ul> -->
+   <!-- <form action="" id="seek">
+        <ul class="seachform">
+        
+        <li><label>分类名称</label><input name="pt_name" type="text" class="scinput" /></li>
+        <input type="hidden" name='seek' value='1'>
+        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询"/></li>
+        
+        </ul>
+    </form> -->
+    </div>
+    
+    
+    <div style="border: 1px solid #cbcbcb;overflow:hidden;margin:20px 0;">
+    <ul>
+      <li class="head">
+        <ul class="th">
+            <li>分类</li>
+            <li class="center_li">子分类</li>
+            <li class="right_li">操作</li>
+        </ul>
+      </li>
+
+      <li>
+          {|foreach $list as $k=>$v|}
+            <ul class='ul'>
+              <li>
+                <ul class="tr">
+                    <li class="title" style="font-size:14px;font-weight:800" mark="{|$v['pt_id']|}"><b class="jia">+</b>{|$v['pt_name']|}</li>
+                    <li></li>
+                    <li style="font-size:14px;font-weight:800"><a href="edit-ac-add_children-pt_id-{|$v['pt_id']|}">添加子分类</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="edit-ac-edit-pt_id-{|$v['pt_id']|}-K-{|$v['K']|}-T-{|$v['T']|}">编辑</a></li>
+                </ul>
+              </li>
+
+          </ul>
+          {|/foreach|}
+      </li>
+    </ul>
+    </div>
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+    

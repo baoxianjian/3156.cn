@@ -1,0 +1,197 @@
+{|include file="$HEADER"|}
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/yyzs.css" />
+{|include file="$HEADER_END"|}
+<div class="w_wrap">
+<div class="content">
+	<ul class="ul_text">
+    {|gg('gid:84')|} 
+    </ul>
+    <div class="c_left">
+    	<div class="fen1">
+            <span>药品分类</span>
+            <ul>
+                  {|foreach $list_pdtype[0] as $k=>$val |}
+	 		           <li class="c_ul1_left">           
+					   <a {|$NAV_ACTIVE['products']|} href="{|$WWW_URL|}/product/index-t1-{|$val['pt_id']|}"  target="_blank">{|$val['pt_name']|}</a>
+					    {|if $list_pdtype[$val['pt_id']]!=''|}
+						 <ul>							                   
+						   {|foreach $list_pdtype[$val['pt_id']] as $k2=>$v2 |}			    
+								<li><a {|$NAV_ACTIVE['products']|} href="{|$WWW_URL|}/product/index-t1-{|$val['pt_id']|}-t2-{|$v2['pt_id']|}" target="_blank">{|$v2['pt_name']|}</a></li>						
+						    {|/foreach|}
+						    						
+						 </ul>
+						 {|else|}
+						 {|/if|}
+				       </li>
+				 {|/foreach|} 
+            </ul>
+        </div>
+        <div class="fen2">
+            <span>药品剂型</span>
+            <ul>
+            
+                {|foreach $medicamenttype as $v|}
+                    <li><a {|$NAV_ACTIVE['products']|} href="{|$WWW_URL|}/product/index-mdt-{|$v|}" target="_blank" >{|$v|}</a>
+                {|/foreach|}	
+            </ul>
+        </div>
+    </div>
+    <div class="c_right">
+    	<ul class="r_ul1">
+        {|gg('gid:85')|} 
+        </ul>
+        <ul class="r_ul2">
+        {|gg('gid:86')|} 
+        </ul>
+        <ul class="table">
+        {|gg('gid:87')|} 
+        </ul>
+        <ul class="c_fa">
+        	<li class="c_fa1"><a {|if $cid!='' |} href="{|$USER_URL|}/product/edit-ac-add" {|elseif $uid!='' && $cid=='' |} href='{|$WWW_URL|}/daili/tipyp' {|elseif $uid=='' && $cid==''|} href='{|$USER_URL|}/login' {|/if|} target='_blank' >免费发布药品信息</a></li>
+            <li class="c_fa2"><a href="{|$WWW_URL|}/daili/fbxq" target='_blank' >免费发布代理信息</a></li>
+        </ul>
+        <div class="fa_text">
+        	<p>最新发布药品信息</p>
+            <ul>
+            <!--{|gg('gid:88')|} -->
+            {|block('id:120')|}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="zhongyao fa_text">
+	<p><a class="p" >药品<strong class="important">中药招商</strong></a>{|gg('gid:91')|}</p>
+    {|gg('gid:89')|}
+    <ul class="yao_ul">
+    <!--{|block('id:82')|}-->
+    {|gg('gid:200')|}
+    </ul>
+    <ul class="table">
+    {|gg('gid:90')|}
+    </ul>
+</div>
+<div class="pai fa_text" style="margin-top:10px;">
+	<p>热门中药排行榜</p>
+    <ul class="pai_ul pai_ul2">
+    {|block('id:39')|}
+    </ul>
+</div>
+<div class="zhongyao fa_text" >
+	<p><a class="p" >药品<strong class="important">西药招商</strong></a>{|gg('gid:94')|}</p>
+    {|gg('gid:92')|}
+    <ul class="yao_ul">
+    <!--{|block('id:83')|}-->
+    {|gg('gid:201')|}
+    </ul>
+    <ul class="table">
+    {|gg('gid:93')|}
+    </ul>
+</div>
+<div class="pai fa_text" style="margin-top:10px;">
+	<p>热门西药排行榜</p>
+    <ul class="pai_ul pai_ul2">
+    {|block('id:40')|}
+    </ul>
+</div>
+<div class="zhongyao fa_text">
+	<p><a class="p" >药品<strong class="important">保健品招商</strong></a>{|gg('gid:97')|}</p>
+    {|gg('gid:95')|}
+    <ul class="yao_ul">
+    <!--{|block('id:84')|}-->
+    {|gg('gid:202')|}
+    </ul>
+    <ul class="table">
+    {|gg('gid:96')|}
+        </ul>
+</div>
+<div class="pai fa_text" style="margin-top:10px;">
+	<p>热门保健品排行榜</p>
+    <ul class="pai_ul pai_ul2">
+    {|block('id:41')|}
+    </ul>
+</div>
+<div class="zhongyao fa_text">
+	<p><a class="p" >药品<strong class="important">OTC招商</strong></a>{|gg('gid:100')|}</p>
+    {|gg('gid:98')|}
+    <ul class="yao_ul">
+    {|gg('gid:203')|}
+    <!--{|block('id:85')|}-->
+    </ul>
+    <ul class="table">
+    {|gg('gid:99')|}
+        </ul>
+</div>
+<div class="pai fa_text" style="margin-top:10px;">
+	<p>热门OTC排行榜</p>
+    <ul class="pai_ul pai_ul2">
+    {|block('id:42')|}
+    </ul>
+</div>
+<div class="other">
+	<div id="other">
+	<p class="name_p"><a  class="other_p">热点药品招商</a>{|gg('gid:103')|}</p>
+        <ul id="other_pic">
+        {|gg('gid:101')|}
+        </ul>
+        <ul class="ul_text" style="width:966px;">
+        {|gg('gid:102')|}
+    	</ul>
+     </div>
+<div class="other_right pai fa_text">
+	<p>热门产品排行榜</p>
+    <ul class="pai_ul pai_ul2">
+    {|block('id:43')|}
+    </ul>
+</div>
+<div class="bb_bottom">
+    <div class="bottom fa_text">
+        <p><span>新药特药</span><a target ="_blank" href="http://zixun.3156.cn/xyty/" class="more">更多>></a></p>
+        <ul>
+        	{|block('id:28')|}
+        </ul>
+    </div>
+    <div class="bottom fa_text">
+        <p><span>市场分析</span><a target ="_blank" href="http://zixun.3156.cn/scfx/" class="more">更多>></a></p>
+        <ul>
+        	{|block('id:19')|}
+        </ul>
+    </div>
+    <div class="bottom fa_text">
+        <p><span>营销战略</span><a target ="_blank" href="http://zixun.3156.cn/yxzl/" class="more">更多>></a></p>
+        <ul>
+        	{|block('id:20')|}
+        </ul>
+    </div>
+    <div class="bottom fa_text last" style="*margin-right:0;">
+        <p><span>政策法规</span><a target ="_blank" href="http://zixun.3156.cn/zcfg/" class="more">更多>></a></p>
+        <ul>
+        	{|block('id:21')|}
+        </ul>
+    </div>
+</div>
+<div class="link">
+	<ul>
+    	<li class="black">友情链接:</li>
+        {|block('id:132')|}
+    </ul>
+</div>
+</div>
+
+</div>
+{|block('id:139')|}
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:89"|} 
+{|include file="$FOOTER"|}
+<script type="text/javascript">
+
+		//字数限制
+		$(".yao_ul li").each(function(){
+			var this_=$(this);
+			var len_=this_.find("span").text().length;
+			if(len_>12){
+				 this_.find("span").attr("title",this_.find("span").text());  
+				var text=this_.find("span").text().substring(0,12);  
+					this_.find("span").text(text); 
+			}
+		})
+
+</script>

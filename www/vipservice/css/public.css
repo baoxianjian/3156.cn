@@ -1,0 +1,139 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+}
+.cur span{
+	color:#de0f0f;
+	margin-left:3px;
+}
+input{
+	border:none;
+}
+img{
+	border:none;
+}
+body{
+	/*width:1200px;*/
+	font-size:12px;
+	color:#333333;
+}
+img{
+	border:none;
+}
+li{
+	list-style-type:none;
+}
+a{
+	text-decoration:none;
+	color:#333333;
+}
+.w_wrap{
+	width:1200px;
+	margin:0 auto;
+}
+.location{
+	height:40px;
+	line-height:40px;
+}
+.location a{
+	margin:0 4px;
+}
+
+.location a:hover{
+	text-decoration:underline;
+	color:#fb8200;
+}
+.back_top{
+	width:42px;
+	height:40px;
+	background:#319a3b url(../img/back_top.png) no-repeat center;
+	position:fixed;
+	display:none;
+	cursor:pointer;
+	top:80%;
+	left:50%;
+	_position:absolute;
+  	_top:expression(documentElement.scrollTop+documentElement.clientHeight * 4/5 + "px") 
+}
+.red{
+	color:#de0f0f;
+}
+.table li{
+	border:1px dotted #b6b6b6;
+	float:left;
+}
+.table a{
+	display:block;
+	color:#333333;
+	text-align:center;
+}
+.table a.red{
+	color:#de0f0f;
+}
+.table a:hover{
+	color:#fff;
+	background:#de0f0f;
+}
+.table li{
+	border-right:none;
+	border-bottom:none;
+}
+.table .t_border_r{
+	border-right:1px dotted #b6b6b6;
+}
+.table .t_border_b{
+	border-bottom:1px dotted #b6b6b6;
+}
+.fa_text p{
+	padding-left:15px;
+	height:45px;
+	border:1px solid #e0e0e0;
+	border-top:2px solid #5eb543;
+	background:#f8f8f8;
+	color:#333333;
+	font-size:21px;
+	font-family:'微软雅黑';
+	line-height:45px;
+}
+.fa_text p span{
+	float:left;
+}
+.topbg{
+	height:35px;
+	background:#f6f6f6;
+	border-bottom:1px solid #e6e6e6;
+}
+.topbg{
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+}
+.nav .active_nav{background:#4e9106;}
+/*提交类似大小的按钮*/
+.btn1{
+	height:40px;
+	width:165px;
+	color:#fff;
+	background:#fb8200;
+	font-size:20px;
+	font-family:'微软雅黑';
+	text-align:center;
+	line-height:40px;
+	cursor:pointer;
+}
+/*输入框*/
+.btn1:hover{
+	background:#fc9200;
+}
+.input_text{
+	width:245px;
+	height:37px;
+	line-height:37px;
+	border:1px solid #cccccc;
+	padding-left:5px;
+}
+
+

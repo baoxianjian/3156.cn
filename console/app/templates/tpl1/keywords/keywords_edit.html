@@ -1,0 +1,42 @@
+{|include file="$HEADER"|}
+
+{|include file="$HEADER_END"|}
+<style type="text/css">
+	.forminfo li label{min-width:73px;text-align:right;}
+</style>
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">关键字管理</a></li>
+			<li>添加关{|$TIP_NAME|}</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>关键字{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post" name="myform">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+                                                               
+        <li><label>关　键　字：</label><input name="row[kw_name]" type="text" class="dfinput" value="{|$row['kw_name']|}" /><i>用于搜索引擎</i></li>          
+                          
+        <li><label>搜 索 次 数：</label><input name="row[sk_count]" type="text" class="dfinput" value="{|$row['sk_count']|}" /><i>数字类型</i></li>
+        <!--<li><label>热门程度：</label><input name="row[hot]" type="text" class="dfinput" value="{|$row['hot']|}" /><i>数字类型</i></li>-->
+        
+        <!--<li><label >关键字类型：</label><cite><label for="type" ><input name="row[type]" type="radio" value="1" {|$type_checked[1]|}  id="type"/>正常关键字</label>&nbsp;&nbsp;&nbsp;&nbsp;<label for="type2" ><input name="row[type]" type="radio" value="2" {|$type_checked[2]|} id="type2" />过滤关键字</label> </cite></li>-->
+        <!--<li><label>是否被删除：</label><cite><label for="del" ><input name="row[is_del]" type="radio" value="0" {|$is_del_checked[0]|}  id="del"/>否</label>&nbsp;&nbsp;&nbsp;&nbsp;<label for="del2"><input name="row[is_del]" type="radio" value="1" {|$is_del_checked[1]|} id="del2"/>是</label></cite></li>-->
+       <li><label>关键字状态：</label><cite style="padding-top:0;"><label for="state" style="text-align:left;"><input name="row[ss_state]" type="radio" value="1" {|$ss_state_checked[1]|}  id="state"/>正常</label>&nbsp;&nbsp;&nbsp;&nbsp;<label for="state2"  style="text-align:left;><input name="row[ss_state]" type="radio" value="2" {|$ss_state_checked[2]|} id="state2"/>停用</label></cite></li>                       
+        <li><label>&nbsp;</label><input name="" type="submit" id="suer" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+
+{|include file="$FOOTER"|}  

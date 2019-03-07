@@ -1,0 +1,82 @@
+{|include file="$HEADER"|}
+ 
+<style type="text/css">
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.tools form{
+	overflow:hidden;
+	background:#F5F9FB;
+	padding:10px 0 10px 10px;
+}
+label{margin-right:15px;}
+.toolbar a{display:block;width:75px;height:35px;}
+</style>
+{|include file="$HEADER_END"|}
+<div class="place">
+	<span>位置：</span>
+    <ul class="placeul">
+    	<li><a href="###">首页</a></li>
+        <li>区块数据管理</li>
+    </ul>
+</div>
+<div class="tools" style="margin-top:40px;">
+        <form action="list" method="post">
+            <label for="">编号：<input type="text" name="id" class="scinput" value="{|$srow['id']|}" ></label>
+            <label for="">标题：<input type="text" name="title" class="scinput"  value="{|$srow['title']|}" ></label>    
+            <label for="">所属区块：<input type="text" name="bbid" class="scinput" value="{|$srow['bbid']|}" ></label>
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar">
+            <li class="click"><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+        </ul>      
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+    </div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <!--<th><input name="" type="checkbox" value="" checked="checked"/></th>-->
+        <th>编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>标题</th>
+        <th>链接地址</th>
+        <th>所属区块</th>
+        <th>所属模块</th>
+        <th>排序</th>
+        <th>添加日期</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['bd_id']|}">
+                <!--<td><input name="" type="checkbox" value="" /></td>-->
+                <td>{|$row['bd_id']|}</td>
+                <td>{|$row['title']|}</td>
+                <td>{|$row['link_url']|}</td>
+                <td>{|$row['bb_id']|}</td>
+                <td>{|$row['mod_type']|}</td>
+                <td>{|$row['order']|}</td>
+                <td>{|$row['dateline']|}</td>
+                <td>
+                    <a href="edit-id-{|$row['bd_id']|}" class="tablelink">编辑</a>     
+                    <a onclick="return delConfirm('{|$row['bd_id']|}');" href="del-id-{|$row['bd_id']|}" class="tablelink"> 删除</a>
+                </td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+
+

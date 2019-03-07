@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>VIP会员服务-3156医药网</title>
+<meta name="keywords" content="医药公司,VIP会员,招商主页,免费专业设计,无限招商产品发布,自动刷新产品,到期提醒服务,全站广告支持,全国药品网" />
+<meta name="description" content="Vip会员是为厂商用户提供的一项增值服务。vip会员享有按照自己的要求,由专业设计人员免费设计图片、页面,招商产品发布不限数量；每天可查看数据库所有信息,不限制打印；在服务期内vip会员可随时增加和删减产品；可针对自己的产品进行每小时刷新一次。" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="./css/top.css" />
+<link type="text/css" rel="stylesheet" href="./css/footer.css" />
+<link type="text/css" rel="stylesheet" href="./css/public.css" />
+<link type="text/css" rel="stylesheet" href="./css/vip.css" />
+<script type="text/javascript" src="./js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="./js/3156_old.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+</head>
+<body>
+<div class="back_top"></div>
+<div class="topbar">
+		<div class="topbg"></div>
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a href="http://www.3156.cn/product/">药品库</a></li>
+                <li><a href="http://shuju.3156.cn/">数据中心</a></li>
+                <li><a href="http://zixun.3156.cn/">医药资讯</a></li>
+                <li><a href="http://www.3156.cn/daili/">医药代理</a></li>
+                <li><a href="http://www.3156.cn/company/">医药公司</a></li>
+            </ul>
+            <ul class="right">
+                <li class="cur">你好，<span>游客</span></li>
+                <li><a href="http://user.3156.cn/user/login" rel="nofollow">请登录</a></li>
+                <li><a href="http://user.3156.cn/user/register" rel="nofollow">免费注册</a></li>
+
+                <li class="img" style="position:relative;">
+					<a href="javascript:void(0);"><img src="img/weixin.png"/></a>
+					<span class="er_block"></span>
+				</li>
+                <li class="img"><a href="http://weibo.com/qgypw"><img src="img/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="http://www.3156.cn"><img src="img/logo.png" alt="3156医药网" title="3156医药网"/></a>
+        </div>
+		<span class="sitemap_name">VIP会员服务</span>
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="project" class="searchOn">产品</dd>
+                            <dd s-type="article">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3156.cn" method="get" target="-blank">
+                    <input type="text" name="seek" value="输入您要找的产品" class="search-On" def="输入您要找的产品" onFocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onBlur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <a class="search-btn btn1" hidefocus="" href="http://www.3156.cn/daili/fbxq">发布需求</a>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E5%84%BF%E7%A7%91">儿科</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E8%B4%B4%E5%89%82">感冒</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E9%99%8D%E5%8E%8B">止咳</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E5%A3%AE%E9%98%B3">壮阳</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E7%9A%AE%E8%82%A4">皮肤</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E8%A1%A5%E8%82%BE">补肾</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E6%AD%A2%E7%97%9B">止痛</a>
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek=%E6%AD%A2%E8%A1%80">止血</a>
+            </div>
+            <!--/search-key-->
+        </div>
+        <ul class="nav">
+            <li><a href="http://www.3156.cn">首页</a></li>
+            <li><a href="http://yyzs.3156.cn/">医药招商</a></li>
+            <li><a href="http://ypzs.3156.cn/">药品招商</a></li>
+            <li><a href="http://otc.3156.cn/">OTC</a></li>
+            <li><a href="http://bjp.3156.cn/">保健品</a></li>
+            <li><a href="http://yz.3156.cn/">药妆</a></li>
+            <li><a href="http://ylqx.3156.cn/">医疗器械</a></li>
+            <li><a href="http://www.3156.cn/daili/">医药代理</a></li>
+            <li><a href="http://zixun.3156.cn">医药资讯</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/">疾病查询</a></li>
+            <li><a href="http://www.3156.cn/company/">医药公司</a></li>
+            <li><a href="http://www.3156.cn/product/">药品库</a></li>
+            <li><a href="http://shuju.3156.cn">医药数据库</a></li>
+        </ul>
+    </div>
+<div class="w_wrap">
+<div class="title">
+	<img src="img/top.png" />
+	<ul>
+    	<li>想拥有自己公司专属的招商主页吗？</li>
+        <li>想第一时间掌握最新的资讯和代理商信息吗？</li>
+        <li>想让自己公司的名字被更多的人知道吗？</li>
+        <li>赶快加入<span class="red"> IP会员</span>体验吧！<span class="tel">客服专线:18680473282</span></li>
+    </ul>
+</div>
+<ul class="pic1">
+	<li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">拥有专属的招商主页 </p>
+            <p class="p_top_small">http://www.3156.cn/home/***</p>
+        </div>
+        <img class="pic_img" src="img/pic1.png" />
+    </li>
+    <li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">免费专业设计 </p>
+            <p class="p_top_small">由专业设计人员免费设计图片、页面</p>
+        </div>
+        <img class="pic_img" src="img/pic2.png" />
+    </li>
+    <li class="last change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">无限招商产品发布 </p>
+            <p class="p_top_small">招商产品发布不限量</p>
+        </div>
+        <img class="pic_img" src="img/pic3.png" />
+    </li>
+    <li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">自由增减产品 </p>
+            <p class="p_top_small">在服务期内可随时增加和删减产品</p>
+        </div>
+        <img class="pic_img" src="img/pic4.png" />
+    </li>
+    <li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">及时掌握最新的医药信息 </p>
+            <p class="p_top_small">享受优质的增值服务</p>
+        </div>
+        <div class="middle">
+        	<div class="middle_inner">
+        	<p class="qq">客服<a href="http://wpa.qq.com/msgrd?V=1&uin=749900393&Site=3156.cn&Menu=yes" target="_blank"><img class="q1" data-bd-imgshare-binded="1" src="http://img1.3156.cn/res/img/2.0/qq.png" alt=""></a><a href="http://wpa.qq.com/msgrd?V=1&uin=2821512219&Site=3156.cn&Menu=yes" target="_blank"><img data-bd-imgshare-binded="1" src="http://img1.3156.cn/res/img/2.0/qq.png" alt=""></a></p>
+            <p>全天服务热线：18680473282</p>
+            <p>客服邮箱：choose3156@163.com</p>
+            <a href="http://about.3156.cn/service.shtml" class="lian">马上体验</a>
+            </div>
+        </div>
+    </li>
+    <li class="last change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">自动刷新产品信息 </p>
+            <p class="p_top_small">可针对自己的产品进行每小时刷新一次</p>
+        </div>
+        <img class="pic_img" src="img/pic6.png" />
+    </li>
+    <li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">海量医药数据库 </p>
+            <p class="p_top_small">大量国内外医药数据库免费查看</p>
+        </div>
+        <img class="pic_img" src="img/pic7.png" />
+    </li>
+    <li class="change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">到期提醒服务 </p>
+            <p class="p_top_small">供会员及时查看，避免了因忘记广告时间影响公司效益</p>
+        </div>
+        <img class="pic_img" src="img/pic8.png" />
+    </li>
+    <li class="last change_pic">
+    	<div class="p_top">
+        	<p class="p_top_big">全站广告支持 </p>
+            <p class="p_top_small">多站点广告助力您的招商效果</p>
+        </div>
+        <img class="pic_img" src="img/pic9.png" />
+    </li>
+
+</ul>
+</div>
+</div>
+<div class="copyright">
+	<div class="copyright_con">
+		<div class="about_3156">
+			<p class="title">关于3156：</p>
+			<div class="con">
+				<a rel="nofollow" href="http://about.3156.cn/">关于我们</a>
+				<a rel="nofollow" href="http://about.3156.cn/service.shtml">广告服务</a>
+				<a rel="nofollow" href="http://about.3156.cn/zhaopin.shtml">诚聘英才</a>
+				<a rel="nofollow" href="http://about.3156.cn/private.shtml">隐私声明</a>
+				<a rel="nofollow" href="http://about.3156.cn/friends.shtml">友情链接</a>
+				<a href="http://www.3156.cn/sitemap">网站地图</a>
+			</div>
+		</div>
+		<div class="about_3156 contact">
+			<p class="title">联系3156：</p>
+			<div class="con">
+				<p>广告热线：18680473282</p>
+				<p>客服QQ：<em>2821512219</em></p>
+				<p>　　　　<em>749900393</em></p>
+				<p>代理商QQ群①：13459128</p>
+				<p>　　　　群②：123705685</p>
+				<p>　　　　群③：179054425</p>
+			</div>
+		</div>
+		<div class="about_3156 tishi">
+			<p class="title">3156提示：</p>
+			<div class="con">
+				<p>本网站为专业的医药招商代理平台，<span class="red">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打右侧电话；药品代理期间出现纠纷问题，请及时拨打投诉电话，网站将协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+			</div>
+		</div>
+		<div class="about_3156 guanzhu">
+			<p class="title">关注3156：</p>
+			<div class="con">
+				<span class="er_ma weibo"></span>
+				<p style="text-align:center;">3156官方微博</p>
+			</div>
+			<div class="con" style="padding:0;background:none;margin-left:20px;">
+				<span class="er_ma"></span>
+				<p style="text-align:center;">3156微信公众号</p>
+			</div>
+		</div>
+	</div>
+	<div class="copyright_info">
+		Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="http://www.miitbeian.gov.cn" rel="nofollow">www.miitbeian.gov.cn</a>   <a href="http://www.3156.cn/images/zgzs.gif " rel="nofollow">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a> <a href="http://www.3156.cn" rel="nofollow">医药招商网站</a>版权所有 
+	</div>
+</div>
+<div style="display: none;">
+  <!--统计--> 
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254859985'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1254859985' type='text/javascript'%3E%3C/script%3E"));</script>
+  <script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+</div>
+</body>
+</html>

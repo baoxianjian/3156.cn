@@ -1,0 +1,70 @@
+{|include file="$HEADER"|}
+ {|include file="$HEADER_END"|} 
+ <link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+ <style type="text/css">
+	.forminfo li label{
+		min-width:84px;
+		text-align:right;
+		line-height:26px;
+	}
+ </style>
+ <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li><a href="/ggmanage/list" target="rightFrame">分组管理</a></li>
+            <li>添加分组</li>
+        </ul>
+    </div>  
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>添加分组</span></div>
+    <form action="doaddgroup" id="upForm" method="POST">
+    <ul class="forminfo">
+    <li><label>一级分组名称：</label><label style="text-align:left;">{|$parent['title']|}</label></li>
+    <li><label>一级分组ID：</label><label style="text-align:left;">{|$parent['ggpg_id']|}</label> <input type="hidden" value="{|$parent['ggpg_id']|}" name='parent_id'></li>
+    <li><label>分组名称：</label><input name="title" id="gname" type="text" class="dfinput input" value="{|$list['title']|}" /><i id="gninfo">输入分组名称</i></li>
+    <li><label>排　　序：</label><input type="text" name="order" value="{|$list['order']|}"></li>
+    <li><label>备注(可选)：</label><textarea name="intro" cols="" rows="" class="textinput">{|$list['intro']|}</textarea></li>
+    <input type="hidden" name='ac' value="{|$ac|}">
+    <input type="hidden" value='{|$ggpg_id|}' name='ggpg_id'>
+    <li><label>&nbsp;</label><input id="sure" type="submit" class="btn" value="提交"/></li>
+    </ul>
+    {|foreach $TOKEN as $k=>$v|}
+        <input type="hidden" name="{|$k|}" value="{|$v|}">
+    {|/foreach|}
+    </form>
+    </div>
+<script>
+
+//分组名校验异步事件处理
+$('#gname').blur(function(){
+    $.post("/ggmanage/ajaxGname",{title:$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $('#gninfo').css('color','red');
+            $('#gninfo').text(data.info);
+        }else{
+            $('#gninfo').css('color','green');
+            $('#gninfo').text(data.info);
+        }
+    },'json');
+})
+
+$('#sure').click(function(){
+    $.post('doaddgroup',$('form').serialize(),function(data){
+        if ( data.status ){
+            layer.alert(data.info,1);
+            setTimeout(function () { 
+                location.reload();
+            }, 200);   
+        }else{
+            layer.alert(data.info);
+        }
+    },'json');
+    return false;
+})
+
+</script>
+</body>
+</html>
+

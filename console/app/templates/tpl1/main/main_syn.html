@@ -1,0 +1,103 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+/**/
+
+                    
+function a()
+{
+ layer.alert('请求已发送，由于数据量较大,请稍等片刻（重建索引5分钟，更新索引几秒钟）后到前台相关搜索页查看效果！',1);
+}
+</script>
+<style>
+.btn_ul{
+	margin-top:58px;
+}
+.btn_ul li a{
+	display:inline-block;
+	height:35px;
+	line-height:35px;
+	background:#f1f6f7 url(../../../../assets/style1/images/ht-iocn.png) no-repeat 10px 6px;
+	font-size:14px;
+	width:68px;
+	border-radius:3px;
+	margin-right:12px;
+	border:1px solid #d3dbde;
+	font-family:'微软雅黑';
+	padding-left:40px;
+}
+.btn_ul li a.f5{
+	background:#f1f6f7 url(../../../../assets/style1/images/f5-icon.png) no-repeat 10px center;
+}
+.btn_ul li{
+	margin-bottom:15px;
+	width:33%;
+	float:left;
+}
+.btn_ul  li span{
+	float:left;
+	display:inline-block;
+	height:35px;
+	line-height:30px;
+	margin-right:5px;
+	width:65px;
+	text-align:left;
+}
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+</style>
+{|include file="$HEADER_END"|}
+<div class="place">
+	<span>位置：</span>
+    <ul class="placeul">
+    	<li><a href="###">首页</a></li>
+        <li>数据同步</li>
+    </ul>
+</div>
+<ul class="btn_ul">
+	<li>
+        <span>关 键 字：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-keywords-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-keywords-t-delta">更新索引</a><br/>
+    </li>
+    <li>
+    	<span>产品推广：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-spreadp-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-spreadp-t-delta">更新索引</a><br/>
+    </li>
+    <li>
+    	<span>企业推广：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-spreadc-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-spreadc-t-delta">更新索引</a><br/>
+    </li>
+    <li>
+    	<span>产&nbsp;  &nbsp;品：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-product-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-product-t-delta">更新索引</a><br/>
+    </li>
+    <li>
+    	<span>企&nbsp;  &nbsp;业：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-company-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-company-t-delta">更新索引</a><br/>
+    </li>
+    
+    <li>
+        <span>药品库：</span>
+        <a target="syn" onclick="a();" href="/remote/datasyn-n-company-t-full">重建索引</a>
+        <a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-company-t-delta">更新索引</a><br/>
+    </li>
+    
+    
+    http://211.147.6.220:18087/solr/agentcmt/dataimport?command=status&indent=true&wt=json&_=1433595599536
+    
+</ul>  
+ <iframe name="syn" id="syn" src="" width="0" height="0"></iframe>    
+
+{|include file="$FOOTER"|}  
+
+

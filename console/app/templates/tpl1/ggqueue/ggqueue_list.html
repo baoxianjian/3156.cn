@@ -1,0 +1,369 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+        width : 345           
+    });
+    $(".select2").uedSelect({
+        width : 167  
+    });
+    $(".select3").uedSelect({
+        width : 100
+    });
+
+    $('.del').click(function(){
+        var t = $(this).attr('t');
+        var k = $(this).attr('k');
+        var mark = $(this).attr('mark');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post("del-T-"+t+"-K-"+k+"-ggt_id-"+mark,{check:mark},function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                },
+            }
+          });
+        return false;
+    })
+
+    $('#delAll').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post('del',$('#del').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+            }
+          });
+        return false;
+        
+    })
+
+    //审核多选
+    $('#audit_ok').click(function(){
+
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(2);
+
+        $.post('audit',$('#del').serialize(),function(data){
+
+            if ( data.status ){
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+            }else{
+                layer.alert(data.info);
+            }
+
+         },'json');
+
+        return false;
+
+    })
+
+    //审核多选
+    $('#audit_no').click(function(){
+
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(3);
+
+        $.post('audit',$('#del').serialize(),function(data){
+
+            if ( data.status ){
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+            }else{
+                layer.alert(data.info);
+            }
+
+         },'json');
+
+        return false;
+
+    })
+
+    //审核单选
+    $('.audit').click(function(){
+        var t = $(this).attr('t');
+        var k = $(this).attr('k');
+        var mark = $(this).attr('mark');
+        var audit = $(this).attr('audit');
+        $.post("audit-T-"+t+"-K-"+k+"-ggt_id-"+mark,{check:mark,audit:audit},function(data){
+
+            if ( data.status ){
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+            }else{
+
+                layer.alert(data.info);
+            }
+
+         },'json');
+        return false;
+    })
+
+     //日期控件
+       var start = {
+        elem: '#startTime',
+        format: 'YYYY/MM/DD',
+        min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#endTime',
+        format: 'YYYY/MM/DD',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    laydate.skin('molv');
+
+    //异步联动 
+
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#ggpg_2').empty();
+            if ( data['list'].length > 0 ){
+               $('#ggpg_2').parent().children('.uew-select-value').empty();
+                $('#ggpg_2').parent().children('.uew-select-value').append("<em class='uew-select-text'>"+data['list'][0]['title']+"</em><em class='uew-icon uew-icon-triangle-1-s'></em>");
+                for ( i=0; i<data['list'].length; i++ ){
+
+                    $('#ggpg_2').append("<option value="+data['list'][i]['ggpg_id']+">"+data['list'][i]['title']+"</option>");
+
+                }
+                 $('#ggpg_2').append("<option value=''>直属广告位</option>");
+            }else{
+
+                 $('#ggpg_2').parent().children('.uew-select-value').text('暂无子分类');
+
+            }
+            
+
+        },'json');
+    })
+
+
+   /* $('#groupAll').click(function(){
+        alert('ok');
+    })*/
+
+});
+</script>
+<style type="text/css">
+	.seachform_1{margin-bottom:10px;}
+	.click a{display:block;}
+</style>
+{|include file="$HEADER_END"|} 
+     <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li>广告单管理</li>
+        </ul>
+    </div>
+    <div class="formbody">
+  	<div id="tab2" class="tabson">
+    <div class="adv_top" style="margin-top:30px;">
+    <form action="list" method="get" id="seek">
+        <ul class="seachform">
+             <li><label>合同编号：</label><input name="GQ|contractNo_id" type="text" style="width:200px" class="scinput" value="{|$row['GQ|contractNo_id']|}"/></li>
+             <li><label>广告位：</label>  
+                <div class="vocation">
+                <select class="select3" id="ggpg_1" name="ggpg_id" style="width:80px">
+                    <option value="" id='groupAll'>全部</option>
+                    {|foreach $group as $k=>$v|}
+                        <option value="{|$v['ggpg_id']|}" {|if $row['ggpg_id']==$v['ggpg_id'] |} selected='selected' {|/if|}>{|$v['title']|}</option>
+                    {|/foreach|}
+                </select>
+                </div>
+                <div class="vocation">
+                    <select class="select3" id="ggpg_2" name="ggpg_id2" >
+                        <option value="">全部</option>
+                    </select>
+                </div>
+             </li>
+             <li><label>审核状态：</label>  
+                <div class="vocation">
+                <select class="select3" name="GQ|audit_status">
+                    <option value="">全部</option>
+                    <option value="1" {|if $row['GQ|audit_status']==1|} selected='selected' {|/if|}>未审核</option>
+                    <option value="2" {|if $row['GQ|audit_status']==2|} selected='selected' {|/if|}>审核通过</option>
+                    <option value='3' {|if $row['GQ|audit_status']==3|} selected='selected' {|/if|}>审核未通过</option>
+                </select>
+                </div>
+             </li>
+             <li><label>销售类型：</label>  
+                <div class="vocation">
+                <select class="select3" name="GP|gg_sale_state" >
+                    <option value="">全部</option>
+                    <option value="1" {|if $row['GP|gg_sale_state']==1|} selected='selected' {|/if|}>付费</option>
+                    <option value="2" {|if $row['GP|gg_sale_state']==2|} selected='selected' {|/if|}>配送</option>
+                    <option value='3'{|if $row['GP|gg_sale_state']==3|} selected='selected' {|/if|}>免费</option>
+                </select>
+                </div>
+             </li>
+         </ul>
+         <ul class="seachform seachform_1">
+             <li><label>公司编号：</label><input name="GQ|cmp_id" value="{|$row['GQ|cmp_id']|}" type="text" class="scinput" style="width:100px" /></li>
+             <li><label>广告位ID：</label><input name="GQ|ggp_id" value="{|$row['GQ|ggp_id']|}"  type="text" class="scinput" style="width:100px" /></li>
+              <li><label>起止时间：</label>  
+            <input type="text" id='startTime' name="GQ|start_time" value="{|$row['GQ|start_time']|}" class='laydate-icon scinput' style="width:130px" >
+            <input type="text" id='endTime' name="GQ|end_time" value="{|$row['GQ|end_time']|}" class='laydate-icon scinput' style="width:130px" >
+        </li>
+             <li><input name="" type="submit" class="scbtn" value="查询"/></li>
+             <li><input type="hidden" name='seek' value='1'></li>
+         </ul>
+        
+    </form>
+    </div>
+    <ul class="toolbar">
+    	<li id="audit_ok"><span><img src="{|$STYLE_URL|}/images/yes-icon.png" /></span>通过审核</li>
+        <li id="audit_no"><span><img src="{|$STYLE_URL|}/images/stop-icon.png" /></span>审核不通过</li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <!--<li><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>-->
+        <li class="click"><a href="edit-ac-add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加广告单</a></li>
+     </ul>
+     <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th style="min-width:35px;"><input id="checkAll" type="checkbox" value=""/></th>
+        <th style="min-width:65px;">广告单编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th style="min-width:65px;">合同编号</th>
+        <th>广告位</th>
+        <th>公司</th>
+        <th style="min-width:65px;">起始时间</th>
+        <th style="min-width:65px;">结束时间</th>
+        <th style="min-width:65px;">素材ID</th>
+        <th style="min-width:65px;">销售类型</th>
+        <th style="min-width:65px;">审核状态</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+            {|foreach $list as $k=>$v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['ggq_id']|}" id="ckb" /></td>
+                <td>{|$v['ggq_id']|}</td>
+                <td>{|$v['contractNo_id']|}</td>
+                <td>{|$v['ggp_id']|}={|$v['title']|}</td>
+                <td>{|$v['mod_id']|}={|$v['cmp_name']|}</td>
+                <td>{|$v['start_time']|}</td>
+                <td>{|$v['end_time']|}{|$v['expire_hint']|}</td>
+                <td>{|$v['ggm_id']|}</td>
+                <td>{|$v['gg_sale_state']|}</td>
+                {|if $v['audit_status'] == '审核未通过'|}<td style="color:red">{|$v['audit_status']|}</td>{|else|}<td>{|$v['audit_status']|}</td>{|/if|}
+                <td><a href="edit-T-{|$v['T']|}-K-{|$v['K']|}-ac-edit-ggq_id-{|$v['ggq_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;<a href="del-T-{|$v['T']|}-K-{|$v['K']|}-check-{|$v['ggq_id']|}" mark="{|$v['ggq_id']|}" t="{|$v['T']|}" k="{|$v['K']|}" class="tablelink del"> 删除</a>&nbsp;&nbsp;<a href="audit-T-{|$v['T']|}-K-{|$v['K']|}-check-{|$v['ggq_id']|}-audit-2" mark="{|$v['ggq_id']|}" t="{|$v['T']|}" k="{|$v['K']|}" audit="2" class="tablelink audit">通过审核</a>&nbsp;&nbsp;<a class="tablelink audit" href="audit-T-{|$v['T']|}-K-{|$v['K']|}-check-{|$v['ggq_id']|}-audit-3" mark="{|$v['ggq_id']|}" t="{|$v['T']|}" k="{|$v['K']|}" audit="3" class="tablelink">驳回审核</a></td>
+                </tr> 
+            {|/foreach|}
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+            
+            <input type="hidden" name='audit' value='' disabled="disabled">
+
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

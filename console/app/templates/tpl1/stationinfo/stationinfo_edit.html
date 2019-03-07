@@ -1,0 +1,193 @@
+{|include file="$HEADER"|}
+
+{|include file="$HEADER_END"|}
+  <style>
+  .place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.formbody{
+	margin-top:40px;
+}
+.forminfo li label{text-align:right;}
+  </style>
+<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center"  target="rightFrame">首页</a></li>
+            <li><a href="/stationinfo/list">站内来电询单</a></li>
+            <li>添加站内来电询单</li>
+        </ul>
+</div>  
+    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>网站电话询单{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post" name="myform" onsubmit="return check();">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+                                                               
+        <li><label><font color="red">*</font>产品名称：</label><input name="row[pdt_name]" type="text" class="dfinput" id="pdt_name" value="{|$row['pdt_name']|}" /><i id="pdt">输入产品名称</i></li>          
+                          
+        <li><label><font color="red">*</font>意向区域：</label><input name="row[areas]" type="text" class="dfinput" id='areas' value="{|$row['areas']|}" /><i id='address'>输入区域</i></li>
+        <li><label><font color="red">*</font>联系人：</label><input name="row[link_man]" type="text" class="dfinput" id='link_man' value="{|$row['link_man']|}" /><i id='link'>输入联系人</i></li>
+        <li><label><font color="red"></font>联系方式：</label><input name="row[contact]" type="text" class="dfinput" id='contact' value="{|$row['contact']|}" /><i id='con'></i></li> 
+        <li><label><font color="red">*</font>添加日期：</label><input style="height:34px;" name="row[dateline]" type="text" class="laydate-icon dfinput" id="startTime" {|if $row['dateline']!=""|}value="{|date('Y-m-d',$row['dateline'])|}" {|/if|} /><i id='time'>时间类型</i></li> 
+        <li><label><font color="red">*</font>询单内容：</label><textarea name="row[content]" class="textinput" id='content'>{|$row['content']|}</textarea><i id='cont'>输入询单内容</i></li>
+              
+        <li><label>&nbsp;</label><input  type="submit"  class="btn" value="提交"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+
+{|include file="$FOOTER"|}  
+<script type="text/javascript">
+       var start = {
+        elem: '#startTime',
+        format: 'YYYY-MM-DD',
+        min: '1970-01-01', //设定最小日期为当前日期
+        max: '2099-06-16', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+             $('#time').html('可以使用').css('color','green');
+        }
+    };
+    laydate(start);
+    laydate.skin('molv');
+
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+</script>   
+<script type="text/javascript">
+   $(document).ready(function(){
+	  $('#pdt_name').blur(function(){
+		   if($('#pdt_name').val()==''){
+			   $('#pdt').html('产品名称不能为空!').css('color','red');
+		   }		   
+		   else{
+			   $('#pdt').html('可以使用').css('color','green');
+		   }		   
+	  })
+	  $('#areas').blur(function(){
+		   if($('#areas').val()==''){
+			   $('#address').html('意向区域不能为空!').css('color','red');
+		   }
+		   else{
+			   $('#address').html('可以使用').css('color','green');
+		   }
+	  }) 
+	  $('#link_man').blur(function(){
+		   if($('#link_man').val()==''){
+			   $('#link').html('联系人不能为空!').css('color','red');
+		   }
+		   else{
+			   $('#link').html('可以使用').css('color','green');
+		   }
+	  })
+  /*    	 
+	  $('#contact').blur(function(){
+		   if($('#contact').val()==''){
+			  
+			   $('#con').html('联系方式不能为空，且为整数型!').css('color','red');
+		   }
+		   else{
+			   $('#con').html('可以使用').css('color','green');
+		   }
+		   if($('#contact').val()!=''){
+			   var str=$('#contact').val();
+			   var reg = /^1[3458]\d{9}$/;
+				if(reg.test(str)){
+			       $('#con').html('可以使用').css('color','green');
+				}else{
+				   $('#con').html('联系方式格式不正确！').css('color','red');
+				}
+		   }
+	   })
+ */      
+	  $('#startTime').blur(function(){
+		 if($('#startTime').val()==''){
+			  $('#time').html('添加时期不能为空！').css('color','red');
+		  }
+		 else{
+			  $('#time').html('可以使用').css('color','green');
+		  }
+	  })
+	  $('#content').blur(function(){
+		   if($('#content').val()==''){
+			   $('#cont').html('询单内容不能为空!').css('color','red');
+		   }
+		   if($('#content').val()!=''){
+			   $('#cont').html('可以使用').css('color','green');
+		   }
+	  })	 
+   })
+</script>
+<script type="text/javascript">
+function check(){		                
+	   if ($('#pdt_name').val()=='')
+        {
+		   $('#pdt').html('产品名称不能为空!').css('color','red');
+          return false;
+        } 
+      
+	  if($('#areas').val()==''){
+		  $('#address').html('意向区域不能为空!').css('color','red');
+			  return false;
+	    }	
+     
+      if($('#link_man').val()==''){
+    	  $('#link').html('联系人不能为空!').css('color','red');
+             return false; 
+       }
+ /*      
+      if($('#contact').val()==''){
+    	  $('#con').html('联系方式不能为空，且为整数型!').css('color','red');
+		  return false;
+	   }
+      if($('#contact').val()!=''){
+		   var str=$('#contact').val();
+		   var reg = /^1[3458]\d{9}$/;
+			if(!reg.test(str)){		    
+		  $('#con').html('联系方式格式不正确！').css('color','red');
+			   return false;
+			}
+	   }
+*/       
+	  if($('#startTime').val()==''){
+		   $('#time').html('添加时间不能为空!').css('color','red');
+		  return false;
+	   }
+	  if($('#content').val()==''){	
+		  $('#cont').html('询单内容不能为空!').css('color','red');
+		  return false;
+	   }
+	     
+	  return true; 
+  }
+</script>

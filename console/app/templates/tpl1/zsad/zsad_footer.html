@@ -1,0 +1,42 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style>
+.forminfo li label{
+	text-align:right;
+}
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+	z-index:9999;
+}
+.formtitle {
+	margin-top:25px;
+}
+.forminfo li label{
+	min-width:92px;
+}
+</style>
+<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="/main/center" target="rightFrame">首页</a></li>
+    <li>底部广告生成</li>
+    </ul>
+</div>    
+<div class="formbody">
+    <div class="formtitle"><span>底部广告生成</span></div>
+    <form action="header" method="POST" enctype="multipart/form-data">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <ul class="forminfo">
+        <li>
+        	<label><i style="color: red">*</i>GG广告代码：</label>
+            <input name="daima" type="text" class="dfinput"/><em>格式为：gg('pid:ID1,gid:ID2...,gid:IDN')</em>
+        </li>
+        <li><label>&nbsp;</label><input style="margin-top:25px;" type="submit" id="sure" class="btn" value="生成"/></li>
+        </ul>
+    </form>
+</div>
+{|include file="$FOOTER"|}

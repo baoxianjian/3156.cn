@@ -1,0 +1,122 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="/">首页</a></li>
+    <li><a href="/article/list">资讯管理</a></li>
+    <li><a href="#">添加资讯</a></li>
+    </ul>
+</div>    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>资讯{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="POST" enctype="multipart/form-data">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+        <li>
+        	<label><i style="color: red">*</i>资讯类别：</label>
+        	<div class="J_arttype_set">
+				<span class="J_region_list"><span class="J_province"></span>{|$row['up_type_name']|}<span class="J_city">{|$row['type_name']|}</span></span>
+				<a href="javascript:;" class="J_arttype_change">更改</a>
+				<input class="J_areaid" type="hidden" name="row[type_id2]" value="{|$row['type_id2']|}" />
+                <input class="J_flagid" type="hidden" name="type_flag" value="" />
+			</div>
+        </li>
+        <li>
+        	<label>来源栏目：</label>
+            美容养颜
+        </li>
+		<li>
+        	<label>来源网站：</label>
+            100医药网
+        </li>
+		<li>
+        	<label>来源网址：</label>
+            http://www.100yiyao.com
+        </li>
+        <li>
+        	<label><i style="color: red">*</i>标题：</label>
+            <input name="row[title]" type="text" class="dfinput" value="{|$row['title']|}"/>
+        </li>
+        <li>
+            <label>公司编号：</label>
+            <input name="row[com_id]" type="text" class="dfinput" value="{|$row['com_id']|}"/>
+        </li>
+        <li>
+            <label>产品编号：</label>
+            <input name="row[pdt_id]" type="text" class="dfinput" value="{|$row['pdt_id']|}"/>
+        </li>
+        <li>
+            <label><i style="color: red">*</i>来源：</label>
+            <input name="row[origin]" type="text" class="dfinput" value="{|$row['origin']|}"/>
+        </li>
+        <li>
+            <label><i style="color: red">*</i>作者：</label>
+            <input name="row[author]" type="text" class="dfinput" value="{|$row['author']|}"/>
+        </li>
+        <li>
+            <label><i style="color: red">*</i>新闻摘要：</label>
+            <textarea name="row[description]" cols="" rows="" class="">{|$row['description']|}</textarea>
+        </li>
+        <li>
+        	<label><i style="color: red">*</i>检索关键词：</label>
+        	<input name="row[keyword]" type="text" class="dfinput" value="{|$row['keyword']|}"/>
+        </li>
+        <li>
+        	<label>标签：</label>
+        	<input name="row[label]" type="text" class="dfinput" value="{|$row['label']|}"/>
+        </li>
+        <li>
+            <label>缩略图：</label>
+            <div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:none;">
+                <a href="" class="pop_close" id="J_fresh_upload_close">删除</a>
+                <ul class="cc">
+                    <li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count">4</span>张</li>
+                </ul>
+            </div>
+            <span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span>
+        </li>
+        <li>
+        	<label><i style="color: red">*</i>正文：</label>
+        	<div style="float:left;">
+                <div style="display:block"><label><input type="checkbox" checked="checked" value="1" name="pic_flag" />提取第一张图片为缩略图</label></div>
+                <div style="display:block;float:left;"><textarea name="row[content]" id="J_ueditor_content" cols="" rows="" class="J_ueditor_content">{|$row['content']|}</textarea></div>
+            </div>
+        </li>
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="提交"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+<script type="text/javascript">
+//图片参数
+var fast_upload_config = {
+		size_limit : 1024,		//图片大小限制
+		num_limit : 1,		//数量限制
+		types : 'png;jpg' //上传图片类型
+	};
+	
+KK.ready(document, function(){
+	KK.use('jquery', 'global', 'swfupload', function(){
+		KK.Util.ueditor($('.J_ueditor_content'), 'J_ueditor_content');
+		KK.Util.swfHandle();
+		//资讯分类组件
+		var arttype_set = $('.J_arttype_set');
+		if(arttype_set.length) {
+			KK.use('arttype', function(){
+				WK.URL.ARTTYPE = 'http://console.3156.cn/arttype/listjson';
+				$('a.J_arttype_change').arttype({type:'arttype'});
+			});
+		}
+	});
+});
+</script>
+{|include file="$FOOTER"|}

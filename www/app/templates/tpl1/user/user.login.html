@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/login.css" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/footer.css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/login.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>     
+<title>用户登录</title>
+</head>
+<body>
+<div class="top">
+	<a class="logo" href="http://www.3156.cn/"></a>
+    <ul class="left">
+    	<li><a href="###">品牌区域</a>  |</li>
+        <li><a href="###">数据中心</a>  |</li>
+        <li><a href="###">资讯频道</a>  |</li>
+        <li><a href="###">招中标信息</a>  |</li>
+        <li><a href="###">手机药品网</a></li>
+    </ul>
+    <ul class="welcome">
+    	<li>欢迎,  <span class="red">客人</span>  |</li>
+        <li><a href="###" rel="nofollow">会员登录</a>  |</li>
+        <li><a href="/user/register" rel="nofollow">免费注册</a></li>
+    </ul>
+</div>
+<div class="content_bg"></div>
+<div class="content1">
+	<img class="big_img" src="{|$STYLE_URL|}/img/zhuce/big.png" />
+    <div class="login">
+    	<p>会员登录</p>
+        <form action="/user/dologin" method="post"> 
+            <ul>
+        	    <li class="tip">请输入用户名或密码</li>
+        	    <li><input id="name" name="row[user_name]" class="text" type="text" value="{|$row['user_name']|}"  placeholder="请输入用户名"/></li>
+                <li><input id="password" name="row[user_pwd]" class="text" type="password" placeholder="请输入密码" /></li>
+                <li class="hua"><img src="{|$STYLE_URL|}/img/zhuce/hua.png" /></li>
+                <li class="choose"><input type="checkbox" />下次自动登录<a href="/user/forget" class="wang">忘记密码？</a>
+                <li><input type="submit" class="btn" value="登录" /></li>
+                <li class="li_last"><span>还没账号<a href="/user/register">立即注册</a></span></li>
+            </ul>
+        </form>
+    </div>
+</div>
+<div class="footer">
+        <div class="content">
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border color">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 www.miitbeian.gov.cn</P>
+                <P class="color">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</P>
+                <P class="color">医药招商网站 版权所有 违版必究51YES网站统计系统</P>
+            </div>
+        </div>
+    </div>
+{|$SYS_MESSAGE|} 
+</body>
+</html>

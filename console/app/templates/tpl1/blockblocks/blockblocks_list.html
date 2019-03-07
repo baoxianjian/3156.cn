@@ -1,0 +1,87 @@
+{|include file="$HEADER"|}
+ 
+<style type="text/css">
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.tools form{
+	overflow:hidden;
+	background:#F5F9FB;
+	padding:10px 0 10px 10px;
+}
+label{margin-right:15px;}
+.toolbar a{display:block;width:75px;height:35px;}
+</style>
+{|include file="$HEADER_END"|}
+<div class="place">
+	<span>位置：</span>
+    <ul class="placeul">
+    	<li><a href="###">首页</a></li>
+        <li>区块管理</li>
+    </ul>
+</div>
+<div class="tools" style="margin-top:40px;">
+        <form action="list" method="post">
+            <label for="">区块编号：<input type="text" name="id" class="scinput" value={|$srow['id']|} ></label>           
+            <label for="">区块名称：<input type="text" name="bn" class="scinput"  value={|$srow['bn']|} ></label>
+            <label for="">所在分组/编号：<input type="text" name="bgid" class="scinput"  value={|$srow['bgid']|} ></label>
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar">
+            <li class="click"><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+        </ul>      
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+    </div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <!--<th><input name="" type="checkbox" value="" checked="checked"/></th>-->
+        <th>区块编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>区块名称</th>
+        <th>区块类型</th>
+        <th>所在分组/编号</th>
+        <th>使用模版</th>
+        <th>使用规格</th>
+        <th>缓存时间</th>
+        <th>数据获取方式</th>
+        <th>添加日期</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+
+        <tbody>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['bb_id']|}">
+                <!--<td><input name="" type="checkbox" value="" /></td>-->
+                <td>{|$row['bb_id']|}</td>
+                <td>{|$row['bb_name']|}</td>
+                <td>{|$row['bb_type']|}</td>
+                <td>{|$row['bg_name']|}/{|$row['bg_id']|}</td>
+                <td>{|$row['bt_name']|}</td>
+                <td>{|$row['bb_standard']|}</td>
+                <td>{|$row['cache_time']|}</td>
+                <td>{|$row['ds_way']|}</td>
+                <td>{|$row['dateline']|}</td>
+                <td>
+                    <a href="edit-id-{|$row['bb_id']|}" class="tablelink">编辑</a>
+                    <a onclick="return delConfirm('{|$row['bb_id']|}');" href="del-id-{|$row['bb_id']|}" class="tablelink"> 删除</a>
+                </td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+    
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+
+

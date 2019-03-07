@@ -1,0 +1,167 @@
+ {|include file="$HEADER"|} 
+<link href="{|$STYLE_URL|}/css/grant.css" rel="stylesheet" type="text/css" /> 
+ {|include file="$HEADER_END"|}
+
+    <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="#">首页</a></li>
+			<li><a href="#">数据表</a></li>
+			<li><a href="#">基本内容</a></li>
+		</ul>
+	</div>
+	
+    <div class="formbody">
+    
+    <div class="formtitle"><span>用户组(角色){|$TIP_NAME|}</span></div>
+    
+     注意：编辑包含添加和修改。      
+
+    <form action="grant" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <input name="row[sg_name]" type="hidden" class="dfinput" value="{|$row['sg_name']|}" />
+ 
+ 
+ 
+ 
+ 
+	<div class="gonggaoID">
+         <label for="">用户组ID：<span>{|$id|}</span></label>
+        <label for="">组名称：<span>{|$row['sg_name']|}</span></label>
+        <label for="">组级别：<input name="row[sg_level]" style="width: 50px;" type="text" class="dfinput" value="{|$row['sg_level']|}" /></label>
+	</div>
+
+    {|foreach $permissions as $k1=>$v1|}
+        <div class="Sys_set">
+            <p class="title"><span>{|$dic[$k1]|}</span></p> 
+            <div class="cbk">
+              {|foreach $v1 as $k2=>$v2|}
+                <div class="role">
+                    <p class="name">{|$dic[$k2]|}</p>  
+                    {|foreach $v2 as $v3|}
+                        <label><input type="checkbox" name="#{|$k2|}[]" value="{|$v3|}" {|$myp_checked[$k2][$v3]|} />{|$dic[$v3]|}</label> 
+                    {|/foreach|} 
+                </div>      
+              {|/foreach|} 
+            </div>
+        </div>
+    {|/foreach|}
+    
+    
+        <ul class="forminfo">
+           <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+    
+    
+    <!--
+	<div class="Sys_set">
+		<p class="title"><span>系统设置</span></p>
+		<div class="cbk">
+			<div class="role">
+				<p class="name">角色</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+			<div class="role">
+				<p class="name">管理员</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+			<div class="role">
+				<p class="name">公告</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+		</div>
+	</div>
+    -->
+    
+    <!--
+	<div class="Sys_set">
+		<p class="title"><span>代理信息</span></p>
+		<div class="cbk">
+			<div class="role">
+				<p class="name">发布代理</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+			<div class="role">
+				<p class="name">询单</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+		</div>
+	</div>
+	<div class="Sys_set">
+		<p class="title"><span>搜索引擎</span></p>
+		<div class="cbk">
+			<div class="role">
+				<p class="name">广告位</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+			<div class="role">
+				<p class="name">广告</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+			<div class="role">
+				<p class="name">关键字</p>
+				<label><input type="checkbox" name="" />列表</label>
+				<label><input type="checkbox" name="" />添加</label>
+				<label><input type="checkbox" name="" />修改</label>
+				<label><input type="checkbox" name="" />删除</label>
+				<label><input type="checkbox" name="" />授权</label>
+				<label><input type="checkbox" name="" />销毁</label>
+			</div>
+		</div>
+	</div>
+    -->
+    
+    
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+    

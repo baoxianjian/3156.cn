@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Expires" content="Fri, Jan 01 1900 00:00:00 GMT">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Lang" content="en">
+<meta name="author" content="">
+<meta http-equiv="Reply-to" content="@.com">
+<meta name="generator" content="PhpED 5.8">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="creation-date" content="01/01/2009">
+<meta name="revisit-after" content="15 days">
+<title>Untitled</title>
+<script src="http://img1.3156.cn/res/js/dev/3156.js"></script>    
+</head>
+<body>
+ <textarea name="content" id="J_ueditor_content" cols="" rows="" class="J_ueditor_content"></textarea>
+<div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:none;">
+<a href="" class="pop_close" id="J_fresh_upload_close">删除</a>
+<ul class="cc">
+<li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count">4</span>张</li>
+</ul>
+</div>
+<span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span> //上传按钮控制必须要
+...
+<script>
+var fast_upload_config = {
+        size_limit : 1024,        //图片大小限制
+        num_limit : 20,        //数量限制
+        types : '*.jpg;*.jpeg;*.gif;*.png',            //上传图片类型
+        pic_data : {'sid':'12312312','uid':1,'mt':2,'mid':3,'mm':'xxx'} //赋值JSON数组
+    };
+KK.ready(document, function(){
+    KK.use('jquery', 'global', 'swfupload', function(){
+        KK.Util.swfHandle();
+    });
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

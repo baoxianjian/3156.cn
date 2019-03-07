@@ -1,0 +1,35 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/uploadFile.js"></script>
+<script>
+
+ $(document).ready(function () {
+
+
+ });
+
+</script>
+
+{|include file="$HEADER_END"|}   
+    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>产品编辑</span></div>
+    <form action="dofileinto" id="upForm" method="POST" enctype="multipart/form-data">
+        <ul class="forminfo">
+        <li><label>&nbsp;</label><a href="download">下载批量导入模板</a></li>
+     <!--    <li><label>用户ID</label><input name="id" type="text" class="dfinput checkInput" value="" /><i></i></li> -->
+        <li><label>公司ID</label><input name="cmp_id" type="text" class="dfinput checkInput" value="" /><i></i></li>
+        <li><label>上传模板</label><input type="file" name='upload'></li>
+        <li><label>&nbsp;</label><input type="submit" id='btn' class="btn" value="确认保存"/></li>
+        {|foreach $TOKEN as $k=>$v|}
+            <input type="hidden" name="{|$k|}" value="{|$v|}">
+        {|/foreach|}
+        </ul>
+    </form>
+    
+    </div>
+
+
+</body>
+
+</html>

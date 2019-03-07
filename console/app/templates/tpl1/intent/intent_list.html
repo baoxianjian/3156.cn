@@ -1,0 +1,390 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<style>
+.details_info{width:310px;height:auto;overflow:hidden;background:#F5F9FC;border:1px solid #ccc;padding:10px;position:absolute;left:0;top:35px;display:none;z-index:999;}
+    i{ font-style:normal}
+    .details_info .con_info{line-height:16px;text-align:left; height:16px; clear:both;}
+    .details_info .con_info_left{min-width:90px;display:inline-block;float:left;}
+    .details_info .con_info_right{line-height:17px;}
+    .details_info a{font-size:18px;position:absolute;top:0;right:10px;font-family:"微软雅黑"}
+</style>
+<!-- <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>  -->
+<script src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<!--  <script type="text/javascript" src="{|$STYLE_URL|}/js/keyworddel.js"></script>-->
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#delall').click(function(){
+            if ( $("[name='check[]']:checked").length <= 0 ){
+              layer.alert('未选择删除数据');
+              return false;
+            }
+            $.layer({
+                shade: [0],
+                area: ['auto','auto'],
+                dialog: {
+                    msg: '您确定删除所选项？',
+                    btns: 2,                    
+                    type: 5,
+                    btn: ['确定','取消'],
+                    yes: function(){
+                        
+                     $.post('Delallcmts',$('#myform').serialize(),function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                    },
+                    
+                }
+              });
+            return false;
+            
+        })
+      $('#examineall').click(function(){
+            if ( $("[name='check[]']:checked").length <= 0 ){
+              layer.alert('未选择审核数据');
+              return false;
+            }
+            $.layer({
+                shade: [0],
+                area: ['auto','auto'],
+                dialog: {
+                    msg: '您确定审核所选项？',
+                    btns: 2,                    
+                    type: 5,
+                    btn: ['确定','取消'],
+                    yes: function(){
+                        
+                     $.post('Examineallcmts',$('#myform').serialize(),function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                    },
+                    
+                }
+              });
+            return false;
+            
+        })
+       $('#unexamineall').click(function(){
+            if ( $("[name='check[]']:checked").length <= 0 ){
+              layer.alert('未选择取消审核数据');
+              return false;
+            }
+            $.layer({
+                shade: [0],
+                area: ['auto','auto'],
+                dialog: {
+                    msg: '您确定取消审核所选项？',
+                    btns: 2,                    
+                    type: 5,
+                    btn: ['确定','取消'],
+                    yes: function(){
+                        
+                     $.post('Unexamineallcmts',$('#myform').serialize(),function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                    },
+                    
+                }
+              });
+            return false;
+            
+        })
+        $('#recovery').click(function(){
+            if ( $("[name='check[]']:checked").length <= 0 ){
+              layer.alert('未选择取消审核数据');
+              return false;
+            }
+            $.layer({
+                shade: [0],
+                area: ['auto','auto'],
+                dialog: {
+                    msg: '您确定恢复所选项？',
+                    btns: 2,                    
+                    type: 5,
+                    btn: ['确定','取消'],
+                    yes: function(){
+                        
+                     $.post('reallcmts',$('#myform').serialize(),function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                    },
+                    
+                }
+              });
+            return false;
+            
+        })
+        
+        
+    $("tbody tr").each(function(){
+        
+        
+        var info_=$(this).find(".details_info");
+        //$(this).find("td:eq(5)").css("position","relative")
+        $(this).find(".td_details_show").css("position","relative")  
+                 
+
+        $(this).find(".a_details_show").click(function(){
+            info_.css("display","block");
+          //  AjaxShowData
+
+            return false
+        });
+        
+        info_.find("a").click(function(){
+
+            info_.css("display","none")
+        
+        })
+    
+    })
+    
+
+    
+    
+    
+  })
+</script>
+<style>
+.adv_top{
+    margin-top:30px;
+}
+.adv_top li{
+    float:left;
+    width:28%;
+}
+.place{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+}
+.top_{margin-top:2px;}
+.bottom_{margin-bottom:10px;}
+.formbody{padding-bottom:0;}
+</style>
+
+{|include file="$HEADER_END"|}
+    <div class="place">
+        <span>当前位置：</span>
+        <ul class="placeul">
+            <li><a href="/main/center">首页</a></li>
+            <li>意向留言管理</li>
+        </ul>
+    </div>
+    <div class="formbody">
+    <div class="adv_top">
+         <form action="list" method="get">
+         <ul> 
+          <li class="top_" style="width:24%;">
+                SITE_ID：<input type="text" name="siteid"  id="siteid" class="scinput"  value={|$srow['site_id']|}>
+            </li>
+            <li class="top_" style="width:24%;">
+                WEB_ID：<input type="text" name="webid"  id="webid" class="scinput"  value={|$srow['web_id']|}>
+            </li>
+            <li class="top_" style="width:24%;">
+                MOD_TYPE：
+                <select name="modtype" class="scinput">
+                    <option value="">--选择模块类型--</option>
+                    <option value="1" {|if $srow['mod_type'] == 1|} selected="selected"{|/if|}>代理商</option>
+                    <option value="2" {|if $srow['mod_type'] == 2|} selected="selected"{|/if|}>企业</option>
+                    <option value="3" {|if $srow['mod_type'] == 3|} selected="selected"{|/if|}>产品</option>
+                    <option value="4" {|if $srow['mod_type'] == 4|} selected="selected"{|/if|}>资讯</option>
+                </select>
+            </li>
+            <li class="top_" style="width:24%;">
+                MOD_ID：<input type="text" name="modid"  id="modid" class="scinput"  value={|$srow['mod_id']|}>
+            </li>   
+             <li class="top_">
+                留言时间：<input type="text" name="dateline"  id="startTime" class="scinput"  value={|$srow['dateline']|}>
+            </li>
+            <li class="top_">
+                意向产品：<input type="text" name="pdt_name" class="scinput"  value={|$srow['pdt_name']|}>
+            </li>
+            <li class="top_">
+                意向区域：<input type="text" name="areas" class="scinput"  value={|$srow['areas']|}>  
+            </li>
+            <li class="top_">
+                意向公司：<input type="text" name="cmp_name" class="scinput"  value={|$srow['cmp_name']|}>
+            </li>
+            <li class="top_">
+                 留 &nbsp;言&nbsp;人：<select class="scinput" name="user_id"  value={|$srow['user_id']|}>
+                         <option value="" selected = "selected">全部</option>   
+                         <option value="1"    {|if $srow['user_id']==1|}selected="selected"{|/if|} >代理商</option>                                                                                                                         
+                         <option value="3"    {|if $srow['user_id']==3|}selected="selected"{|/if|} >游客</option>
+                </select>         
+           
+            </li>
+            <li style="top_">
+                联系电话：<input type="text" name="tel" class="scinput"  value={|$srow['tel']|}>  
+                <input style="margin-left:20px;" name="" type="submit"  class="scbtn" value="搜索"/> 
+            </li>
+            <li style="top_">
+                手机：<input type="text" name="mp" class="scinput"  value={|$srow['mp']|}>                 
+            </li>      
+            <li class="bottom_">
+                联&nbsp;系 人：<input type="text" name="link_man" class="scinput"  value={|$srow['link_man']|}>
+            </li>
+            <li class="bottom_">
+              会员种类：<select class="scinput" name="online_state"  value={|$srow['online_state']|}>
+                         <option value="" selected = "selected">全部</option>
+                         <option value="1"    {|if $srow['online_state']==1|}selected="selected"{|/if|} >免费</option>
+                         <option value="2"    {|if $srow['online_state']==2|}selected="selected"{|/if|} >收费</option>                       </select>         
+            </li>
+             <li class="bottom_">
+              审核状态：<select class="scinput" name="audit_state"  value={|$srow['audit_state']|}>
+                         <option value="" selected = "selected">全部</option>
+                         <option value="1"    {|if $srow['audit_state']==1|} selected="selected" {|/if|} >未审核</option>
+                         <option value="2"    {|if $srow['audit_state']==2|} selected="selected" {|/if|} >审核通过</option>
+                         <option value="3"    {|if $srow['audit_state']==3|} selected="selected" {|/if|} >不通过</option>
+                                               </select>         
+            </li>
+            <li class="bottom_">
+              删除状态：<select class="scinput" name="is_del"  value={|$srow['is_del']|}>
+                         <option value="1"    {|if $srow['is_del']==1|} selected="selected" {|/if|} >正常</option>
+                         <option value="2"    {|if $srow['is_del']==2|} selected="selected" {|/if|} >已删除</option>                       </select>         
+            </li>   
+         </ul>
+               
+          </form>
+      </form>
+           
+    </div>
+     </div>         
+    <ul class="toolbar">
+             <!--<a href="add"><li class=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</li></a>
+           <li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <a id='delall' style="cursor:pointer"><li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li></a>
+            <a id='recovery' style="cursor:pointer"><li><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li></a>
+            <a id="examineall"   style="cursor:pointer"><li class=""><span><img src="{|$STYLE_URL|}/images/shenghe-icon.png" /></span>审核</li></a>
+            <a id="unexamineall" style="cursor:pointer"><li class=""><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>取消审核</li></a>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+         </ul>
+     <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <form id='myform' method='post'> 
+     <input type="hidden" name="ajax" value="1" /> 
+    
+    <table class="tablelist">
+        <thead>
+        <tr>
+        <th><input name="" type="checkbox" value=""  id="checkAll"/></th>  
+        <th>意向产品</th>
+        <th>意向公司</th>
+        <th style="max-width:200px;">意向区域</th>
+        <th>联系人</th>
+        <th>留言时间</th>
+        <th>审核状态</th>
+        <th>删除状态</th>              
+        <th>留言人</th>                                       
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+     {|foreach $list as $row|}              
+        <tr>
+        <td><input name="check[]" type="checkbox" value="{|$row['cmt_id']|}" />
+            <input name="t[]" type="hidden" value="{|$row['type']|}" /> 
+        </td>
+        <td><a style="display:inline-block; max-width:350px; overflow:hidden; height:35px; line-height:35px;" href="{|$WWW_URL|}/daili/msg-id-{|$row['cmt_id']|}" target="_blank">{|$row['pdt_name']|}{|$row['pdt_names']|}</a></td>       
+        <td>{|if $row['cmp_name']|}{|$row['cmp_name']|}{|if $row['online_state']==1|}【免费】{|elseif $row['online_state']==2|}<font color="red">【收费】</font>{|/if|}{|else|}{|/if|}</td>        
+        <td style="max-width:200px;">{|$row['areas']|}</td>
+        <td class="td_details_show"><a href="#" class="a_details_show" mark="{|$v['cmp_id']|}">{|$row['link_man']|}</a>
+            <div class="details_info">
+                <p class="con_info"><span class="con_info_left">联系人：</span><span class="con_info_right">{|$row['link_man']|}</span></p>
+                <p class="con_info"><span class="con_info_left">公司名：</span><span class="con_info_right">{|$row['company']|}</span></p>
+                <p class="con_info"><span class="con_info_left">电话：</span><span class="con_info_right">{|$row['tel']|}</span></p>
+                <p class="con_info"><span class="con_info_left">手机：</span><span class="con_info_right">{|$row['mp']|}</span></p>
+                <p class="con_info"><span class="con_info_left">QQ号：</span><span class="con_info_right">{|$row['qq']|}</span></p>
+                <p class="con_info"><span class="con_info_left">EMAIL：</span><span class="con_info_right">{|$row['email']|}</span></p>
+                
+                <a href="javascript:void(0);" title="" class="a_details_close">X</a>
+            </div>
+        </td>
+        <td>{|date('Y-m-d',$row['dateline'])|}</td> 
+        <td>{|if $row['audit_state']==1|}未审核{|elseif $row['audit_state']==2|}审核通过{|elseif $row['audit_state']==3|}不通过{|elseif $row['audit_state']==4|}需重新审核{|/if|}</td>
+        <td>{|if $row['is_del']==0|}正常{|else|}已删除{|/if|}</td>
+        <td>{|if $row['user_id']==0 && $row['sa_id']==0|}游客{|elseif $row['user_id']!=0 && $row['sa_id']==0 |}代理商{|elseif $row['sa_id']!=0 |}客服{|/if|}</td>               
+        <td><a href="/intent/check-id-{|$row['cmt_id']|}" class="tablelink">{|if $row['audit_remark']==''|}备注{|else|}<font color="red">备注</font>{|/if|}</a> <a href="/intent/edit-id-{|$row['cmt_id']|}" class="tablelink">编辑</a> {|if $row['is_del']==0|}<a href="{|$row['del_url']|}"  id="del{|$row['cmt_id']|}" onclick="delConfirm('{|$row['cmt_id']|}','del'); return false;" class="tablelink">删除</a>{|else|}<a href="{|$row['rec_url']|}" onclick="delConfirm('{|$row['cmt_id']|}','rec'); return false;" class="tablelink" >恢复</a>{|/if|} </td>
+
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+
+    </table>
+    </form>
+   {|$pagehtml|}
+    
+  {|include file="$FOOTER"|}
+  
+  <script type="text/javascript">
+$('#startTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d ',
+     //   formatDate:'Y-m-d ',
+        
+});
+
+$('#endTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d ',
+     //   formatDate:'Y-m-d ',
+        
+});
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+</script>   
+
+  
+  
+  

@@ -1,0 +1,79 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+/**/
+
+
+
+</script> 
+<style>
+  .place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.adv_top{
+	margin-top:40px;
+	padding:10px 0 10px 10px;
+}
+.adv_top li{
+	height:35px;
+	float:left;
+}
+.message_top{padding:10px 10px 10px 0;}
+.tools{margin-bottom:0;}
+  </style>
+{|include file="$HEADER_END"|}
+<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="###">首页</a></li>
+            <li>黑名单</li>
+        </ul>
+    </div>
+    <div class="tools" style="height:auto; overflow:hidden;">
+         <div class="adv_top">
+           <ul>
+             <li>
+                <form action="list" method="get" >
+                查询黑名单电话：<input type="text" name="phone" class="scinput" value={|$srow['tel']|} >&nbsp; &nbsp;
+                    <input type="submit" class="scbtn" value="查询">&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+             </form> 
+             </li>
+             <li>
+                <form action="list" method="get" >                  
+                加入黑名单电话：<input type="text" name="row[tel]" class="scinput"  >&nbsp; &nbsp;     
+                    <input type="submit" class="scbtn" value="加入黑名单"> 
+                </form>
+             </li>
+         </ul>
+        </div>
+        </div>
+        <!--<ul class="toolbar">
+    
+           <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>-->
+        <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <table class="tablelist" >
+    	<thead>
+    	<tr>        
+        <th width:50%;>已加入黑名单的电话</th>
+        <th >操作</th>
+        </tr>
+        </thead>
+        <tbody>
+       {|foreach $list as $row|}
+            <tr>
+                <td style="text-align:left;padding-left:25px;">{|$row['tel']|}</td>
+                <td><a onclick="return delConfirm('{|$row['abl_id']|}');" href="{|$row['del_url']|}" class="tablelink"> 删除</a></td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+
+

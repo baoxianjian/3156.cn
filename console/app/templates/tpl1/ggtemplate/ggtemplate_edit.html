@@ -1,0 +1,97 @@
+{|include file="$HEADER"|}
+<script type="text/javascript">
+$(document).ready(function(e) {
+
+    //异步校验规格名
+    $('#name').blur(function(){
+
+        var obj = $(this);
+        $.post('/ggtemplate/AjaxCheckName',{name:$('#name').val()},function(data){
+            if ( data.status == 1 ){
+
+                obj.parent().children('i').text(data.info);
+                obj.parent().children('i').css('color','green');
+
+            }else{
+
+                obj.parent().children('i').text(data.info);
+                obj.parent().children('i').css('color','red');
+
+            }
+
+        },'json');
+
+    })
+
+    $('#btn').click(function(){
+
+        $.post('/ggtemplate/doedit',$('form').serialize(),function(data){
+
+            if ( data.status ){
+
+                layer.alert(data.info,1);
+                setTimeout(function () { 
+                    location.reload();
+                }, 200);
+
+            }else{
+
+                layer.alert(data.info)
+
+            }
+
+        },'json');
+
+        return false;
+
+    })
+});
+</script>
+ {|include file="$HEADER_END"|}   
+    <div class="place" style="position:fixed;left:0;right:0;top:0;">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li><a href="/ggtemplate/list" target="rightFrame">模板管理</a></li>
+            <li>添加模板</li>
+        </ul>
+    </div>  
+    <div class="formbody" style="margin-top:30px;">
+    
+    <div class="formtitle"><span>添加模板</span></div>
+    <form action="/ggtemplate/doedit" method="post">
+        <ul class="forminfo">
+        <li>
+            <label>模板类型：</label>
+            <cite><input name="ggt_type" type="radio" {|if $list['ggt_type']==1|}checked="checked"{|/if|} value="1" />文字&nbsp;&nbsp;&nbsp;&nbsp;<input name="ggt_type" {|if $list['ggt_type']==2|}checked="checked"{|/if|} type="radio" value="2" />图片</cite>
+        </li>
+        <li><label>模版名称：</label><input name="name" type="text" value="{|$list['name']|}" class="dfinput" id="name" value="" /><i>标题不能超过30个字</i></li>
+        <li><label>模板代码：</label><textarea name="code" cols="" rows="" class="textinput">{|$list['code']|}</textarea></li>
+        <li>
+           <div style="margin-left:90px">
+                <span style="font-size:20px">可用参数说明</span><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$title}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告标题</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$linkurl}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告或文字链接地址，并加入点击统计</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$imgurl}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告图片所在地址</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$alt}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告图片说明</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$width}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告图片宽度</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$height}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告图片高度</i><br><br>
+                <i style="font-size:15px;font-weight:800;color:#fd7e2a">{$placeid}：</i><i style="text-align:center;font-size:14px;font-weight:800;color:#fd7e2a">广告位ID</i><br><br>
+           </div>
+        </li>
+        <li><label>备注(可选)：</label><textarea name="remark" cols="" rows="" class="textinput">{|$list['remark']|}</textarea></li>
+        <li><label>&nbsp;</label><input type="submit" class="btn" id='btn' value="提交"/></li>
+        <input type="hidden" name="ac" value="{|$ac|}">
+        {|$hidden_id|}
+        </ul>
+        {|foreach $TOKEN as $k=>$v|}
+            <input type="hidden" name="{|$k|}" value="{|$v|}">
+        {|/foreach|}
+    </form>
+    
+    </div>
+
+
+</body>
+
+</html>

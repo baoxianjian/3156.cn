@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/top.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/footer.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/center1.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/agency_information.css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.superslide.2.1.1.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/main.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	  $("#link_man").blur(function(){
+			 if($("#link_man").val()==""){
+				 $("#name").html("联系人姓名不能为空！").css("color","red");				 
+			}
+			 if($("#link_man").val()!=""){
+				$("#name").html("可以使用").css("color","green");
+			 }	
+		});
+	  $("#cmp").blur(function(){
+			 if($("#cmp").val()==""){
+				 $("#dw").html("单位名称不能为空！").css("color","red");				 
+			}
+			 if($("#cmp").val()!=""){
+				$("#dw").html("可以使用").css("color","green");
+			 }	
+		});
+	   
+	  $("#tel").blur(function(){
+			 if($("#tel").val()==""){
+				 $("#dh").html("联系电话不能为空！").css("color","red");				 
+			}
+			 if($("#tel").val()!=""){
+				$("#dh").html("可以使用").css("color","green");
+			 }	
+		});
+	 $("#shang2").click(function(){
+		 
+		 $("#danwei").hide();
+		 
+	 });
+   $("#shang1").click(function(){
+		 
+		 $("#danwei").show();
+		 
+	 }) 
+	 
+	
+	  
+  })
+</script>
+<title>发布代理信息</title>
+</head>
+<body>
+<div class="topbg"></div>
+<div class="topbar">
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a href="javascript:void(0);">品牌区域</a></li>
+                <li><a href="javascript:void(0);">数据中心</a></li>
+                <li><a href="javascript:void(0);">咨询频道</a></li>
+                <li><a href="javascript:void(0);">招中标信息</a></li>
+                <li><a href="javascript:void(0);">手机药品网</a></li>
+            </ul>
+            <ul class="right">
+                <li class="cur">
+                    欢迎您，
+                    <span>summer</span>
+                    <i></i>
+                    <div class="down_menu" style="display:none;">
+                        <a href="javascript:void(0)">用户中心</a>
+                        <a href="javascript:void(0)">公司资料</a>
+                        <a href="javascript:void(0)">产品管理</a>
+                        <a href="javascript:void(0)">代理信息</a>
+                        <a href="javascript:void(0)">退出登录</a>
+                    </div>
+                </li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/weixin.png" alt="微信" title="微信"/></a></li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/logo.png" alt="3156医药网" title="3156医药网"/></a>
+        </div>
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="project" class="searchOn">产品</dd>
+                            <dd s-type="article">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3158.cn/main/project.html" method="get" target="-blank">
+                    <input type="text" name="kw" value="输入您要找的项目" class="search-On" def="输入您要找的项目" onfocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onblur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <button type="submit" class="search-btn btn1" hidefocus="">发布需求</button>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a href="javascript:void(0);">儿科</a>
+                <a href="javascript:void(0);">感冒</a>
+                <a href="javascript:void(0);">止咳消炎</a>
+                <a href="javascript:void(0);">壮阳</a>
+                <a href="javascript:void(0);">皮肤妇科</a>
+                <a href="javascript:void(0);">补肾</a>
+                <a href="javascript:void(0);">止痛</a>
+                <a href="javascript:void(0);">止血</a>
+            </div>
+            <!--/search-key-->
+        </div>
+        <div class="drug">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/pic.png" alt=""/></a>
+        </div>
+        <ul class="nav">
+            <li><a href="javascript:void(0);">首页</a></li>
+            <li><a href="javascript:void(0);">医药招商</a></li>
+            <li><a href="javascript:void(0);">药品招商</a></li>
+            <li><a href="javascript:void(0);">OTC</a></li>
+            <li><a href="javascript:void(0);">保健品</a></li>
+            <li><a href="javascript:void(0);">药妆</a></li>
+            <li><a href="javascript:void(0);">医疗器械</a></li>
+            <li><a href="javascript:void(0);">医药代理</a></li>
+            <li><a href="javascript:void(0);">医药资讯</a></li>
+            <li><a href="javascript:void(0);">疾病查询</a></li>
+            <li><a href="javascript:void(0);">医药公司</a></li>
+            <li><a href="javascript:void(0);">药品库</a></li>
+            <li><a href="javascript:void(0);">医药数据库</a></li>
+        </ul>
+    </div>
+<div class="content">
+	<div class="c_left">
+    	<ul class="center">
+        	<li><a href="/agent"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l1.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l11.png" />用户中心</a></li>
+            <li class="active_li"><a href="/books/add"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l2.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l22.png" />发布代理留言</a></li>
+            <li><a href="/books/list"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l3.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l33.png" />我的代理信息</a></li>
+            <li><a href="/user/infor2"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l4.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l44.png" />账户信息</a></li>
+            <li><a href="/user/modify"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l5.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l55.png" />修改密码</a></li>
+        </ul>
+    </div>
+	<div class="c_right">
+<form action="edit" method="post">          
+        <input name="ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" value="{|$row['ab_id']|}" /> 
+         <input name="areas" type="hidden" type="text" value="{|$row['areas']|}" />     
+      <div class="list" style="border-bottom:none;">
+      	<div class="list_title"><span class="s_name">代理意向</span><img src="{|$STYLE_URL|}/img/Agent message/p2.png" /></div>       	
+      	<div class="list1">
+        	<span class="select_name"><span class="red">*</span><span class="l_name">代理区域：</span></span>
+        	<div class="select">{|$row['areas']|}</div>
+             <ul class="for_select">
+            	<li>北京</li>
+                <li>上海</li>
+                <li>天津</li>
+                <li>重庆</li>
+                <li>河北</li>
+                <li>山西</li>
+                <li>内蒙</li>
+                <li>辽宁</li>
+                <li>吉林</li>
+                <li>黑龙江</li>
+                <li>江苏</li>
+                <li>浙江</li>
+                <li>安徽</li>
+                <li>福建</li>
+                <li>江西</li>
+                <li>山东</li>
+                <li>河南</li>
+                <li>湖北</li>
+                <li>湖南</li>
+                <li>广东</li>
+                <li>广西</li>
+                <li>海南</li>
+                <li>四川</li>
+                <li>贵州</li>
+                <li>云南</li>
+                <li>西藏</li>
+                <li>陕西</li>
+                <li>甘肃</li>
+                <li>宁夏</li>
+                <li>青海</li>
+                <li>新疆</li>
+                <li>香港</li>
+                <li>澳门</li>
+                <li>台湾</li>
+            </ul>
+            <div class="qu">
+            	<ul>
+                </ul>
+            </div>
+        </div>
+        <div class="list2">
+        	<span class="red">*</span><span class="l_name">代理渠道：</span>
+            <input type="checkbox" name="channel[]"  id="dao1" value="1" {|$channel_checked[1]|}/><label for="dao1">连锁药店</label>
+            <input type="checkbox" name="channel[]"  id="dao2" value="2" {|$channel_checked[2]|}/><label for="dao2">批发物流</label>
+            <input type="checkbox" name="channel[]"  id="dao3" value="3" {|$channel_checked[3]|}/><label for="dao3">零售终端</label>
+            <input type="checkbox" name="channel[]"  id="dao4" value="4" {|$channel_checked[4]|}/><label for="dao4">医药临床</label>
+            <input type="checkbox" name="channel[]"  id="dao5" value="5" {|$channel_checked[5]|}/><label for="dao5">会议营</label>
+        </div>
+        <div class="list3">
+        	<span class="red">*</span><span class="l_name">有效时间：</span>
+            <input type="radio" name="row[end_time]" id="time1"  {|$end_time_checked[1]|} value="1"/><label for="time1">一个月</label>
+            <input type="radio" name="row[end_time]" id="time2"  {|$end_time_checked[2]|} value="2"/><label for="time2">一个季度</label>
+            <input type="radio" name="row[end_time]" id="time3"  {|$end_time_checked[3]|} value="3"/><label for="time3">半年</label>
+            <input type="radio" name="row[end_time]" id="time4"  {|$end_time_checked[4]|} value="4"/><label for="time4">一年</label>
+            <span class="red">（*超过有效时间该代理信息将会自动删除）</span>
+        </div>
+        <div class="list4">
+        	<div class="bao_name">
+            	<span class="red">*</span><span class="l_name">产品类别：</span>
+            </div>
+           	<div class="bao">
+                <span class="type">保健品</span>
+                <span class="type">感冒</span>
+                <span class="type">止咳</span>
+                <span class="type">消炎</span>
+                <span class="type">壮阳</span>
+                <span class="type">皮肤</span>
+                <span class="type">妇科</span>
+                <span class="type">补肾</span>
+                <span class="type">止痛</span>
+                <span class="type">止血</span>
+                <span class="type">儿科</span>
+              
+            </div>
+        </div>
+        <div class="list5">
+        	<span class="red">*</span><span class="l_name">产品名称：</span>
+            <input type="text" class="input_text" name="row[pdt_name]" value="{|$row['pdt_name']|}"/>
+        </div>
+        <div class="list6">
+        	<span class="red">*</span><span class="l_name">代理留言：</span>
+            <textarea name="row[content]" id="con">{|$row['content']|}</textarea>
+            <div class="choose">
+            	<p>留言助手</p>
+                <ul>
+                	<li><input type="checkbox" id="ch1" /><label for="ch1">请寄给我外包装盒！</label></li>
+                    <li><input type="checkbox" id="ch2" /><label for="ch2">请寄给我合同样本！</label></li>
+                    <li><input type="checkbox" id="ch3" /><label for="ch3">我希望代理此产品，请速与我联系！</label></li>
+                    <li><input type="checkbox" id="ch4" /><label for="ch4">请寄给我详细资料！</label></li>
+                    <li><input type="checkbox" id="ch5" /><label for="ch5">请寄给我样品！</label></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+        <div class="list" style="height:445px; border-top:none;">
+        	<div class="list_title"><span>联系人信息</span><img src="{|$STYLE_URL|}/img/Agent message/p2.png" /></div>
+            <ul class="message">
+            	<li><span class="message_name"><span class="red">*</span>代理商：</span>
+            	   <input type="radio" name="row[agent_type]" id="shang1" {|$agent_type_checked[1]|} value="1"/><label for="shang1">公司</label>
+            	   <input type="radio" name="row[agent_type]" id="shang2" {|$agent_type_checked[2]|} value="2"/><label for="shang2">个人</label>
+            	</li>
+            	<li id="danwei"><span class="message_name"><span class="red">*</span>单位名称：</span><input type="text" class="input_text" name="row[company]" value={|$row['company']|} id="cmp"><span class="end_text" id="dw">请填写单位名称</span></li>
+                <li><span class="message_name"><span class="red">*</span>联系人：</span><input type="text" class="input_text" id="link_man" name="row[link_man]" value={|$row['link_man']|}><span class="end_text" id="name">您的真实姓名，请填写中文</span></li>
+                <li><span class="message_name"><span class="red">*</span>联系电话：</span><input type="text" class="input_text" id="tel" name="row[tel]" value={|$row['tel']|}><span class="end_text" id="dh">方便项目负责人与你联系</span></li>
+                <li><span class="message_name"><span class="zhan">*</span>手&nbsp;&nbsp;机：</span><input type="text" class="input_text" name="row[mp]" value={|$row['mp']|}></li>
+                <li><span class="message_name"><span class="zhan">*</span>Q&nbsp;&nbsp;Q：</span><input type="text" class="input_text" name="row[qq]" value={|$row['qq']|}><span class="end_text">请输入您的QQ号</span></li>
+                <li><span class="message_name"><span class="zhan">*</span>邮&nbsp;&nbsp;箱：</span><input type="text" class="input_text" name="row[email]" value={|$row['email']|}><span class="end_text">请填写你的常用邮箱</span></li>
+                <li><input type="submit" value="提交" class="btn1" /></li>
+            </ul>
+        </div>
+</form>
+        </div>
+    </div>
+<div class="footer">
+        <div class="info_3156">
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="{|$STYLE_URL|}/img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 www.miitbeian.gov.cn</P>
+                <P>互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</P>
+                <P>医药招商网站 版权所有 违版必究51YES网站统计系统</P>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<link href="{|$style|}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="{|$style|}/css/Public.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$style|}/js/jquery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <div class="tools">
+    
+    	<ul class="toolbar">
+        <li class="click"><span><img src="{|$style|}/images/t01.png" /></span>添加</li>
+        <li class="click"><span><img src="{|$style|}/images/t02.png" /></span>修改</li>
+        <li><span><img src="{|$style|}/images/t03.png" /></span>删除</li>
+        <li><span><img src="{|$style|}/images/t04.png" /></span>统计</li>
+        </ul>
+        
+        
+        <ul class="toolbar1">
+        <li><span><img src="{|$style|}/images/t05.png" /></span>设置</li>
+        </ul>
+    
+    </div>
+    
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th>关键词编号<i class="sort"><img src="{|$style|}/images/px.gif" /></i></th>
+        <th>类型</th>
+        <th>关键字</th>
+        <th>搜索次数</th>
+        <th>是否被删除</th>
+        <th>推广状态</th>
+        <th>添加日期</th>
+        <th>时间戳</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody> 
+     {|foreach $list as $key=>$value|}              
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>{|$value['kw_id']|}</td>
+        <td>{|if $value['type']==1|}正常关键字{|else|}过滤关键字{|/if|}</td>
+        <td>{|$value['kw_name']|}</td>
+        <td>{|$value['search_count']|}</td>
+        <td>{|$value['is_del']|}</td>
+        <td>{|if $value['ss_state']==1|}正常{|else|}停用{|/if|}</td>
+        <td>{|$value['dataline']|}</td>
+        <td>{|$value['timestamp']|}</td>
+        <td><a href="#" class="tablelink">编辑</a>     <a href="#" class="tablelink">删除</a></td>
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+    </table>
+
+    <div class="pagin">
+    	 {|$pageShow|}
+    </div>
+    
+    
+    <div class="tip">
+    	<div class="tiptop"><span>提示信息</span><a></a></div>
+        
+      <div class="tipinfo">
+        <span><img src="{|$style|}/images/ticon.png" /></span>
+        <div class="tipright">
+        <p>是否确认对信息的修改 ？</p>
+        <cite>如果是请点击确定按钮 ，否则请点取消。</cite>
+        </div>
+        </div>
+        
+        <div class="tipbtn">
+        <input name="" type="button"  class="sure" value="确定" />&nbsp;
+        <input name="" type="button"  class="cancel" value="取消" />
+        </div>
+    
+    </div>
+    
+    
+    
+    
+    </div>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+
+</body>
+
+</html>

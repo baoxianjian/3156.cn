@@ -1,0 +1,22 @@
+    <div class="pagin">
+        <div class="message">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+        
+        <ul class="paginList">
+            {|if $first|}
+            <li class="paginItem"><a href="{|$first|}">首页</a></li>
+            {|/if|}
+            {|if $prepg|}
+            <li class="paginItem"><a href="{|$prepg|}"><span class="pagepre"></span></a></li>
+            {|/if|}
+            {|foreach $pages as $v|}
+            <li {|if $v['page']==$currpage|}  class="paginItem current" {|else|} class="paginItem" {|/if|}><a href="{|$v['url']|}">{|$v['page']|}</a></li>
+            {|/foreach|}  
+            {|if $nextpg|}
+            <li class="paginItem"><a href="{|$nextpg|}"><span class="pagenxt"></span></a></li>
+            {|/if|}
+            {|if $last|}
+            <li class="paginItem"><a href="{|$last|}">尾页</a></li>
+            {|/if|}
+        </ul>
+    </div>
+            

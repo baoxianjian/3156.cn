@@ -1,0 +1,192 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+{|include file="$HEADER_END"|}
+</script> 
+<style>
+  .place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.adv_top{
+	margin-top:40px;
+}
+.adv_top li{
+	height:35px;
+	float:left;
+}
+.formbody{
+	margin-top:40px;
+}
+.forminfo1{
+	margin-left:10px;
+}
+.forminfo1 .label1{
+	display:inline-block;
+	width:65px;
+	height:34px;
+	line-height:34px;
+	float:left;
+}
+.forminfo1 li{
+	margin-bottom:13px;
+}
+.forminfo1 li i{
+	font-style:normal;
+	margin-left:5px;
+	color:#666666;
+}
+.forminfo1 li .type{
+	float:left;
+}
+.forminfo1 li .type span{
+	display:inline-block;
+	height:34px;
+	line-height:34px;
+	width:70px;
+}
+.type input{
+	vertical-align:middle;
+}
+textarea{
+	margin-top:10px;
+}
+.table1,.table2{
+	margin-top:10px;
+}
+#for_table1,#for_table2{
+	width:137px;
+	height:35px;
+	font-size:14px;
+	font-weight:bold;
+	line-height:35px;
+	text-align:center;
+	border-radius:3px;
+	cursor:pointer;
+}
+#for_table1:hover,#for_table2:hover{
+	color:#fff;
+	background:url(../../../../assets/style1/images/btnbg.png);
+}
+.table2 li{
+	margin-bottom:13px;
+}
+.table2{
+	display:none;
+}
+  </style>
+  <script>
+  $(function(){
+	  $('#for_table1').click(function(e) {
+		$('.table2').hide();
+		$('.table1').show();
+		$('#for_table2').removeClass('btn')
+		$(this).addClass('btn');
+	});
+	 $('#for_table2').click(function(e) {
+		$('.table1').hide();
+		$('.table2').show();
+		$('#for_table1').removeClass('btn')
+		$(this).addClass('btn');
+	});
+  });
+  
+  </script>
+<div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li><a href="/agentcomments/list" target="rightFrame">代理留言管理</a></li>
+       <li>添加代理留言</li>
+    </ul>
+</div>
+    <div class="formbody">
+    <input type="button"  value="添加留言" class="btn" id="for_table1" /><input type="button"  id="for_table2" value="批量留言" />
+    <div class="table1">
+    <form action="add" method="post" name="myform">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo1">
+        <li><label class="label1">意向产品：</label><input name="row[pdt_name]" type="text" class="dfinput" value="{|$row['pdt_name']|}" /><i>输入产品名称</i></li>          
+                          
+        <li><label class="label1">代理区域：</label><input name="row[areas]" type="text" class="dfinput" value="{|$row['areas']|}" /><i>选择代理区域</i></li>
+        <li><label class="label1">联系人：</label><input name="row[link_man]" type="text" class="dfinput" value="{|$row['link_man']|}" /><i>数字类型</i></li> 
+        <li><label class="label1">电话：</label><input name="row[user_id]" type="text" class="dfinput"  value="{|$row['user_id']|}"  /><i>数字类型</i></li> 
+        <li><label class="label1">QQ:</label><input type="text" class="dfinput" /></li>
+        <li>
+        	<label class="label1" style="float:left;">产品类别：</label>
+            <div class="type">
+            	<span><input type="radio" /><label >全部</label></span>
+                <span><input type="radio" /><label >OTC</label></span>
+                <span><input type="radio" /><label >保健品</label></span>
+                <span><input type="radio" /><label >医疗器械</label></span>
+                <span><input type="radio" /><label >药妆</label></span>
+                <span><input type="radio" /><label >胶囊</label></span>
+                <br/>
+                <span><input type="radio" /><label >中药材</label></span>
+                <span><input type="radio" /><label >中间体</label></span>
+                <span><input type="radio" /><label >消毒剂</label></span>
+                <span><input type="radio" /><label >原料药</label></span>
+                <span><input type="radio" /><label >药用辅料</label></span>
+                <span><input type="radio" /><label >药品包装</label></span>
+                <br/>
+                <span><input type="radio" /><label >诊断试剂</label></span>
+                <span><input type="radio" /><label >计生用品</label></span>
+                <span><input type="radio" /><label >医疗设备</label></span>
+                <span><input type="radio" /><label >医疗器械</label></span>
+                <span><input type="radio" /><label >西药产品</label></span>
+                <span><input type="radio" /><label >中药产品</label></span>
+            </div>
+        </li>
+        <li style="clear:both;"><label class="label1">代理留言：</label><textarea name="row[content]" class="textinput"></textarea></label></li>
+              
+        <li><label>&nbsp;</label><input name="" type="submit" id="suer" class="btn" value="提交留言"/></li>
+        </ul>
+    </form>
+    </div>
+    <div class="table2">
+    	<ul>
+        	<li><a href="">点此下载文档模板，请务必按此模板填写</a></li>
+            <li><label>上传批量留言：</label></li>
+            <li><input type="submit" class="btn" value="确定" /></li>
+        </ul>
+    </div>
+    </div>
+
+
+{|include file="$FOOTER"|}  
+<script type="text/javascript">
+$('#startTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d ',
+     //   formatDate:'Y-m-d ',
+        
+});
+
+$('#endTime').datetimepicker({
+        lang:'ch',
+        timepicker:true,
+        format:'Y-m-d ',
+     //   formatDate:'Y-m-d ',
+        
+});
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+</script>   

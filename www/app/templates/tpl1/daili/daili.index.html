@@ -1,0 +1,199 @@
+{|include file="$HEADER"|} 
+<script type="text/javascript">var c_webid = '1501', referrer = document.referrer;</script>
+    <link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/page.css" /> 
+
+{|include file="$HEADER_END"|} 
+
+    <div class="warp" >
+        <p class="dqwz agent">当前位置：<a href="http://www.3156.cn/">3156医药网</a> > <a href="http://www.3156.cn/daili">医药代理</a></p>
+        <div class="conditions_sub">
+        {|if $row['time']!='' || $row['pt1']!='' || $row['areas']!='' || $row['at']!='' |}
+            <div class="sub_line">
+            
+                <span class="sub_name" style="margin-top:2px;">已选条件：</span>
+                
+                   {|if $row['time']!='' |}
+                     <span class="selected">                 
+                     {|if $row['time']=='to'|}今天{|elseif $row['time']=='ye'|}昨天{|elseif $row['time']=='week'|}最近一周{|elseif $row['time']=='om'|}最近一个月{|elseif $row['time']=='tm'|}最近三个月{|elseif $row['time']=='sm'|}最近半年{|/if|}
+                     <a href="/daili/index-time--type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}">×</a>
+                     </span> 
+                   {|/if|} 
+                   {|if $row['pt1']!='' |}
+                     <span class="selected">  
+                          {|foreach $tplist as $v|}
+                             {|if $row['pt1']==$v['pt_id']|}
+                                {|$v['pt_name']|}
+                             {|/if|}
+                          {|/foreach|}                 
+                     <a href="/daili/index-time-{|$row['time']|}-type--areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}">×</a>
+                     </span> 
+                   {|/if|} 
+                  
+                  {|if $row['areas']!='' |}
+                     <span class="selected">    
+                           {|foreach $area as $v|}
+                                 {|if $row['areas']==$v['name']|}
+                                     {|$v['name']|}
+                                 {|/if|}                    
+                           {|/foreach|}               
+                     <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas--at-{|$row['at']|}-k-{|$row['k']|}">×</a>
+                     </span> 
+                   {|/if|} 
+                   {|if $row['at']!='' |}
+                      <span class="selected">                   
+                      {|if $row['at']==1|}公司{|elseif $row['at']==2|}个人{|/if|}
+                      <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-k-{|$row['k']|}" >×</a>  
+                      </span> 
+                   {|/if|}                
+                    <a href="/daili/index-time--type--areas--at-"  class="del">清空条件</a>
+               
+            </div>
+            {|else|}
+            {|/if|}
+            <div class="sub_line sub_style">                
+                <span class="sub_name">发布时间：</span>
+                <div class="sub_area sub_drug_click">
+                        <a href="/daili/index-time--type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']==''|} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >全部</a>                   
+                        <a href="/daili/index-time-to-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='to'|} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>今天</a>
+                        <a href="/daili/index-time-ye-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='ye' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>昨天</a>
+                        <a href="/daili/index-time-week-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='week' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>最近一周</a>
+                        <a href="/daili/index-time-om-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='om' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>最近一个月</a>
+                        <a href="/daili/index-time-tm-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='tm' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>最近三个月</a>
+                        <a href="/daili/index-time-sm-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['time']=='sm' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>最近半年</a>
+                   
+                </div>
+            </div>
+            <div class="sub_line sub_style">
+                <span class="sub_name">产品类别：</span>
+                <div class="sub_area sub_drug_click" style="width:1100px;">
+                        <a href="/daili/index-time-{|$row['time']|}-type--areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['pt1']=='' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >全部</a> 
+                         {|foreach $tplist as $v|}           	            	  
+                        <a href="/daili/index-time-{|$row['time']|}-type-{|$v['pt_id']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['pt1']==$v['pt_id'] |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v['pt_name']|}</a> 
+                         {|/foreach|}                         
+                </div>
+            </div>
+            <div class="sub_line sub_style" >
+                <span class="sub_name">代理区域：</span>
+                <div class="sub_area sub_drug_click" >
+                       <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas--at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['areas']=="" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >全部</a>                    
+                       {|foreach $area as $k=>$v|}
+					   <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$v['name']|}-at-{|$row['at']|}-k-{|$row['k']|}" {|if $row['areas']=="{|$v['name']|}" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v['name']|}</a>					
+					   {|/foreach|}
+                </div>
+				<!--<a href="javascript:void(0);" class="Pack">展开</a>-->
+            </div>
+			<!-- 暂时屏蔽
+            <div class="sub_line sub_style" >
+                 <span class="sub_name">代 理 商：</span>
+                <div class="sub_area sub_drug_click">
+                    <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-k-{|$row['k']|}" {|if $row['at']=='' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>全部</a>                  
+                    <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-1-k-{|$row['k']|}" {|if $row['at']==1 |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>公司</a>
+                    <a href="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-2-k-{|$row['k']|}" {|if $row['at']==2 |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>个人</a>
+                   
+                </div>
+            </div>
+			-->
+            <div class="sub_line" style="border-bottom:none;">
+				<span class="sub_name" style="margin-top:2px;">关 键 字：</span>   
+				  <form action="/daili/index"  method='post'>                                 
+                    <input id="input_k" type="text" value="{|$row['k']|}" class="txt txt_1" name='k' placeholder='请输入关键字，如"保健品"'/>
+                    <input id="btn_sub" onclick="return searchSub();" type="submit" class="sub" style="cursor: pointer;" value="搜一下"/>
+                  </form>
+				  <script type="text/javascript">
+				  
+					function searchSub(){
+						window.location="/daili/index-time-{|$row['time']|}-type-{|$row['pt1']|}-areas-{|$row['areas']|}-at-{|$row['at']|}-k-"+encodeURIComponent($('#input_k').val());
+						return false;
+						}
+				  </script>
+			</div>
+        </div>
+        <div class="agent_table">
+            <table cellpadding="0" border="0" cellspacing="0">
+                <thead>
+                <tr>
+                    
+                    <th style="width:100px">联系人</th>
+                    <th style="width:100px;">联系电话</th>
+                    <th style="width:150px;">代理区域</th>
+                    <th style="width:300px;">意向产品</th>
+                    <th>产品类别</th>
+                    <th>发布日期</th>
+                </tr>
+                </thead>
+                <tbody>
+                {|foreach $list as $row|}
+                <tr>
+                    
+                    <td>{|$row['link_man']|}</td>
+                    <td class="See">{|$row['tel_temp']|}*****<a href="{|$row['view_url']|}" target="_blank" >查看</a></td>
+                    <td>{|$row['areas']|}</td>
+                    <td class="product_name"><a style="display:inline-block; height:33px; line-height:33px; overflow:hidden;" href="{|$row['view_url']|}" target="_blank" >{|$row['pdt_name']|}</a></td>
+                    <td>                    
+                         {|foreach $tplist as $v|}
+                             {|if $row['pdt_type']==$v['pt_id']|}
+                                {|$v['pt_name']|}
+                             {|/if|}
+                          {|/foreach|} 
+                    </td>
+                    <td>{|date('Y-m-d',$row['dateline'])|}</td>
+                </tr>
+                {|/foreach|}
+                </tbody>
+            </table>        
+            
+      {|$pagehtml|}            
+        </div>
+        <div class="agent_right">
+            <a {|if $cid!='' |} href="http://user.3156.cn/product/edit-ac-add" {|elseif $uid!='' && $cid=='' |} href='{|$WWW_URL|}/daili/tip' {|elseif $uid=='' && $cid==''|} href='http://user.3156.cn/user/login/' {|/if|}  class="Label Label_1" target="_blank" >免费发布药品信息</a>
+            <a href="http://www.3156.cn/daili/fbxq/" class="Label" target="_blank" >免费发布代理信息</a>
+            <div class="Recommend Rec_M">
+                <p class="title">推荐医药招商</p>
+                <ul class="con con1">
+                {|gg('pid:171,gid:172')|}
+                </ul>
+            </div>
+            <div class="Recommend Rec_M">
+                <p class="title">推荐药品招商</p>
+                <ul class="con con1">
+                {|block('id:34')|}
+                </ul>
+            </div>
+            {|block('id:118')|}
+            <!--<div class="Recommend agent_online">
+                <p class="title">在线咨询</p>
+                <div class="con">
+                    <p><span>客服：</span><a href="http://wpa.qq.com/msgrd?V=1&amp;uin=749900393&amp;Site=3156.cn&amp;Menu=yes"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a><a href="http://wpa.qq.com/msgrd?V=1&amp;uin=2821512219&amp;Site=3156.cn&amp;Menu=yes"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a></p>
+                    <p>全天服务热线：18680473282</p>
+                    <p>客服邮箱：choose3156@163.com</p>
+                </div>
+            </div>-->
+        </div>
+
+        
+    </div>
+    
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:113"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:91"|}     
+{|include file="$FOOTER"|}
+    
+    <script>
+		//字数限制
+/*		$("tbody tr").each(function(){
+			var this_=$(this);
+			var len_=this_.find(".product_name").text().length;
+			if(len_>19){
+				 this_.find(".product_name").attr("title",this_.find(".product_name").text());  
+				var text=this_.find(".product_name").text().substring(0,19)+"...";  
+					this_.find(".product_name a").text(text); 
+			}
+		})
+*/		/*$(".Pack").toggle(function(){
+		//$(".sub_area").removeClass("an");
+		$(".Pack").text("收起").css("background-position","35px -14px");
+		$(".sub_area").addClass("an");
+		},function(){
+				$(".Pack").text("展开").css("background-position","35px 5px");
+				$(".sub_area").removeClass("an")
+		})*/
+    </script>

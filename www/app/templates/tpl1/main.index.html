@@ -1,0 +1,569 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{|$SEO['title']|}</title>
+<meta name="keywords" content="{|$SEO['keywords']|}" />
+<meta name="description" content="{|$SEO['description']|}"   />
+<link rel="stylesheet" type="text/css" href="{|$CSS_URL|}/2.0/www/basic.css" />
+<!--<link rel="shortcut ico" href="{|$IMG_URL|}/favicon.ico">--> 
+<link rel="shortcut ico" href="{|$WWW_URL|}/favicon.ico">
+<script type="text/javascript" src="{|$JS_URL|}/dev/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/main.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/3156_old.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/jquery.superslide.2.1.1.js"></script>
+
+
+</head>
+<body>
+<!--<div class="back_top"></div>-->
+<div class="top">
+    <div class="warp">
+        <ul class="top_left">
+            <li><a target="_blank" href="{|$NAV['product']|}">药品库</a></li>
+            <li><a target="_blank" href="{|$NAV['shuju']|}">数据中心</a></li>
+            <li><a target="_blank" href="{|$NAV['zixun']|}">医药资讯</a></li>
+            <li><a target="_blank" href="http://www.3156.cn/daili/">医药代理</a></li>
+            <!--<li id="top_left"><a href="http://m.3156.cn" target="_blank">手机药品网</a></li>-->
+            <li id="top_left"><a target="_blank" href="{|$NAV['company']|}">医药公司</a></li>
+        </ul>
+        <ul class="top_right">
+            <li id="info_li_1">你好，<span id="u_name_1">游客</span></li>
+            <li id="info_li_2"><a  href="{|$USER_URL|}/user/login/" rel="nofollow">请登录</a></li>
+            <li id="info_li_3"><a style="color:#F53535;" href="{|$USER_URL|}/user/register/" rel="nofollow">免费注册</a><a href="###" id="er"></a></li>
+
+            <li id="info_li_4" class="cur" style="display: none;">
+                欢迎您，
+                <span id="u_name_2">baoxianjian</span>
+                <i></i>                    
+                <div id="info_div_menu" class="down_menu" style="display:none;"></div>
+                <div id="info_div_1" style="display:none;">
+                    <a href="{|$USER_URL|}/agent/">用户中心</a>
+                    <a href="{|$WWW_URL|}/daili/fbxq/">发布代理信息</a>
+                    <a href="{|$USER_URL|}/books/list/" target="_blank" >我的代理信息</a> 
+                    <a href="{|$USER_URL|}/user/infor2/">账户信息</a>    
+                    <a href="{|$USER_URL|}/user/modify/">修改密码</a>
+                    <a href="{|$USER_URL|}/user/logout/">退出登录</a>
+                </div>
+                <div id="info_div_2" style="display:none;">
+                   <a href="{|$USER_URL|}/company/">用户中心</a>    
+                        
+                        <a href="{|$USER_URL|}/company/info/">公司资料</a>
+                        <a href="{|$USER_URL|}/product/edit/">发布产品</a>
+                        <a href="{|$USER_URL|}/comments/myinfo/">代理信息</a>
+                        <a href="{|$USER_URL|}/user/changepwd/">修改密码</a>                   
+                        <a href="{|$USER_URL|}/user/logout/">退出登录</a>                 
+                </div>
+            </li>
+            <li class="er_out">
+            	<a href="###" id="weixin" ></a>
+				<span  class="float_er"></span>
+            </li>
+            <li><a href="http://weibo.com/qgypw/" id="weibo" target="_blank"></a></li>
+        </ul>
+        <script type="text/javascript" src="{|$JS_URL|}/dev/member_info.js"></script>  
+    </div>
+</div>
+<div class="header">
+        <ul class="banner">
+			{|gg('gid:2')|}
+		</ul>
+        <ul class="top_pic">
+        {|gg('gid:3')|} 
+        </ul>
+       <a class="logo" href="{|$WWW_URL|}" title="3156医药网 全国药品网">
+        </a>
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="search/sreach_list" class="searchOn">产品</dd>
+                            <dd s-type="search/company_list">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+   <!--               
+                <form id="search-form" action="http://s.3156.cn/" method="get" target="_blank">
+                
+                    <input type="text" name="seek" value="输入您要找的产品" class="search-On" def="输入您要找的产品" onFocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onBlur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                                
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+                
+  -->             
+                 <form id="search-form" action="{|$WWW_URL|}/main/index/" method="get" target="_blank">
+                      <input type="hidden" name="ac" value="1">
+                    <input type="text" name="seek" placeholder="请输入您要找的产品" class="search-On"  />                          
+                                
+                    <input type="submit" class="search-btn" value="搜索">
+                </form>
+     
+            </div>
+
+            <span class="and">或者</span>
+            <a href="{|$WWW_URL|}/daili/fbxq/" target="_blank"><button type="submit" class="search-btn btn1" hidefocus="">发布需求</button></a>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                {|foreach $hot_keys as $k=>$v|}
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek={|$v['kw_name_encoded']|}">{|$v['kw_name']|}</a>
+                {|/foreach|}
+                <a target="_blank" href="http://top.3156.cn/" class="phb">医药招商排行榜</a>
+            </div>
+        </div>
+        <div class="drug">
+             {|gg('gid:4')|} 
+        </div>
+    </div>
+</div>
+<div class="c_warp">
+<ul class="nav">
+      <li><a {|$NAV_ACTIVE['main']|} href="{|$NAV['main']|}">首页</a></li>
+      <li><a {|$NAV_ACTIVE['yyzs']|} href="{|$NAV['yyzs']|}"><strong class="important">医药招商</strong></a></li>
+      <li><a {|$NAV_ACTIVE['ypzs']|} href="{|$NAV['ypzs']|}">药品招商</a></li>
+      <li><a {|$NAV_ACTIVE['otc']|} href="{|$NAV['otc']|}">OTC</a></li>
+      <li><a {|$NAV_ACTIVE['bjp']|} href="{|$NAV['bjp']|}">保健品</a></li>
+      <li><a {|$NAV_ACTIVE['yz']|} href="{|$NAV['yz']|}">药妆</a></li>
+      <li><a {|$NAV_ACTIVE['ylqx']|} href="{|$NAV['ylqx']|}">医疗器械</a></li>
+      <li><a {|$NAV_ACTIVE['daili']|} href="{|$NAV['daili']|}">医药代理</a></li>
+      <li><a {|$NAV_ACTIVE['zixun']|} href="{|$NAV['zixun']|}">医药资讯</a></li>
+      <li><a {|$NAV_ACTIVE['company']|} href="{|$NAV['company']|}">医药公司</a></li>
+      <li><a {|$NAV_ACTIVE['products']|} href="{|$NAV['product']|}">药品库</a></li>
+      <li><a {|$NAV_ACTIVE['shuju']|} href="{|$NAV['shuju']|}">医药数据库</a></li>
+</ul>
+<div class="content">
+    <ul class="pic1">
+        {|gg('gid:5')|} 
+    </ul>
+    <div class="c_left">
+        <div class="fen pin">
+            <span>药品分类</span>
+            <ul>
+                <li><a href="http://www.3156.cn/ztzhy.shtml" target="_blank">中药</a></li>
+                <li><a href="http://www.3156.cn/ztotc.shtml" target="_blank">OTC</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztdj.shtml" target="_blank">独家</a></li>
+                <li><a href="http://www.3156.cn/ztyb.shtml" target="_blank">医保</a></li>
+                <li><a href="http://www.3156.cn/ztzb.shtml" target="_blank">中标</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztxiyao.shtml" target="_blank">西药</a></li>
+                <li><a href="http://www.3156.cn/ztyz.shtml" target="_blank">药妆</a></li>
+                <li><a href="http://www.3156.cn/ztmy.shtml" target="_blank">蒙药</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztzy.shtml" target="_blank">藏药</a></li>
+                <li><a href="http://www.3156.cn/ztlc.shtml" target="_blank">临床</a></li>
+                <li><a href="http://www.3156.cn/ztbjp.shtml" target="_blank">保健品</a></li>
+                <li class="fen_big"><a href="http://www.3156.cn/ztylqx.shtml" target="_blank">医疗器械</a></li>
+            </ul>
+        </div>
+        <div class="fen zheng">
+            <span>症状分类</span>
+            <ul>
+                <li><a href="http://www.3156.cn/ztpx.shtml" target="_blank">贫血</a></li>
+                <li><a href="http://www.3156.cn/ztby.shtml" target="_blank">鼻炎</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztgm.shtml" target="_blank">感冒</a></li>
+                <li><a href="http://www.3156.cn/ztfx.shtml" target="_blank">腹泻</a></li>
+                <li><a href="http://www.3156.cn/ztjq.shtml" target="_blank">脚气</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztfp.shtml" target="_blank">肥胖</a></li>
+                <li><a href="http://www.3156.cn/ztzc.shtml" target="_blank">痔疮</a></li>
+                <li><a href="http://www.3156.cn/ztgy.shtml" target="_blank">肝炎</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztzl.shtml" target="_blank">肿瘤</a></li>
+                <li><a href="http://www.3156.cn/ztbm.shtml" target="_blank">便秘</a></li>
+                <li class="fen_big"><a href="http://www.3156.cn/ztgxy.shtml" target="_blank">高血压</a></li>
+                <li><a href="http://www.3156.cn/ztgjy.shtml" target="_blank">关节炎</a></li>
+                <li><a href="http://www.3156.cn/zttnb.shtml" target="_blank">糖尿病</a></li>
+                <li class="fen_big"><a href="http://www.3156.cn/ztzqg.shtml" target="_blank">支气管炎</a></li>
+            </ul>
+        </div>
+        <div class="fen ke">
+            <span>科室分类</span>
+            <ul>
+                <li><a href="http://www.3156.cn/ztfk.shtml" target="_blank">妇科</a></li>
+                <li><a href="http://www.3156.cn/ztek.shtml" target="_blank">儿科</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztyk.shtml" target="_blank">眼科</a></li>
+                <li><a href="http://www.3156.cn/ztmiy.shtml" target="_blank">免疫</a></li>
+                <li><a href="http://www.3156.cn/ztgk.shtml" target="_blank">骨科</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztmn.shtml" target="_blank">泌尿</a></li>
+                <li><a href="http://www.3156.cn/ztpf.shtml" target="_blank">皮肤</a></li>
+                <li><a href="http://www.3156.cn/ztxhk.shtml" target="_blank">消化科</a></li>
+                <li class="fen_big" style="margin-right:15px;"><a href="http://www.3156.cn/ztebhk.shtml" target="_blank">耳鼻喉科</a></li>
+                <li class="fen_big"><a href="http://www.3156.cn/ztxnxg.shtml" target="_blank">心脑血管</a></li>
+            </ul>
+        </div>
+        <div class="fen ji">
+            <span>药品剂型</span>
+            <ul>
+                <li><a href="http://www.3156.cn/ztjn.shtml" target="_blank">胶囊</a></li>
+                <li><a href="http://www.3156.cn/ztcj.shtml" target="_blank">冲剂</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztwj.shtml" target="_blank">丸剂</a></li>
+                <li><a href="http://www.3156.cn/ztgj.shtml" target="_blank">膏剂</a></li>
+                <li><a href="http://www.3156.cn/ztpj.shtml" target="_blank">喷剂</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/zttj.shtml" target="_blank">贴剂</a></li>
+                <li><a href="http://www.3156.cn/ztxy.shtml" target="_blank">洗液</a></li>
+                <li><a href="http://www.3156.cn/ztpaj.shtml" target="_blank">片剂</a></li>
+                <li class="fen_last"><a href="http://www.3156.cn/ztzsy.shtml" target="_blank">注射液</a></li>
+                <li><a href="http://www.3156.cn/ztkfy.shtml" target="_blank">口服液</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="c_middle">
+        <ul class="c_middle_pic">
+            {|gg('gid:6')|} 
+            {|gg('gid:9')|} 
+            {|gg('gid:7')|}
+            {|gg('gid:10')|}  
+            {|gg('gid:8')|} 
+        </ul>
+    </div>
+    <div class="c_right">
+        <ul class="c_right_pic">
+            {|gg('gid:11')|} 
+        </ul>
+        <ul class="table">
+        {|gg('gid:14')|} 
+        </ul>
+        <ul class="c_right_pic">
+            {|gg('gid:12')|} 
+        </ul>
+        <ul class="table">
+        {|gg('gid:15')|} 
+        </ul>
+        <ul class="c_right_pic">
+            {|gg('gid:13')|} 
+        </ul>
+    </div>
+    <ul class="foot">
+    {|gg('gid:16')|}
+    </ul>
+</div>
+<div class="aqu">
+     <div class="qu_title">
+         <img src="{|$STYLE_URL|}/img/images/aqu.png" />
+         <span><strong class="important">医药招商</strong></span>
+         <span class="red">-A区</span>
+         {|gg('gid:23')|}
+     </div>
+     <ul class="aqu_top">
+     {|gg('gid:17')|}
+     </ul>
+    <ul class="table">
+    {|gg('gid:21')|}
+        </ul>
+     <ul class="aqu_middle" >
+     {|gg('gid:18')|}
+     </ul>
+     <div class="aqu_right">
+         <ul class="table">
+         {|gg('gid:22')|}
+     </ul>
+     </div>
+     <ul class="aqu_top">
+     {|gg('gid:204')|}
+     </ul>
+     <ul class="foot">
+     {|gg('gid:19')|}
+     </ul>
+     {|gg('gid:20')|}
+</div>
+<div class="tui">
+    <div class="qu_title">
+        <img src="{|$STYLE_URL|}/img/images/tui.png" />
+        <span>推荐<strong class="important">医药招商</strong></span>
+    </div>
+    <ul>
+    {|gg('gid:24')|}
+    </ul>
+</div>
+<div class="bao">
+    <div class="qu_title">
+         <img src="{|$STYLE_URL|}/img/images/bao.png" />
+         <span>保健品招商</span>
+         {|gg('gid:27')|}
+     </div>
+    <ul>
+        {|gg('gid:26')|}
+    </ul>
+</div>
+<ul class="foot">
+    {|gg('gid:25')|}
+</ul>
+<div class="new">
+    <div class="qu_title">
+        <img src="{|$STYLE_URL|}/img/images/xin.png" />
+        <span>新特<strong class="important">医药招商</strong>区</span>
+        {|gg('gid:30')|}
+    </div>
+    <ul class="ul_new">
+    {|gg('gid:28')|}
+    </ul>
+    <ul class="foot">
+    {|gg('gid:29')|}
+    </ul>
+</div>
+<div class="zui">
+    <div class="qu_title zui_img1">
+        <img src="{|$STYLE_URL|}/img/images/zui.png" />
+        <span>最新<strong class="important">医药产品招商</strong>区</span>
+    </div>
+    <div class="qu_title zui_img2">
+        <img src="{|$STYLE_URL|}/img/images/hot.png" />
+        <span>热点<strong class="important">医药产品招商</strong>区</span>
+    </div>
+    <ul class="pic">
+    {|gg('gid:32')|}
+    </ul>
+		 <ul class="zui_foot">
+        {|gg('gid:33')|}
+        </ul>
+        <div class="zui_right">
+        <ul class="table">
+        {|gg('gid:34')|}
+        </ul>
+      </div>
+     <ul class="foot">
+     {|gg('gid:35')|}
+    </ul>
+</div>
+<div class="bqu">
+    <div class="qu_title bqu_img1">
+        <img   src="{|$STYLE_URL|}/img/images/bang.png"/>
+        <span>最新产品招商榜</span>
+    </div>
+    <div class="qu_title bqu_img2">
+        <img  src="{|$STYLE_URL|}/img/images/bqu.png"/>
+        <span><strong class="important">医药招商</strong></span>
+        <span class="red">-B区</span>
+        {|gg('gid:41')|}
+    </div>
+    <ul class="bqu_ul">
+    {|gg('gid:36')|}
+    </ul>
+    <div class="bqu_right">
+    <ul class="pic">
+    {|gg('gid:37')|}
+    </ul>
+    <div class="b_table1">
+        <ul class="table">
+        {|gg('gid:39')|}
+        </ul>
+    </div>
+    <ul class="pic">
+    {|gg('gid:38')|}
+    </ul>
+    <div class="b_table2">
+        <ul class="table">
+        {|gg('gid:40')|}
+        </ul>
+    </div>
+    </div>
+     <ul class="ul_new">
+    {|gg('gid:199')|}
+    </ul>
+    <ul class="table" style="width:984px;">
+    {|gg('gid:198')|}
+    </ul>
+    <ul class="foot">
+     {|gg('gid:197')|}
+    </ul>
+</div>
+<div class="huobao">
+    <div class="qu_title">
+        <img src="{|$STYLE_URL|}/img/images/huobao.png" />
+        <span>火爆地带专区</span>
+        {|gg('gid:43')|}
+    </div>
+    <ul class="pic2">
+    {|gg('gid:42')|}
+    </ul>
+</div>
+<div class="jing">
+    <div class="qu_title">
+        <img src="{|$STYLE_URL|}/img/images/jing.png" />
+        <span>精品刷新招商区</span>
+        {|gg('gid:48')|}
+    </div>
+    <ul class="jing_ul1">
+    {|gg('gid:44')|}
+    </ul>
+    <ul class="table jing_ul">
+    {|gg('gid:46')|}
+        </ul>
+    <ul class="jing_ul2">
+    {|gg('gid:45')|}
+    </ul>
+    <ul class="table jing_ul">
+    {|gg('gid:47')|}
+        </ul>
+</div>
+<div class="footer">
+    <div class="ju_left">
+        <p>热点聚焦</p>
+        <ul class="ju">
+        {|block('id:44')|}
+        </ul>
+        <ul class="ju_ul1">
+            {|block('id:45')|}
+        </ul>
+        <p>疾病查询</p>
+        <ul class="ju_ul2">
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-1" target='_blank' >内科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-2" target='_blank' >外科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-5" target='_blank' >妇产科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-3" target='_blank' >儿科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-8" target='_blank' >肿瘤科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-161" target='_blank' >男科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-14"  target='_blank' >五官科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-4"   target='_blank' >传染病科</a></li>
+            <li><a href="http://bingzheng.3156.cn/jibing/index-a-167" target='_blank' >皮肤性病科</a></li>
+        </ul>
+        <p>健康资讯</p>
+        <ul class="ju_ul1">
+            {|block('id:25')|}
+        </ul>
+    </div>
+    <div class="ju_right">
+    	<ul>
+			{|block('id:75')|}
+		</ul>
+        <div class="ju_right_foot">
+        {|block('id:54')|}
+            <div class="zixun">
+                <span class="title span_active">营销战略</span>
+                <span class="title">市场分析</span>
+                <span class="title">疾病资讯</span>
+                <div class="zixun_ul zixun_ul_active">
+                {|block('id:46')|}
+                </ul>
+            </div>
+            <div class="zixun_ul">
+            {|block('id:47')|}
+            </div>
+            <div class="zixun_ul">
+            {|block('id:48')|}
+            </div>
+            </div>
+            <div class="daili">
+            <ul>
+            {|block('id:130')|}
+            </ul>
+                <ul class="sann">
+                {|block('id:51')|}
+                </ul>
+                <div class="d_message">
+					<div class="txtMarquee-top">
+						<div class="bd">
+							<ul>
+								 {|block('id:87')|}
+							</ul>
+						</div>
+					</div>
+                    
+                    <a  href="{|$WWW_URL|}/daili/fbxq/" class="i_agent" target="_blank">我要代理</a>
+                    <a  class="more" href="{|$NAV['daili']|}" target="_blank">查看更多>></a>
+                </div>
+            </div>
+          
+        </div>
+		<div class="yiyao">
+			<div class="yiyao1">
+				<p>企业新闻</p>
+				<ul class="ju_ul1">
+				{|block('id:28')|}
+				</ul>
+			</div>
+			<div class="yiyao2">
+				<p>医药新闻</p>
+				<ul class="ju_ul1">
+				{|block('id:26')|}
+				</ul>
+			</div>
+		</div>
+    </div>
+    
+    <ul class="foot f_img">
+    {|gg('gid:50')|}
+    </ul>
+    <ul class="link">
+        <li class="black">友情链接:</li>
+        {|block('id:88')|}
+       
+    </ul>
+    <p class="message">
+		3156医药网<a href="http://www.3156.cn">(www.3156.cn</a>)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相 应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。 
+    </p>
+
+    
+</div>
+
+</div>
+<div class="copyright">
+	<div class="copyright_con">
+		<div class="about_3156">
+			<p class="title">关于3156：</p>
+			<div class="con">
+				<a target="_blank" href="http://about.3156.cn/" rel="nofollow">关于我们</a>
+				<a target="_blank" href="http://about.3156.cn/service.shtml" rel="nofollow">广告服务</a>
+				<a target="_blank" href="http://about.3156.cn/zhaopin.shtml" rel="nofollow">诚聘英才</a>
+				<a target="_blank" href="http://about.3156.cn/private.shtml" rel="nofollow">隐私声明</a>
+				<a target="_blank" href="http://about.3156.cn/friends.shtml" rel="nofollow">友情链接</a>
+				<a target="_blank" href="http://www.3156.cn/sitemap">网站地图</a>
+			</div>
+		</div>
+		<div class="about_3156 contact">
+			<p class="title">联系3156：</p>
+			<div class="con">
+				<p>广告热线：18680473282</p>
+				<p>客服QQ：<em>2821512219</em></p>
+				<p>　　　　<em>749900393</em></p>
+				<p>代理商QQ群①：13459128</p>
+				<p>　　　　群②：123705685（已满）</p>
+				<p>　　　　群③：179054425</p>
+			</div>
+		</div>
+		<div class="about_3156 tishi">
+			<p class="title">3156提示：</p>
+			<div class="con">
+				<p>本网站为专业的<strong class="important">医药招商</strong>代理平台，<span class="red">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打左侧电话；药品代理期间出现纠纷问题，请及时拨打投诉电话，网站将协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+			</div>
+		</div>
+		<div class="about_3156 guanzhu">
+			<p class="title">关注3156：</p>
+			<div class="con">
+				<span class="er_ma"></span>
+				<p style="text-align:center;">3156微信公众号</p>
+			</div>
+		</div>
+	</div>
+	<div class="copyright_info">
+		Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 <a href="http://www.miitbeian.gov.cn" target="_blank">www.miitbeian.gov.cn</a>   <a href="http://www.3156.cn/images/zgzs.gif " target="_blank">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</a> <a href="http://www.3156.cn" target="_blank"><strong class="important">医药招商</strong>网站</a>版权所有 
+	</div>
+</div>
+<div style="display: none;">
+  <!--统计--> 
+<!--<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254859985'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1254859985' type='text/javascript'%3E%3C/script%3E"));</script>-->
+<script type="text/javascript">
+	$(".txtMarquee-top").slide({mainCell:".bd ul",autoPlay:true,effect:"topMarquee",vis:3,interTime:50});
+	$('.tempWrap').css('height','70px');
+	$('.latest_info a,.latest_info').css('display','inline-block').css('height','28px').css('line-height','28px');
+</script>
+<script language="javascript" src="http://count28.51yes.com/click.aspx?id=283321357&amp;logo=1" charset='gb2312'></script>
+{|block('id:89')|}
+</div>
+<!--------------------------------------------商机通开始--------------------------------------------------------->
+	<script src="http://cdn.shangjitong.3156.cn/javascript/webim.client.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var __web_im_company = 1294597910;
+		var __web_im_server = "http://shangjitong.3156.cn";
+		WebIMCustomer.init();
+	</script>
+	<!-------------------------------------------商机通结束-------------------------------------------------------->
+{|block('id:139')|}
+</body>
+</html>

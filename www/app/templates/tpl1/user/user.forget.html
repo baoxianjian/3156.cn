@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/forget.css" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/footer.css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/forget.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<title></title>
+</head>
+<body>
+<div class="top">
+	<a class="logo" href="http://www.3156.cn/"></a>
+    <ul class="left">
+    	<li><a href="###">品牌区域</a>  |</li>
+        <li><a href="###">数据中心</a>  |</li>
+        <li><a href="###">资讯频道</a>  |</li>
+        <li><a href="###">招中标信息</a>  |</li>
+        <li><a href="###">手机药品网</a></li>
+    </ul>
+    <ul class="welcome">
+    	<li>欢迎,  <span class="red">客人</span>  |</li>
+        <li><a href="###">会员登录</a>  |</li>
+        <li><a href="###">免费注册</a></li>
+    </ul>
+</div>
+<div class="content_bg"></div>
+<div class="content1">
+    <div class="c_top">
+       <img src="{|$STYLE_URL|}/img/zhuce/lock.png" />
+       <span class="green">找回密码</span>
+       <span class="small">(<b>提示：</b>如果你在登陆本系统的时候提示密码错误而无法登陆，请填写密码找回申请，找回您的密码)</span>
+    </div>
+    <ul class="step">
+       <li class="one"><img class="old_img" src="{|$STYLE_URL|}/img/zhuce/que1.png" /><img class="active_img" src="{|$STYLE_URL|}/img/zhuce/que11.png" /></li>
+       <li class="two"><img class="old_img"src="{|$STYLE_URL|}/img/zhuce/que2.png" /><img class="active_img" src="{|$STYLE_URL|}/img/zhuce/que22.png" /></li>
+       <li class="three"><img class="old_img" src="{|$STYLE_URL|}/img/zhuce/que3.png" /><img class="active_img" src="{|$STYLE_URL|}/img/zhuce/que33.png" /></li>
+    </ul>
+    <div class="step_ul">
+        <ul class="ul_t">
+            <form action="" method="post" id="doforget1">
+                <li><span class="red">*</span>用户名：<input type="text" class="name" name="user_name" id="username"/><span class="end">注册时的用户名</span></li>
+                <li><span class="zhan">占</span><span class="red">*</span>邮箱：<input name="email" type="text" id="email" class="message" /><span class="end">注册时使用的邮箱</span></li>
+                <li>
+                    <div class="Content">
+                        <div class="left"><span class="red">*</span>验证码：</div>
+                        <p class="Regional">
+                        <input type="text" name="code" id="code" class="Reg checkInput" style="width:150px;height:33px;border:1px solid #ccc;border-radius:4px;vertical-align:middle;" ><img src="CreateCode" id="codeImg" style="vertical-align:middle;margin-left:10px;" alt=""><span></span>
+                         </p>
+                    </div>
+                </li>
+        </ul>
+        <input type="button" class='btn' value="提交" id="submit1" />
+        </form>
+    </div>
+    <div class="step_ul">
+    	<div class="step2">
+            <span class="you">邮箱验证码已发送到您的邮箱，请在下面输入框输入：</span>
+            <ul>
+                <form action="" id="doforget2">
+                    <input type="hidden" class="submitType" value='2' />
+                    <li><span class="red">*</span>邮箱验证码：<input type="text" name="email_code" class="message1" /><span class="end"></span></li>
+                </form>
+            </ul>
+            <span class="lianxi"><a href="###" id="reGet">重新发送验证码</a></span>
+            <span class="lianxi">无法使用邮箱找回密码?<a href="###">请联系在线客服</a></span>
+        </div>
+        <input type="button" id="submit2" value="提交" class="btn"/>
+    </div>
+    <div class="step_ul">
+    	   <div class="step2">
+              <span class="you">验证成功，请输入你的新密码</span>
+             <ul>
+                <form action="" id="doforget3">
+                    <input type="hidden" class="submitType" value='1' />
+                    <li><span class="red">*</span>重置密码：<input type="text" name="user_pwd"  class="password1" /><span class="end">6-20个字符，区分大小写</span></li>
+                    <li><span class="red">*</span>确认密码：<input type="text" name="user_pwd_2" class="password2" /><span class="end">6-20个字符，区分大小写</span></li>
+             </ul>
+            </div>
+                 <input type="button" value="提交" class="btn" id="submit3"/>
+            </form>
+    </div>
+    <div class="step_ul">
+    	<p><img class="wang" src="{|$STYLE_URL|}/img/zhuce/wang.png" />恭喜，你的密码已重置成功！</p>
+        <a href="/user/login" class="now btn">马上登录</a>
+    </div>
+    
+</div>
+<div class="footer">
+        <div class="content">
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <P class="border color">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 www.miitbeian.gov.cn</P>
+                <P class="color">互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</P>
+                <P class="color">医药招商网站 版权所有 违版必究51YES网站统计系统</P>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    //验证码切换
+    $('#codeImg').click(function(){
+
+        $(this).attr('src','CreateCode?'+Math.random())
+
+    })
+
+    //用户名校验
+    $('#username').blur(function(){
+
+        var _this = $(this);
+
+        $.post('InputCheck',{user_name:_this.val()},function(data){
+
+            if ( data.status ){
+
+                _this.next('span').text(data.info).css('color','green');
+
+            }else{
+
+                _this.next('span').text(data.info).css('color','red');
+
+            }
+
+
+        },'json');
+
+    })
+
+    //邮箱校验
+    $('#email').blur(function(){
+
+        var _this = $(this);
+
+        $.post('InputCheck',{email:_this.val(),user_name:$('#username').val()},function(data){
+
+            if ( data.status ){
+
+                _this.next('span').text(data.info).css('color','green');
+
+            }else{
+
+                _this.next('span').text(data.info).css('color','red');
+
+            }
+
+
+        },'json');
+
+    })
+
+    //邮箱校验
+    $('#code').blur(function(){
+
+        var _this = $(this);
+
+        $.post('InputCheck',{code:_this.val()},function(data){
+
+            if ( data.status ){
+
+                _this.next('img').next('span').text(data.info).css('color','green');
+
+            }else{
+
+                _this.next('img').next('span').text(data.info).css('color','red');
+
+            }
+
+
+        },'json');
+
+    })
+
+    //重获验证码
+    $("#reGet").click(function(){
+
+         var _form = $('#doforget1');
+        $.post('doForget1',_form.serialize(),function(data){
+
+            if ( data.status ){
+
+                layer.alert(data.info,1);
+
+            }else{
+
+                layer.alert(data.info);
+            }
+
+        },'json');
+
+        return false;
+
+    })
+
+    //提交1
+    $('#submit1').click(function(){
+
+        var _form = $('#doforget1');
+        $.post('doForget1',_form.serialize(),function(data){
+
+            if ( data.status ){
+                layer.alert(data.info,1);
+                $('.step .active_img').eq(0).css('display','none');
+                $('.step_ul').eq(0).css('display','none');
+                $('.step .old_img').eq(0).css('display','block');
+                $('.step .old_img').eq(1).css('display','none');
+                $('.step .active_img').eq(1).css('display','block');
+                $('.step_ul').eq(1).css('display','block');
+
+            }else{
+
+                layer.alert(data.info);
+            }
+
+        },'json');
+
+        return false;
+
+    })
+
+    //提交2
+    $('#submit2').click(function(){
+
+        var _form = $('#doforget2');
+        $.post('doForget2',_form.serialize(),function(data){
+
+        if ( data.status ){
+            layer.alert(data.info,1);
+            setTimeout(function () {
+                $('.step .active_img').eq(1).css('display','none');
+                $('.step_ul').eq(1).css('display','none');
+                $('.step .old_img').eq(1).css('display','block');
+                $('.step .old_img').eq(2).css('display','none');
+                $('.step .active_img').eq(2).css('display','block');
+                $('.step_ul').eq(2).css('display','block');
+            }, 200);
+
+        }else{
+
+            layer.alert(data.info);
+        }
+
+         },'json');
+
+        return false;
+
+
+    })
+
+    //提交3
+    $('#submit3').click(function(){
+
+        var _form = $('#doforget3');
+        $.post('doForget3',_form.serialize(),function(data){
+
+        if ( data.status ){
+            layer.alert(data.info,1);
+            setTimeout(function () {
+                $('.step_ul').eq(2).css('display','none');
+                $('.step_ul').eq(3).css('display','block');
+            }, 200);
+
+        }else{
+
+            layer.alert(data.info);
+        }
+
+         },'json');
+
+        return false;
+
+
+    })
+
+</script>
+</body>
+</html>

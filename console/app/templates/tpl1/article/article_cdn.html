@@ -1,0 +1,72 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:10px 0 10px 10px;
+		height:auto;
+		overflow:hidden;
+	}
+	 .seachform{
+		padding:0;
+	}
+	 .seachform li{
+		margin-right:12px;
+	}
+	.edit{display:block;}
+</style>
+
+     <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>CDN刷新</li>
+		</ul>
+	</div>
+    <div class="tools">
+		<div class="tabson">
+            <form action="list" method="post" >
+               <ul class="seachform">
+                                            
+                </ul>
+            </form>
+        </div>      	   
+    </div>
+    <div>
+        <form action="article/cdn" method='post'>
+         <li><label>单条刷新网址：</label><input type="text" name="dates" class="scinput" ></li>                    
+         <li><label>请正确输入网址，如：www.3158.cn</li> 
+                <input type="submit" value="提交">  
+         </form>      
+    </div>
+    <div>
+         <form action="article/cdn" method='post'>
+         <li><label>批量刷新网址：</label>
+              <textareas name="pl" name="dates">
+              </textareas>
+         </li> 
+         <li><label>请正确输入网址，用逗号隔开：www.3158.cn,3156.cn</li>
+              <input type="submit" value="提交">                         
+         </form>           
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+{|include file="$FOOTER"|}  

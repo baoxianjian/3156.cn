@@ -1,0 +1,200 @@
+{|include file="$HEADER"|} 
+    <link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/page.css" /> 
+{|include file="$HEADER_END"|} 
+<script type="text/javascript">
+	$(document).ready(function(){
+	
+	$(".sub_style_click>a").each(function(){
+		var id=$(this).attr("id");
+		var num=id.replace("yp_","");
+
+		$(this).click(function(){
+			
+			$(".sub_style_click>a").removeClass("change_");
+			$(this).addClass("change_");
+			
+			$(".sub_drug").slideUp();
+			
+			$("#sub_drug_"+num).slideDown();
+			
+			
+			
+		})
+	
+	})
+	/*$(".Pack").toggle(function(){
+		//$(".sub_area").removeClass("an");
+		$(".Pack").text("收起").css("background-position","35px -14px");
+		$(".sub_area").addClass("an");
+		
+	
+	},function(){
+		
+			$(".Pack").text("展开").css("background-position","35px 5px");
+			$(".sub_area").removeClass("an")
+			
+	
+	})*/
+	$('.conditions_sub label a').toggle(function(){
+		$(this).prev('input').prop('checked','checked');
+	},function(){
+		$(this).prev('input').removeAttr("checked")
+	})
+	$(".sub_drug_click").each(function(){
+		var this_=$(this).find("a")
+		this_.click(function(){
+		this_.removeClass("selected_click");
+		
+		$(this).addClass("selected_click");
+	
+	})
+	
+	})
+	
+	})
+</script>
+    <div class="warp Medicines_Co">
+        <p class="dqwz agent">当前位置：<a href="http://www.3156.cn/">3156医药网</a> > <a href="http://www.3156.cn/company">医药公司</a></p>
+        <div class="conditions_sub">
+            {|if $row['main_type']!='' || $row['city_name']!=''|}
+			<div class="sub_line">
+				<span class="sub_name" style="margin-top:2px;">已选条件：</span>
+				{|if $row['main_type']!='' |}<span class="selected">
+				      {|foreach $tplist as $v|}
+                             {|if $row['main_type']==$v['pt_id']|}
+                                {|$v['pt_name']|}
+                             {|/if|}
+                      {|/foreach|}  				                     
+                     <a href="/company/index-main_type--city_name-{|$row['city_name']|}">×</a>
+                </span> 
+                {|/if|}  
+                {|if $row['city_name']!='' |}
+                <span class="selected">
+                     {|foreach $area as $v|}
+                                 {|if $row['city_name']==$v['name']|}
+                                     {|$v['name']|}
+                                 {|/if|}                    
+                     {|/foreach|}                                 
+                  <a href="/company/index-main_type-{|$row['main_type']|}-city_name-">×</a>
+                </span> 
+                {|/if|}
+				<a href="/company/index-main_type--city_name-" class="del">清空条件</a>
+			</div>
+			{|else|}
+            {|/if|}
+			<div class="sub_line sub_style">
+				<span class="sub_name">主营类别：</span>
+				<div class="sub_area sub_drug_click" style="width:1115px;">
+				        <a href="/company/index-main_type--city_name-{|$row['city_name']|}"   {|if $row['main_type']=='' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}  >全部</a>
+				        {|foreach $tplist as $v|}
+					    <a href="/company/index-main_type-{|$v['pt_id']|}-city_name-{|$row['city_name']|}"  {|if $row['main_type']=={|$v['pt_id']|} |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >{|$v['pt_name']|}</a>
+                        {|/foreach|}
+				</div>
+			</div>
+			<div class="sub_line sub_style">
+				<span class="sub_name">所在省份：</span>
+				<div class="sub_area sub_drug_click">
+					    <a href="/company/index-main_type-{|$row['main_type']|}-city_name-" {|if $row['city_name']=="" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>全部</a>					
+					    {|foreach $area as $k=>$v|}
+					    <a href="/company/index-main_type-{|$row['main_type']|}-city_name-{|$v['name']|}" {|if $row['city_name']=="{|$v['name']|}" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v['name']|}</a>					
+					    {|/foreach|}				
+				</div>
+				<!--<a href="javascript:void(0);" class="Pack">展开</a>-->
+			</div>
+			<div class="sub_line" style="border-bottom:none;">
+				<span class="sub_name" style="margin-top:2px;">关 键 字：</span>
+                <form action="/company/index" method='get'>
+                    <input type="text" value="{|$row['k']|}" class="txt" name='k' placeholder='请输入关键字，如"医药公司"'/>
+                    <input type="submit" class="sub" value="搜一下" />
+                </form>
+			</div>
+		</div>
+        <div class="agent_table M_C">
+            <p class="Medicines_Co_list">
+                医药公司列表
+                {|if $page<$ye|}   
+                <a href="{|$nextpg|}" class="cur">></a>
+                {|else|} 
+                 <a>></a>          
+                {|/if|}
+                
+                {|if $page>1|}
+                <a href="{|$prepg|}" class="cur"><</a>
+                {|else|}
+                <a ><</a>
+                {|/if|}
+                <span class="The_current The_sum"><b>{|$page|}</b>/<b>{|$ye|}</b>页</span>
+                <span class="The_sum">共<b>{|$num|}</b>个</span>
+            </p>
+            {|foreach $list as $k=>$v|}
+            <div class="M_C_con">
+                <div class="The_company">
+
+                    <h1 class="important"><p class="company_name"><a href="{|$v['linkurl']|}" target="_blank" {|if $v['cmp_type']==6|} class="vip_com" {|/if|}>{|$v['cmp_name']|}</a></p></h1>
+
+                    <a href="{|$v['linkurl']|}" class="img" target="_blank" ><img {|if $v['logo_src']!='' |} src="{|$v['logo_src']|}?w=160&h=120" {|else|} src="{|$STYLE_URL|}/img/3156a.jpg" {|/if|} alt=""  /></a> 
+                    <div class="basic_info">
+                        <p><span>所在地：</span>{|$v['cmp_addr']|}</p>
+                        <p><span>联系人：</span>{|$v['link_man']|}</p>
+                        <p><span>联系电话：</span>{|$v['telephone']|}</p>
+                        <p><span>主营产品：</span>{|$v['main_products']|}<a href="/company/product-id-{|$v['cmp_id']|}" target="_blank" >[详细]</a></p>
+                    </div>
+                    <div class="button">
+                        <a href="{|$v['linkurl']|}#2f"  target="_blank">我要代理</a>
+                        <a href="{|$v['linkurl']|}" class="To_proxy" target="_blank" >公司详情</a>
+                    </div>
+                </div>
+               
+            </div>
+            {|/foreach|}
+            <div class="agent_num">
+                {|$pagehtml|}
+            </div>
+        </div>
+        <div class="agent_right">
+            <div class="Recommend right_OTC" style="border:0;border-right:1px solid #e6e6e6;">
+                <p class="title">医药招商企业排行 </p>
+                <ul class="con con2">
+                {|block('id:33')|}
+                </ul>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1648')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">推荐医药招商</p>
+                <div class="con con3">
+                	{|gg('pid:171,gid:172')|}
+                </div>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1649')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">医药新闻</p>
+                <div class="con con3">
+                {|block('id:26')|}
+                </div>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1650')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">企业新闻</p>
+                <div class="con con3">
+                {|block('id:28')|}
+                </div>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1651')|}
+            </ul>
+            {|block('id:118')|}
+        </div>
+    </div>
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:116"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:93"|}     
+{|include file="$FOOTER"|}
+    <script>
+        $(".tempWrap").css("width","880px");
+        $(".img_").css("margin-top","20px");
+    </script>

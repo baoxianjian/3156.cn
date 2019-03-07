@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset>
+   {|foreach $list as $v|}
+    <url>
+    <loc>http://zixun.3156.cn/u{|$v['admin_id']|}a{|$v['news_id']|}.shtml</loc>
+    <lastmod>{|$v['timestamp']|}</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.6</priority>
+    </url>
+   {|/foreach|}
+</urlset>

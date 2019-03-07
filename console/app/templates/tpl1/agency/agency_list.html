@@ -1,0 +1,191 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<!--  <script type="text/javascript" src="{|$STYLE_URL|}/js/keyworddel.js"></script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	 $('#delall').click(function(e){
+	        if ( $("[name='check[]']:checked").length <= 0 ){
+	          layer.alert('未选择删除数据');
+	          return false;
+	        }
+	        $.layer({
+	            shade: [0],
+	            area: ['auto','auto'],
+	            dialog: {
+	                msg: '您确定删除所选项？',
+	                btns: 2,                    
+	                type: 5,
+	                btn: ['确定','取消'],
+	                yes: function(){
+	                	
+	                 $.post('Dels',$('#myform').serialize(),function(data){
+	                	     
+	                    if ( data.status ){
+	                        layer.alert(data.info,1);
+	                        setTimeout(function () { 
+	                            location.reload();
+	                        }, 200);
+	                    }else{
+	                        layer.alert(data.info);
+	                    }
+
+	                 },'json');
+	                },
+	                
+	            }
+	          });
+	        return false;
+	        
+	    })
+	    
+})
+</script>
+<style>
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.adv_top{
+	margin-top:40px;
+	padding-bottom:10px;
+}
+.formbody li{
+	float:left;
+	margin-right:20px;
+}
+</style>
+{|include file="$HEADER_END"|}
+<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center">首页</a></li>
+            <li>代理商管理</li>
+        </ul>
+    </div>
+    <div class="adv_top">
+    <div class="formbody">
+ <!--    
+    	<ul class="toolbar">
+        <li class=""><a href=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>搜索留言:</a></li>
+           
+         <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li> 
+         </ul>-->  
+ <!--   <ul class="toolbar1">
+        <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>       
+   -->    
+         <form action="list" method="get">
+         <ul>
+         	<li>用户编号：<input type="text"  class="scinput"  name="user_id"  value={|$srow['user_id']|}></li>
+            <li>用户名：<input type="text" name="user_name" class="scinput"  value={|$srow['user_name']|}></li>
+            <li>联系人：<input type="text" name="link_man" class="scinput"  value={|$srow['link_man']|}>  </li>
+            <li>手机：<input type="text" name="mobile" class="scinput"  value={|$srow['mobile']|}></li>
+            <li><input name="" type="submit"  class="scbtn" value="查询"/></li>
+         </ul>
+         </form>
+     </div>     
+    </div>
+    
+    <ul class="toolbar">
+    
+           <!-- <a href="add"><li class=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</li></a>
+            <li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <a id='delall'><li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li></a>
+            
+            
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+    </ul>
+    
+    <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <form id='myform'>
+     <input type="hidden" name="ajax" value="1" />
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input  type="checkbox" value=""  id="checkAll"/></th>  
+        <th>用户编号</th>
+        <th>用户名</th>
+        <th>联系人</th>
+        <th>邮箱</th>
+        <th>手机</th>              
+        <th>固定电话</th> 
+        <th>QQ</th>
+        <th>是否能登录</th>
+        <th>注册时间</th>                                           
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+     {|foreach $list as $row|}              
+        <tr>
+        <td><input name="check[]" type="checkbox" value="{|$row['user_id']|}" /></td>
+        <td>{|$row['user_id']|}</td> 
+        <td>{|$row['user_name']|}</td>       
+        <td>{|$row['link_man']|}</td>
+        <td>{|$row['email']|}</td>
+        <td>{|$row['mobile']|}</td>
+        <td>{|$row['telephone']|}</td>
+        <td>{|$row['qq']|}</td>
+        <td>{|if $row['can_login']==1 && $row['login_ect']<3 |}是{|else|}<font color="red">否</font>{|/if|}</td>
+        <td>{|date('Y-m-d',$row['reg_time'])|}</td>                    
+        <td><a  class='repass tablelink'   style="cursor:pointer" us={|$row['user_id']|} >重置密码</a> <a href="{|$row['del_url']|}"   onclick="delConfirm('{|$row['user_id']|}','del'); return false;" class="tablelink">删除</a>
+            {|if $row['can_login']==2 || $row['login_ect']==5 |}<a href="/agency/list-ac-unlock-id-{|$row['user_id']|}" style="color:red">解锁</a>{|/if|}
+        </td>
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+    </table>
+    </form>
+   {|$pagehtml|}
+  {|include file="$FOOTER"|}
+<script type="text/javascript">
+	//重置密码
+	$(document).ready(function(){
+		
+		$(".repass").each
+        (
+            function()
+            {
+		         $(this).click(
+                     function()
+                     {
+                        var $us=$(this).attr("us"); 
+                        $.layer({
+                        shade: [0],
+                        area: ['auto','auto'],
+                        dialog: {
+                            msg: '重置后密码将变成8位随机密码 请谨慎使用！确定要重置密码吗?',
+                            btns: 2,                    
+                            type: 5,
+                            btn: ['确定','取消'],
+                            yes: function(){
+                                // alert($(this).attr("us"));
+
+                                //   alert($us);
+                               $.post('/agency/Repass',{ajax:1,user_id:$us},function(data){    
+                                   layer.alert(data.info,1);
+                               },'json');
+                            }, 
+                        }
+                      });           		                   
+		             }
+                 );
+		    }
+        );  
+
+		
+	})
+</script> 
+
+
+
+
+
+
+
+    

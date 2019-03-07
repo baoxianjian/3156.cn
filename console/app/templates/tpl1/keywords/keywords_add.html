@@ -1,0 +1,46 @@
+ {|include file="$HEADER"|} 
+
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+
+
+
+  {|include file="$HEADER_END"|}
+  
+<div class="tools">
+    
+        <ul class="toolbar">
+        <li class=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</li>
+        <li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>
+        <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>
+        </ul>
+        
+        
+        <ul class="toolbar1">
+        <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>
+    
+    </div>
+    <div class="formbody">
+    
+    <div class="formtitle"><span>基本信息</span></div>
+     <form name="form" action="add" id="upForm" method="POST" enctype="multipart/form-data" >
+      <ul class="forminfo">
+       <li><label>关键字</label><input name="keyword" type="text" class="dfinput" /><i>多个关键字用,隔开</i></li>
+       <li><label>关键字类型</label>
+        <select name="type" id="keytype" class="dfinput">
+            <option value="1">正常关键字</option>
+            <option value="2">过滤关键字</option>
+        </select>
+       </li>
+       <li><label>&nbsp;</label><input id="button" type="submit" class="btn" value="确认保存"/></li>
+
+     </UL>
+    
+    </form>
+    </div>
+ {|include file="$FOOTER"|}  
+ 
+ 
+ 
+

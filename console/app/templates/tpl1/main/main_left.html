@@ -1,0 +1,73 @@
+ {|include file="$HEADER"|}
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+
+
+</head>
+
+<body style="background:#f0f9fd;">
+
+<div class="lefttop"><span></span>内容</div>    
+    <dl class="leftmenu">
+     
+     <!--资讯管理菜单--分类 S-->
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/leftico03.png" /></span>资讯管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/arttype/list" target="rightFrame">资讯分类</a><i></i></li>
+        <li><cite></cite><a href="/article/list" target="rightFrame">资讯列表</a><i></i></li>
+        <li><cite></cite><a href="/article/cdn" target="rightFrame">CDN刷新</a><i></i></li>
+        <li><cite></cite><a href="/seo/baidu" target="rightFrame">百度收录提交</a><i></i></li>
+        <li><cite></cite><a href="/gather/list" target="rightFrame">文章采集管理</a><i></i></li>
+    	<li><cite></cite><a href="/keys/list" target="rightFrame">文档关键词管理</a><i></i></li>
+    </ul>     
+    </dd>
+    <!--资讯管理菜单--分类 END-->
+
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/chanpin-icon.png" /></span>产品管理</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/pdtproducts/list" target="rightFrame">产品列表</a><i></i></li>
+        <li><cite></cite><a href="/pdttypes/list" target="rightFrame">产品分类</a><i></i></li>
+        <li><cite></cite><a href="/pdtkeys/list" target="rightFrame">产品标签管理</a><i></i></li>
+    </ul>    
+    </dd>  
+    
+    
+     
+
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/guanjizi-icon.png" /></span>关键字专区</div>
+        <ul class="menuson">
+            <li><cite></cite><a href="/blockkeywords/list" target="rightFrame">区块关键字列表</a><i></i></li>
+            <li><cite></cite><a href="/blockkeydata/list" target="rightFrame">专区数据管理</a><i></i></li>
+        </ul>    
+    </dd>
+        
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/qukuai-icon.png" /></span>区块管理</div>
+        <ul class="menuson">
+            <li><cite></cite><a href="/blockgroups/list" target="rightFrame">区块分组</a><i></i></li>
+            <li><cite></cite><a href="/blocktemplates/list" target="rightFrame">区块模版</a><i></i></li>
+            <li><cite></cite><a href="/blockblocks/list" target="rightFrame">区块管理</a><i></i></li>
+            <li><cite></cite><a href="/blockdata/list" target="rightFrame">区块数据管理</a><i></i></li>
+        </ul>    
+    </dd>
+    
+    </dl>
+    
+</body>
+</html>

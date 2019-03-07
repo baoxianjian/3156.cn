@@ -1,0 +1,111 @@
+{|include file="$HEADER"|}
+
+<script type="text/javascript">
+/**/
+
+
+var delId=0;
+function comfirmDel(id)
+{
+    delId=id;
+    $("#tip_del").fadeIn(200); 
+}
+</script>
+<style type="text/css">
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.tools form{
+	overflow:hidden;
+	padding:10px 0 10px 10px;
+	background:#F5F9FB;
+	}
+label{margin-right:15px;}
+.toolbar a{width:75px;height:35px;display:block;}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>广告位管理</li>
+		</ul>
+	</div>
+<div class="tools" style="margin-top:40px;">
+        <ul class="toolbar1">
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+         <form action="list" method="get">
+				<label for="">名称：<input type="text" name="title" class="scinput"  value={|$srow['title']|}></label>
+				<label for="">
+					  所在页面：
+                      <select  name="sgp_page" class="scinput"  value={|$srow['sgp_page']|}> 
+                        <option  selected="selected" value="">全部</option>
+                        <option value="1" {|$sgp_page_selected[1]|} >首页</option>
+                        <option value="2" {|$sgp_page_selected[2]|} >产品搜索页</option>
+                        <option value="3" {|$sgp_page_selected[3]|} >企业搜索页</option>
+                     </select> 
+				</label>
+				<label for="">
+					 所在区域：
+                     <select  name="sgp_area" class="scinput"  value={|$srow['sgp_area']|}> 
+                        <option  selected = "selected">全部</option>
+                        <option value="1" {|if $srow['sgp_area']==1|}selected="selected"{|/if|}>上侧</option>
+                        <option value="2" {|if $srow['sgp_area']==2|}selected="selected"{|/if|}>下侧</option>
+                        <option value="4" {|if $srow['sgp_area']==4|}selected="selected"{|/if|}>右侧</option>
+                     </select> 
+				</label>           
+				<label for="">广告Id：<input type="text" name="sg_id" class="scinput"  value={|$srow['sg_id']|}></label>                                  
+				<input name="" type="submit"  class="scbtn"  value="搜索"/>
+          </form> 
+        <ul class="toolbar">
+            <li class="click"><a href="edit"> <span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+        </ul> 
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+       <!-- <th><input name="" type="checkbox" value="" checked="checked"/></th>-->
+        <th>编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>名称</th>
+        <th>所在页面</th>
+        <th>所在区域</th>
+        <th>广告Id</th>
+        <th>宽度</th>
+        <th>高度</th>
+        <th>排序</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+            
+        {|foreach $list as $row|}
+            <tr>
+               <!-- <td><input name="" type="checkbox" value="" /></td>-->
+                <td>{|$row['sgp_id']|}</td>
+                <td>{|$row['title']|}</td>
+                <td>{|$row['sgp_page']|}</td>
+                <td>{|$row['sgp_area']|}</td>
+                <td>{|$row['sg_id']|}</td>  
+                <td>{|$row['width']|}</td>
+                <td>{|$row['height']|}</td>
+                <td>{|$row['order']|}</td> 
+                <td><a href="edit-id-{|$row['sgp_id']|}" class="tablelink">编辑</a>     <a id="del{|$row['sgp_id']|}" onclick="delConfirm('{|$row['sgp_id']|}');return false;" href="{|$row['del_url']|}" class="tablelink"> 删除</a></td>
+            </tr> 
+        {|/foreach|}  
+        </tbody>
+    </table>
+    
+   
+共{|$all_count|}条记录
+
+{|include file="$FOOTER"|}  
+
+

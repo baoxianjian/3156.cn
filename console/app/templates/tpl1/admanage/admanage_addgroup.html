@@ -1,0 +1,23 @@
+{|include file="$HEADER"|}
+ {|include file="$HEADER_END"|}   
+    <div class="formbody">
+    
+    <div class="formtitle"><span>基本信息</span></div>
+    <form name="form" id="upForm" method="POST" enctype="multipart/form-data">
+    <ul class="forminfo">
+    <li>
+        <label>父级分组</label>
+        <select name="" id="" style="width:348px;height:38px;border:1px solid #ccc;line-height:38px;font-size:16px">
+            <option value="">选择数据<option>
+            <option value=""></option>
+        </select><i>不选择则默认为顶级分组</i>
+    </li>
+    <li><label>分组名称</label><input name="cmp_id" type="text" class="dfinput input" value="{|$results['cmp_id']|}" /></li>
+    <li><label>同级排序</label><input name="pdt_id" type="text" class="dfinput input" value="{|$results['pdt_id']|}" /><i>数字越大越靠前</i></li>
+    <li><label>&nbsp;</label><input name="" id="sure" type="button" class="btn" value="确认保存"/></li>
+    </ul>
+    
+    </form>
+    </div>
+</body>
+</html>

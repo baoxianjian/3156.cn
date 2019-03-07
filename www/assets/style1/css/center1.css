@@ -1,0 +1,148 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+}
+.cur span{
+	color:#de0f0f;
+	margin-left:3px;
+}
+input{
+	
+	border:none;
+	vertical-align:middle;
+}
+
+img{
+	border:none;
+}
+body{
+	width:1200px;
+	font-size:12px;
+	margin:0 auto;
+	color:#333333;
+}
+img{
+	border:none;
+}
+li{
+	list-style-type:none;
+}
+a{
+	text-decoration:none;
+	color:#333333;
+}
+.back_top{
+	width:42px;
+	height:40px;
+	background:#319a3b url(../img/back_top.png) no-repeat center;
+	position:fixed;
+	display:none;
+	cursor:pointer;
+	top:80%;
+	left:50%;
+	_position:absolute;
+  	_top:expression(documentElement.scrollTop+documentElement.clientHeight * 4/5 + "px") 
+}
+.topbg{
+	height:35px;
+	background:#f6f6f6;
+	border-bottom:1px solid #e6e6e6;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:-1;
+}
+.red{
+	color:#e31515;
+}
+span.end{
+	color:#999999;
+	font-size:12px;
+	margin-left:10px;
+}
+.c_right{
+	width:948px;
+	float:left;
+	border:1px solid #e0e0e0;
+}
+.c_right p.p_title{
+	margin:0 28px;
+	font-size:16px;
+	font-family:'微软雅黑';
+	height:44px;
+	line-height:52px;
+	border-bottom:1px solid #e6e6e6;
+	padding-left:4px;
+	margin-bottom:15px;
+}
+/*左边*/
+.c_left,.c_right{
+	margin-top:25px;
+}
+.c_left{
+	width:235px;
+	height:535px;
+	background:#f3f3f3;
+	float:left;
+	margin-right:15px;
+}
+.c_left li{
+	text-align:center;
+}
+.c_left li.active_li{
+	background:url(../img/agent/choose.png) no-repeat left center;
+}
+.c_left li a{
+	display:inline-block;
+	width:185px;
+	font-size:17px;
+	font-family:'微软雅黑';
+	height:18px;
+	padding:21px 0;
+	border-bottom:1px solid #dadada;
+	padding-left:18px;
+	text-align:left;
+	color:#4d4d4d;
+}
+.c_left li.active_li a,.c_left li a:hover{
+	color:#fb8200;
+}
+.c_left li a img{
+	margin-right:18px;
+}
+.c_left li a .o_img{
+	display:none;
+}
+.orange{
+	color:#fb8200;
+}
+/*提交类似大小的按钮*/
+.btn1{
+	height:40px;
+	width:165px;
+	color:#fff;
+	background:#fb8200;
+	font-size:20px;
+	font-family:'微软雅黑';
+	text-align:center;
+	line-height:40px;
+	border-radius:5px;
+	cursor:pointer;
+}
+/*输入框*/
+.btn1:hover{
+	background:#fc9200;
+}
+.input_text{
+	width:245px;
+	height:37px;
+	line-height:37px;
+	border:1px solid #cccccc;
+	padding-left:5px;
+	border-radius:5px;
+}
+
+
+

@@ -1,0 +1,45 @@
+ 
+ <style type="text/css">
+		.err_con{width:345px;height:125px;margin:45px auto 0;}
+		.err_img{width:105px;height:101px;float:left;background:url(/assets/style1/img/err_pic.png) no-repeat left center;display:inline-block;margin-top:20px;}
+		.err_info{width:200px;height:140px;float:right;}
+		.err_info p{color:#353535;font-family:"宋体";font-size:14px;margin-top:18px;}
+		.err_info p a{color:#e71a1a;font-weight:700;}
+		.err_info .advice{font-size:12px;}
+	</style>
+
+   {|if $pagenum!=0|}
+                   
+		    <div class="pagin">
+		        <!--<div class="message">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>-->
+		        <ul class="paginList">
+		        	<!--<li class="paginItem"><a href="{|$prepg|}"><span class="pagepre">首页</span></a></li>-->
+		        	{|if $currpage>1|}
+		        	<li class="paginItem big"><a href="{|$prepg|}"><span class="pagepre">上一页</span></a></li>
+		        	{|else|}
+		        	<li class="paginItem big"><a><span class="pagepre">上一页</span></a></li>
+		        	{|/if|} 
+		        	  
+		            {|foreach $pages as $v|}
+		            <li {|if $v['page']==$currpage|}  class="paginItem current" {|else|} class="paginItem" {|/if|}><a href="{|$v['url']|}">{|$v['page']|}</a></li>
+		            {|/foreach|} 
+		            
+		            {|if $currpage<$pagenum|}                         
+		            <li class="paginItem big"><a href="{|$nextpg|}"><span class="pagenxt">下一页</span></a></li> 
+		            {|else|}  
+		             <li class="paginItem big"><a ><span class="pagenxt">下一页</span></a></li>         
+		            {|/if|}
+		            <!--<li class="paginItem"><a href="{|$prepg|}"><span class="pagepre">尾页</span></a></li>-->
+		        </ul>
+		      </div>
+		    		      
+   {|else|}   
+    <div class="err_con">
+		<span class="err_img"></span>
+		<div class="err_info">
+			<p><b>很抱歉</b>，没有找到相关的内容。</p>						
+		</div>
+	</div>    
+   {|/if|}
+	
+	 

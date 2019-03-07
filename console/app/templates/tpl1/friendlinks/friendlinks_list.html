@@ -1,0 +1,123 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<!--  <script type="text/javascript" src="{|$STYLE_URL|}/js/keyworddel.js"></script>-->
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	 $('#delall').click(function(e){
+	        if ( $("[name='check[]']:checked").length <= 0 ){
+	          layer.alert('未选择删除数据');
+	          return false;
+	        }
+	        $.layer({
+	            shade: [0],
+	            area: ['auto','auto'],
+	            dialog: {
+	                msg: '您确定删除所选项？',
+	                btns: 2,                    
+	                type: 5,
+	                btn: ['确定','取消'],
+	                yes: function(){
+	                	
+	                 $.post('Dels',$('#myform').serialize(),function(data){
+	                	     
+	                    if ( data.status ){
+	                        layer.alert(data.info,1);
+	                        setTimeout(function () { 
+	                            location.reload();
+	                        }, 200);
+	                    }else{
+	                        layer.alert(data.info);
+	                    }
+
+	                 },'json');
+	                },
+	                
+	            }
+	          });
+	        return false;
+	        
+	    })
+	    
+})
+</script>
+{|include file="$HEADER_END"|}
+    <div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li>友情链接管理</li>
+    </ul>
+    </div>
+    <div class="formbody" style="margin-top:30px;">
+    <div class="adv_top" style="padding:10px 0 10px 20px;">
+ <!--  
+    	<ul class="toolbar">
+        <li class=""><a href=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>搜索留言:</a></li>
+           
+         <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li> 
+         </ul>-->  
+ <!--   <ul class="toolbar1">
+        <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>
+        </ul>       
+   -->      
+         <form action="list" method="get">
+			<label for="">网站页面：<input type="text"  class="scinput"  name="sitepage"  value={|$srow['sitepage']|}>   </label>
+             <label for="">显示方式：<select class="scinput" name="show_way"  value={|$srow['show_way']|}>
+										<option value="" selected = "selected">全部</option>                                                                                       
+										<option value="1"    {|if $srow['show_way']==1|}selected="selected"{|/if|} >文字</option>
+										<option value="2"    {|if $srow['show_way']==2|}selected="selected"{|/if|} >图片</option>                      
+										</select>
+			</label>                      
+                                             
+               <input name="" type="submit"  class="scbtn" value="查询"/>
+          </form>
+           
+    </div>
+    </div>         
+    <ul class="toolbar">
+            <a href="edit"><li class=""><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</li></a>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+           <a id="delall" style="cursor:pointer"><li><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li></a>
+           <!--  <li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+    </ul>
+    <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+   <form id='myform'> 
+     <input type="hidden" name="ajax" value="1" />
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input type="checkbox"  id="checkAll"/></th>  
+        <th>网站页面</th>
+        <th>站点标题</th>
+        <th>显示方式</th>
+        <th>连接地址</th>
+        <th>排序</th>                                                            
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+     {|foreach $list as $row|}              
+        <tr>
+        <td><input name="check[]" type="checkbox" value="{|$row['sfl_id']|}" /></td>
+        <td>{|$row['sitepage']|}</td> 
+        <td>{|$row['title']|}</td>       
+        <td>{|if $row['show_way']==1|}文字{|else|}图片{|/if|}</td>
+        <td>{|$row['links']|}</td>
+        <td>{|$row['order']|}</td>                          
+        <td><a href="edit-id-{|$row['sfl_id']|}" class="tablelink">编辑</a> <a href="{|$row['del_url']|}"  id="del{|$row['sfl_id']|}" onclick="delConfirm('{|$row['sfl_id']|}','del'); return false;" class="tablelink">删除</a></td>
+        </tr>  
+      {|/foreach|}      
+        </tbody>
+
+    </table>
+   </form>
+   {|$pagehtml|}
+    
+  {|include file="$FOOTER"|}
+  
+
+
+    

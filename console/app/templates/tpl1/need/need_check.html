@@ -1,0 +1,66 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+{|include file="$HEADER_END"|}
+</script> 
+<style>
+.forminfo1 li{
+	margin-bottom:10px;
+}
+.forminfo1 input{
+	margin-right:10px;
+}
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.formbody{
+	margin-top:30px;
+}
+</style> 
+<script>
+$(function(){
+	$('.jianyi').click(function(e) {
+    $('textarea').val('');
+	for(var i=0;i<$('.jianyi').length;i++){
+		if($('.jianyi').eq(i).prop('checked')){
+			$('textarea').val($('textarea').val()+$('.jianyi').eq(i).parents('li').text());
+		}
+	}
+});
+
+});
+</script>
+<div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li><a href="/agent/list" target="rightFrame">代理留言管理</a></li>
+       <li>添加代理留言</li>
+    </ul>
+</div>
+    <div class="formbody">
+    <div class="table1">
+    <form action="check" method="post" >
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="t" type="hidden" type="text" class="dfinput" value="{|$t|}" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo1" style="padding-left:40px;">
+        
+        <li style="margin-left:-36px;">
+            <label class="label1" style="float:left;" >备注：</label>
+            <textarea name="row[audit_remark]" class="textinput" >{|$row['audit_remark']|}</textarea>
+       	</li>
+        <li><input class="jianyi" type="checkbox" name="c">留言已核实，属实，请厂家尽快联系。</li>
+        <li><input class="jianyi" type="checkbox" name="c">电话无人接听，稍后请厂家自行联系，如发现虚假留言请及时与网站管理人员联系删除。</li>
+        <li><label>&nbsp;</label><input type="submit"  class="btn" value="确定"/></li>
+        </ul>
+    </form>
+    </div>
+   
+    </div>
+
+
+{|include file="$FOOTER"|}  

@@ -1,0 +1,282 @@
+{|include file="$USER_HEADER"|}
+    <link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/common.css" media="all" />
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.SuperSlide.2.1.1.js"></script>
+    <script type="text/javascript" src="{|$STYLE_URL|}/js/date/WdatePicker.js"></script>
+<script type="text/javascript">
+     $(document).ready(function(){
+    	//JS 复选框控制 ----------------------------------------------- Statr//
+    		$("[name='check[]']").click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$('#checkAll').prop('checked','checked');//开启全选
+    			}else{
+    				$('#checkAll').removeAttr('checked');//关闭全选
+    			}
+    		})
+
+    		$('#checkAll').click(function(){
+    			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+    				$("[name='check[]']").removeAttr('checked');
+
+
+    			}else{
+    				$("[name='check[]']").prop('checked','checked');
+    				$('#delAll').removeAttr('disabled');
+    			}
+    		});
+
+      })          
+</script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $('#read').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择数据');
+          return false;
+        }
+      
+
+                 $.post('ReadAll',$('#formDelAll').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+       
+        return false;
+        
+    })
+    
+     $('#noread').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择数据');
+          return false;
+        }
+   
+
+                 $.post('NoReadAll',$('#formDelAll').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+     
+        return false;
+        
+    })
+
+     //异步联动
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#ggpg_2').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+
+                    $('#ggpg_2').append("<option value="+data[i]['ggpg_id']+">"+data[i]['title']+"</option>");
+
+                }
+                 $('#ggpg_2').append("<option value=''>全部</option>");
+            }else{
+
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+
+
+});
+
+//删除
+function recovery(id)
+{
+    $.layer({
+        shade: [0],
+        area: ['auto','auto'],
+        dialog: {
+            msg: '您确定恢复？',
+            btns: 2,                    
+            type: 5,
+            btn: ['确定','取消'],
+            yes: function(){
+                $.post('re',{ajax:1,id:id},function(data){
+               // if(data.status==1) {if($('#tr_'+id)){$('#tr_'+id).remove();}}
+                var temp=layer.alert(data.info, data.status, !1);
+                var tostr='';   
+                if(data.tourl=='_reload')
+                    {tostr="window.location.reload();";}
+                else
+                    {tostr="window.location='"+tourl+"'";}
+                
+                setTimeout("layer.close("+temp+");"+tostr, data.timeout);
+        },'json')
+            }, 
+        }
+      });
+      return false;
+}
+
+
+</script>
+<script type="text/javascript">
+function preview(oper) {
+if (oper < 10) {
+bdhtml = window.document.body.innerHTML;//获取当前页的html代码
+sprnstr = "<!--startprint" + oper + "-->";//设置打印开始区域
+eprnstr = "<!--endprint" + oper + "-->";//设置打印结束区域
+prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr) + 18); //从开始代码向后取html
+
+prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));//从结束代码向前取html
+window.document.body.innerHTML = prnhtml;
+window.print();
+window.document.body.innerHTML = bdhtml;
+} else {
+window.print();
+}
+
+}
+</script>
+<style>
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	padding:0 3em;
+    border: 0;
+    color: black;
+    background: white;
+    font: normal 10pt "Bakersville Old Face", "Times New Roman", Times, serif;
+    text-align: left;
+}
+table{
+	width:100%;
+	border-left:1px solid #333333;
+	border-bottom:1px solid #333333;
+	margin:20px 0;
+}
+table td{
+	border-top:1px solid #333333;
+	text-align:center;
+	border-right:1px solid #333333;
+	font-size:10pt;
+	height:30px;
+}
+.title,.foot{
+	width:100%;
+	text-align:center;
+	position:relative;
+	font-size:11pt;
+}
+.title{
+	margin-top:20px;
+}
+.title span.date,.foot span.page{
+	position:absolute;
+	right:4em;
+}
+</style>
+{|include file="$USER_HEADER_END"|}
+{|include file="$USER_LEFT"|} 
+        <div class="user_right IP product_list_">
+                <p class="Topic">查看我的代理信息</p>
+                <div class="Query agent_info">
+                <form action="/comments/myinfo" method="get">
+                    <div class="button">
+<!--                    <button class="day" name="today" onClick="location.href='/comments/myinfo-ac-today'">今天</button>                        
+                        <button class="day" name="yester">昨天</button>
+                        <button class="day" name="nearday">最近七天</button>
+-->                          
+                        <a href="/comments/myinfo-d-today" class="day">今天</a>
+                        <a href="/comments/myinfo-d-yester" class="day">昨天</a>
+                        <a href="/comments/myinfo-d-near" class="day">最近七天</a>
+                    </div>
+                    <div class="data">
+                        <input name="start_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})"   type="text" Placeholder="2014/03/02" value={|$srow['start_time']|}>
+                        到
+                        <input name="end_time" class="Wdate text-t" onclick="WdatePicker({dateFmt: 'yyyy/MM/dd'})"   type="text" Placeholder="2014/03/08" value={|$srow['end_time']|}>
+                        
+                    </div>
+                    <div class="Filter">
+                        <span>过滤：</span>
+                        <label for="re1" style="margin-right:10px;"><input type="radio" class="read" name="read" value="1" id="re1" {|$is_read_checked[1]|}/>未读</label>
+                        <label for="re2"><input type="radio" class="read" name="read" value="2" id="re2" {|$is_read_checked[2]|}/>已读</label>
+                    </div>         
+                    <input type="submit" class="Query_btn" value="查询">
+                 </form>
+                </div>
+                <div class="Refresh">
+                   
+                   <a  class="print" id="read" style="cursor:pointer;">标记已读</a>
+                   <a class="print" id="noread" style="cursor:pointer;">标记未读</a>
+                     <button  class="print" onclick="preview('1')">打印本页</button>         
+                    <a href="javascript:void(0)" class="print print_all" onclick="preview('1')">打印查询所有结果</a>
+                    <img src="{|$STYLE_URL|}/img/help.png" alt="" width="22" height="22" class="help"/>
+                    <div class="help_info">
+                        <p>1、设定打印期限(您可选择包括当天在内连续5天日期)；</p>
+                        <p> 2、点击查询信息；</p>
+                        <p> 3、打印所有查询结果(联系方式打印后正常显示)</p>
+
+                    </div>
+
+
+                    
+
+                </div>
+                <!--startprint1-->
+                
+            <form id="formDelAll" method="post" action="delAll" >
+             <input type="hidden" name="ajax" value="1" />   
+                <table cellpadding="0" border="0" cellspacing="0" style="margin-top:0;">
+                    <thead>
+                        <tr>
+                            <td><input type="checkbox" id="checkAll" class="noprint"/></td>
+                            <td style="font-weight:bold;">序号</td>
+                            <td style="font-weight:bold;">发布日期</td>
+                            <td style="font-weight:bold;">意向产品名称</td>
+                            <td style="font-weight:bold;">意向区域</td>
+                            <td style="font-weight:bold;">联系人</td>
+                            <td style="font-weight:bold;">联系电话</td>
+                            <td style="font-weight:bold;">Q&nbspQ</td>
+                            <td style="font-weight:bold;">核实情况</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {|foreach $list as $row |}
+                        <tr {|if $row['is_read']==2|} style="font-weight:bold;" {|/if|}>
+                            <td><input type="checkbox" name="check[]" value="{|$row['cmt_id']|}"/></td>
+                            <td>{|$row['cmt_id']|}</td>
+                            <td>{|date('Y-m-d',$row['dateline'])|}</td>
+                            <td><a href="" class="P_name">{|$row['pdt_names']|}</a></td>
+                            <td>{|$row['areas']|}</td>
+                            <td>{|$row['link_man']|}</td>
+                            <td>{|$row['tel']|}</td>
+                            <td>{|$row['qq']|}</td>
+                            <td><a href="">备注</a><div class="Remarks" class="noprint">留言已核实，属实，请厂家尽快联系</div></td>
+                        </tr>
+                    {|/foreach|}   
+                    </tbody>
+                </table>
+               </form>
+                <!--endprint1-->
+               {|$pagehtml|}
+        </div>
+    </div>
+{|include file="$FOOTER"|}

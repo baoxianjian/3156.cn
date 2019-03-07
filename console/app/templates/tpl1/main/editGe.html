@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+<title>无标题文档</title>
+<link href="{|$style|}/css/style.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="/assets/css/manhuaDate.1.0.css">
+<script type="text/javascript" src="/assets/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/assets/js/manhuaDate.1.0.js"></script>
+<script type="text/javascript" src="/assets/js/ajaxfileupload.js"></script>
+<script type="text/javascript" src="/assets/js/uploadFile.js"></script>
+<script src="{|$style|}/js/layer/layer.min.js"></script>
+
+</head>
+<body>
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">推广管理</a></li>
+    <li><a href="#">推广编辑</a></li>
+    </ul>
+    </div>
+    <div class="formbody">
+    
+    <div class="formtitle"><span>基本信息</span></div>
+    <form name="form" id="upForm" method="POST" enctype="multipart/form-data">
+    <ul class="forminfo">
+    <input type="hidden" name="ss_id" value="{|$results['ss_id']|}" />
+    <li><label>企业id</label><input name="cmp_id" type="text" class="dfinput input" value="{|$results['cmp_id']|}" /><i>企业id只能为整数</i></li>
+    <li><label>产品id</label><input name="pdt_id" type="text" class="dfinput input" value="{|$results['pdt_id']|}" /><i>产品id只能填写整数</i></li>
+    <!-- <li><label>推广类型</label><input name="ss_type" type="text" class="dfinput input" /><i>(只能填写数字)：01:产品,10:企业,11:产品+企业</i></li> -->
+    <li><label>推广关键字</label><input name="keywords" type="text" class="dfinput input" value="{|$results['keywords']|}" /><i>多个关键字用,隔开</i></li>
+    <li><label>添加时间</label><input name="dateline" disabled="disabled" type="text" class="dfinput add_time input" value="{|if $results['dateline'] != NULL|}{|date('Y-m-d',$results['dateline'])|}{|/if|}" /><i>时间格式为(2015-3-4)</i></li>
+    <li><label>起始时间</label><input name="start_time" type="text" class="dfinput start_time input" value="{|if $results['start_time'] != NULL|}{|date('Y-m-d',$results['start_time'])|}{|/if|}" /><i>时间格式为(2015-3-4)</i></li>
+    <li><label>到期时间</label><input name="end_time" type="text" class="dfinput end_time input" value="{|if $results['end_time'] != NULL|}{|date('Y-m-d',$results['end_time'])|}{|/if|}" /><i>时间格式为(2015-3-4)</i></li>
+    <li><label>推广排序</label><input name="order" type="text" class="dfinput input" value="{|$results['order']|}" /><i>只能填写数字</i></li>
+    <li><label>是否推荐</label><cite><input name="recommend" type="radio" value="1" {|if $results['recommend']==1|}checked="checked"{|/if|} />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="recommend" {|if $results['recommend']==0|}checked="checked"{|/if|} type="radio" value="0" />否</cite></li>
+    <li><label>开启停用</label>
+        <cite>
+        <input name="ss_state" type="radio" value="1" {|if $results['ss_state']==1|}checked="checked"{|/if|} />开启&nbsp;&nbsp;&nbsp;&nbsp;<input name="ss_state" {|if $results['ss_state']==0|}checked="checked"{|/if|} type="radio" value="0" />停用
+        </cite>
+    </li>
+    <li><label>推广类型</label>
+        <cite>
+        {|foreach $config_ss_type as $k=>$v|}
+          <input name="ss_type" {|if $results['ss_type']==$k|}checked="checked"{|/if|} value="{|$k|}" type="radio" />{|$v|}&nbsp;&nbsp;&nbsp;&nbsp;
+        {|/foreach|}
+        </cite>
+    </li>
+    <li>
+        <label>推广图片</label><input id="uploadFile" name="upload" type="file" class="dfinput uploadImage" style="border:none"  />
+        <input type="hidden" name="upPath[]" value="{|$results['x__img_url']|}" />   
+    </li>
+     <li><label>图片预览</label><img id="uploadFile_Img" src="{|$results['x__img_url']|}" width="100px" alt="" /></li>
+   <!--  <li><label>推广内容</label><textarea name="" cols="" rows="" class="textinput"></textarea></li> -->
+    <li><label>&nbsp;</label><input name="" id="sure" type="button" class="btn" value="确认保存"/></li>
+    </ul>
+    
+    </form>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+$(function (){
+    $("input.add_time").manhuaDate({                        
+        Event : "click",//可选                       
+        Left : 0,//弹出时间停靠的左边位置
+        Top : -16,//弹出时间停靠的顶部边位置
+        fuhao : "-",//日期连接符默认为-
+        isTime : false,//是否开启时间值默认为false
+        beginY : 2010,//年份的开始默认为1949
+        endY :2015//年份的结束默认为2049
+    });
+    
+});
+
+$(function (){
+    $("input.start_time").manhuaDate({                        
+        Event : "click",//可选                       
+        Left : 0,//弹出时间停靠的左边位置
+        Top : -16,//弹出时间停靠的顶部边位置
+        fuhao : "-",//日期连接符默认为-
+        isTime : false,//是否开启时间值默认为false
+        beginY : 2010,//年份的开始默认为1949
+        endY :2015//年份的结束默认为2049
+    });
+    
+});
+
+$(function (){
+    $("input.end_time").manhuaDate({                        
+        Event : "click",//可选                       
+        Left : 0,//弹出时间停靠的左边位置
+        Top : -16,//弹出时间停靠的顶部边位置
+        fuhao : "-",//日期连接符默认为-
+        isTime : false,//是否开启时间值默认为false
+        beginY : 2010,//年份的开始默认为1949
+        endY :2015//年份的结束默认为2049
+    });
+    
+});
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+//异步提交
+$('#sure').click(function(){
+    $.post("/Console/doGeEdit",$("form").serialize(),function(data){
+        if ( data.status ){
+            layer.alert(data.info,1);
+            location.reload();
+        }else{
+            layer.alert(data.info);
+        }
+    },'json')
+})
+
+</script>

@@ -1,0 +1,168 @@
+ {|include file="$HEADER"|} 
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+ {|include file="$HEADER_END"|}
+	<style type="text/css">
+		.gonggaoID {background:#F5F9FB;height:auto;overflow:hidden;padding:10px 0 10px 10px;margin-top:42px;}
+		.gonggaoID label{font-size:14px;color:#333;line-height:30px;float:left;margin-right:15px;}
+		.gonggaoID label input{width:200px;height:25px;border:1px solid #ccc;}
+		/*.add_del{width:100%;height:30px;margin: 10px 0 15px;}
+		/*.add_del span{color:#333;font-size:12px;float:right;line-height:30px;}
+		/*.add_del span b{font-weight:normal;color:#0066ff;}
+		/*.add_del .btn{width:100px;height:35px;border-radius:5px;}
+		/* table{width:100%;height:auto;overflow:hidden;margin-top:10px;text-align:center;}
+		table .title{width:60%;}
+		table input{position:relative;top:2.5px;}
+		table tbody input{margin-right:25px;position:relative;top:2.5px;}
+		table a{color:#0099ff;}
+		table .del{margin-left:5px;}
+		table td{height:30px;line-height:30px;}
+		table thead{border:1px solid #797979;border-right:none;}
+		table thead td{border-right:1px solid #797979;}
+		table tbody tr{border-bottom:1px solid #797979;} */
+		.place{
+			position:fixed;
+			z-index:999;
+			top:0;
+			left:0;
+			right:0;
+		}
+	</style>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("table tbody tr").each(function(){
+				$(this).find("td:eq(2)").css("color","#09f")
+			
+			});
+
+			 //日期控件
+		    $('#startTime').datetimepicker({
+		        lang:'ch',
+		        timepicker:true,
+		        format:'Y-m-d',
+		        formatDate:'Y-m-d',
+		        
+		    });
+
+		     $('.del').click(function(){
+		        var t = $(this).attr('t');
+		        var k = $(this).attr('k');
+		        var mark = $(this).attr('mark');
+		        $.layer({
+		            shade: [0],
+		            area: ['auto','auto'],
+		            dialog: {
+		                msg: '一旦删除将会无法恢复，您确定删除？',
+		                btns: 2,                    
+		                type: 5,
+		                btn: ['确定','取消'],
+		                yes: function(){
+		                 $.post("del-t-"+t+"-k-"+k+"-sn_id-"+mark,{check:mark},function(data){
+
+		                        if ( data.status ){
+		                            layer.alert(data.info,1);
+		                            setTimeout(function () { 
+		                                location.reload();
+		                            }, 200);
+		                        }else{
+		                            layer.alert(data.info);
+		                        }
+
+		                     },'json');
+		                },
+		            }
+		          });
+		        return false;
+		    })
+
+		    $('#delAll').click(function(){
+		        if ( $("[name='check[]']:checked").length <= 0 ){
+		          layer.alert('未选择删除数据');
+		          return false;
+		        }
+		        $.layer({
+		            shade: [0],
+		            area: ['auto','auto'],
+		            dialog: {
+		                msg: '一旦删除将会无法恢复，您确定删除？',
+		                btns: 2,                    
+		                type: 5,
+		                btn: ['确定','取消'],
+		                yes: function(){
+		                 $.post('del',$('#del').serialize(),function(data){
+
+		                    if ( data.status ){
+		                        layer.alert(data.info,1);
+		                        setTimeout(function () { 
+		                            location.reload();
+		                        }, 200);
+		                    }else{
+		                        layer.alert(data.info);
+		                    }
+
+		                 },'json');
+		                },
+		            }
+		          });
+		        return false;
+		        
+		    })
+
+
+		})
+	</script>
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+		<li><a href="#">首页</a></li>
+		<li><a href="#">公告列表</a></li>
+		</ul>
+	</div>
+	<div class="gonggaoID">
+		<form action="">
+		<label for="">公告编号：<input type="text" name="sn_id" value="{|$seek['sn_id']|}" class="txt_ID"/></label>
+		<label for="">发布日期：<input type="text" id="startTime" name="dateline" value="{|$seek['dateline']|}" class="txt_ID"/></label>
+		<input type="submit" class="btn" value="查询"/>
+		<input type="hidden" name="seek" value="1">
+		</form>
+	</div>
+    <ul class="toolbar">
+        <li class="click"><a href="/ggposition/edit-ac-add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <!--<li><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>-->
+     </ul>
+	<table class="tablelist">
+		<thead>
+			<tr>
+				<th><input type="checkbox" id="checkAll" name="" />全选</th>
+				<th>公告编号</th>
+				<th>标题</th>
+				<th>发布日期</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<form action="del" id="del">
+			{|foreach $list as $k=>$v|}
+				<tr>
+					<td><input type="checkbox" name="check[]" value="{|$v['sn_id']|}" /></td>
+					<td>{|$v['sn_id']|}</td>
+					<td><a href='{|$USER_URL|}/user/sysnoticeinfo-id-{|$v['sn_id']|}' target="_blank" >{|$v['title']|}</a></td>
+					<td>{|$v['dateline']|}</td>
+					<td><a href="edit-t-{|$v['T']|}-k-{|$v['K']|}-sn_id-{|$v['sn_id']|}-ac-edit" title="">编辑</a><a href="del-t-{|$v['T']|}-k-{|$v['K']|}-sn_id-{|$v['sn_id']|}-check-{|$v['sn_id']|}" mark="{|$v['sn_id']|}" t="{|$v['T']|}" k="{|$v['K']|}" class="tablelink del"> 删除</a></td>
+				</tr>
+			{|/foreach|}
+			{|foreach $TOKEN as $k=>$v|}
+	            <input type="hidden" name="{|$k|}" value="{|$v|}">
+	        {|/foreach|}
+			</form>
+		</tbody>
+	
+	</table>
+    
+    
+    
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+    

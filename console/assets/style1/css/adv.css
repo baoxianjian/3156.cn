@@ -1,0 +1,83 @@
+@charset "utf-8";
+/* CSS Document */
+.adv_top{
+	background:#F5F9FB;
+	height:auto;
+	overflow:hidden;
+	padding:5px 0 0 10px;
+}
+.adv_top .seachform{
+	float:left;
+	width:100%;
+	padding:0;
+}
+.adv_top #sek .seachform li{
+	width:280px;
+	margin-right:0;
+}
+.adv_top label{
+	width:65px;
+	margin-right:10px;
+}
+.toolbar{
+	margin:10px 0 10px 0px;
+}
+.vocation{
+	margin-right:5px;
+}
+.forminfo input[type=text],.forminfo select{
+	width:200px;
+	height:25px;
+	line-height:25px;
+	border:1px solid #ccc;
+}
+.forminfo input.btn{
+	width:100px;
+	border:none;
+	border-radius:3px;
+	height:35px;
+	line-height:35px;
+}
+.forminfo textinput{
+	width:395px;
+	height:145px;
+}
+.forminfo .end_tip{
+	margin-left:5px;
+	color:#ccc;
+}
+.message_top{
+	padding:20px 10px 10px 0;
+	float:right;
+}
+.message_top i{
+	color:#056DAE;;
+	font-style:normal;
+}
+b.up,b.down{
+	display:inline-block;
+	width:16px;
+	height:16px;
+	text-indent:-9999px;
+	vertical-align:middle;
+	margin-left:5px;
+}
+b.up{
+	background:url(../images/ht-iocnsj.png) no-repeat 0 0;
+	
+}
+b.up:hover{
+	background:url(../images/ht-iocnsj.png) no-repeat 0 -36px;
+}
+b.down{
+	background:url(../images/ht-iocnsj.png) no-repeat -20px 0;
+}
+b.down:hover{
+	background:url(../images/ht-iocnsj.png) no-repeat -20px -36px;
+}
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}

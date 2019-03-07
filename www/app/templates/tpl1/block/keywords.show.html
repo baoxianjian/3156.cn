@@ -1,0 +1,144 @@
+{|include file="$HEADER"|}                                                   
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/keywords.css" />
+
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/main.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/antistop_page.js"></script>
+{|include file="$HEADER_END"|} 
+<div class="w_wrap">
+	<ul class="title">
+    	<li>
+        	<div class="name">
+            	<img src="{|$STYLE_URL|}/img/keywords/pic1.png" width="20" height="20"/>
+                <br/>
+                <span>药品</span>
+            </div>
+            <ul class="type">
+                {|foreach $list_bkw[1] as $v|}
+                <li><a href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                {|/foreach|}
+            </ul>
+        </li>
+        <li class="line_bg">
+        	<div class="name">
+            	<img src="{|$STYLE_URL|}/img/keywords/pic2.png" width="20" height="20" />
+                <br/>
+                <span>症状</span>
+            </div>
+            <ul class="type">
+                {|foreach $list_bkw[2] as $v|}
+                <li><a href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                {|/foreach|}                                      
+            </ul>
+        </li>
+        <li class="line_bg">
+        	<div class="name">
+            	<img src="{|$STYLE_URL|}/img/keywords/pic3.png" width="20" height="20" />
+                <br/>
+                <span>科室</span>
+            </div>
+            <ul class="type">
+                {|foreach $list_bkw[3] as $v|}
+                <li><a href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+                {|/foreach|}
+            </ul>
+        </li>
+        <li class="line_bg">
+        	<div class="name">
+            	<img src="{|$STYLE_URL|}/img/keywords/pic4.png" width="20" height="20" />
+                <br/>
+                <span>剂型</span>
+            </div>
+            <ul class="type" style=" background:none;">
+            {|foreach $list_bkw[4] as $v|}
+                <li><a href="{|$v['bkw_url']|}" {|$mark_selected[$v['bkw_mark']]|}>{|$v['bkw_name']|}</a></li>
+            {|/foreach|}
+            </ul>
+        </li>
+    </ul>
+                                                                        
+<div class="location" style="line-height:35px;">
+	<p>当前位置:<a href="{|$WWW_URL|}">3156医药网</a>><!--<a href="###">关键词专区</a>>-->{|$bkw_name|}</p>
+</div>
+<div class="content">
+
+    <div class="c_left">
+    	<ul class="border_none">
+            {|foreach $list_bkd[1] as $v|}
+        	<li>
+            	<div class="li_left">
+                	<a target="_blank" href="/company/{|$v['cmp_id']|}/"><img alt="" src="{|$v['img_url']|}"/></a>
+                </div>
+                <div class="li_right">
+                	<a class="company" target="_blank" href="/company/{|$v['cmp_id']|}/">{|$v['cmp_name']|}</a>
+                    <p>
+                    	<span>招商产品：</span>
+                        {|foreach $v['recruit'] as $v2|}
+                        <a target="_blank" href="/product/{|$v2['pdt_id']|}.shtml">{|$v2['name']|}</a>
+                        {|/foreach|}
+                    </p>
+                    <p><span class="s_location">所在地：</span>{|$v['city_name']|}</p>
+                    <a class="zixun" target="_blank"  href="/company/{|$v['cmp_id']|}/" value="立即咨询" target="_blank">立即咨询</a>
+                </div>
+            </li>
+            {|/foreach|}
+        </ul>
+    </div>
+    <div class="c_right">
+    	<div class="right1">
+        	<p class="company">热门医药公司</p>
+    		<ul class="right_ul1">
+               {|foreach $list_bkd[2] as $v|} 
+            	<li>
+                	<a class="company_list"  href="/company/{|$v['cmp_id']|}/">{|$v['cmp_name']|}</a>
+                    <p>
+                        <span>招商产品：</span>
+                        {|foreach $v['recruit'] as $v2|}
+                        <a target="_blank"  href="/product/{|$v2['pdt_id']|}.shtml">{|$v2['name']|}</a>
+                        {|/foreach|}
+                        <a href="/company/{|$v['cmp_id']|}/" class="xiang">[详情]</a>
+                    </p>
+                </li>
+               {|/foreach|}
+        	</ul>
+        </div>
+        <div id="float">
+        <div class="right1">
+        	<p class="company" style="margin-bottom:10px;">最新{|$bkw_name|}药品招商</p>
+            <ul class="right_ul2">
+                {|foreach $relative_pdt_list as $v|}
+                    <li><a target="blank" href="/product/{|$v['id']|}.shtml">{|$v['name']|}</a></li>
+                {|/foreach|}
+            </ul>
+        </div>
+        <div class="weixin">
+        <a href="###">
+            <img alt="" id="weixin" src="{|$STYLE_URL|}/img/keywords/wei.png" />
+        </a>
+        <p class="shao">微信扫一扫</p>
+        <p>3156全国药品网，权威的药品网站</p>
+    </div>
+    </div>
+    </div>
+    <div class="search1">
+    	<p>查找更多<span>“中药”</span>医药招商信息：</p>
+        <br/>
+        <form id="search-form1" action="http://s.3156.cn/search/sreach_list?seek=" method="get" target="_blank">
+        <input type="text" name='seek' class="search_text" value="中药" />
+        <input type="submit" class="search_btn1" hidefocus="" value="搜一下">
+        </form>
+        <span class="other">您还可以找：</span>
+        <ul>
+        	<li>{|foreach $hot_keys as $k=>$v|}
+                <a target="_blank" href="http://s.3156.cn/search/sreach_list?seek={|$v['kw_name_encoded']|}">{|$v['kw_name']|}</a>
+                {|/foreach|}
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+<div style="display:none">
+{|block('id:90')|}
+</div>
+{|block('id:139')|}
+{|include file="$FOOTER"|} 

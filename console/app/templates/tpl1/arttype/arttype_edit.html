@@ -1,0 +1,73 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style>
+.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.formtitle{
+	margin-top:24px;
+}
+.forminfo li label{
+	text-align:right;
+}
+.forminfo li{
+	min-height:34px;
+	line-height:34px;
+}
+</style>
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="/main/center" target="rightFrame">首页</a></li>
+    <li><a href="/arttype/list">资讯分类</a></li>
+    <li>添加分类</li>
+    </ul>
+</div>    
+    <div class="formbody">
+    
+    <div class="formtitle"><span>{|$TIP_NAME|}分类</span></div>
+    
+           
+
+    <form action="edit" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        {|if $savetype != sub|}<input name="id" type="hidden" class="dfinput" value="{|$id|}" />{|/if|}
+        <ul class="forminfo">
+        {|if $savetype == sub|}
+        <li><label>所属大类：</label>{|$row['name']|}<i id="sa_id"></i></li>
+        <li><label>分类名称：</label><input name="row[name]" type="text" class="dfinput" value=""/><i id="sa_id">分类名称，必填</i></li>
+        <li><label>英文别名：</label><input name="row[en_name]" type="text" class="dfinput" value=""/><i id="sa_id">英文别名，必填</i></li>
+        <li><label>权重：</label><input name="row[order]" type="text" class="dfinput" value=""/><i id="sa_id">数字越大越靠前</i></li>
+        <li><label>SEO标题：</label><textarea name="row[seo]" cols="" rows="" class="textinput"></textarea></li>
+        <li><label>关键字：</label><input name="row[keywords]" type="text" class="dfinput"></li>
+        <li><label>调用模板：</label><input name="row[template]" type="text" class="dfinput" value=""></li>
+        <li><label>描述：</label><textarea name="row[desc]" cols="" rows="" class="textinput"></textarea></li>
+        <input type="hidden" name="row[parent_id]" value="{|$id|}">
+        {|else|}
+        {|if $id|}
+        <li><label>分类ID：</label>{|$id|}<i id="sa_id"></i></li>
+        {|/if|}
+        <li><label>分类名称：</label><input name="row[name]" type="text" class="dfinput" value="{|$row['name']|}"/><i id="sa_id">分类名称，必填</i></li>
+        <li><label>英文别名：</label><input name="row[en_name]" type="text" class="dfinput" value="{|$row['en_name']|}"/><i id="sa_id">英文别名，必填</i></li>
+        <li><label>权重：</label><input name="row[order]" type="text" class="dfinput" value="{|$row['order']|}"/><i id="sa_id">数字越大越考前</i></li>
+        <li><label>SEO标题：</label><textarea name="row[seo]" cols="" rows="" class="textinput">{|$row['seo']|}</textarea></li>
+        <li><label>关键字：</label><input name="row[keywords]" type="text" class="dfinput" value="{|$row['keywords']|}"></li>
+        <li><label>调用模板：</label><input name="row[template]" type="text" class="dfinput" value="{|$row['template']|}"></li>
+        <li><label>描述：</label><textarea name="row[desc]" cols="" rows="" class="textinput">{|$row['desc']|}</textarea></li>
+        {|/if|}
+        <li>
+        	<label>&nbsp;</label>
+        	<label style="text-align:left;"><input type="checkbox" value="1" name="row[type_flag]" {|if $row['type_flag'] == 1|}checked="checked"{|/if|} />展会</label>
+        	<label  style="text-align:left;"><input type="checkbox" value="2" name="row[type_flag]" {|if $row['type_flag'] == 2|}checked="checked"{|/if|}/>招中标</label>
+        </li>
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|include file="$FOOTER"|}

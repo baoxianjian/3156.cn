@@ -1,0 +1,256 @@
+@charset "utf-8";
+/* CSS Document */
+@charset "utf-8";
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	color:#333333;
+}
+input{
+	border:none;
+}
+li{
+	list-style-type:none;
+}
+body{
+	width:1200px;
+	margin:0 auto;
+	font-size:12px;
+	background:#fafafa;
+}
+a{
+	color:#0066cc;
+	text-decoration:none;
+}
+.top{
+	height:120px;
+	width:1200px;
+}
+.logo{
+	background:url(../img/zhuce/logo.png);
+	width:187px;
+	height:54px;
+	display:block;
+	margin:55px 400px 0 0;
+	float:left;
+}
+.left li,.welcome li{
+	float:left;
+	margin-right:8px;
+	margin-top:85px;
+	color:#999999;
+}
+.left li a,.welcome li a{
+	color:#999999;
+}
+.left li a:hover,.welcome li a:hover{
+	color:#ff9900;
+	text-decoration:underline;
+}
+.welcome {
+	float:right;
+}
+.welcome .red{
+	color:#cc0000;
+}
+.left{
+	float:left;
+}
+.content{
+	width:1198px;
+	border:1px solid #e6e6e6;
+	height:624px;
+	font-size:14px;
+	background:#fff;
+}
+.content .title{
+	display:inline-block;
+	float:left;
+	width:148px;
+	height:42px;
+	border:1px solid #e6e6e6;
+	background:#f7f7f7;
+	line-height:42px;
+	font-size:18px;
+	font-family:'微软雅黑';
+	text-align:center;
+	margin:35px 0 38px 0;
+	cursor:pointer;
+}
+.content .title1{
+	margin-left:115px;
+}
+.content .t_active{
+	background:#319a3b;
+	color:#fff;
+}
+.content ul{
+	clear:both;
+	margin-left:30px;
+}
+.content li.li1{
+	height:48px;
+	margin-bottom:25px;
+}
+.content input[type=text],.content input[type=password]{
+	width:302px;
+	height:45px;
+	border:1px solid #cccccc;
+	border-radius:5px;
+	vertical-align:middle;
+	line-height:45px;
+	margin-right:25px;
+}
+.content .zhan{
+	color:#fff;
+}
+.content .red{
+	color:#cc0000;
+	margin-right:10px;
+}
+.content .ul_text{
+	font-size:12px;
+	color:#cccccc;
+}
+.content .hua{
+	margin:10px 0 35px 0;
+}
+.content .hua img{
+	margin-left:100px;
+}
+.content .read{
+	padding-left:85px;
+	font-size:12px;
+}
+.content .read input{
+	vertical-align:middle;
+	margin-right:5px;
+}
+.content input[type=submit]{
+	width:270px;
+	height:44px;
+	background:#fb8200;
+	margin:38px 18px 0 110px;
+	font-size:22px;
+	font-family:'微软雅黑';
+	text-align:center;
+	line-height:44px;
+	color:#fff;
+	border-radius:5px;
+	cursor:pointer;
+	vertical-align:bottom;
+}
+.last a{
+	text-decoration:underline;
+	font-size:12px;
+}
+.c_left{
+	float:left;
+}
+.c_right ul{
+	margin-left:13px;
+}
+.c_right a{
+	color:#cc3333;
+	font-size:12px;
+	float:right;
+	line-height:50px;
+}
+.c_right{
+	float:right;
+	width:250px;
+	margin:20px 40px 20px 0;
+	border-left:1px solid #e6e6e6;
+	padding-left:25px;
+}
+.c_right p{
+	font-size:22px;
+	font-family:'微软雅黑';
+	margin:5px 0 8px 0;
+	height:44px;
+	line-height:44px;
+	background:url(../img/zhuce/dian.png) no-repeat left bottom;
+}
+.c_right li{
+	font-size:12px;
+	line-height:24px;
+	list-style-type:inherit;
+	list-style-position:inside;
+}
+.bodybg{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background:#000;
+	opacity:0.4;
+	display:none;
+	filter:alpha(opacity=40);
+}
+.tip{
+	width:1015px;
+	height:625px;
+	border:2px solid #fb8200;
+	background:#fff;
+	position:absolute;
+	display:none;
+	color:#333333;
+	font-size:12px;
+}
+.inner{
+	width:958px;
+	height:466px;
+	background:#f2f2f2;
+	margin:0 auto;
+	overflow:auto;
+	padding:10px 0 0 15px;
+}
+.tip p{
+	height:50px;
+	line-height:50px;
+	font-family:'微软雅黑';
+	font-size:20px;
+	text-align:center;
+}
+.t_top{
+	position:relative;
+	height:50px;
+}
+.tip ul{
+	margin:30px 0 70px 0;
+}
+.tip .close{
+	float:right;
+	position:absolute;
+	top:10px;
+	right:20px;
+	cursor:pointer;
+}
+.tip ul li{
+	margin-bottom:25px;
+	list-style-type:decimal;
+	list-style-position:inside;
+}
+.tip input{
+	margin:0 auto;
+	margin:25px 0 0 400px;
+	width:173px;
+	height:34px;
+	line-height:28px;
+	font-family:'微软雅黑';
+	font-size:20px;
+	color:#fff;
+	background:#fb8200;
+	border-radius:5px;
+	cursor:pointer;
+	border:2px solid #fb8200;
+}
+.tip input:hover{
+	color:#fb8200;
+	background:#fff;
+}
+

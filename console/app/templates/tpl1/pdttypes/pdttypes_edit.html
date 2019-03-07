@@ -1,0 +1,57 @@
+{|include file="$HEADER"|}
+ {|include file="$HEADER_END"|} 
+<style type="text/css">
+	.forminfo li label{min-width:85px;text-align:right;}
+</style> 
+    <div class="formbody">
+    
+    <div class="formtitle"><span>{|$typeName|}</span></div>
+    <form action="doaddgroup" id="upForm" method="POST">
+    <ul class="forminfo">
+    <li><label>父级分组名称：</label><label>{|$parent['pt_name']|}</label></li>
+    <!--<li><label>父级分组ID</label><label>{|$parent['pt_id']|}</label> <input type="hidden" value="{|$parent['pt_id']|}" name='parent_id'></li>-->
+    <input type="hidden" value="{|$parent['pt_id']|}" name='parent_id'>
+    <li><label>分 类 名 称：</label><input name="pt_name" id="gname" type="text" class="dfinput input" value="{|$list['pt_name']|}" /><i id="gninfo">输入分类名称</i></li>
+    <li><label>备 注 ( 可 选 )：</label><textarea name="remark" cols="" rows="" class="textinput">{|$list['remark']|}</textarea></li>
+    <input type="hidden" name='ac' value="{|$ac|}">
+    <input type="hidden" value='{|$pt_id|}' name='pt_id'>
+    <li><label>&nbsp;</label><input id="sure" type="submit" class="btn" value="确认保存"/></li>
+    </ul>
+    {|foreach $TOKEN as $k=>$v|}
+        <input type="hidden" name="{|$k|}" value="{|$v|}">
+    {|/foreach|}
+    </form>
+    </div>
+<script>
+
+//分组名校验异步事件处理
+$('#gname').blur(function(){
+    $.post("ajaxGname",{pt_name:$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $('#gninfo').css('color','red');
+            $('#gninfo').text(data.info);
+        }else{
+            $('#gninfo').css('color','green');
+            $('#gninfo').text(data.info);
+        }
+    },'json');
+})
+
+$('#sure').click(function(){
+    $.post('doEdit',$('form').serialize(),function(data){
+        if ( data.status ){
+            layer.alert(data.info,1);
+            setTimeout(function () { 
+                location.reload();
+            }, 200);   
+        }else{
+            layer.alert(data.info);
+        }
+    },'json');
+    return false;
+})
+
+</script>
+</body>
+</html>
+

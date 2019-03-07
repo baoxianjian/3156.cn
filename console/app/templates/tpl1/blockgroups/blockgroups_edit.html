@@ -1,0 +1,190 @@
+{|include file="$HEADER"|}
+
+<style type="text/css">
+	.placeul li{line-height:23px;margin:0;}
+	.placeul li a{color:#333;}
+	.forminfo li label{text-align:right;}
+	.forminfo li{min-height:34px;line-height:34px;}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">区块数据</a></li>
+			<li>{|$TIP_NAME|}区块数据</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>区块分组{|$TIP_NAME|}</span></div>
+
+    <form action="edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+
+     
+        {|if $id|}
+        <li><label>分组 I D：</label>{|$id|}</li>
+        {|/if|}
+        
+        <li><label>父级分组：</label>
+            <select name="row[bg_pc]" class="scinput" id="bg_pc">
+                <option value="">------请选择-----</option>
+                {|foreach $list_pc as $v|}
+                <option value="{|$v['bg_code']|}" {|$pc_selected[$v['bg_code']]|}>{|$v['bg_name']|}</option>
+                {|/foreach|}
+                <option value="0000" {|$pc_selected['0000']|} ><<作为顶级>></option>
+            </select>
+            <i id="i_is_root"></i>
+        </li>
+           
+      
+        
+        <li><label>分组名：</label><input name="row[bg_name]" type="text" class="dfinput" value="{|$row['bg_name']|}" id="bg_name"/><i id="i_bg_name">分组名</i></li>
+
+
+        <li><label>排　　序：</label><input name="row[order]" type="text" class="dfinput" value="{|$row['order']|}" id="order"/><i id="guang">数字越大越靠前</i></li>
+
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+
+       var start = {
+        elem: '#starttime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#endtime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    laydate.skin('molv');
+</script>
+
+<script type="text/javascript">
+var CL= new Array(4); 
+    
+function  mysubmit()
+{
+    if(!checkAll())
+    {
+        bkwidCheck();
+        titleCheck();
+        keywordsCheck();
+        urlCheck();
+    }
+    return checkAll();
+}
+
+function checkAll()
+{
+    for(var i=0;i<CL.length;i++)
+    {                  
+        if(!isDefined(CL[i]) || !CL[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+var bkwidCheck=function()
+{ 
+    var r=ajaxECheck('bkw_id','/blockkeywords/checkbkwid');
+    if(r)
+    {
+        
+    }
+    else
+    {
+        
+    }
+
+    return false;
+}
+
+var modidCheck=function()
+{ 
+    var r=ajaxECheck('mod_id','/blockkeywords/checkmodid');
+    return false;
+}
+
+//检查存在性
+function ajaxECheck(tid,url)
+{
+    var id=parseInt($('#'+tid).val());
+    var passed=0;
+    $.post(url,{ajax:1,id:id},function(data){
+        if(data.status==1){
+            passed=1;
+            $("#i_"+tid).html(data.info).css("color","green");
+        }else{
+            $("#i_"+tid).html(data.info).css("color","red"); 
+            passed=0;
+            layer.alert(data.info,data.status);
+        }
+    },'json'); 
+}
+
+
+var titleCheck=function (){
+     if($("#title").val()==""){
+         $("#i_title").html("标题不能为空！").css("color","red");
+         CL[0]=0;
+    }
+    else{
+        $("#i_title").html("可以使用").css("color","green");
+        CL[0]=1;
+     }
+}
+
+
+$('#bkw_id').blur(bkwidCheck);
+$('#mod_id').blur(modidCheck);   
+
+$('#title').blur(titleCheck);
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

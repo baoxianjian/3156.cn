@@ -1,0 +1,182 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:10px 0 10px 10px;
+		height:auto;
+		overflow:hidden;
+	}
+	.seachform{
+		padding:0;
+	}
+	.seachform li{
+		margin-right:9px;
+	}
+	.tabson{margin-bottom:0;}
+</style>
+
+     <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>文章采集管理</li>
+		</ul>
+	</div>
+<div class="tools">
+		<div class="tabson">
+            <form action="list" method="post" >
+            <ul class="seachform">
+                <li><label>资讯标题：</label><input type="text" name="keyword" class="scinput" value={|$srow['keyword']|} ></li>       
+                <li><label>资讯类别：</label><input type="text" name="type_id2" class="scinput"  value={|$srow['type_id2']|} ></li>
+                <li><label>状态：</label>  
+                    <div class="vocation" style=" float:left">
+                    <select name="is_html" class="scinput">
+                        <option value="">全部</option>
+                        <option value="1" {|if $srow['is_html'] == 1|} selected="selected"{|/if|}>待审核</option>
+                        <option value="2" {|if $srow['is_html'] == 2|} selected="selected"{|/if|}>审核通过</option>
+                   <!--  <option value="2" {|if $srow['is_html'] == 2|} selected="selected"{|/if|}>审核成功，未发布</option> 
+                     <option value="3" {|if $srow['is_html'] == 3|} selected="selected"{|/if|}>审核成功，已发布</option>
+                        <option value="4" {|if $srow['is_html'] == 4|} selected="selected"{|/if|}>审核失败，未发布</option>   --> 
+                    </select>
+                    </div>
+                </li>
+                <li>
+                <label>抓取时间：</label>
+                <input type="text" name="stime" class="laydate-icon scinput" id="J_startTime"  value={|$srow['stime']|} >&nbsp;到&nbsp;
+                <input type="text" name="etime" id="J_endTime" class="scinput laydate-icon"  value={|$srow['etime']|} >
+                <input type="submit" class="scbtn" value="查询" style="margin-left:20px;">
+                </li>
+                
+              </ul>
+            </form>
+        </div>
+        <ul class="toolbar">
+            <li class="J_delAll" data-status='2' class="click"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>通过审核</li>
+            <li class="J_delAll" data-status='3'><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>驳回审核</li>
+        </ul>
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+ 		<div class="pagin" style="float:right; margin:20px 10px 10px 0;">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+      
+    
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" name="" type="checkbox" value=""/></th>
+        <th>资讯标题</th>
+        <th>来源网站</th>
+        <th>来源栏目</th>
+        <th>资讯类别</th>
+        <th>来源网址</th>
+       
+        <th>抓取时间</th>
+        <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        	<form action="del" method="post" id='del'>
+			{|foreach $list as $row|}
+            <tr id="tr_{|$row['news_id']|}">
+                <td><input name="check[]" type="checkbox" value="{|$row['news_id']|}" /></td>
+                <td>{|$row['title']|}</td>
+                <td>{|$row['origin_web']|}</td>
+                <td>{|$row['origin_type']|}</td>
+                <td>{|$row['type_name']|}</td>
+                <td>{|$row['origin_url']|}</td>
+               
+                <td>{|$row['dateline']|date_format:'%Y-%m-%d %H:%M:%S'|}</td>
+                <td>{|if $row['audit_state'] == 2|}审核通过{|else if $row['audit_state'] == 1|}待审核{|else if $row['audit_state'] == 3|}未通过审核{|/if|}</td>
+            </tr>
+			{|/foreach|}
+            	<input name="status" value="3" class="J_status" type="hidden" />
+            </form>
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+<script>
+$('.J_delAll').click(function(){
+	var $this = $(this),
+		msg = '';
+	var status = $this.data('status');
+	$('.J_status').val(status);
+	if(status === 2){
+		msg = '通过审核';
+	}else{
+		msg = '驳回审核';
+	}
+	if ( $("[name='check[]']:checked").length <= 0 ){
+	  layer.alert('未选择数据');
+	  return false;
+	}
+	$.layer({
+		shade: [0],
+		area: ['auto','auto'],
+		dialog: {
+			msg: '确定'+msg+'？',
+			btns: 2,                    
+			type: 5,
+			btn: ['确定','取消'],
+			yes: function(){
+			 $.post('del',$('#del').serialize(),function(data){
+				if ( data.status ){
+					layer.alert(data.info,1);
+					setTimeout(function () { 
+						location.reload();
+					}, 100);
+				}else{
+					layer.alert(data.info);
+				}
+
+			 },'json');
+			},
+		}
+	  });
+	return false;
+})
+
+//日期控件
+var start = {
+    elem: '#J_startTime',
+    format: 'YYYY/MM/DD',
+    min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+    max: '2099-06-16 23:59:59', //最大日期
+  //  height:40,
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+         end.min = datas; //开始日选好后，重置结束日的最小日期
+         end.start = datas //将结束日的初始值设定为开始日
+    }
+};
+var end = {
+    elem: '#J_endTime',
+    format: 'YYYY/MM/DD',
+    min: laydate.now(),
+    max: '2099-06-16 23:59:59',
+    istime: true,
+    istoday: false,
+    choose: function(datas){
+        start.max = datas; //结束日选好后，重置开始日的最大日期
+    }
+};
+laydate(start);
+laydate(end);
+laydate.skin('molv');
+</script>
+{|include file="$FOOTER"|}  

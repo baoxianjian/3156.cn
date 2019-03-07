@@ -1,0 +1,88 @@
+{|include file="$HEADER"|}
+<style type="text/css">
+	.placeul li{line-height:23px;margin:0;}
+	.placeul li a{color:#333;}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">区块管理</a></li>
+			<li>{|$TIP_NAME|}</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>区块{|$TIP_NAME|}</span></div>
+
+    <!--区块信息区域-->
+    <ul class="forminfo">
+        <li><label>区块ID：{|$row['bb_id']|}</label></li>
+        <li><label>区块：{|$row['bg_name']|}/{|$row['bb_name']|}</label></li>    
+        <li><label>区块类型：{|$row['bb_name']|}</label></li>              
+        <li><label>使用模版：{|$row['bt_name']|}</label></li>
+        <li><label>数据规格：{|$row['bb_standard']|}</label></li>
+        <li><label>数据缓存时间：{|$row['cache_time']|}秒</label></li>
+    </ul>
+    
+    <!--数据配置区域-->
+    <form action="edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        
+        <ul class="forminfo">  
+            <li>
+                <label>数据来源：</label>
+                {|foreach $ds_way_list as $k=>$v|}
+                <label for="ds_way_{|$k|}"><input type="radio" name="row[ds_way]" id="ds_way_{|$k|}" value="{|$k|}" {|$ds_way_checked[$k]|}>{|$v|}</label>
+                {|/foreach|}  
+            </li>
+            
+            <!--手动-->
+            <li>
+                <div>
+                
+                请到
+                
+                <!--
+                title
+                link_url
+                img_url
+                abstract
+                order
+
+
+                
+                <li><label>数据标题：</label><input name="ds_title[]" type="text" class="dfinput" value="" /><i>数据标题,必填</i></li>    
+                <li><label>链接地址：</label><input name="ds_link_url[]" type="text" class="dfinput" value="" /><i>数据标题,必填</i></li>    
+                
+                -->
+                </div>
+            </li>
+            
+            
+            
+           
+            <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,477 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/style.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/tipso.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/date/WdatePicker.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/tipso.js"></script>
+<style>
+    .pagin{
+
+       width: auto;
+
+    }
+	.details_info{width:710px;height:auto;overflow:hidden;background:#F5F9FC;border:1px solid #ccc;padding:10px;position:absolute;left:0;top:35px;display:none;z-index:999;}
+	i{ font-style:normal}
+	.details_info .con_info{line-height:16px;text-align:left; min-height:16px; height:auto; clear:both;}
+	.details_info .con_info_left{min-width:90px;display:inline-block;float:left;}
+	.details_info .con_info_right{line-height:17px;}
+	.details_info a.close{font-size:18px;position:absolute;top:0;right:10px;font-family:"微软雅黑"}
+	.place{
+		position:fixed;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.formbody{
+		margin-top:10px;
+	}
+	.adv_top{padding:0 0 0 10px;}
+</style>                        
+<script type="text/javascript"> 
+    KE.show({                   
+        id : 'content7',        
+        cssPath : './index.css' 
+    });                         
+  </script>                     
+                                
+<script type="text/javascript"> 
+$(document).ready(function(e) { 
+    $(".select1").uedSelect({   
+        width : 345             
+    });                         
+    $(".select2").uedSelect({   
+        width : 167             
+    });
+    $(".select3").uedSelect({
+        width : 94
+    });
+
+
+    //日期控件
+       var start = {
+        elem: '#startTime',
+        format: 'YYYY/MM/DD',
+        min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+      //  height:40,
+        istime: false,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#endTime',
+        format: 'YYYY/MM/DD',
+        min: '1970-01-01 00:00:00',
+        max: '2099-06-16 23:59:59',
+        istime: false,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    laydate.skin('molv');
+
+
+    
+  
+
+   //审核多选
+    $('#audit_ok').click(function(){
+
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(2);
+
+        $.post('audit',$('#del').serialize(),function(data){
+
+            if ( data.status ){
+                setTimeout(function () { 
+                     layer.alert(data.info,1);
+                    location.reload();
+                }, 1000);
+            }else{
+                layer.alert(data.info);
+            }
+
+         },'json');
+
+        return false;
+
+    })
+
+     //审核多选
+    $('#audit_no').click(function(){
+
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择审核数据');
+          return false;
+        }
+
+        $("[name='audit']").removeAttr('disabled');
+        $("[name='audit']").val(3);
+
+        $.post('audit',$('#del').serialize(),function(data){
+
+            if ( data.status ){
+                setTimeout(function () {
+                    layer.alert(data.info,1);
+                    location.reload();
+                }, 200);
+            }else{
+                layer.alert(data.info);
+            }
+
+         },'json');
+
+        return false;
+
+    })
+
+    //解锁
+    $('#deblocking').click(function(){
+
+        var _this = $(this);
+
+        var K = _this.attr('k');
+
+        var T = _this.attr('t');
+
+        var mark = _this.attr('mark');
+
+        $.post('Ajaxdeblocking',{can_login:1,K:K,T:T,mark:mark},function(data){
+
+            if ( data.status ){
+                setTimeout(function () {
+                    layer.alert(data.info,1);
+                    location.reload();
+                }, 200);
+            }else{
+
+                layer.alert(data.info);
+
+            }
+
+        },'json');
+
+        return false;
+
+    })
+	
+	//弹框
+	$("tbody tr").each(function(){
+		var info_=$(this).find(".details_info");
+		$(this).find("td:eq(3)").css("position","relative")
+
+		$(this).find("td:eq(3) .look_info").click(function(){
+			info_.css("display","block");
+          //  AjaxShowData
+
+			return false
+		})
+		info_.find("a.close").click(function(){
+
+			info_.css("display","none")
+		
+		})
+	
+	})
+	
+
+});
+
+
+    function transdate(endTime){
+
+        var date=new Date();
+      
+        date.setFullYear(endTime.substring(0,4));
+
+        date.setMonth(endTime.substring(5,7)-1);
+
+        date.setDate(endTime.substring(8,10));
+
+        date.setHours(endTime.substring(11,13));
+
+        date.setMinutes(endTime.substring(14,16));
+
+        date.setSeconds(endTime.substring(17,19));
+
+       // alert(date.getMonth());
+        return parseInt(Date.parse(date))/1000;
+
+    }
+
+
+
+
+    function mysubmit(obj)
+    {
+
+    	if ( $("#startTime").val() != '' ){
+			 stime=transdate($("#startTime").val());
+              $("[name='start_time']").val(stime);
+
+
+    	}
+      
+      	if ( $("#endTime").val() != '' ){
+      		etime=transdate($("#endTime").val());
+            $("[name='end_time']").val(etime);
+      	}
+
+
+      
+
+       obj.submit();
+
+       return false;
+    }
+</script>
+
+
+
+{|include file="$HEADER_END"|} 
+    <div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li>厂商管理</li>
+    </ul>
+    </div>
+    <div class="formbody">
+  	<div id="tab2" class="tabson">
+    <form action="list" id="seek" method="get"  onsubmit="mysubmit(this);return false;">
+        <ul class="seachform">
+        
+        <li><label>用户名：</label><input name="U|user_name" type="text"  class="scinput" value="{|$seekArr['U|user_name']|}" /></li>
+
+        <li><label>公司名称：</label><input name="C|cmp_name" type="text" class="scinput" value="{|$seekArr['C|cmp_name']|}" /></li>
+		
+        <li><label>公司编号：</label><input name="C|cmp_id" type="text" class="scinput" value="{|$seekArr['C|cmp_id']|}" /></li>
+	
+		<li><label>会员等级：</label>  
+	        <div class="vocation" style="margin-right:58px;">
+		        <select class="select3" name="cmp_lv">
+		            <option value="">全部</option>
+		            <option value="1" {|if $seekArr['cmp_lv'] == 1|} selected="selected"{|/if|}>普通</option>
+		            <option value='2' {|if $seekArr['cmp_lv'] == 2|} selected="selected"{|/if|}>铜牌</option>
+		            <option value='3' {|if $seekArr['cmp_lv'] == 3|} selected="selected"{|/if|}>银牌</option>
+		            <option value='4' {|if $seekArr['cmp_lv'] == 4|} selected="selected"{|/if|}>金牌</option>
+		            <option value='5' {|if $seekArr['cmp_lv'] == 5|} selected="selected"{|/if|}>钻石</option>
+		        </select>
+	        </div>
+        </li>
+        
+        <li><label>会员类型：</label>  
+            <div class="vocation" style="margin-right:58px;">
+                <select class="select3" name="cmp_type">
+                    <option value="">全部</option>
+                    <option value="1" {|if $seekArr['cmp_type'] == 1|} selected="selected"{|/if|}>免费</option>
+                    <option value='6' {|if $seekArr['cmp_type'] == 6|} selected="selected"{|/if|}>收费</option>
+                </select>
+            </div>
+        </li>
+        <li><label>销售人员：</label>  
+            <div class="vocation" style="margin-right:58px;">
+                <select class="select3" name="real_name">
+                    <option value="">全部</option>
+                  <!--   
+                    {|if $sales['sa_id']!=NULL|} <option value="{|$v['sa_id']|}">{|$sales['real_name']|}</option> {|/if|}
+                  -->   
+                    {|foreach $list_sales as $k=>$v|}
+                        <option value="{|$v['sa_id']|}" {|if $seekArr['real_name']==$v['sa_id']|} selected="selected" {|/if|} >{|$v['real_name']|}</option>
+                    {|/foreach|}
+                </select>
+            </div>
+        </li>
+
+	    <li><label>起止时间：</label>
+	        <input class="laydate-icon" name="start_time" id="startTime" value="{|$seekArr['start_time']|}" type="text">&nbsp;到&nbsp;
+	        <input type="hidden"   value="">
+
+	        <input  class="laydate-icon" name="end_time" id="endTime" value="{|$seekArr['end_time']|}" type="text">
+	        <input type="hidden"   value="">
+        </li>
+        
+        
+
+        <li><label>审核状态：</label>  
+        <div class="vocation">
+        <select class="select3" name="audit_state">
+        <option value="">全部</option>
+        <option value="1" {|if $seekArr['audit_state'] == 1|} selected="selected"{|/if|}>待审核</option>
+        <option value="2" {|if $seekArr['audit_state'] == 2|} selected="selected"{|/if|}>审核通过</option>
+        <option value='3' {|if $seekArr['audit_state'] == 3|} selected="selected"{|/if|}>审核未通过</option>
+         <option value='4' {|if $seekArr['audit_state'] == 4|} selected="selected"{|/if|}>需重新审核</option>
+        </select>
+        </div>
+        </li>
+
+		<li><label>商机通：</label>  
+        <div class="vocation">
+        <select class="select3" name="phone_api_status">
+        <option value="">全部</option>
+        <option value="1" {|if $seekArr['phone_api_status'] == 1|} selected="selected"{|/if|}>已开通</option>
+        <option value='2' {|if $seekArr['phone_api_status'] == 2|} selected="selected"{|/if|}>未开通</option>
+        </select>
+        </div>
+        </li>
+        <li><label>商机通ID：</label><input name="C|phone_api_id" type="text" class="scinput" value="{|$seekArr['C|phone_api_id']|}" /></li>
+        
+        <li><label>URL目录：</label><input name="C|page_url" type="text" class="scinput" value="{|$seekArr['C|page_url']|}" /></li>
+
+        
+        <li><input id='seekBtn' type="submit" class="scbtn" value="查询"/></li>
+        </ul>
+    </form>
+    <ul class="toolbar" style="margin:10px 0;">
+        <li id="audit_ok"><span><img src="{|$STYLE_URL|}/images/yes-icon.png" /></span>通过审核</li>
+        <li id="audit_no"><span><img src="{|$STYLE_URL|}/images/stop-icon.png" /></span>驳回审核</li>
+     </ul>
+	 <div class="pagin" style="float:right;line-height:35px;"><div class="message">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" type="checkbox" value=""/></th>
+        <th>用户名<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>公司编号</th>
+        <th>公司名称</th>
+        <th>注册时间</th>
+        <th>到期时间<a href="/cmpcompany/list-way-1"><b class="up">1</b></a><a href="/cmpcompany/list-way-2"><b class="down">1</b></a></th>
+        <th>厂商等级</th>
+        <th>审核状态</th>
+        <th>销售人员</th>
+        <th>商机通ID</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+		
+        <form action="del" method="get" id='del'>
+            {|foreach $list as $k=>$v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['cmp_id']|}" /></td>
+                <td>{|$v['user_name']|}</td>
+                <td>{|$v['cmp_id']|}</td>
+                <td>
+					<a href="http://www.3156.cn/company/about-id-{|$v['cmp_id']|}" target='_blank' >{|$v['cmp_name']|}<i style="color:{|$v['cmp_type_color']|}">【{|$v['cmp_type_temp']|}】</i></a><a style="color:red;font-size:14px;cursor:pointer;" class="look_info" mark="{|$v['cmp_id']|}">查看</a>
+					<div class="details_info">
+						<p class="con_info"><span class="con_info_left">公司名称：</span><span class="con_info_right">{|$v['cmp_name']|}</span></p>
+						<p class="con_info"><span class="con_info_left">公司LOGO：</span><span class="con_info_right"><a href="{|$v['logo_src']|}" target='_blank' >{|$v['logo_src']|}</a></span></p>
+						<p class="con_info"><span class="con_info_left">公司简介：</span><span class="con_info_right">{|$v['cmp_intro']|}</span></p>
+						<p class="con_info"><span class="con_info_left">公司性质：</span><span class="con_info_right">											       
+                              {|if $v['cmp_kind']==1|}个体                                                                                                
+                              {|elseif $v['cmp_kind']==2|}国有
+                              {|elseif $v['cmp_kind']==3|}合资
+                              {|elseif $v['cmp_kind']==4|}外资
+                              {|elseif $v['cmp_kind']==5|}私营
+                              {|elseif $v['cmp_kind']==6|}股份公司
+                              {|/if|}						
+						</span></p>
+						<p class="con_info"><span class="con_info_left">主营类别：</span><span class="con_info_right">
+				
+						    
+						   {|foreach $tplist as $val|}
+                                  {|if $v['main_type']==$val['pt_id']|}
+                                      {|$val['pt_name']|}
+                                  {|/if|}
+                           {|/foreach|}  
+                               						     
+						</span></p>
+						<p class="con_info"><span class="con_info_left">主营产品：</span><span class="con_info_right">{|$v['main_products']|}</span></p>
+						<p class="con_info"><span class="con_info_left">注册资金：</span><span class="con_info_right">{|$v['enrol_fund']|}</span></p>
+						<p class="con_info"><span class="con_info_left">公司所在地：</span><span class="con_info_right">{|$v['city_name']|}</span></p>
+						<p class="con_info"><span class="con_info_left">公司地址：</span><span class="con_info_right">{|$v['cmp_addr']|}</span></p>						
+						<p class="con_info"><span class="con_info_left">联系人：</span><span class="con_info_right">{|$v['link_man']|}</span></p>
+						<p class="con_info"><span class="con_info_left">联系电话：</span><span class="con_info_right">{|$v['telephone']|}</span></p>						
+						<p class="con_info"><span class="con_info_left">邮编：</span><span class="con_info_right">{|$v['postcode']|}</span></p>
+						<p class="con_info"><span class="con_info_left">手机：</span><span class="con_info_right">{|$v['mobile']|}</span></p>
+						<p class="con_info"><span class="con_info_left">传真</span><span class="con_info_right">{|$v['fax']|}</span></p>
+						<p class="con_info"><span class="con_info_left">公司网址：</span><span class="con_info_right">{|$v['web_url']|}</span></p>				
+						<p class="con_info"><span class="con_info_left">成立时间：</span><span class="con_info_right">{|date('Y-m-d',$v['build_date'])|}</span></p>						
+						<p class="con_info"><span class="con_info_left">公司证件：</span>
+						   <span class="con_info_right" style="margin-left:90px;">
+						   
+							 						      
+							 		 {|if $v['list_licence_pic'][0]|}
+										    <a href="{|$v['list_licence_pic'][0]|}" target='_blank' >{|$v['list_licence_pic'][0]|}</a></br>
+									 {|/if|}
+									 {|if $v['list_licence_pic'][1]|}
+										    <a href="{|$v['list_licence_pic'][1]|}" target='_blank'>{|$v['list_licence_pic'][1]|}</a></br>
+									 {|/if|}
+									 {|if $v['list_licence_pic'][2]|}
+									    <a href="{|$v['list_licence_pic'][2]|}" target='_blank'>{|$v['list_licence_pic'][2]|}</a></br>
+									 {|/if|}
+									 {|if $v['list_licence_pic'][3]|}
+									    <a href="{|$v['list_licence_pic'][3]|}" target='_blank'>{|$v['list_licence_pic'][3]|}</a>
+									 {|/if|} 
+								
+                             </span>					 
+						</p>						 						 						 						
+						<p class="con_info"><span class="con_info_left">会员起始日期：</span><span class="con_info_right">{|$v['start_time']|}</span></p>
+						<p class="con_info"><span class="con_info_left">会员截止日期：</span><span class="con_info_right">{|$v['end_time']|}</span></p>
+						<a href="javascript:void(0)" class="close" title="">X</a>
+					</div>
+					
+					
+					
+				</td>
+                <td>{|$v['reg_time']|}</td>
+                <td>{|$v['end_time']|}</td>
+                <td>{|$v['cmp_lv']|}</td>
+                <td>{|$v['audit_state']|}</td>
+                <td>{|$v['seller_id']['real_name']|}</td>
+                <td>{|$v['phone_api_id']|}</td>
+                <td><a href="edit-T-{|$v['T']|}-K-{|$v['K']|}-ac-edit-cmp_id-{|$v['cmp_id']|}" class="tablelink">管理</a>
+                {|if $v['can_login']==2 || $v['login_ect']==5 |}
+                 <a href="" id="deblocking" t="{|$v['T']|}" k="{|$v['K']|}" mark="{|$v['cmp_id']|}" style="color:red">解锁</a> 
+                 {|/if|}
+                </td>
+                </tr> 
+            {|/foreach|}
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+            <input type="hidden" name='audit' value='' disabled="disabled">
+
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+<script type="text/javascript"> 
+$("#usual1 ul").idTabs(); 
+$('.tablelist tbody tr:odd').addClass('odd');
+$(function() {
+	$('.tip1').tipso({
+		useTitle: false
+	});
+});
+</script>
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

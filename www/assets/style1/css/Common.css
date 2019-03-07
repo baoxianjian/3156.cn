@@ -1,0 +1,73 @@
+.user_right .Topic{font-size:18px;font-family:"微软雅黑";color:#333;border-bottom:1px solid #e2e2e2;width:900px;height:40px;text-indent:5px;}
+.user_right .Topic i{background:url(../img/ico/Edit.png) no-repeat left 0;width:16px;height:16px;display:block;position:relative;left:100px;top:5px;float:left;}
+.user_right .Topic i:hover{background-position:0 -45px;cursor:pointer;}
+.user_right .Content{width:900px;margin-top:20px;height:auto;overflow:hidden;line-height:35px;margin-bottom:10px;}
+.user_right .Content .left{width:100px;height:35px;overflow:hidden;float:left;text-align:right;font-size:14px;color:#808080;font-family:"宋体"}
+.user_right .left .Required{color:#f00;}
+.user_right .Content .right{width:800px;height:auto;overflow:hidden;float:right;font-size:14px;color:#333;font-family:"宋体"}
+.user_right .Content .right .Regional{color:#333;font-size:14px;font-family:"宋体";line-height:35px;height:35px;}
+.user_right .Content .right .Regional .bid{height:35px;width:85px;display:inline-block;*line-height:27px;}
+.user_right .Content .right .Regional .Reg{width:220px;height:30px;line-height:30px;border:1px solid #ccc;border-radius:4px;}
+.user_right .Content .Methods .Regional{font-size:12px;}
+.user_right .Content .Methods .Regional span{width:60px;height:35px;line-height:35px;*line-height:25px;text-align:right;display:inline-block;}
+.user_right .right .text_area{float:left;border-radius:4px;border:1px solid #ccc;width:330px;height:175px;}
+.user_right .right select{float:left;margin-right:5px;width:115px;height:25px;line-height:25px;margin-top:5px;text-align:center;position:relative;*top:8px;border: 1px solid #ccc;}
+.user_right .radio{position:relative;top:2.5px;margin-right:5px;}
+.user_right .Content .one{margin-right:40px;}
+.user_right .Content .Edit_txt{width:255px;height:33px;float:left;border:1px solid #ccc;border-radius:4px;line-height:35px;color:#333;}
+.user_right .Content .Notes{font-size:12px;margin-left:15px;color:#aaa;height:35px;line-height:35px;float:left;display:inline-block;}
+.user_right .Content .sub{width:96px;height:31px;border:0;background:#fb8200;border-radius:4px;color:#fff;font-size:14px;line-height:31px;font-family:"宋体"}
+.user_right .Content .Cancel{color:#666;background:#e1e1e1;}
+.user_right table{width:900px;height:auto;overflow:hidden;background:#eee;color:#333;line-height:30px;text-align:center;font-size:14px;font-family:"宋体";}
+.user_right table .first_line{background:#e5e5e5;}
+.user_right table a{color:#00f;}
+.user_right table a:hover{text-decoration:underline;}
+.user_right table .Preview{margin-right:15px;}
+.user_right .upload_pic{float:left;margin-right:10px;}
+.user_right .upload_file{width:690px;height:auto;overflow:hidden;float:left;position:relative;}
+.user_right .upload_file b{font-weight:normal;color:#f00;font-size:12px;width:360px;height:60px;position:absolute;right:0;top:6px;line-height:20px;}
+.user_right .file_name{font-size:14px;font-family:"微软雅黑";color:#333;overflow:hidden;width:690px;height:37px;}
+.user_right .file_name img{position:relative;top:8px;}
+.user_right .file_name .pic_Prompt{color:#f00;font-size:12px;font-family: "宋体";margin-left:33px;}
+.user_right .file_txt{width:239px;height:28px;border:1px solid #e2e2e2;background:#fafafa;}
+.user_right .file{width:278px;padding:0 30px 0 10px;float:left;height:30px;line-height:30px;font-size:12px;background:#fafafa;margin-top:12px;}
+.user_right .file a{float:right;_margin-top:6px;*margin-top:6px;margin-top:6px\0;}
+.user_right .file span{color:#6c6c6c;background:url(../img/pic_ico.png) no-repeat left center;padding-left:18px;}
+.user_right .upload_Notice{color:#a0a0a0;font-size:12px;font-family:"宋体";}
+.user_right .Submit{width:165px;height:40px;line-height:40px;text-align:center;color:#fff;background:#fb8200;border:0;border-radius:3px;margin:40px 0 0 192px;font-size:20px;font-family:"微软雅黑";}
+.user_right .product_con{width:330px;height:100px;border-radius:4px;border:1px solid #ccc;}
+.user_right .Methods label{color:#f00;}
+.IP .c_right p{margin:0;}
+.IP table{background:none;line-height:35px;font-size:14px;color:#333;margin-top:15px;}
+.IP th{font-family: "微软雅黑";height:35px;background:#f3f3f3;}
+.product_list_  th{font-family: "宋体";font-size:12px;color:#333;}
+.IP tbody{font-family:"宋体";}
+.IP .number{width:452px;_width:550px;height:37px;clear:both;margin:0 auto 20px;padding-top:40px;}
+.IP .number li{float:left;font-size:12px;line-height:35px;margin:0 3px 0 0;height:35px;text-align:center;}
+.IP .number li span{width:30px;display:block;height:35px;}
+.IP .number li a{padding:0 10px;min-width:18px;_width:30px;display:block;height:35px;border:1px solid #cccccc;color:#666;}
+.IP .number li a:hover{background:#6bb915;color:#fff;border-color:#6bb915;}
+/*查询按钮*/
+.Query_btn{width:96px;height:31px;background:#fb8200;color:#fff;font-size:14px;text-align:center;line-height:31px;border-radius:4px;border:0;}
+.Query_btn:hover{background:#fc9200;}
+
+
+.Refresh{width:870px;height:35px;padding:0 15px;margin-top:15px;}
+
+.Refresh button{width:115px;height:35px;line-height:35px;text-indent:15px;margin-right:10px;float:left;border-radius:4px;border:0;font-size:14px;font-family:"宋体";color:#fff;background:url(../img/ico/public-icon.png) no-repeat;}
+.Refresh button:hover{background-color:#fb8200;}
+.Refresh .start_btn{background-color:#fb8200;background-position:10px -430px;}
+.Refresh .stop_btn{background-color:#c9c9c9;background-position:10px -386px;}
+.Refresh .Refresh_btn{background-color:#c9c9c9;background-position:10px -474px;}
+
+.Contact_info{width:500px;height:345px;background:#e5e5e5;padding:10px;}
+.Contact_info .Contact_con{width:500px;height:345px;background:#fff;border:1px solid #c1c1c1;}
+.Contact_info .line{width:500px;height:36px;border-bottom:1px solid #c1c1c1;line-height:36px;font-family:"宋体";font-size:14px;}
+.Contact_info .line span{display:inline-block;float:left;text-align:center;height:36px;}
+.Contact_info .line .con_left{width:99px;border-right:1px solid #c1c1c1;}
+.Contact_info .line .con_right{width:400px;}
+.Contact_info .Submit{margin:5px 0 0 169px;width:165px;height:40px;line-height:40px;text-align:center;color:#fff;background:#fb8200;border:0;border-radius:3px;font-size:20px;font-family:"微软雅黑";}
+
+/*天数按钮*/
+
+.day{width:80px;height:30px;color:#a6a6a6;background:#f5f5f5;font-size:14px;line-height:30px;text-align:center;border-radius:4px;border:0;}

@@ -1,0 +1,16 @@
+<script>
+//guestboo_project
+var project_html ='<li class="J_project_html" style="width: 785px;">\
+				<span><i>*</i>选择留言项目：<p>(多选)</p></span>\
+				<div class="msg_">\
+				<ul>\
+				<li><label><input type="checkbox" name="row[pdt_ids][]" value="1" >金妇宁壳聚糖妇用抗菌栓（敷料）</label></li>\
+				<li><label><input type="checkbox" name="row[pdt_ids][]" value="2" >项目2</label></li>\
+				<li><label><input type="checkbox" name="row[pdt_ids][]" value="3" >项目3</label></li>\
+				</ul></div></li>',  //留言项目赋值
+//guestboo_project_end
+	modtype = '4', // 模块类型ID
+	modid = '3'; //对哪个模块的主键id
+
+</script>
+<script src="http://img1.3156.cn/res/js/dev/assets/common/guestbook.js?v=20150414" type="text/javascript"></script>

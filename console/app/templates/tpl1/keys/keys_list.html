@@ -1,0 +1,128 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:10px 0 10px 20px;
+		height:auto;
+		overflow:hidden;
+	}
+	.edit{
+		display:block;
+	}
+
+
+
+</style>
+
+ <div class="place">
+	<span>位置：</span>
+	<ul class="placeul">
+		<li><a href="###">首页</a></li>
+		<li>文档关键词管理</li>
+	</ul>
+</div>
+
+<div class="tools">
+    
+
+        <form action="list" method="post" >   
+            关键词：<input type="text" name="name" class="scinput"  value={|$srow['name']|} >&nbsp; &nbsp; 
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+		<ul class="toolbar">
+            <li class="click"><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加</a></li>
+            <li class="J_delAll" data-status='1'><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <li class="J_delAll" data-status='0'><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>
+        </ul>
+        <ul class="toolbar1">
+
+       <!-- <li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+ 		<div class="pagin" style="float:right; margin:20px 10px 10px 0;">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+      
+    
+    </div>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" name="" type="checkbox" value=""/></th>
+        <th>关键词</th>
+        <th>链接地址</th>
+        <th>权重</th>
+        <th>频率</th>
+        <th>管理</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['key_id']|}">
+                <td><input name="check[]" type="checkbox" value="{|$row['key_id']|}" /></td>
+                <td>{|$row['key_name']|}</td>
+                <td>{|$row['key_url']|}</td>
+                <td>{|$row['order']|}</td>
+                <td>{|$row['key_num']|}</td>
+                <td><a href="edit-id-{|$row['key_id']|}" class="tablelink">编辑</a>     <a onclick="return delConfirm('{|$row['key_id']|}');" href="{|$row['del_url']|}" class="tablelink"> 删除</a></td>
+            </tr>
+        {|/foreach|}
+        <input name="status" value="0" class="J_status" type="hidden" />
+        </form>
+        </tbody>
+    </table>
+
+{|$pagehtml|}
+<script>
+$('.J_delAll').click(function(){
+	var $this = $(this);
+	var status = $this.data('status');
+	$('.J_status').val(status);
+	if ( $("[name='check[]']:checked").length <= 0 ){
+	  layer.alert('未选择删除数据');
+	  return false;
+	}
+	if(status === 1){
+		msg = '一旦删除将会无法恢复，您确定删除？';
+	}else{
+		msg = '您确定要恢复？';
+	}
+	$.layer({
+		shade: [0],
+		area: ['auto','auto'],
+		dialog: {
+			msg: msg,
+			btns: 2,                    
+			type: 5,
+			btn: ['确定','取消'],
+			yes: function(){
+			 $.post('del',$('#del').serialize(),function(data){
+
+				if ( data.status ){
+					layer.alert(data.info,1);
+					setTimeout(function () { 
+						location.reload();
+					}, 100);
+				}else{
+					layer.alert(data.info);
+				}
+
+			 },'json');
+			},
+		}
+	  });
+	return false;
+})
+</script>
+{|include file="$FOOTER"|}  

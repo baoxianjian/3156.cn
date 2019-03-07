@@ -1,0 +1,115 @@
+ {|include file="$HEADER"|}
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+
+</script>
+
+
+</head>
+
+<body style="background:#f0f9fd;">
+	<div class="lefttop"><span></span>系统</div>
+    
+    <dl class="leftmenu">
+        
+    <dd>
+    <div class="title">
+    <span><img src="{|$STYLE_URL|}/images/gonggao-icon.png" /></span>系统公告
+    </div>
+    	<ul class="menuson">
+		
+        <li class=""><cite></cite><a href="/notices/list" target="rightFrame">公告列表</a><i></i></li>
+        <li class=""><cite></cite><a href="/notices/edit" target="rightFrame">添加系统公告</a><i></i></li>
+		<!--
+        <li class=""><cite></cite><a href="/keywords/list" target="rightFrame">关键词管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/ads/list" target="rightFrame">广告管理</a><i></i></li>   
+        <li class=""><cite></cite><a href="/adposition/list" target="rightFrame">广告位管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/main/syn" target="rightFrame">数据同步</a><i></i></li>
+        <li class=""><cite></cite><a href="/comments/list" target="rightFrame">留言管理</a><i></i></li> 
+        
+        <li class="active"><cite></cite><a href="/main/center" target="rightFrame">首页模版</a><i></i></li>
+        <li class=""><cite></cite><a href="/adposition/list" target="rightFrame">广告位管理</a><i></i></li> 
+        
+        <li class=""><cite></cite><a href="/Console/addedit" target="rightFrame">添加编辑</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/picturelist" target="rightFrame">图片列表</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/custom" target="rightFrame">自定义</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/tools" target="rightFrame">常用工具</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/messagemanage" target="rightFrame">信息管理</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/tab" target="rightFrame">Tab页</a><i></i></li>
+        <li class=""><cite></cite><a href="/Console/error" target="rightFrame">404页面</a><i></i></li>
+        -->
+        </ul>    
+    </dd>
+        
+ <!--  
+    <dd>
+    <div class="title">
+    <span><img src="{|$STYLE_URL|}/images/youqing-icon.png" /></span>友情链接
+    </div>
+    <ul class="menuson">
+         <li><cite></cite><a href="/friendlinks/list" target="rightFrame">友情链接管理</a><i></i></li>        
+        </ul>     
+    </dd> 
+   -->    
+    
+    <dd>
+        <div class="title">
+        <span><img src="{|$STYLE_URL|}/images/xitong-icon.png" /></span>权限管理
+        </div>
+        <ul class="menuson">
+            <li><cite></cite><a href="/groups/list" target="rightFrame">用户组管理</a><i></i></li>
+            <li><cite></cite><a href="/admins/list" target="rightFrame">管理员管理</a><i></i></li>
+        </ul>     
+    </dd> 
+    
+    <dd>
+        <div class="title">
+        <span><img src="{|$STYLE_URL|}/images/ziyuan-icon.png" /></span>资源管理
+        </div>
+        <ul class="menuson">
+            <li><cite></cite><a href="/uploads/list" target="rightFrame">资源列表</a><i></i></li>
+        </ul>     
+    </dd>
+    
+    <dd>
+        <div class="title">
+        <span><img src="{|$STYLE_URL|}/images/ziyuan-icon.png" /></span>招商广告管理
+        </div>
+        <ul class="menuson">
+            <li><cite></cite><a href="/zsad/header" target="rightFrame">头部广告</a><i></i></li>
+            <li><cite></cite><a href="/zsad/footer" target="rightFrame">底部广告</a><i></i></li>
+        </ul>     
+    </dd>
+    
+    
+      <!--
+    <dd><div class="title"><span><img src="{|$STYLE_URL|}/images/leftico04.png" /></span>修改密码</div>
+    <ul class="menuson">
+        <li><cite></cite><a href="/Console/datamanacustom" target="rightFrame">自定义</a><i></i></li>
+        <li><cite></cite><a href="/Console/managementfile" target="rightFrame">常用资料</a><i></i></li>
+        <li><cite></cite><a href="/Console/manamessagelist" target="rightFrame">信息列表</a><i></i></li>
+        <li><cite></cite><a href="/Console/datamanaother" target="rightFrame">其他</a><i></i></li>
+    </ul>
+      -->  
+    </dd>   
+    
+    </dl>
+    
+</body>
+</html>

@@ -1,0 +1,324 @@
+{|include file="$HEADER"|} 
+    <link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/page.css" /> 
+	<script>
+		//$(function()
+		//{
+		//	
+		//})	
+		
+		$(document).ready(function(){
+			$(".click_").mouseover(function()
+				{
+                    var _this = $(this);
+
+                    $.post('AjaxGroup',{pid:_this.attr('mark')},function(data){
+
+                        //清楚子节点
+                        _this.next('.bounced_info').empty();
+
+                        //插入子节点
+                        for ( i=0; i<data.length; i++ ){
+
+                            _this.next('.bounced_info').append("<a href='?seek=1&type2_id="+data[i]['pt_id']+"''>"+data[i]['pt_name']+"</a>");
+
+                        }
+
+                    },'json');
+
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).parent(".list").css('z-index','10');
+					$(this).siblings('.bounced_info').show().css('left',$(this).parents('.agent_list').offset().left-$(this).offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					return false;
+				});
+				$(".agent_list .list").hover(function()
+				{
+					//$(this).find('.bounced_info').show();
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).css('z-index','10');
+					//$(this).find('.bounced_info').show().css('left',$(".click_").parents('.agent_list').offset().left-$(".click_").offset().left+37);
+					
+					$(this).find('.click_').siblings('.bounced_info').show().css('left',$(this).find(".click_").parents('.agent_list').offset().left-$(this).find(".click_").offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					
+				},function(){
+
+					$(this).find('.bounced_info').hide();
+					
+				});
+		})
+	</script>
+</head>
+<style type="text/css">
+	.clearfix:after {content:"";height:0;display:block;clear:both;}
+	.clearfix {zoom:1;}
+	.clearfix .list{
+		font-size:12px;
+		color:#666;
+		float:left;
+		margin:0 10px;
+		position: relative;
+		z-index: 1
+	}
+	.bounced_info{
+		display:none;
+		width: 920px;
+		border: 1px solid #f00;
+		position: absolute;
+		background: #fff;
+		padding:0 5px;
+	}
+	.agent_Options .agent_list .bounced_info a{
+		margin-right:10px; 
+		font-size:12px;
+		color:#666;
+		padding:0;
+		}
+</style>
+{|include file="$HEADER_END"|} 
+
+
+    <div class="warp Medicines_Co">
+        <p class="dqwz agent">当前位置：<a href="javascript:void(0);">3156医药网</a> > <a href="javascript:void(0);">药品库</a></p>
+        <div class="Conditions">
+            <div class="con">
+                <div class="name">已选条件：</div>
+                <div class="agent_Options">
+                    <a href="javascript:void(0)" class="selected">中药产品<span>×</span></a>
+                    <a href="javascript:void(0)" class="selected">黑龙江<span>×</span></a>
+                    <a href="javascript:void(0)" class="del">删除条件</a>
+                </div>
+            </div>
+            <div class="con clearfix" style="overflow:visible;">
+                <div class="name">药品类别：</div>
+                <div class="agent_Options clearfix">
+                    <a href="?seek=0" class="all">全部</a>
+                    <div class="agent_list clearfix" style="overflow:visible;">
+                       {|foreach $type as $k=>$v|}
+						<div class="list clearfix">
+							<a href="?seek=1&type1_id={|$v['pt_id']|}" mark="{|$v['pt_id']|}" class="click_">{|$v['pt_name']|}</a>
+							<div class="bounced_info">
+							</div>
+						</div>
+                       {|/foreach|}
+                    </div>
+                </div>
+            </div>
+            <div class="con">
+                <div class="name">招商区域：</div>
+                <div class="agent_Options">
+                    <a href="javascript:void(0)" class="all">全部</a>
+                    <div class="agent_list">
+                        <a href="javascript:void(0)">北京</a>
+                        <a href="javascript:void(0)">天津</a>
+                        <a href="javascript:void(0)">上海</a>
+                        <a href="javascript:void(0)">重庆</a>
+                        <a href="javascript:void(0)">河北</a>
+                        <a href="javascript:void(0)">山西</a>
+                        <a href="javascript:void(0)">四川</a>
+                        <a href="javascript:void(0)">湖北</a>
+                        <a href="javascript:void(0)">湖南</a>
+                        <a href="javascript:void(0)">安徽</a>
+                        <a href="javascript:void(0)">广西</a>
+                        <a href="javascript:void(0)">江苏</a>
+                        <a href="javascript:void(0)">浙江</a>
+                        <a href="javascript:void(0)">广东</a>
+                        <a href="javascript:void(0)">吉林</a>
+                        <a href="javascript:void(0)">江西</a>
+                        <a href="javascript:void(0)">山东</a>
+                        <a href="javascript:void(0)">河南</a>
+                        <a href="javascript:void(0)">内蒙</a>
+                        <a href="javascript:void(0)">西藏</a>
+                        <a href="javascript:void(0)">海南</a>
+                        <a href="javascript:void(0)">辽宁</a>
+                        <a href="javascript:void(0)">黑龙江</a>
+                        <a href="javascript:void(0)">港澳台</a>
+                    </div>
+                </div>
+            </div>
+            <div class="con">
+                <div class="name">剂&nbsp&nbsp型：</div>
+                <div class="agent_Options">
+                    <a href="javascript:void(0)" class="all">全部</a>
+                    <div class="agent_list">
+                        {|foreach $medicamentType as $k=>$v|}
+
+                            <a href="?seek=1&medicament_type={|$v|}">{|$v|}</a>
+
+                        {|/foreach|}
+                    </div>
+                </div>
+            </div>
+            <div class="con cur">
+                <div class="name">特&nbsp;&nbsp;点：</div>
+                <div class="agent_Options drug_Characteristic">
+                    <label><input type="checkbox" name="checkbox" class="ckb" value=""/>中标药品</label>
+                    <label><input type="checkbox" name="checkbox" class="ckb" value=""/>医保药品</label>
+                    <label><input type="checkbox" name="checkbox" class="ckb" value=""/>基本药物</label>
+                    <label><input type="checkbox" name="checkbox" class="ckb" value=""/>中药保护</label>
+                    <label><input type="checkbox" name="checkbox" class="ckb" value=""/>专利产品</label>
+                    <form action="">
+                        <input type="submit" value="" class="sub"/>
+                        <input type="text" placeholder="关键词" class="txt" value="关键词"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <form action="/products/compare" method="post">
+            <div class="agent_table M_C drug_list">
+                <p class="Medicines_Co_list">
+                    <a href="javascript:void(0)" class="cur">></a>
+                    <a href="javascript:void(0)"><</a>
+                    <span class="The_current The_sum"><b>1</b>/<b>22345</b>页</span>
+                    <span class="The_sum">共<b>22345</b>个</span>
+                    药品列表
+                    <label><input type="submit" id="comparison" value="对比选中产品"></label>
+                </p>
+                {|foreach $list as $k=>$v|}
+                <div class="M_C_con">
+                    <div class="The_company">
+                        <p class="company_name"><a href="{|$v['pdt_id']|}">{|$v['name']|}</a></p>
+                        <a href="javascript:void(0)" class="img"><img src="{|$v['img']|}" width="160px" height="120px" alt=""/></a>
+                        <div class="basic_info">
+                            <p class="com_name"><a href="#">{|$v['cmp_name']|}</a></p>
+                            <ul class="drug_info">
+                                <li>{|$v['pt_name']|}&nbsp;&nbsp;{|$v['group']['pt_name']|}</li>
+                                <li>|</li>
+                                <li>{|$v['medicament_type']|}</li>
+                                <li>|</li>
+                                <li>{|$v['spec']|}</li>
+                                <li>|</li>
+                                <li>{|$v['area']|}</li>
+                                <li>|</li>
+                                <li>{|$v['zb_type']|}</li>
+                                <li>|</li>
+                                <li>{|$v['medicare_type']|}</li>
+                            </ul>
+                            <label><input type="checkbox" name="check[]" class="ck" value="{|$v['pdt_id']|}"/>加入对比</label>
+                        </div>
+                        <div class="button">
+                            <a href="javascript:void(0)">免费通话</a>
+                            <a href="javascript:void(0)" class="To_proxy">我要代理</a>
+                        </div>
+                    </div>
+                </div>
+                {|/foreach|}
+            </form>
+            <div class="agent_num">
+               {|$pagehtml|}
+            </div>
+        </div>
+        <div class="agent_right">
+            <div class="Recommend right_OTC" style="border:0;border-right:1px solid #e6e6e6;">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药招商企业排行 </p>
+                <ul class="con">
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>推荐医药招商</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药新闻</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>企业动态</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend agent_online">
+                <p class="title">在线咨询</p>
+                <div class="con">
+                    <p><span>客服：</span><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a></p>
+                    <p>全天服务热线：18680473282</p>
+                    <p>客服邮箱：choose3156@163.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {|include file="$FOOTER"|}
+    <script>
+     $("#comparison").click(function(){
+           if ( $("[name='check[]']:checked").length > 3  ){
+
+                alert('产品对比不能超过三个');
+                return false;
+
+            }
+
+            if ( $("[name='check[]']:checked").length < 2  ){
+
+                alert('请至少选择两个产品作为对比');
+                return false;
+
+            }
+
+        })
+
+        jQuery(".main_products").slide({titCell:".main_products .name",mainCell:".img_",autoPage:false,effect:"left",vis:4,trigger:"click"});
+        $(".tempWrap").css("width","880px");
+        $(".img_").css("margin-top","20px");
+        $(".list_of1").slide({
+            titCell:".text",
+            targetCell:".text_info",
+            effect:"slideDown",
+            delayTime:300 ,
+            triggerTime:150,
+            defaultPlay:true,
+            returnDefault:true
+        });
+
+
+    </script>

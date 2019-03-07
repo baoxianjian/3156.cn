@@ -1,0 +1,158 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#delall').click(function(e){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定删除所选项？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                	
+                 $.post('Dels',$('#myform').serialize(),function(data){
+                	     
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+                
+            }
+          });
+        return false;
+        
+    })   
+});
+</script>
+<style>
+  .place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+.adv_top{
+	margin-top:25px;
+	padding:10px 0 10px 10px;
+}
+.formbody{padding:0;}
+</style>
+
+ {|include file="$HEADER_END"|} 
+ 	<div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center"  target="rightFrame">首页</a></li>
+            <li>站内来电询单</li>
+        </ul>
+    </div>  
+    <div class="formbody">
+    <div class="adv_top">
+        <form action="list" method="get" >
+             
+	<!--      添加时间：<input type="text" class="scinput"  name="dateline"  value={|$srow['dateline']|}>--> 
+	    添加日期：<input type="text" id="startTime" class="scinput laydate-icon"  name="dateline"  value={|$srow['dateline']|}>&nbsp;&nbsp;	
+              联系方式：<input type="text" class="scinput"  name="contact"  value={|$srow['contact']|}>&nbsp;&nbsp;
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        
+        
+        
+      <!--   <ul class="toolbar1">
+      <li><span><img src="/assets/console/images/t05.png" /></span>设置</li>
+      </ul> -->
+    </div>
+    </div>
+    <ul class="toolbar">
+        <li class=""><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+<!--         <li class="click"><span><img src="/assets/console/images/t02.png" /></span>修改</li> -->
+        <a style='cursor:pointer'id="delall"><li ><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li></a>&nbsp;&nbsp;
+        <li><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>&nbsp;&nbsp;	
+     <!--    <li><span><img src="/assets/console/images/t04.png" /></span>统计</li> -->
+        </ul>
+    <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+   <form id='myform'>
+      <input type="hidden" name="ajax" value="1" />
+    <table class="tablelist">
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="checkAll" value=""/></th>       
+        <th>添加日期</th>
+        <th>意向产品</th>
+        <th>意向区域</th>
+        <th>询单内容</th>
+        <th>联系人</th>
+        <th>联系方式</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {|foreach $list as $row|}
+            <tr>
+            <td><input name="check[]" type="checkbox" value="{|$row['ae_id']|}" /></td>                        
+            <td>{|date('Y-m-d',$row['dateline'])|}</td>
+            <td>{|$row['pdt_name']|}</td>
+            <td>{|$row['areas']|}</td>
+            <td>{|$row['content']|}</td>
+            <td>{|$row['link_man']|}</td>
+            <td>{|$row['contact']|}</td>           
+            <td><a href="edit-id-{|$row['ae_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;              
+             <a onclick="delConfirm('{|$row['ae_id']|}','del'); return false;" href="{|$row['del_url']|}" class="tablelink">删除</a>
+            </td>
+            </tr> 
+        {|/foreach|}      
+        </tbody>     
+    </table>
+   </form>
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+<script type="text/javascript">
+
+//日期控件
+var start = {
+    elem: '#startTime',
+    format: 'YYYY/MM/DD',
+    min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+    max: '2099-06-16 23:59:59', //最大日期
+  //  height:40,
+    istoday: false,
+    choose: function(datas){
+         end.min = datas; //开始日选好后，重置结束日的最小日期
+         end.start = datas //将结束日的初始值设定为开始日
+    }
+};
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+laydate(start);
+laydate.skin('molv');
+</script>   
+

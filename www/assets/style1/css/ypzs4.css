@@ -1,0 +1,262 @@
+@charset "utf-8";
+/* CSS Document */
+a{
+	color:#333333;
+}
+.location{
+	height:30px;
+	line-height:30px;
+}
+.location a{
+	margin:0 4px;
+}
+.location a:hover{
+	text-decoration:underline;
+	color:#fb8200;
+}
+
+.fen{
+	width:300px;
+	float:left;
+	height:72px;
+	margin-bottom:20px;
+}
+.fen li{
+	float:left;
+	margin:0 12px 5px 0;
+}
+.fen li a:hover{
+	color:#cc0000;
+	text-decoration:underline;
+}
+.fen span{
+	display:block;
+	color:#333333;
+	font-weight:bold;
+	width:30px;
+	float:left;
+	margin:10px 12px 0 10px;
+}
+.fen ul{
+	background:url(../img/images/zpzs_line.png) no-repeat left top;
+	margin-top:10px;
+	width:232px;
+	height:58px;
+	margin-left:48px;
+	padding-left:10px;
+	padding-right:20px;
+}
+.color1{
+	background:#ffe3c5;
+}
+.color2{
+	background:#fcd8b1;
+}
+.pic_ul{
+	clear:both;
+	border:1px solid #e7e7e7;
+	padding-bottom:10px;
+}
+.pic_ul .p_ul{
+	padding:26px 32px 12px 32px;
+	height:1468px
+	
+}
+.p_ul #a_btn1,.p_ul #a_btn2{
+	display:block;
+	width:86px;
+	height:16px;
+	position:absolute;
+	top:292px;
+	font-size:14px;
+	line-height:16px;
+	text-align:right;
+	border-radius:5px;
+	font-weight:bold;
+	padding:5px 2px;
+}
+.p_ul #a_btn1{
+	left:25px;
+	color:#66cc00;
+	border:3px solid #66cc00;
+	background:#fff url(../img/images/zpzs_22.png) no-repeat 4px center;
+}
+.p_ul #a_btn1:hover{
+	color:#fff;
+	background:#66cc00 url(../img/images/zpzs_222.png) no-repeat 4px center;
+	text-decoration:none;
+}
+.p_ul #a_btn2{
+	left:137px;
+	border:3px solid #fb8200;
+	color:#fb8200;
+	background:#fff url(../img/images/zpzs_11.png) no-repeat 4px center;
+}
+.p_ul #a_btn2:hover{
+	color:#fff;
+	background:#fb8200 url(../img/images/zpzs_111.png) no-repeat 4px center;
+	text-decoration:none;
+}
+
+.pic_ul .p_ul li{
+	width:200px;
+	height:356px;
+	border:1px solid #ededed;
+	padding:0 24px;
+	border-radius:2px;
+	float:left;
+	margin:0 44px 8px 0;
+	position:relative;
+}
+.pic_ul .p_ul li:hover{
+	background:#ffe3c5;
+}
+.pic_ul .p_ul .a_pic{
+	width:198px;
+	height:148px;
+	display:block;
+	text-align:center;
+	margin:18px 0 0 0px;
+	background:#fff;
+	
+}
+.pic_ul .p_ul .a_title{
+	font-size:14px;
+	font-weight:bolder;
+	display:block;
+	margin:18px 0 22px 0;
+	text-align:center;
+}
+.pic_ul .p_ul span{
+	font-weight:bold;
+}
+.pic_ul .p_ul a{
+	line-height:18px;
+}
+.pic_ul .p_ul a:hover,.o_right li a:hover{
+	text-decoration:underline;
+	color:#ff9900;
+}
+.d_blue,.d_orange,.d_blue1{
+	clear:both;
+	margin:0 10px;
+}
+.d_blue{
+	border-bottom:3px solid #3b8be4;
+}
+.d_orange{
+	border-bottom:3px solid #fb8200;
+	margin-top:6px;
+}
+.d_blue1{
+	border-bottom:3px solid #458dc5;
+}
+.blue,.orange,.blue1{
+	font-size:18px;
+	font-family:'微软雅黑';
+	height:38px;
+	line-height:38px;
+	display:block;
+	width:198px;
+	float:left;
+	border-top-left-radius:5px;
+	padding-left:14px;
+	color:#fff;
+}
+.blue{
+	background:#3b8be4;
+}
+.orange{
+	background:#fb8200;
+}
+.blue1{
+	background:#458dc5;
+}
+.blue_ul{
+	padding:10px 20px;
+	height:64px;
+}
+.blue_ul li img,.o_ul li img{
+	border:2px solid #fff;
+}
+.blue_ul li img:hover,.o_ul li img:hover{
+	border:2px solid #6bb914;
+}
+
+.blue_ul li,.o_ul li{
+	float:left;
+	margin-right:13px;
+	margin-bottom:4px;
+}
+.o_ul{
+	width:830px;
+	padding:10px 20px;
+	float:left;
+}
+.table{
+	width:1200px;
+	height:100px;
+	margin-bottom:20px;
+}
+.table li{
+	height:28px;
+	line-height:28px;
+	width:170px;
+}
+.table .t_border_l{
+	border-left:none;
+}
+.blue1_ul{
+	width:1164px;
+	margin:0 auto;
+	height:220px;
+	padding-top:12px;
+}
+.blue1_ul li{
+	float:left;
+	width:157px;
+	height:92px;
+	margin-right:10px;
+	text-align:center;
+	margin-bottom:18px;
+}
+.blue1_ul a{
+	color:#333333;
+}
+.blue1_ul a:hover{
+	color:#ff9900;
+	text-decoration:underline;
+}
+.blue1_ul .b_text{
+	display:block;
+	width:160px;
+	height:40px;
+	line-height:40px;
+}
+.blue1_ul li img{
+	width:150px;
+	border:2px solid #fff;
+}
+.blue1_ul img:hover{
+	border:2px solid #6bb914;
+}
+.o_right{
+	background:url(../img/images/zpzs_33.png) no-repeat;
+	width:320px;
+	height:350px;
+	float:right;
+	margin-right:5px;
+	margin-top:15px;
+}
+.o_right ul{
+	margin:48px 0 0 35px;
+}
+.o_right ul li a{
+	display:block;
+	background:url(../img/images/yyzs_44.png) no-repeat left center;
+	padding-left:15px;
+	height:25px;
+	line-height:25px;
+}
+
+

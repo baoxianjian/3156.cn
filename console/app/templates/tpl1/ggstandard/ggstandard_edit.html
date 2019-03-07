@@ -1,0 +1,125 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(e) {
+
+    if ( $("[name='ggs_type']:checked").val() == 1 ){
+        
+            $('#text').show();
+            $('#text').children('input').removeAttr('disabled');
+            $('#height').hide();
+            $('#width').hide();
+            $('#height').children('input').attr('disabled','disabled');
+            $('#width').children('input').attr('disabled','disabled');
+
+    }else{
+
+            $('#text').hide();
+            $('#text').children('input').attr('disabled','disabled');
+            $('#height').show();
+            $('#width').show();
+            $('#height').children('input').removeAttr('disabled');
+            $('#width').children('input').removeAttr('disabled');
+
+    }
+
+    //规格类型切换 JS
+    $("[name='ggs_type']").click(function(){
+
+        if ( $(this).val() == 1 ){
+
+            $('#text').show();
+             $('#text').children('input').removeAttr('disabled');
+            $('#height').hide();
+            $('#width').hide();
+            $('#height').children('input').attr('disabled','disabled');
+            $('#width').children('input').attr('disabled','disabled');
+
+        }else{
+
+            $('#text').hide();
+            $('#text').children('input').attr('disabled','disabled');
+            $('#height').show();
+            $('#width').show();
+            $('#height').children('input').removeAttr('disabled');
+            $('#width').children('input').removeAttr('disabled');
+
+        }
+
+    });
+
+    //异步校验规格名
+    $('#name').blur(function(){
+
+        var obj = $(this);
+        $.post('/ggstandard/AjaxCheckName',{name:$('#name').val()},function(data){
+            if ( data.status == 1 ){
+
+                obj.parent().children('i').text(data.info);
+                obj.parent().children('i').css('color','green');
+
+            }else{
+
+                obj.parent().children('i').text(data.info);
+                obj.parent().children('i').css('color','red');
+
+            }
+
+        },'json');
+
+    })
+
+    $('.size').blur(function(){
+
+        var reg = /^[0-9]{1,}$/;
+        if ( reg.test($(this).val()) == false ){
+
+            $(this).parent().children('i').text('填写格式错误');
+            $(this).parent().children('i').css('color','red');
+
+        }else{
+
+            $(this).parent().children('i').text('填写格式可用');
+            $(this).parent().children('i').css('color','green');
+
+        }
+
+    })
+
+});
+</script>
+ {|include file="$HEADER_END"|}  
+<style type="text/css">
+.forminfo li label{line-height:27px;} 
+</style>
+    <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li><a href="/ggstandard/list">规格管理</a></li>
+           	<li>修改规格</li>
+        </ul>
+    </div>  
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>修改规格</span></div>
+    <form action="/ggstandard/doStandard" method="post">
+        <ul class="forminfo">
+        <li><label>规格名称:</label><input name="ggs_name" type="text" class="dfinput" id="name" value="{|$result['ggs_name']|}" /><i>标题不能超过30个字</i></li>
+        <li><label>规格类型:</label><cite><input name="ggs_type" type="radio" {|if $result['ggs_type']==1|}checked="checked"{|/if|} value="1" />文字&nbsp;&nbsp;&nbsp;&nbsp;<input name="ggs_type" {|if $result['ggs_type']==2|}checked="checked"{|/if|} type="radio" value="2" />图片</cite></li>
+        <li id="width" style="display:none"><label>宽度(px)：</label><input name="width" value="{|$result['width']|}" type="text" class="dfinput size" /><i>请填写整数数字</i></li>
+        <li id="height" style="display:none"><label>高度(px)：</label><input name="height" value="{|$result['height']|}" type="text" class="dfinput size" /><i>请填写整数数字</i></li>
+        <li id="text"><label>最大字符数</label><input name="length" type="text" value="{|$result['length']|}" class="dfinput size" /><i>请填写整数数字</i></li>
+        <li><label>备注(可选):</label><textarea name="remark" cols="" rows="" class="textinput">{|$result['remark']|}</textarea></li>
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        {|$typeHidden|}
+        <input type="hidden" name="ac" value="{|$ac|}">
+        </ul>
+    </form>
+    
+    </div>
+
+
+</body>
+
+</html>

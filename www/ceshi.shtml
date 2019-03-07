@@ -1,0 +1,8 @@
+<!--#include virtual="/ceshi/herader.shtml"-->
+<!--{GUESTBOOK}-->
+<!--#include virtual="/ceshi/guestbook.shtml"-->
+<!--{/GUESTBOOK}-->
+<!--{OTHERCODE}-->
+<!--第三方代码-->
+<!--{/OTHERCODE}-->
+<!--#include virtual="/ceshi/footer.shtml"-->

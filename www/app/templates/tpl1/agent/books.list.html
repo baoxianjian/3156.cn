@@ -1,0 +1,365 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/top.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/footer.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/center1.css" />
+<link type="text/css" rel="stylesheet" href="{|$STYLE_URL|}/css/agent_of_my_information.css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script> 
+<script type="text/javascript" src="{|$STYLE_URL|}/js/main.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/3156.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery.superslide.2.1.1.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/agent_of_my_information.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+	//JS 复选框控制 ----------------------------------------------- Statr//
+		$("[name='check[]']").click(function(){
+			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+				$('#checkAll').prop('checked','checked');//开启全选
+			}else{
+				$('#checkAll').removeAttr('checked');//关闭全选
+			}
+		})
+
+		$('#checkAll').click(function(){
+			if( $("[name='check[]']").length == $("[name='check[]']:checked").length ){
+				$("[name='check[]']").removeAttr('checked');
+
+
+			}else{
+				$("[name='check[]']").prop('checked','checked');
+				$('#delAll').removeAttr('disabled');
+			}
+		});
+
+	//JS 复选框控制 ----------------------------------------------- End//
+  })
+</script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $('#delAll').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定删除所选项？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                	
+                 $.post('delAll',$('#formDelAll').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+                
+            }
+          });
+        return false;
+        
+    })
+    
+     $('#freshall').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择刷新数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '您确定刷新所选项？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                	
+
+                 $.post('Freshall',$('#formDelAll').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+                
+            }
+          });
+        return false;
+        
+    })
+
+     //异步联动
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this);
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+
+            $('#ggpg_2').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+
+                    $('#ggpg_2').append("<option value="+data[i]['ggpg_id']+">"+data[i]['title']+"</option>");
+
+                }
+                 $('#ggpg_2').append("<option value=''>全部</option>");
+            }else{
+
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+
+
+});
+
+//huifu
+function recovery(id)
+{
+    $.layer({
+        shade: [0],
+        area: ['auto','auto'],
+        dialog: {
+            msg: '您确定恢复？',
+            btns: 2,                    
+            type: 5,
+            btn: ['确定','取消'],
+            yes: function(){
+                $.post('re',{ajax:1,id:id},function(data){
+               // if(data.status==1) {if($('#tr_'+id)){$('#tr_'+id).remove();}}
+                var temp=layer.alert(data.info, data.status, !1);
+                var tostr='';   
+                if(data.tourl=='_reload')
+                    {tostr="window.location.reload();";}
+                else
+                    {tostr="window.location='"+tourl+"'";}
+                
+                setTimeout("layer.close("+temp+");"+tostr, data.timeout);
+        },'json')
+            }, 
+        }
+      });
+      return false;
+}
+
+
+</script>
+<title>我的代理信息</title>
+</head> 
+<body>
+<div class="topbg"></div>
+<div class="topbar">
+        <div class="warp">
+            <ul class="left">
+                <li class="cur"><a href="javascript:void(0);">品牌区域</a></li>
+                <li><a href="javascript:void(0);">数据中心</a></li>
+                <li><a href="javascript:void(0);">咨询频道</a></li>
+                <li><a href="javascript:void(0);">招中标信息</a></li>
+                <li><a href="javascript:void(0);">手机药品网</a></li>
+            </ul>
+            <ul class="right">
+                <li class="cur">
+                    欢迎您，
+                    <span>summer</span>
+                    <i></i>
+                    <div class="down_menu" style="display:none;">
+                        <a href="javascript:void(0)">用户中心</a>
+                        <a href="javascript:void(0)">公司资料</a>
+                        <a href="javascript:void(0)">产品管理</a>
+                        <a href="javascript:void(0)">代理信息</a>
+                        <a href="javascript:void(0)">退出登录</a>
+                    </div>
+                </li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/weixin.png" alt="微信" title="微信"/></a></li>
+                <li class="img"><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/weibo.png" alt="微博" title="微博"/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header">
+        <div class="logo">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/logo.png" alt="3156医药网" title="3156医药网"/></a>
+        </div>
+        <div class="top-bar-search">
+            <!--search-->
+            <div class="search">
+                <div class="search-select">
+                    <div class="search-trigger">
+                        <span>产品</span>
+                        <dl style="display: none;">
+                            <dd s-type="project" class="searchOn">产品</dd>
+                            <dd s-type="article">公司</dd>
+                        </dl>
+                    </div>
+                </div>
+                <form id="search-form" action="http://s.3158.cn/main/project.html" method="get" target="-blank">
+                    <input type="text" name="kw" value="输入您要找的项目" class="search-On" def="输入您要找的项目" onfocus="if (this.value == this.attributes['def'].value) {
+                            this.value = '';
+                            this.className = 'search-Off';
+                        }" onblur="if (this.value == '') {
+                                    this.value = this.attributes['def'].value;
+                                    this.className = 'search-On';
+                                }">
+                    <button type="submit" class="search-btn" hidefocus="">搜索</button>
+                </form>
+
+            </div>
+
+            <span class="and">或者</span>
+            <button type="submit" class="search-btn btn1" hidefocus="">发布需求</button>
+            <!--search-key-->
+            <div class="search-key">
+                <span>热门搜索：</span>
+                <a href="javascript:void(0);">儿科</a>
+                <a href="javascript:void(0);">感冒</a>
+                <a href="javascript:void(0);">止咳消炎</a>
+                <a href="javascript:void(0);">壮阳</a>
+                <a href="javascript:void(0);">皮肤妇科</a>
+                <a href="javascript:void(0);">补肾</a>
+                <a href="javascript:void(0);">止痛</a>
+                <a href="javascript:void(0);">止血</a>
+            </div>
+            <!--/search-key-->
+        </div>
+        <div class="drug">
+            <a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/agent/img_center/pic.png" alt=""/></a>
+        </div>
+        <ul class="nav">
+            <li><a href="javascript:void(0);">首页</a></li>
+            <li><a href="javascript:void(0);">医药招商</a></li>
+            <li><a href="javascript:void(0);">药品招商</a></li>
+            <li><a href="javascript:void(0);">OTC</a></li>
+            <li><a href="javascript:void(0);">保健品</a></li>
+            <li><a href="javascript:void(0);">药妆</a></li>
+            <li><a href="javascript:void(0);">医疗器械</a></li>
+            <li><a href="javascript:void(0);">医药代理</a></li>
+            <li><a href="javascript:void(0);">医药资讯</a></li>
+            <li><a href="javascript:void(0);">疾病查询</a></li>
+            <li><a href="javascript:void(0);">医药公司</a></li>
+            <li><a href="javascript:void(0);">药品库</a></li>
+            <li><a href="javascript:void(0);">医药数据库</a></li>
+        </ul>
+    </div>
+<div class="content">
+	<div class="c_left">
+    	<ul class="center">
+        	<li><a href="/agent/index"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l1.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l11.png" />用户中心</a></li>
+            <li><a href="/books/add"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l2.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l22.png" />发布代理留言</a></li>
+            <li class="active_li"><a href="/books/list"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l3.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l33.png" />我的代理信息</a></li>
+            <li><a href="/user/infor2"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l4.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l44.png" />账户信息</a></li>
+            <li><a href="/user/modify"><img class="g_img" src="{|$STYLE_URL|}/img/agent/l5.png" /><img class="o_img" src="{|$STYLE_URL|}/img/agent/l55.png" />修改密码</a></li>
+        </ul>
+    </div>
+	<div class="c_right">
+    	<p class="p_title">我的代理信息</p>
+<!--    <input class="del" type="button" value="删除已选" />
+        <input  class="f5" type="button" value="信息刷新" />
+        <a class="del" href="/books/list-ac-del-id-{|$row['ab_id']|}" id="delAll">删除已选</a>
+-->
+         <a class="del" id="delAll">删除已选</a>
+         <a class="f5"  id="freshall">信息刷新</a> 
+
+
+         <form method="post" action="list">
+  
+         删除状态:<select style=" float:right; margin-right:30px;">
+         	      <option>正常</option>
+                  <option>已删除</option>
+               </select>
+         <input type="submit" value="查询">
+         </form>
+
+          <form id="formDelAll" method="post" action="delAll" >
+          <input type="hidden" name="ajax" value="1" />              
+
+        <table cellpadding="0" cellspacing="0">
+        	<thead>
+            	<td width="60px;"><input type="checkbox"  id="checkAll"/></td>
+            	<td>序号</td>
+                <td>留言日期</td>
+                <td class="table_name">产品名称</td>
+                <td>代理地区</td>
+                <td>联系人</td>
+                <td>联系电话</td>
+                <td>审核状态</td>
+                <td>状态</td>
+                <td>信息刷新</td>
+                <td width="80px;">删除</td>
+            </thead>
+            <tbody>
+            {|foreach $list as $row|}
+            <tr id="del">
+            	<td>
+                	<input type="checkbox" name="check[]" value="{|$row['ab_id']|}"/>
+                </td>
+                <td>{|$row['ab_id']|}</td>
+                <td>{|date('Y-m-d',$row['dateline'])|}</td>
+                <td><a href="###">{|$row['pdt_name']|}</a></td>
+                <td>{|$row['areas']|}</td>
+                <td>{|$row['link_man']|}</td>
+                <td>{|$row['tel']|}</td>
+
+                <td>{|if $row['audit_state']==1|}审核通过{|elseif $row['audit_state']==3|}审核未通过{|/if|}</td>                
+
+                <td>{|if $row['is_del']==0|}正常{|elseif $row['is_del']==1|}已删除{|/if|}</td>
+                <td><a href="/books/list-ac-fre-id-{|$row['ab_id']|}" class="shua"></a></td>
+                <td>{|if $row['is_del']==0|}<a href="/books/list-ac-{|$row['ab_id']|}">删除</a>{|elseif $row['is_del']==1|}<a onclick="return recovery({|$row['ab_id']|})" href="/books/list-ac-re-id-{|$row['ab_id']|}" >恢复</a>{|/if|}</td>
+
+            </tr>
+         {|/foreach|} 
+         </tbody>
+        </table>
+        </form>
+        {|$pagehtml|}
+    </div>
+</div>
+<div class="footer">
+        <div class="info_3156">
+            3156医药网(www.3156.cn)为专业的药品招商平台，不为交易双方承担任何责任及风险。请双方谨慎交易，在交易前请先查看对方三证，以确保您的利益。若发现不实或虚假招商信息时，请速与网站联系，网站会及时进行相
+            应处理。任何单位及个人不得发布麻醉药品、精神药品、医药用毒性药品、放射性药品、戒毒药品和医疗机构制剂的相关产品信息。
+        </div>
+        <div class="content">
+            <img src="{|$STYLE_URL|}/img/2wm.png" alt=""/>
+            <div class="right">
+                <ul class="menu">
+                    <li><a href="javascript:void(0);">关于我们</a></li>
+                    <li><a href="javascript:void(0);">广告服务</a></li>
+                    <li><a href="javascript:void(0);">诚聘英才</a></li>
+                    <li><a href="javascript:void(0);">隐私声明</a></li>
+                    <li><a href="javascript:void(0);">友情链接</a></li>
+                    <li class="cur"><a href="javascript:void(0);">网站地图</a></li>
+                </ul>
+                <p>客服QQ:2821512219  749900393    代理商QQ群①:13459128  群②:123705685（已满）  群③:179054425  广告热线：18680473282</p>
+                <p><span>注：</span>本网站为专业的医药招商代理平台，<span style="font-weight:bold;">不出售任何药品</span>，买药请到当地医院咨询，请不要拨打以上电话；如药品代理期间出现纠纷问题，请及时拨打 投诉电话，网站将</p>
+                <p>协助解决，投资有风险，合作需谨慎，谢谢合作！</p>
+                <P class="border">Copyright广州勃腾信息技术有限公司 粤ICP备13009081号-2 www.miitbeian.gov.cn</P>
+                <P>互联网药品信息服务资格证书证书编号：（粤）-经营性-2013-0005</P>
+                <P>医药招商网站 版权所有 违版必究51YES网站统计系统</P>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

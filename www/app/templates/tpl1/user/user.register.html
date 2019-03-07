@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/register.css" />
+<link rel="stylesheet" type="text/css" href="{|$STYLE_URL|}/css/footer.css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/register.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/layer/layer.min.js"></script> 
+<title>标题</title>
+</head>
+<body>
+<div class="top">
+	<a class="logo" href="###"></a>
+    <ul class="left">
+    	<li><a href="###">品牌区域</a>  |</li>
+        <li><a href="###">数据中心</a>  |</li>
+        <li><a href="###">资讯频道</a>  |</li>
+        <li><a href="###">招中标信息</a>  |</li>
+        <li><a href="###">手机药品网</a></li>
+    </ul>
+    <ul class="welcome">
+    	<li>欢迎,  <span class="red">客人</span>  |</li>
+        <li><a href="/user/login">会员登录</a>  |</li>
+        <li><a href="/user/register">免费注册</a></li>
+    </ul>
+</div>
+<div class="content">
+	<div class="c_left">
+        <form action="/user/doregister" method="post">
+    	<span class="title title1 t_active">厂家</span>
+        <span class="title">代理商</span>
+        <ul>
+            <li class="li1"><span class="red">*</span>用 户 名：<input type="text" name="row[user_name]" value="{|$row['user_name']|}" /><span class="ul_text">用户名长度5-20个字符</span></li>
+            <li class="li1"><span class="red">*</span>邮 &nbsp; &nbsp;箱：<input type="text" name="row[email]" value="{|$row['email']|}" /><span class="ul_text">账户激活需要邮箱</span></li>
+            <li class="li1"><span class="red">*</span>密 &nbsp; &nbsp;码：<input type="password" name="row[user_pwd]"  value="{|$row['user_pwd']|}" /><span class="ul_text">6-20个字符，区分大小写</span></li>
+            <li class="li1"><span class="red">*</span>确认密码：<input type="password" name="row[user_pwd_temp]" value="{|$row['user_pwd_temp']|}" /><span class="ul_text">6-20个字符，区分大小写</span></li>
+            <li class="hua"><img src="{|$STYLE_URL|}/img/zhuce/hua.png" /></li>
+            <li class="read"><input type="checkbox" />我阅读并接受<a href="###" class="xieyi"><<服务协议>></a></li>
+            <li class="last"><input type="submit" value="立即注册" /><a href="/user/login">已有账号，马上登录</a></li>
+        </ul>
+        </form>
+    </div>
+    <div class="c_right">
+    	<p>如果你是厂商，您可以</p>
+        <ul>
+        	<li>发布招商产品信息</li>
+            <li>专业数据库面覅使用</li>
+            <li>查询代理商信息</li>
+        </ul>
+        <p>如果你是代理商，您可以</p>
+        <ul>
+        	<li>登录刷新代理需求</li>
+            <li>查看招商产品信息</li>
+            <li>专业数据库免费使用</li>
+        </ul>
+        <p><span class="red">VIP</span>增值服务<a href="###">了解更多>></a></p>
+       	<ul>
+        	<li>VIP会员可以拥有专属的招商主页<br/><span class="red">http://www.3156.cn/home/***</span></li>	<li>由专业设计人员免费设计图片。页面。招商产品发布不限量，在服务期内可以随时增加和删减产品</li>
+             <li>可针对自己的产品进行每小时刷新一次</li>
+             <li>看查看灭团最新数据的更新，查看高级会员信息，不限条数；另外授权客户自行管理，刷新，维护等</li>
+             <li>到期提醒功能，以供会员及时查看，避免了因忘记广告时间影响公司效益</li>
+        </ul>
+    </div>
+</div>
+<div class="bodybg">
+</div>
+<div class="tip">
+    	<div class="t_tip">
+            <p>3156医药网用户注册协议</p>
+            <img class="close" src="img/zhuce/close.png"/>
+        </div>
+        <div class="inner">
+        	<span>一.特别提示</span>
+            <ul>
+            	<li>3156医药网同意按照本协议的规定及其不时发布的操作规则提供基于互联网的相关服务（以下称 “网络服务”），为获得网络服务，服务使用人（以下称“用户”）应当同意本协议的全部条款并按照页面上的提示完成全部的注册程序。用户在进行注册程序过程中点击“我同意”按钮即表示用户完全接受本协议项下的全部条款。</li>
+            </ul>
+            <span>二.内容服务</span>
+             <ul>
+            	<li>1.3156医药网网络服务的具体内容由3156医药网根据实际情况提供，例如论坛(BBS)、招商信息、资 料库、发表新闻评论等。3156医药网保留随时变更、中断或终止部分或全部网络服务的权利。</li>
+                <li>2. 3156医药网在提供网络服务时，可能会对部分网络服务（例如高级用户）的用户收取一定的费用 。在此情况下，3156医药网会在相关页面上做明确的提示。如用户拒绝支付该等费用，则不能使用相关的网络服务。</li>
+                <li>3. 用户理解，3156医药网仅提供相关的网络服务，除此之外与相关网络服务有关的设备（如电脑、 调制解调器及其他与接入互联网有关的装置）及所需的费用（如为接入互联网而支付的电话费及上网费）均应由用户自行承担。</li>
+            </ul>
+            <span>三.使用规则</span>
+             <ul>
+            	<li>3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网</li>
+                <li>3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网</li>
+                <li>3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网3156医药网</li>
+            </ul>
+        </div>
+        <input type="button" value="同意并继续"/>
+</div>
+{|$SYS_MESSAGE|}
+</body>
+</html>

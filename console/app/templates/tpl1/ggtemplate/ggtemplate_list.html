@@ -1,0 +1,179 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+        width : 345           
+    });
+    $(".select2").uedSelect({
+        width : 167  
+    });
+    $(".select3").uedSelect({
+        width : 100
+    });
+
+    $('.del').click(function(){
+        var t = $(this).attr('t');
+        var k = $(this).attr('k');
+        var mark = $(this).attr('mark');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post("del-t-"+t+"-k-"+k+"-ggt_id-"+mark,{check:mark},function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                },
+            }
+          });
+        return false;
+    })
+
+    $('#delAll').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post('del',$('#del').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+            }
+          });
+        return false;
+        
+    })
+
+});
+</script>
+
+{|include file="$HEADER_END"|} 
+    <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li>模板管理</li>
+        </ul>
+    </div>  
+    <div class="formbody">
+    
+  	<div id="tab2" class="tabson">
+    <div class="adv_top" style="margin-top:30px;">
+    <form action="" id="seek">
+        <ul class="seachform" style="margin:5px 0;">
+        
+        <li><label>模板编号：</label><input name="ggt_id" type="text" class="scinput" value="{|$row['ggt_id']|}"/></li>
+
+        <li><label>模板类型：</label>  
+        <div class="vocation">
+        <select class="select3" name="ggt_type">
+        <option value="0">全部</option>
+        <option value='1' {|$ggt_type_checked[1]|}>文字</option>
+        <option value='2' {|$ggt_type_checked[2]|}>图片</option>
+        </select>
+        </div>
+        </li>
+        <input type="hidden" name='seek' value='1'>
+        <li><input name="" type="submit" class="scbtn" value="查询"/></li>
+        
+        </ul>
+    </form>
+    </div>
+    <ul class="toolbar">
+        <li class="click"><a href="/ggtemplate/edit-ac-add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <!--<li id="delAll"><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>-->
+     </ul>
+     <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" type="checkbox" value=""/></th>
+        <th>模板编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>模板类型</th>
+        <th>模板名称</th>
+        <th>备注</th>
+        <th>添加时间</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+            {|foreach $list as $v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['ggt_id']|}" /></td>
+                <td>{|$v['ggt_id']|}</td>
+                <td>{|$v['ggt_type']|}</td>
+                <td>{|$v['name']|}</td>
+                <td>{|$v['remark']|}</td>
+                <td>{|$v['dateline']|}</td>
+                <td><a href="edit-t-{|$v['t']|}-k-{|$v['k']|}-ac-edit-ggt_id-{|$v['ggt_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;<a href="del-t-{|$v['t']|}-k-{|$v['k']|}-ggt_id-{|$v['ggt_id']|}-check-{|$v['ggt_id']|}" mark="{|$v['ggt_id']|}" t="{|$v['t']|}" k="{|$v['k']|}" class="tablelink del"> 删除</a></td>
+                </tr> 
+            {|/foreach|}
+
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

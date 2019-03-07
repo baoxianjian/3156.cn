@@ -1,0 +1,277 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/css/select.css" rel="stylesheet" type="text/css" />
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<style>
+.seachform li{
+	margin-right:0;
+}
+.seachform li label{width:auto;}
+</style>
+<script type="text/javascript">
+    KE.show({
+        id : 'content7',
+        cssPath : './index.css'
+    });
+  </script>
+  
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+        width : 345           
+    });
+    $(".select2").uedSelect({
+        width : 167  
+    });
+    $(".select3").uedSelect({
+        width : 100
+    });
+
+    $('.del').click(function(){
+        var t = $(this).attr('t');
+        var k = $(this).attr('k');
+        var mark = $(this).attr('mark');
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post("del-T-"+t+"-K-"+k+"-ggt_id-"+mark,{check:mark},function(data){
+
+                        if ( data.status ){
+                            layer.alert(data.info,1);
+                            setTimeout(function () { 
+                                location.reload();
+                            }, 200);
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                },
+            }
+          });
+        return false;
+    })
+
+    $('#delAll').click(function(){
+        if ( $("[name='check[]']:checked").length <= 0 ){
+          layer.alert('未选择删除数据');
+          return false;
+        }
+        $.layer({
+            shade: [0],
+            area: ['auto','auto'],
+            dialog: {
+                msg: '一旦删除将会无法恢复，您确定删除？',
+                btns: 2,                    
+                type: 5,
+                btn: ['确定','取消'],
+                yes: function(){
+                 $.post('del',$('#del').serialize(),function(data){
+
+                    if ( data.status ){
+                        layer.alert(data.info,1);
+                        setTimeout(function () { 
+                            location.reload();
+                        }, 200);
+                    }else{
+                        layer.alert(data.info);
+                    }
+
+                 },'json');
+                },
+            }
+          });
+        return false;
+        
+    })
+	
+	var ggpg = jQuery("#ggpg_1 option:selected").val();
+	if(ggpg){
+		var html = '';
+		$.post('AjaxGroup',{id:ggpg},function(data){
+			if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+					html = "<option value='"+data[i]['ggpg_id']+"'";
+					{|if $row['gp|ggpg_id2']|}
+					if(parseInt(data[i]['ggpg_id']) == parseInt({|$row['gp|ggpg_id2']|})){
+						html += " selected='selected'";
+					}
+					{|/if|}
+					html += ">"+data[i]['title']+"</option>";
+                    $('#ggpg_2').append(html);
+                }
+            }else{
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+            }
+		},'json');
+	}
+
+      //异步联动
+    $('body').on('change','#ggpg_1',function(){
+        var _this = $(this), html = '';
+        $.post('AjaxGroup',{id:_this.val()},function(data){
+            $('#ggpg_2').empty();
+            if ( data.length > 0 ){
+                for ( i=0; i<data.length; i++ ){
+                    $('#ggpg_2').append("<option value="+data[i]['ggpg_id']+">"+data[i]['title']+"</option>");
+                }
+                 $('#ggpg_2').append("<option value=''>全部</option>");
+            }else{
+
+                $('#ggpg_2').append("<option value=''>暂无子分类</option>");
+
+            }
+            
+
+        },'json');
+    })
+
+
+});
+</script>
+
+{|include file="$HEADER_END"|} 
+     <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li>广告位管理</li>
+        </ul>
+    </div>
+    <div class="formbody">
+    
+    
+  	<div id="tab2" class="tabson">
+    <div class="adv_top" style="margin-top:30px;">
+    <form action="list" method="get" id="seek">
+        <ul class="seachform">
+        
+        <li style="width:290px;"><label>广告位编号：</label><input name="gp|ggp_id" type="text" class="scinput" value='{|$row['gp|ggp_id']|}' /></li>
+
+        <li><label>广告类别：</label>  
+        <div class="vocation">
+        <select class="select3" name="ggt_type">
+        <option value="">全部</option>
+        <option value='1' {|if $row['gte|ggt_type']==1|} selected='selected' {|/if|}>文字</option>
+        <option value='2' {|if $row['gte|ggt_type']==2|} selected='selected' {|/if|}>图片</option>
+        </select>
+        </div>
+        </li>
+        <li><label>套红：</label>  
+        <div class="vocation">
+        <select class="select3" name="gp|add_red">
+            <option value="">全部</option>
+            <option value="1" {|if $row['gp|add_red']==1|} selected='selected' {|/if|}>套红</option>
+            <option value='2' {|if $row['gp|add_red']==2|} selected='selected' {|/if|}>未套红</option>
+        </select>
+        </div>
+        </li>
+       </ul>
+        <ul class="seachform seachform_1"> 
+        
+		<li style="width:180px;"><label>所属分组：</label>  
+        <div class="vocation">
+        <select class="select3" id="ggpg_1" name="gp|ggpg_id">
+            <option value="">全部</option>
+            {|foreach $parentArr as $k=>$v|}
+                <option value="{|$v['ggpg_id']|}"  {|if $row['gp|ggpg_id']== $v['ggpg_id']|} selected='selected' {|/if|}>{|$v['title']|}</option>
+            {|/foreach|}
+        </select>
+        </div>
+        </li>
+        <li style="width:110px;"> 
+        <div class="vocation">
+        <select class="select3" id="ggpg_2" name="gp|ggpg_id2">
+            <option value="">全部</option>
+        </select>
+        </div>
+        </li>
+        <li><label>销售类型：</label>  
+        <div class="vocation">
+        <select class="select3" name="gp|gg_sale_state">
+        <option value="">全部</option>
+        <option value="1" {|if $row['gp|gg_sale_state']==1|} selected='selected' {|/if|}>付费</option>
+        <option value='2' {|if $row['gp|gg_sale_state']==2|} selected='selected' {|/if|}>配送</option>
+        <option value='3' {|if $row['gp|gg_sale_state']==3|} selected='selected' {|/if|}>免费</option>
+        </select>
+        </div>
+        </li>
+        <li><label>&nbsp;</label><input name="" type="submit" class="scbtn" value="查询"/></li>
+        <li> <input type="hidden" name='seek' value='1'></li>
+        </ul>
+    </form>
+    </div>
+    <ul class="toolbar">
+        <li class="click"><a href="/ggposition/edit-ac-add"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+        <li id="delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+        <!--<li><span><img src="{|$STYLE_URL|}/images/icon-huifu.png" /></span>恢复</li>-->
+     </ul>
+    <div class="message_top">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" type="checkbox" value=""/></th>
+        <th>广告位编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>广告位名称-排序</th>
+        <th>广告类别</th>
+        <th>所属分组</th>
+        <th>套红</th>
+        <th>销售类型</th>
+        <th>总点击量<a href="?count_order=DESC"><b class="up">↑</b></a><a href="?count_order=ASC"><b class="down">↓</b></a></th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+            {|foreach $list as $k=>$v|}
+                <tr>
+                <td><input name="check[]" type="checkbox" value="{|$v['ggp_id']|}" /></td>
+                <td>{|$v['ggp_id']|}</td>
+                <td>{|$v['title']|}-{|$v['order']|}</td>
+                <td>{|$v['ggt_type']|}</td>
+                <td>{|$v['group']|}</td>
+                <td>{|$v['add_red']|}</td>
+                <td>{|$v['gg_sale_state']|}</td>
+                <td>{|$v['click_count']|}</td>
+                <td><a href="edit-T-{|$v['T']|}-K-{|$v['K']|}-ac-edit-ggp_id-{|$v['ggp_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;<a href="del-T-{|$v['T']|}-K-{|$v['K']|}-check-{|$v['ggp_id']|}" mark="{|$v['ggp_id']|}" t="{|$v['T']|}" k="{|$v['K']|}" class="tablelink del"> 删除</a></td>
+                </tr> 
+            {|/foreach|}
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            </tbody>
+            
+        </form>
+    </table>
+    
+   {|$pagehtml|}
+
+  
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>

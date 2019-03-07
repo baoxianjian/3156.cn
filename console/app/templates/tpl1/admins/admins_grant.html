@@ -1,0 +1,68 @@
+                                 {|include file="$HEADER"|} 
+<link href="{|$STYLE_URL|}/css/grant.css" rel="stylesheet" type="text/css" /> 
+ {|include file="$HEADER_END"|}
+
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+</div>
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>管理员{|$TIP_NAME|}</span></div>
+    
+     注意：编辑包含添加和修改。      
+
+    <form action="grant" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <input name="row[sa_name]" type="hidden" class="dfinput" value="{|$row['sa_name']|}" />
+
+    <div class="gonggaoID">
+        <label for="">管理员ID：<span>{|$id|}</span></label>
+        <label for="">管理员称：<span>{|$row['sa_name']|}</span></label>
+    </div>
+
+        {|foreach $permissions as $k1=>$v1|}
+        <div class="Sys_set">
+            <p class="title"><span>{|$dic[$k1]|}</span></p> 
+            <div class="cbk">
+              {|foreach $v1 as $k2=>$v2|}
+                <div class="role">
+                    <p class="name">{|$dic[$k2]|}</p>  
+                    {|foreach $v2 as $v3|}
+                        <label><input type="checkbox" name="#{|$k2|}[]" value="{|$v3|}" {|$myp_checked[$k2][$v3]|} class="sys_cbk"/>{|$dic[$v3]|}</label> 
+                    {|/foreach|} 
+                </div>      
+              {|/foreach|} 
+            </div>
+        </div>
+        {|/foreach|}
+    
+    
+        <ul class="forminfo">
+           <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+    
+
+
+
+
+
+
+
+
+
+
+

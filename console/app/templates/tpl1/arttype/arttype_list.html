@@ -1,0 +1,141 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<link href="{|$STYLE_URL|}/css/style.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.place{
+		position:fixed;
+		z-index:999;
+		top:0;
+		left:0;
+		right:0;
+	}
+	.tools{
+		margin-top:42px;
+	}
+	.tools form{
+		background:#F5F9FC;
+		padding:10px 0 10px 20px;
+		height:auto;
+		overflow:hidden;
+	}
+</style>
+
+     <div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="/main/center" target="rightFrame">首页</a></li>
+			<li>资讯分类</li>
+		</ul>
+	</div>
+
+<div class="tools">
+    
+        <form action="list" method="post" >
+            分类ID(编号)：<input type="text" name="id" class="scinput" value={|$srow['id']|} >&nbsp; &nbsp;           
+            分类名称：<input type="text" name="name" class="scinput"  value={|$srow['name']|} >&nbsp; &nbsp; 
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar">
+            <li class="click"><a href="edit"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span> 添加一级分类</a></li>
+            <!--<li class="click"><span><img src="{|$STYLE_URL|}/images/t02.png" /></span>修改</li>-->
+            <li class="J_delAll"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+            <!--<li><span><img src="{|$STYLE_URL|}/images/t04.png" /></span>统计</li>-->
+        </ul>
+        
+        <ul class="toolbar1">
+
+        <!--<li><span><img src="{|$STYLE_URL|}/images/t05.png" /></span>设置</li>-->
+        </ul>
+ 
+        <!--<div class="pagin" style="float:right; margin:20px 10px 10px 0;">共<i class="blue">{|$totalSize|}</i>条记录，当前显示第&nbsp;<i class="blue">{|$currpage|}&nbsp;</i>页<br/></div>-->
+    
+    </div>
+  
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input id="checkAll" name="" type="checkbox" value=""/></th>
+        <th>编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+        <th>分类名称</th>
+        <th>所属一级分类</th>
+        <th>权重</th>
+        <th>文章数</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="del" method="post" id='del'>
+       {|foreach $list as $row|}
+            <tr id="tr_{|$row['nt_id']|}">
+                <td><input name="check[]" type="checkbox" value="{|$row['nt_id']|}" /></td>
+                <td>{|$row['nt_id']|}</td>
+                <td>{|$row['name']|}</td>
+                <td>无</td>
+                <td>{|$row['order']|}</td>
+                <td class="J_count_{|$row['nt_id']|}">{|$row['count']|}</td>
+                <td>{|if empty($row['parent_id'])|}<a href="edit-id-{|$row['nt_id']|}-type-sub" class="tablelink">添加子分类</a>{|/if|}  <a href="edit-id-{|$row['nt_id']|}" class="tablelink">编辑</a>     <a onclick="return delConfirm('{|$row['nt_id']|}');" href="{|$row['del_url']|}" class="tablelink"> 删除</a> <a href="javascript:;" data-id="{|$row['nt_id']|}" class="J_newcount_btn">统计总数</a></td>
+            </tr>
+            {|foreach $row['sublist'] as $val|}
+                <tr id="tr_{|$val['nt_id']|}">
+                <td><input name="check[]" type="checkbox" value="{|$row['nt_id']|}" /></td>
+                <td>{|$val['nt_id']|}</td>
+                <td>{|$val['name']|}</td>
+                <td><b>{|$row['name']|}</b></td>
+                <td>{|$val['order']|}</td>
+                <td class="J_count_{|$val['nt_id']|}">{|$val['count']|}</td>
+                <td><a href="edit-id-{|$val['nt_id']|}" class="tablelink">编辑</a>     <a onclick="return delConfirm('{|$val['nt_id']|}');" href="{|$val['del_url']|}" class="tablelink">删除</a>  <a href="javascript:;" data-id="{|$val['nt_id']|}" class="J_newcount_btn">统计总数</a></td>
+            </tr>
+            {|/foreach|}  
+        {|/foreach|}
+        </form>   
+        </tbody>
+    </table>
+<script>
+$('.J_newcount_btn').on('click', function(e){
+	e.preventDefault();
+	var _this = $(this),
+		id = _this.data('id');
+		$.post('tcount', {id:id}, function(data){
+			if (data.status === false){
+				layer.alert('统计失误，请联系管理员！');
+	  			return false;
+			}else{
+				$(".J_count_"+id+"").html(data.data);
+				layer.alert(data.msg);
+			}
+		}, "json");
+});
+$('.J_delAll').click(function(e){
+	e.preventDefault();
+	if ( $("[name='check[]']:checked").length <= 0 ){
+	  layer.alert('未选择删除数据');
+	  return false;
+	}
+	$.layer({
+		shade: [0],
+		area: ['auto','auto'],
+		dialog: {
+			msg: '一旦删除将会无法恢复，您确定删除？',
+			btns: 2,                    
+			type: 5,
+			btn: ['确定','取消'],
+			yes: function(){
+			 $.post('del',$('#del').serialize(),function(data){
+
+				if ( data.status ){
+					layer.alert(data.info,1);
+					setTimeout(function () { 
+						location.reload();
+					}, 100);
+				}else{
+					layer.alert(data.info);
+				}
+
+			 },'json');
+			},
+		}
+	  });
+	return false;
+})
+</script>
+{|include file="$FOOTER"|}  

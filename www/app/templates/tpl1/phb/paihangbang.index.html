@@ -1,0 +1,115 @@
+{|include file="$HEADER"|}
+<link type="text/css" rel="stylesheet"  href="{|$CSS_URL|}/2.0/www/paihangbang.css" media="all" />
+{|include file="$HEADER_END"|}
+
+<div class="content">
+	<div class="c_left">
+    	<h1 class="title">药品招商排行榜<span>TOP10</span></h1>
+        <div class="top">
+        	<h1><i>中药</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-5">更多</a></h1>
+            <ul>
+            {|block('id:153')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>西药</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-6">更多</a></h1>
+            <ul>
+            {|block('id:154')|}
+            </ul>
+        </div>
+        <div class="top" style="margin-right:0;">
+        	<h1><i>保健品</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-1">更多</a></h1>
+            <ul>
+            {|block('id:160')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>OTC</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-241">更多</a></h1>
+            <ul>
+            {|block('id:159')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>药妆</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-641">更多</a></h1>
+            <ul>
+            {|block('id:158')|}
+            </ul>
+        </div>
+        <div class="top" style="margin-right:0;">
+        	<h1><i>中药材</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-10">更多</a></h1>
+            <ul>
+            {|block('id:157')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>计生用品</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-581">更多</a></h1>
+            <ul>
+            {|block('id:156')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>医疗设备</i><span>排行榜</span><a target="_blank"  href="http://www.3156.cn/product/index-t1-791">更多</a></h1>
+            <ul>
+            {|block('id:155')|}
+            </ul>
+        </div>
+        <div class="top" style="margin-right:0;">
+        	<h1><i>医疗器械</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-7">更多</a></h1>
+            <ul>
+            {|block('id:143')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>消毒剂</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-7">更多</a></h1>
+            <ul>
+            {|block('id:161')|}
+            </ul>
+        </div>
+        <div class="top">
+        	<h1><i>原料药</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-7">更多</a></h1>
+            <ul>
+            {|block('id:162')|}
+            </ul>
+        </div>
+        <div class="top" style="margin-right:0;">
+        	<h1><i>卫生用品</i><span>排行榜</span><a target="_blank" href="http://www.3156.cn/product/index-t1-7">更多</a></h1>
+            <ul>
+            {|block('id:163')|}
+            </ul>
+        </div>
+        <ul class="pic1">
+    	{|gg('pid:212,gid:213,id:1820')|}
+    </ul>
+    </div>
+ 	<div class="c_right">
+    	<div class="top">
+        	<h1>药品分类排行榜</h1>
+            <ul>
+            	 {|foreach $list_pdtype[0] as $k=>$val |}
+                        <li><a href="{|$WWW_URL|}/product/index-t1-{|$val['pt_id']|}"  target="_blank">{|$val['pt_name']|}医药招商</a></li>
+                 {|/foreach|} 
+            </ul>
+        </div>
+        <ul class="pic">
+        	{|gg('pid:179,gid:180,id:1649')|}
+        </ul>
+        <div class="top">
+        	<h1>药品剂型排行榜</h1>
+            <ul style="height:1220px;overflow:hidden;">
+                {|foreach $medicamenttype as $v|}
+                    <li><a  href="{|$WWW_URL|}/product/index-mdt-{|$v|}" target="_blank" >{|$v|}医药招商</a>
+                {|/foreach|}
+            </ul>
+        </div>
+    </div>
+    
+</div>
+<!--</body>
+</html>
+-->
+<div style="display:none">
+    {|block('id:92')|}
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:89"|} 
+</div>
+
+{|include file="$FOOTER"|}

@@ -1,0 +1,201 @@
+{|include file="$HEADER"|} 
+<script type="text/javascript">var c_webid = '1502', referrer = document.referrer;</script>
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/agent_message.css" />
+<script type="text/javascript" src="{|$JS_URL|}/dev/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/main.js"></script>
+
+<title>代理详情页-登陆前(非VIP)</title>
+{|include file="$HEADER_END"|} 
+    
+    
+<div class="w_warp">   
+<div class="location">
+	<p>当前位置:<a href="http://www.3156.cn/">3156医药网</a>><a href="http://www.3156.cn/daili">代理信息</a>><a href="http://www.3156.cn/daili/fbxq">代理留言</a></p>
+   
+</div>
+<div class="content">
+	<div class="c_left">
+		<div class="title">
+        <div style="display:inline-block;">
+    		<img src="{|$STYLE_URL|}/img/Agent message/p1.png" /><h1 class="important">{|$row['pdt_name']|}{|$row['pdt_names']|}</h1><img src="{|$STYLE_URL|}/img/Agent message/p1.png" />
+        </div>
+        <!-- <input type="button" class="fa_btn" value="我也要发布代理信息 " /> -->	
+    	</div>
+      <div class="list" style="border-bottom:none; height:300px;">
+      	<div class="list_title"><span>代理意向</span><img src="{|$STYLE_URL|}/img/Agent message/p2.png" /></div>
+        <div class="div_message">
+            <p><span class="dai_left">代理区域：</span>{|$row['areas']|}</p>
+            <p><span class="dai_left">产品类别：</span>            
+                {|$pdt_type_name|}
+            </p>
+            <p><span class="dai_left">产品名称：</span>{|$row['pdt_name']|}{|$row['pdt_names']|}</p>
+            <p><span class="dai_left">代理渠道：</span>
+               {|foreach $a as $v|}
+                     {|$b[$v]|}
+               {|/foreach|}
+            </p>
+            <p><span class="dai_left">发布时间：</span>{|date('Y-m-d',$row['dateline'])|}</p>
+        </div>
+      </div>
+        <div class="list" style="height:218px; border-top:none;">
+            
+        	<div class="list_title"><span>联系人信息</span><img src="{|$STYLE_URL|}/img/Agent message/p2.png" /></div>
+            <div class="div_message" id='showmsg' >
+               {|if $uid=="" && $cid==''|}
+	            	 <p>
+	                 	<span class="dai_left">1.您没有被授权查看方式，请升级为<span class="red">VIP</span>会员！咨询电话：18680473282</span>
+	                 </p>
+	                 <p>
+	                 	<span class="dai_left">2.如果你是我们的vip会员，要查看此信息的联系方式，请<a href="http://user.3156.cn/user/login/" class="red">登录</a></span>
+	                 </p>
+               {|elseif $uid!="" && $cid==""|}
+	                    {|if $uid==$user_id|}
+	                        <span class="dai_right dai_big">单位名称：<span class="dai_left"></span>{|$row['company']|}</span>
+			                <span class="dai_right dai_small">联 系 人：<span class="dai_left"></span>{|$row['link_man']|}</span>
+			                <span class="dai_right dai_small">Q&nbsp;&nbsp;&nbsp;Q：<span class="dai_left"></span>{|$row['qq']|}</span>
+			                <span class="dai_right dai_big">联系电话：<span class="dai_left"></span>{|$row['tel']|}&nbsp;&nbsp;{|$row['mp']|}</span>
+			                <span class="dai_right dai_small">传&nbsp;&nbsp;&nbsp;真：<span class="dai_left"></span>{|$row['fax']|}</span>
+			                <span class="dai_right dai_small">邮&nbsp;&nbsp;箱：<span class="dai_left"></span>{|$row['email']|}</span>
+	                    {|else|}
+	                        <p>
+	                 	    <span class="dai_left">您的账号是代理商账号，未被授权查看其他代理商联系方式您可以<span class="red"><a href='http://www.3156.cn/daili/fbxq/' style='color:red; text-decoration:underline;'>发布需求</a></span></span>
+	                        </p>
+	                    {|/if|}
+               {|elseif $cid!="" && $cvip==0|}
+                        {|if $ru['cid']==$row['cmp_id']|}
+                            <span class="dai_right dai_big">单位名称：<span class="dai_left"></span>{|$row['company']|}</span>
+			                <span class="dai_right dai_small">联 系 人：<span class="dai_left"></span>{|$row['link_man']|}</span>
+			                <span class="dai_right dai_small">Q&nbsp;&nbsp;&nbsp;Q：<span class="dai_left"></span>{|$row['qq']|}</span>
+			                <span class="dai_right dai_big">联系电话：<span class="dai_left"></span>{|$row['tel']|}&nbsp;&nbsp;{|$row['mp']|}</span>
+			                <span class="dai_right dai_small">传&nbsp;&nbsp;&nbsp;真：<span class="dai_left"></span>{|$row['fax']|}</span>
+			                <span class="dai_right dai_small">邮&nbsp;&nbsp;箱：<span class="dai_left"></span>{|$row['email']|}</span>
+                        {|else|}
+		                   <p class="dai_left">您未授权查看联系方式，可能的原因：</p>
+		                   <p>
+		                 	<span class="dai_left">1.您的账号是<span class="red">普通会员</span></span>
+		                   </p>
+		                   <p>
+		                 	<span class="dai_left">2.您没有被授权查看方式，请升级为<span class="red">VIP</span>会员！咨询电话：18680473282</span>
+		                   </p> 
+		                {|/if|}                
+		        {|elseif $cvip==1|}	
+		              	                   				           
+				               <p>
+				                   <span class="dai_left">请输入网站内你的信息查看密码:</span>
+				                   <input type="password" id='spwd'  class="input_text" placeholder='请输入您的信息查看密码' name="password"/>
+	
+				                  
+				                   <input type="button" class="jump" id='sub' time={|$row['dateline']|} msgid={|$row['cmp_id']|}  value=''>&nbsp;&nbsp;<span id="pwderr"  style='color:red;'></span>
+	
+				                   <span class="tips">如提示"输入密码错"误或"忘记密码"，请及时联系你的销售人员</span>
+				               </p>		                   	               
+            {|/if|} 
+            </div>
+            <div class="div_message" id='divmsg' style='display:none;'>
+                      
+                            <span class="dai_right dai_big">单位名称：<span class="dai_left"></span>{|$row['company']|}</span>
+			                <span class="dai_right dai_small">联 系 人：<span class="dai_left"></span>{|$row['link_man']|}</span>
+			                <span class="dai_right dai_small">Q&nbsp;&nbsp;&nbsp;Q：<span class="dai_left"></span>{|$row['qq']|}</span>
+			                <span class="dai_right dai_big">联系电话：<span class="dai_left"></span>{|$row['tel']|}&nbsp;&nbsp;{|$row['mp']|}</span>
+			                <span class="dai_right dai_small">传&nbsp;&nbsp;&nbsp;真：<span class="dai_left"></span>{|$row['fax']|}</span>
+			                <span class="dai_right dai_small">邮&nbsp;&nbsp;箱：<span class="dai_left"></span>{|$row['email']|}</span>            
+            </div>
+             <div class="div_message" id='cantshow' style='display:none;'>            
+                 <span>1、您的账号是<span style='color:red;' id='level'></span>会员，未被授权查看此联系方式</span><br/>
+                  <span>2、若要查看，请升级会员等级！咨询电话：<span style='color:red;'>18680473282</span></span>
+             </div>
+             <div class="div_message" id='zsshow' style='display:none;'>                             
+                  <span>您的账号是<span style='color:red;'>钻石VIP会员</span>，仅能查看1天前的代理信息联系方式</span>
+             </div>
+        </div>
+        
+        <div id="div_info"></div>
+        <p class="interested">您可能感兴趣</p>
+            <ul class="interested_list">
+			{|block('id:81')|}
+            </ul>
+            <ul class="interested_img">
+             {|gg('pid:187,gid:188')|}
+            </ul>
+        </div>
+    </div>
+    <div class="c_right">
+            <a href="http://www.3156.cn/daili/fbxq" class="Label" target="_blank">免费发布代理信息</a>
+         <div class="zhao"  style="margin-bottom:10px;">
+        	<p>推荐医药招商</p>
+            <ul>
+            	{|gg('pid:171,gid:172')|}
+            </ul>
+        </div>
+         <div class="zhao" style="margin-bottom:10px;">
+        	<p>推荐药品招商</p>
+            <ul>
+            {|block('id:34')|}
+            </ul>
+        </div>
+        <div class="qq">
+        {|block('id:118')|}
+        </div>
+    </div>
+ </div> 
+ {|assign var="FOOTER_BLOCK_CMD_1" value="id:114"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:91"|}     
+ {|include file="$FOOTER"|}
+
+<script>
+   $(document).ready(function(){
+      $('#sub').click(function(){
+   	
+		 $spwd=$("#spwd").val();
+		 var time=$(this).attr("time");
+		 var msgid=$(this).attr("msgid");
+			$.post('/daili/lookmsg',{ajax:1,spwd:$spwd,time:time,msgid:msgid},function (data){
+			 if ( data.status==1){		
+				   
+				  //  layer.alert(data.info,data.status);	
+				//  $("#div_info").html(data.info);
+			      // alert(data.info+","+data.status+","+data.lookstate+","+data.time+","+data.cmp_lv+","+data.cmp_type+","+data.msgid);
+	 				     if(data.lookstate==1){
+				       	   $("#showmsg").hide();
+				       	   $("#divmsg").show();
+				         }
+	 				     if(data.lookstate==2 && data.cmp_type!=6){
+				        	 $("#showmsg").hide();
+					       	 $("#divmsg").show();
+	 				     } 	 
+	 				    if(data.lookstate==2 && data.cmp_type==6){
+				        	  if(data.cmp_lv==2 ){
+				              $("#level").html("铜牌VIP"); 
+				        	   $("#showmsg").hide();
+					       	  $("#cantshow").show(); 
+				        	  }
+				        	  if(data.cmp_lv==3){
+				        		  $("#level").html("银牌VIP"); 
+					        	   $("#showmsg").hide();
+						       	  $("#cantshow").show(); 
+				        	  }
+				        	  if(data.cmp_lv==4){
+				        		  $("#level").html("金牌VIP"); 
+					        	   $("#showmsg").hide();
+						       	  $("#cantshow").show(); 
+				        	  }
+				        	  if(data.cmp_lv==5){
+				        		 
+					        	  $("#showmsg").hide();
+						       	  $("#zsshow").show(); 
+				        	  }
+				         }
+			      		      
+				  }else{				                  
+				 //     layer.alert(data.info,data.status); 
+					 // alert('密码不正确'); 
+						 $("#pwderr").html("密码不正确!");	
+				     }				
+				  },'json');
+				    
+		 return false;  
+			
+      })
+ })
+</script>
+

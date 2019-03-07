@@ -1,0 +1,445 @@
+{|include file="$HEADER"|} 
+<script type="text/javascript">var c_webid = '1503', referrer = document.referrer;</script>
+<link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/agent_message.css" />
+<script type="text/javascript" src="{|$JS_URL|}/dev/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="{|$JS_URL|}/dev/main.js"></script>
+<script type="text/javascript" src="{|$STYLE_URL|}/js/layer/layer.min.js"></script>
+
+<title>代理留言</title>
+{|include file="$HEADER_END"|}   
+
+    
+<div class="w_wrap">
+<div class="location">
+	<p>当前位置:<a href="http://www.3156.cn/">3156医药网</a>><a href="http://www.3156.cn/daili">代理信息</a>><a href="http://www.3156.cn/daili/fbxq">代理留言</a></p>
+   
+</div>
+<div class="content">
+	<div class="c_left">
+	
+		<div class="title">
+        <div style="display:inline-block;">
+    	<img src="{|$IMG_URL|}/2.0/agent_message/p1.png" /><h1 class="important">3156免费帮您找药品代理</h1><img src="{|$IMG_URL|}/2.0/agent_message/p1.png" />
+    	</div>
+        </div>
+  <form action="/daili/fbxq" method="post" id="myform" name="myform"    onsubmit="return check();">
+      <input name="ac" type="hidden" class="dfinput" value="save" /> 
+      <input id="areas" name="areas" type="hidden"  class="dfinput" value="" />     
+      <div class="list" style="border-bottom:none;">
+      	<div class="list_title"><span>代理意向</span><img src="{|$IMG_URL|}/2.0/agent_message/p2.png" /></div>
+      	<div class="list1">
+        	<span class="select_name"><span class="red">*</span><span class="l_name">代理区域：</span></span>
+			<select class="select J_area_html" id="J_area_html">请选择省份
+            </select>
+            <div class="for_select region J_region">
+            	<ul class="J_region_html"></ul>
+            </div>
+            <div class="qu">
+            <ul>
+            </ul>
+            </div>
+        </div>
+        <div class="list2">
+        	<span class="red">*</span><span class="l_name">代理渠道：</span>
+            <input type="checkbox" name="channel[]"  id="dao1" value="1"/><label for="dao1">连锁药店</label>
+            <input type="checkbox" name="channel[]"  id="dao2" value="2"/><label for="dao2">批发物流</label>
+            <input type="checkbox" name="channel[]"  id="dao3" value="3"/><label for="dao3">零售终端</label>
+            <input type="checkbox" name="channel[]"  id="dao4" value="4"/><label for="dao4">医药临床</label>
+            <input type="checkbox" name="channel[]"  id="dao5" value="5"/><label for="dao5">会议营销</label>
+        </div>
+        <div class="list3">
+        	<span class="red">*</span><span class="l_name">有效时间：</span>
+            <input type="radio" name="row[end_time]" id="time1" value="1"/><label for="time1">一个月</label>
+            <input type="radio" name="row[end_time]" id="time2" value="2"/><label for="time2">一个季度</label>
+            <input type="radio" name="row[end_time]" id="time3" value="3"/><label for="time3">半年</label>
+            <input type="radio" name="row[end_time]" id="time4" value="4"/><label for="time4">一年</label>
+            <span class="red">（*超过有效时间该代理信息将会自动删除）</span>
+        </div>
+        <div class="list4">
+        	<div class="bao_name">
+            	<span class="red">*</span><span class="l_name">产品类别：</span>
+            </div>
+           	<div class="bao">
+           	   <input type='hidden' name="row[pdt_type1]" value=""  id="pdt_type1" >
+           	   {|foreach $list as $v|}
+           	      <span class="type" value={|$v['pt_id']|}  >{|$v['pt_name']|}</span>
+           	   {|/foreach|}    
+            </div>
+        </div>
+        <div class="list5">
+        	<span class="red">*</span><span class="l_name">产品名称：</span>
+            <input type="text" class="input_text" name="row[pdt_name]" id="pdt_name"/>
+        </div>
+        <div class="list6">
+        	<span class="red">*</span><span class="l_name">代理留言：</span>
+            <textarea  name="row[content]"  id="content"  class="right_txt textarea" placeholder="消息来自3156医药网"></textarea>
+            <div class="choose">
+            	<p>留言助手</p>
+                <ul>
+                	<li><input type="checkbox" id="choose1" name="quick[]" value="请寄给我外包装盒！"/><label for="choose1">请寄给我外包装盒！</label></li>
+                    <li><input type="checkbox" id="choose2" name="quick[]" value="请寄给我合同样本！"/><label for="choose2">请寄给我合同样本！</label></li>
+                    <li><input type="checkbox" id="choose3" name="quick[]" value="我希望代理此产品，请速与我联系！"/><label for="choose3">我希望代理此产品，请速与我联系！</label></li>
+                    <li><input type="checkbox" id="choose4" name="quick[]" value="请寄给我详细资料！"/><label for="choose4">请寄给我详细资料！</label></li>
+                    <li><input type="checkbox" id="choose5" name="quick[]" value="请寄给我样品！"/><label for="choose5">请寄给我样品！</label></li>
+                </ul>
+            </div>
+        </div>
+      </div>
+        <div class="list" style="height:445px; border-top:none;">
+        	<div class="list_title"><span>联系人信息</span><img src="{|$IMG_URL|}/2.0/agent_message/p2.png" /></div>
+            <ul class="message">
+            	<li><span class="message_name"><span class="red">*</span>代理商：</span>
+            	   <input type="radio" name="row[agent_type]" id="shang1" value="1" {|$agent_type_checked[1]|} /><label for="shang1">公司</label>
+            	   <input type="radio" name="row[agent_type]" id="shang2" value="2" {|$agent_type_checked[2]|} /><label for="shang2">个人</label>
+            	</li>
+            	<li id="danwei"><span class="message_name"><span class="red">*</span>单位名称：</span><input type="text" class="input_text" id="cmp" name="row[company]" value=''><span class="end_text" id="con">请填写单位名称</span></li>
+                <li><span class="message_name"><span class="red">*</span>联系人：</span><input type="text" class="input_text" id="link_man" name="row[link_man]" ><span class="end_text" id="name">您的真实姓名，请填写中文</span></li>
+                <li><span class="message_name"><span class="red">*</span>联系电话：</span><input type="text" class="input_text" id="tel" name="row[tel]" ><span class="end_text" id="dh">方便项目负责人与你联系</span></li>
+                <li><span class="message_name"><span class="zhan">*</span>传&nbsp;&nbsp;真：</span><input type="text" class="input_text" name="row[fax]" id='fax'><span class="end_text" id='fnum'>请输入您的传真号</span></li>
+                <li><span class="message_name"><span class="zhan">*</span>Q&nbsp;&nbsp;Q：</span><input type="text" class="input_text" name="row[qq]" id='qq'><span class="end_text" id='qqnum'>请输入您的QQ号</span></li>
+                <li><span class="message_name"><span class="zhan">*</span>邮&nbsp;&nbsp;箱：</span><input type="text" class="input_text" name="row[email]" id='email'><span class="end_text" id='enum'>请填写你的常用邮箱</span></li>
+                <li><input type="submit" value="提交" class="btn1"/></li>
+            </ul>
+        </div>
+  </form>
+        <p class="interested">您可能感兴趣</p>
+            <ul class="interested_list">
+			{|block('id:81')|}
+            </ul>
+            <ul class="interested_img">
+             {|gg('pid:187,gid:188')|}
+            </ul>
+        </div>
+    </div>
+    <div class="c_right">
+         <div class="zhao">
+        	<p>推荐医药招商</p>
+            <ul>
+            	{|gg('pid:171,gid:172')|}
+            </ul>
+        </div>
+        <ul class="tupian">
+        	{|gg('pid:189,gid:190,id:1671')|}
+        </ul>
+         <div class="zhao">
+        	<p>推荐药品招商</p>
+            <ul>
+            {|block('id:34')|}
+            </ul>
+        </div>
+        <ul class="tupian">
+        	{|gg('pid:189,gid:190,id:1672')|}
+        </ul>
+        <div class="qq">
+        {|block('id:118')|}
+        </div>
+    </div>
+</div>
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:115"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:91"|}     
+
+{|include file="$FOOTER"|}
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#link_man").blur(function(){
+             if($("#link_man").val()==""){
+                 $("#name").html("联系人姓名不能为空！").css("color","red");                 
+            }else{
+                var reg = /^([\u4E00-\u9FA5 ])*$/;
+                if (!(result = $("#link_man").val().match(reg))) {
+                    $("#name").html("联系人姓名只能为中文！").css("color","red");  
+                } else {
+                    $("#name").html("可以使用").css("color","green");  
+                }
+             }    
+        });
+      
+      $("#cmp").blur(function(){
+             if($("#cmp").val()==""){
+                 $("#con").html("单位名称不能为空！").css("color","red");                 
+            }else{
+                $("#con").html("可以使用").css("color","green");
+             }    
+        });
+       
+      $("#tel").blur(function(){            
+             if($("#tel").val()!=""){
+                 var tel=$("#tel").val();
+                 var reg = /^1[3458]\d{9}$/;
+                 if(!reg.test(tel)){
+                  $("#dh").html("请输入正确格式的手机号码!").css("color","red");    
+                 }else{
+                     $tel=$("#tel").val();
+                       //alert($tel);
+                              $.post('/books/Checktel',{ajax:1,tel:$tel},function (data){
+                                  if ( data.status==3){
+                                      // alert("ok");
+                                      $("#dh").html("此电话已被加入黑名单，禁止使用").css("color","red");    
+                                  //  layer.alert(data.info,data.status);
+                        
+                                  }else{
+                                   // layer.alert(data.info,data.status);
+                                    $("#dh").html("可以使用").css("color","green");
+                                  }
+                
+                               },'json');
+                    
+                      return false;  
+                 } 
+             }else{                 
+                     $("#dh").html("联系电话不能为空！").css("color","red");                                           
+             }            
+        });
+      
+      
+      $('#fax').blur(function(){
+            if($('#fax').val()!=''){                    //alert('ok');            
+               var reg =/^((\+?[0-9]{2,4}\-[0-9]{3,4}\-)|([0-9]{3,4}\-))?([0-9]{7,8})(\-[0-9]+)?$/;
+                 if(!reg.test($('#fax').val())){                    
+                      $("#fnum").html("请输入正确的传真号").css("color","red");
+                 }else{
+                      $("#fnum").html("可以使用").css("color","green");
+                 }
+            }else{
+                 $("#fnum").html("请输入您的传真号").css("color","#a1a1a1");
+            }    
+      })
+      
+      
+      $("#qq").blur(function(){            
+             if($("#qq").val()!=""){                 
+                 var re=/^[1-9][0-9]{4,}$/;
+                 if(!re.test($("#qq").val())){
+                      //alert("请输入正确的QQ号");                                           
+                    $("#qqnum").html("请输入正确的QQ号").css("color","red");
+                 }else{
+                     $("#qqnum").html("可以使用").css("color","green");
+                 }                     
+             }else{
+                 $("#qqnum").html("请输入您的QQ号").css("color","#a1a1a1");
+             }            
+        });
+      $('#email').blur(function(){
+            if($('#email').val()!=''){                
+            //     alert('ok');
+                 var reg = /^([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|_|.]?)*[a-zA-Z0-9]+.[a-zA-Z]{2,3}$/ig;
+                 if(!reg.test($('#email').val())){                    
+                      $("#enum").html("请输入正确的邮箱地址").css("color","red");
+                 }else{
+                      $("#enum").html("邮箱合法").css("color","green");;
+                 }
+            }else{
+                  $("#enum").html("请填写你的常用邮箱").css("color","#a1a1a1");;
+            }    
+      })
+      
+      
+      
+     $("#shang2").click(function(){         
+         $("#danwei").hide();
+        // $("#cmp").attr("value",'');
+         $("#con").html("单位名称不能为空！").css("color","red");
+     });
+    $("#shang1").click(function(){
+         
+         $("#danwei").show();
+         
+     }); 
+
+   //获取地区数据
+    var REGION_DATA = '',
+        REGION_HTML = '<option value="">--请选择代理区域--</option>',
+        REGION_DATA_ITEMS = '';
+    
+
+    $.ajax({
+        url : 'http://img.3156.cn/uploads/subarea',
+        type : 'post',
+        dataType : 'jsonp',
+        jsonp: "callback",
+        success : function(data){
+            if(data.state == true) {
+                REGION_DATA = data.data;
+                $.each(REGION_DATA, function(i, o){
+                    REGION_HTML += '<option value="'+ i +'">'+ o.name +'</option>';
+                });
+                try {
+                    if (typeof (REGION_HTML) != "undefined") {
+                        $('.J_area_html').html(REGION_HTML);
+                    }
+                } catch (e) {
+                }
+                $('.J_area_html').change(function(){
+                    var pid =  $(".J_area_html").val();
+                    REGION_DATA_ITEMS = REGION_DATA[pid]['items'];
+                    REGION_HTML = '';
+                    $.each(REGION_DATA_ITEMS, function(i, o){
+                        REGION_HTML += '<li><label><input type="checkbox" id="areas" name="row[areas][]" value="'+ i +'">'+ o.name +'</label></li>';
+                    });
+                    try {
+                        if (typeof (REGION_HTML) != "undefined") {
+                            $('.J_region_html').html(REGION_HTML);
+                            $('.J_region').show();
+                        }
+                    } catch (e) {
+                    }
+                });
+            }else{
+                alert('地区数据获取失败！');
+            }
+        }
+    });
+   
+    $("input[name='quick[]']").change(function(e) {
+        e.preventDefault();
+        var _this = $(this),
+            _text = _this.val();
+            _checked = _this.attr("checked");
+        var v = $("textarea[name='row[content]']").val();
+        if($(this).is(':checked')){
+            if (v == "请您填写留言" || v ==='') {
+                v = _text ;
+            } else {
+                v = v + _text ;
+            }
+            $("textarea[name='row[content]']").val(v);
+        }else{
+            v = v.replace(_text, '');
+            $("textarea[name='row[content]']").val(v);
+        }
+    }); 
+  })
+</script>
+<script type="text/javascript">
+function check(){
+        var obj = document.getElementById('J_area_html');
+        var index = obj.selectedIndex; // 选中索引
+        var value = obj.options[index].value; // 选中值
+        var err_msg="";
+        if(!value){
+            err_msg += "\n 请选择代理区域";
+        }else{
+            var obj = document.getElementsByName('row[areas][]');
+            var objarray=obj.length;
+            var chestr="";
+            for (i=0;i<objarray;i++){
+              if(obj[i].checked == true){
+               chestr+=obj[i].value+",";
+              }
+            }
+            if(chestr == ""){
+              err_msg += "\n 请选择代理区县";
+            }
+        }
+        
+        if(err_msg !=""){
+            layer.alert(err_msg);
+            return false;
+        }
+        
+        var ids = document.getElementsByName("channel[]");              
+        var flag = false ;              
+        for(var i=0;i<ids.length;i++){
+            if(ids[i].checked){
+                    flag = true ;
+                    break ;
+                 }
+             }
+            if(!flag){       
+               layer.alert("代理渠道不能为空!");
+            return false ;
+        }
+        
+         var dan = document.getElementsByName("row[end_time]");              
+         var flags = false ;              
+         for(var i=0;i<dan.length;i++){
+               if(dan[i].checked){
+                        flags = true ;
+                        break ;
+                     }
+                 }
+                if(!flags){
+                   layer.alert("有效时间不能为空!");
+                return false ;
+            }      
+            
+       if (document.getElementById("pdt_type1").value=="")
+       {        
+         layer.alert("请选择产品类别！");
+         return false;
+       }   
+                
+             
+       if (document.getElementById("pdt_name").value=="")
+        {        
+          layer.alert("产品名称不能为空！");
+          return false;
+        } 
+      
+      if(document.getElementById("content").value==""){
+              layer.alert("代理留言不能为空！");
+              return false;
+        }
+      
+      var agent = document.getElementsByName("row[agent_type]");              
+      var fla = false ;              
+      for(var i=0;i<agent.length;i++){
+            if(agent[i].checked){
+                     fla = true ;
+                     break ;
+                  }
+              }
+             if(!fla){
+                layer.alert("代理商不能为空!");
+             return false ;
+         }  
+        if(document.getElementById("shang1").checked) {
+             if(document.getElementById("cmp").value==''){            
+                  layer.alert("单位名称不能为空！");
+                  $("#con").html("单位名称不能为空").css("color","red");
+                  return false; 
+             }
+           
+         }  
+         
+      if(document.getElementById("link_man").value==""){
+          layer.alert("联系人不能为空！");
+          return false;
+       }
+       else
+       {
+            var reg = /^([\u4E00-\u9FA5 ])*$/;
+            if (!(result = $("#link_man").val().match(reg))) {
+                 layer.alert("联系人姓名只能为中文！");
+                 return false;
+            } 
+       }
+      if(document.getElementById("tel").value==""){
+          layer.alert("联系电话不能为空！");
+          return false;
+       }
+      
+      if(document.getElementById("dh").innerHTML=="请输入正确格式的手机号码!"){  
+          layer.alert("请输入正确格式的手机号码!");
+          return false;
+       }
+      if(document.getElementById("dh").innerHTML=="此电话已被加入黑名单，禁止使用"){
+          layer.alert("此电话已被加入黑名单，禁止使用！");
+          return false;
+       }
+      if(document.getElementById("qqnum").innerHTML=="请输入正确的QQ号"){
+          layer.alert("请输入正确的QQ号！");
+          return false;
+       }
+      if(document.getElementById("enum").innerHTML=="请输入正确的邮箱地址"){        
+          layer.alert("请输入正确的邮箱地址！");
+          return false;
+       }
+      if(document.getElementById("fnum").innerHTML=="请输入正确的传真号"){
+          layer.alert("请输入正确的传真号！");
+          return false;
+       }
+      
+      return true; 
+  }
+</script>

@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* CSS Document */
+.title{
+	width:120px;
+	border:1px solid #e0e0e0;
+	width:1198px;
+	margin-top:25px;
+}
+.title img{
+	float:left;
+}
+.title ul{
+	float:right;
+	width:346px;
+	border-left:1px solid #cbccca;
+	height:90px;
+	margin:15px 0 0 0;
+}
+.title ul li{
+	list-style-type:inherit;
+	height:12px;
+	line-height:12px;
+	margin:0 0 12px 25px;
+}
+.title ul li a:hover,.title li .red:hover{
+	color:#fb8200;
+	text-decoration:underline
+}
+.title ul li span.tel{
+	width:150px;
+	height:23px;
+	line-height:23px;
+	color:#fff;
+	background:#fb8200;
+	border-radius:5px;
+	display:inline-block;
+	text-align:center;
+}
+.title li .red{
+	background:url(../img/v.png) no-repeat left center;
+	width:35px;
+	padding-left:12px;
+	
+}
+.pic1{
+	padding:0 18px;
+}
+.pic1 li{
+	float:left;
+	margin:35px 40px 0 0;
+	position:relative;
+	height:306px;
+	width:360px;
+	cursor:pointer;
+}
+.pic1 .p_top{
+	width:360px;
+	height:86px;
+	background:#458dc5;
+	text-align:center;
+	color:#fff;
+	position:absolute;
+	top:0;
+	left:0;
+	
+}
+.pic1 .p_top .p_top_big{
+	font-size:20px;
+	font-family:'微软雅黑';
+	width:200px;
+	border-bottom:1px solid #fff;
+	width:230px;
+	text-align:center;
+	height:42px;
+	line-height:48px;
+	margin:0 0 10px 0px;
+	display:inline-block;
+}
+.pic1 .middle{
+	width:360px;
+	height:220px;
+	background:url(../img/pic5.png);
+}
+.pic1 .middle .middle_inner{
+	width:290px;
+	margin:0 auto;
+}
+.pic1 .middle p{
+	font-size:18px;
+	font-family:'微软雅黑';
+	margin:0 0 12px 0;
+	color:#323232;
+}
+.pic1 .middle p.qq{
+	padding-top:25px;
+	margin-bottom:20px;
+	height:30px;
+	line-height:30px;
+
+}
+.pic1 .pic_img,.pic1 .middle{
+	position:absolute;
+	left:0;
+	top:86px;
+}
+.pic1 .middle p img{
+	vertical-align:middle;
+}
+.pic1 .middle p img.q1{
+	margin:0 5px 0 18px;
+}
+.pic1 .middle a.lian{
+	width:172px;
+	height:40px;
+	background:#d10f0f;
+	font-size:20px;
+	font-family:'微软雅黑';
+	color:#fff;
+	border-radius:5px;
+	margin:22px 0 0 55px;
+	cursor:pointer;
+	line-height:40px;
+	text-align:center;
+	display:inline-block;
+}

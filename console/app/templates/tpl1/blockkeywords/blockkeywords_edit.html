@@ -1,0 +1,259 @@
+{|include file="$HEADER"|}
+<style type="text/css">
+	.placeul li{line-height:40px;margin:0;}
+	.placeul li a{color:#333;}
+	.forminfo li label{min-width:72px;text-align:right;}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">关键字专区</a></li>
+			<li>{|$TIP_NAME|}区块关键字</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>区块关键字{|$TIP_NAME|}</span></div>
+
+    <form action="edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+
+        <li><label>关键字名称：</label><input name="row[bkw_name]" type="text" class="dfinput" value="{|$row['bkw_name']|}" id="bkw_name"/><i id="guang">中文名称,必填</i></li>
+        <li><label>系统标识：</label><input name="row[bkw_mark]" type="text" class="dfinput" value="{|$row['bkw_mark']|}" id="bkw_mark"/><i id="guan">字母,静态化入口名</i></li>
+        <li>
+            <label for="">所属模块：</label>
+            <select name="row[mod_type]" class="scinput" value={|$srow['mod_type']|}> 
+                <!--<option>---请选择---</option>-->
+                <!--<option value="1" {|$mt_selected[1]|}></option>-->
+                <option value="2">企业</option>
+                <!--<option value="3" {|$mt_selected[3]|} >产品</option>-->
+            </select> 
+        </li>
+        
+        <!--
+        <li><label>模块ID：</label><input name="row[mod_id]" type="text" class="dfinput" value="{|$row['mod_id']|}" id="mod_id"/><i id="guang">数字</i></li>
+        -->
+        
+        <li>
+        <label for="">所属分类：</label>
+        <select  name="row[bkw_type]" class="scinput"  value={|$row['bkw_type']|}> 
+            <option value="0">---请选择---</option>
+            {|foreach $type_list as $k=>$v|} 
+            <option value="{|$k|}" {|$type_selected[$k]|} >{|$v|}</option>
+            {|/foreach|}
+        </select>  
+        </li>
+        
+        
+        
+        
+        
+        <!--
+        <li id="qiyeid" {|if !$sg_type_checked[2]|} style="display:none;" {|/if|}  ><label>企业id：</label><input name="row[cmp_id]" type="text" class="dfinput" value="{|$row['cmp_id']|}" id="qyinput"/><i id="qy">数字类型，则必填，且数据库里存在</i></li>
+        <li id="chanpingid" {|if !$sg_type_checked[1]|} style="display:none;" {|/if|} ><label>产品id：</label><input name="row[pdt_id]" type="text" class="dfinput" value="{|$row['pdt_id']|}" id="cpinput"/><i id="cp">数字类型，则必填，且数据库里存在</i></li>    
+        -->
+        <!--
+        <li><label>模版选择：</label>
+            <select name="row[tpl_id]" class="scinput">
+                <option value="0">------请选择------</option>
+                <option value="1">模版1</option>
+            </select>
+            <i>选择后，根据模版显示</i>
+        </li>
+        -->
+       
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+
+$(".input").blur(function(){
+var name = $(this).attr("name");
+if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+    return ;
+}
+
+ xxxx
+});
+
+var CL= new Array(4); 
+    
+function  mysubmit()
+{
+    if(!checkAll())
+    {
+        titleCheck();
+        keywordsCheck();
+        urlCheck();
+        myCheck();
+    }
+    return checkAll();
+}
+
+function checkAll()
+{
+    for(var i=0;i<CL.length;i++)
+    {                  
+        if(!isDefined(CL[i]) || !CL[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function myCheck()
+{
+    var type=2;
+    var id=$('#qyinput').val();
+
+    if(!isDefined($('#qiye').attr('checked')))
+    {
+        type=1;
+        id=$('#cpinput').val(); 
+    }
+     
+     
+    $.post("/ads/checkid",{ajax:1,t:type,id:id},function(data){
+        if ( data.status==1 ){
+            //layer.alert(data.info,1);
+            CL[2]=1;
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","green");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","green"); 
+            }
+        }else{
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","red");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","red"); 
+            }
+            
+            CL[2]=0;
+            layer.alert(data.info,data.status);
+        }
+    },'json');
+    return false;
+}
+
+
+
+var titleCheck=function (){
+     if($("#title").val()==""){
+         $("#guang").html("标题不能为空！").css("color","red");
+         CL[0]=0;
+    }
+     if($("#title").val()!=""){
+        $("#guang").html("可以使用").css("color","green");
+        CL[0]=1;
+     }
+}
+var keywordsCheck=function(){
+     if($("#keywords").val()==""){
+         $("#guan").html("关键字不能为空！").css("color","red");
+         CL[1]=0;
+    }
+     if($("#keywords").val()!=""){
+        $("#guan").html("可以使用").css("color","green");
+        CL[1]=1;
+     }    
+}
+var urlCheck=function(){
+     if($("#url").val()==""){
+         $("#lianjie").html("连接地址不能为空！").css("color","red");
+         CL[3]=0;
+    }else{
+        var reg = /^((([hH][tT][tT][pP][sS]?|[fF][tT][pP])\:\/\/)?([\w\.\-]+(\:[\w\.\&%\$\-]+)*@)?((([^\s\(\)\<\>\\\"\.\[\]\,@;:]+)(\.[^\s\(\)\<\>\\\"\.\[\]\,@;:]+)*(\.[a-zA-Z]{2,4}))|((([01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}([01]?\d{1,2}|2[0-4]\d|25[0-5])))(\b\:(6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|[1-9]\d{0,3}|0)\b)?((\/[^\/][\w\.\,\?\'\\\/\+&%\$#\=~_\-@]*)*[^\.\,\?\"\'\(\)\[\]!;<>{}\s\x7F-\xFF])?)$/;
+        if ( reg.test($(this).val()) == false ){
+            $("#lianjie").html("连接地址格式不对！").css("color","red");
+            CL[3]=0;
+        }else{
+            $("#lianjie").html("可以使用").css("color","green");        
+            CL[3]=1;
+        }    
+        
+    }  
+}
+
+
+
+$('#title').blur(titleCheck);
+$("#keywords").blur(keywordsCheck)
+
+$("#cpinput").blur(function(){
+myCheck();
+});
+
+$("#qyinput").blur(function(){
+myCheck();
+});
+
+
+$("#url").blur(urlCheck);
+
+/*
+$('#order').blur(function(){
+	   	     
+		 if($("#order").val()==""){
+			 $("#shu").html("排序不能为空！").css("color","red");
+             CL[4]=0;
+		}else{
+			var reg = /^[1-9]{1,}$/;
+			if ( reg.test($(this).val()) == false ){
+				$("#shu").html("排序要为整数！").css("color","red");
+                CL[4]=0;
+			}else{
+				$("#shu").html("可以使用").css("color","green");		
+                CL[4]=1;
+			}						
+		}
+					
+	});	
+*/
+$('#qiye').click(function(){
+	
+	$("#qiyeid").show()
+	$("#chanpingid").hide();
+	
+});
+$('#chanping').click(function(){
+	
+	$("#chanpingid").show()
+	$("#qiyeid").hide();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

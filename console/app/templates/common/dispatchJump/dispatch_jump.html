@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>跳转提示</title>
+<style type="text/css">
+*{ padding: 0; margin: 0; }
+body{ background: #fff; font-family: '微软雅黑'; color: #333; font-size: 16px; }
+.system-message{ padding-top: 54px; }
+.system-message h1{ font-size: 100px; font-weight: normal; line-height: 120px; }
+.system-message .jump{text-align: center;margin: 0 auto;margin-top: -100px;width: 700px;}
+.system-message .jump a{ color: #333;}
+.system-message .success,.system-message .error{ line-height: 1.8em; font-size: 36px; margin-left: 30px }
+.system-message .detail{ font-size: 12px; line-height: 20px; margin-top: 12px; display:none}
+.errorH1{ width: 700px;height: 400px; margin: 0 auto; text-align: center; }
+</style>
+</head>
+<body>
+<div class="system-message">
+<present name="message">
+{|if $status == 1|}
+<h1 class="errorH1" style="margin-bottom:20px" ><img src="/assets/static/success.png" alt="" /><p class="success">{|$msg|}</p></h1>
+{|else|}
+<h1 class="errorH1"><img src="/assets/static/error.png" alt="" /><p class="error" style='font-size:24px;'>{|$msg|}</p></h1>
+{|/if|}
+</present>
+<p class="detail"></p>
+<p class="jump">
+<span style="margin-left: 40px">自动</span><a id="href" href="{|$jumpUrl|}">跳转</a> 等待时间： <b id="wait">{|$waitSecond|}</b>
+</p>
+</div>
+<script type="text/javascript">
+(function(){
+var wait = document.getElementById('wait'),href = document.getElementById('href').href;
+var interval = setInterval(function(){
+	var time = --wait.innerHTML;
+	if(time <= 0) {
+		location.href = href;
+		clearInterval(interval);
+	};
+}, 1000);
+})();
+</script>
+</body>
+</html>

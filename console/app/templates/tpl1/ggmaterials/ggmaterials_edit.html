@@ -1,0 +1,288 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/uploadFile.js"></script>
+<link href="{|$STYLE_URL|}/css/adv.css" rel="stylesheet" type="text/css" />
+<script>
+
+ $(document).ready(function () {
+    var type = "{|$list['ggm_type']|}";
+    var ac = "{|$ac|}";//获取请求类型
+    var action = "doEdit-ac-{|$ac|}";
+
+    if ( type == 2 ){
+       $('#upImg').show();
+       $("#imgHide").prop('disabled','disabled');
+    }else{
+     $('#upImg').hide();
+     $("#imgHide").removeAttr('disabled');
+   
+
+    }
+
+    //类型选择判断JS
+    $('option').click(function(){
+
+        type = $(this).attr('mark');
+      //  alert(type);
+        if ( type == 1 ){
+
+            $('#upImg').hide();
+            $("[name='__height']").val(0);
+            $("[name='__width']").val(0);
+           $("#imgHide").removeAttr('disabled');
+            $('#imageType').attr('src','');
+            $("[name='__length']").val($(this).attr('__length'));
+            $('form').attr('action',action+'-type-'+type);
+
+        }else if ( type == 2 ){
+
+            $('#upImg').show();
+            $("[name='__length']").val(0);
+            $("[name='__width']").val($(this).attr('__width'));
+            $("[name='__height']").val($(this).attr('__height'));
+             $("#imgHide").prop('disabled','disabled');
+            $('form').attr('action',action+'-type-'+type);
+
+        }
+
+    });
+
+    //表单验证Js
+    $('input').blur(function(){
+
+       var attr = $(this).attr('name');
+       var hint = $(this).parent().children('i');
+        switch(attr)
+        {
+        case 'mod_id'://公司ID
+          if ( /^\d{1,}$/.test($(this).val()) == false ){
+
+               hint.text("公司ID格式不对");
+               hint.css('color','red');
+
+          }else{
+
+          checkCID($(this).val(),hint);   
+              /*
+            hint.text("公司ID可以使用");
+            hint.css('color','green');
+                */
+          }
+          break;
+        case 'pdt_id'://产品ID
+          if ( /^\d{1,}$/.test($(this).val()) == false ){
+
+               hint.text("产品ID格式不对");
+               hint.css('color','red');
+
+          }else{
+
+            hint.text("");
+            hint.css('color','green');
+
+          }
+          break;
+        case 'title'://素材名
+            if ( $(this).val().length > 30 || $(this).val() == "" ){
+
+                hint.text("素材名称长度不能大于30且不能为空");
+               hint.css('color','red');
+
+            }else{
+
+              $.post('AjaxCheckName',{title:$(this).val()},function(data){
+
+                    if ( data.status ){
+
+                        hint.text(data.info);
+                        hint.css('color','green');
+
+                    }else{
+
+                         hint.text(data.info);
+                        hint.css('color','red');
+
+                    }
+
+              },'json');
+
+            }
+         
+          break;
+          case 'gg_title':
+            if ( $(this).val().length > 25 || $(this).val() == "" ){
+
+                hint.text('广告标题不能大于25且不能为空');
+                hint.css('color','red');
+
+            }else{
+
+                hint.text('广告标题可用');
+                hint.css('color','green');
+
+            }
+          break;
+          case 'slogan':
+            if ( $(this).val().length > 14 || $(this).val() == "" ){
+
+                hint.text('广告语不能大于14且不能为空');
+                hint.css('color','red');
+
+            }else{
+
+                hint.text('广告语可用');
+                hint.css('color','green');
+
+            }
+          break;
+          case 'link_url':
+          if ( /www.[a-zA-z0-9]+.[a-zA-z0-9]+/.test($(this).val()) == false ){
+
+            hint.text('链接地址格式错误');
+            hint.css('color','red');
+
+          }else{
+
+            hint.text('链接地址可用');
+            hint.css('color','green');
+
+
+          }
+        default:
+          
+        }
+
+        });
+    
+        
+        $('#btn').click(function(){
+
+            $.post('doEdit-ac-'+ac+'-type-'+type,$('form').serialize(),function(data){
+
+                if ( data.status ){
+                    layer.alert(data.info,1);
+                    setTimeout(function () { 
+                        location.reload();
+                    }, 200);          
+                }else{
+                    layer.alert(data.info);
+                }
+
+            },'json');
+
+            return false;
+        })
+        
+    
+
+ });
+
+ 
+ 
+ function checkCID(id,h)
+ {
+   $.post("checkcid",{ajax:1,id:id},function(data)
+   {
+        info=eval("("+data.info+")");//
+        if(data.status==1 )
+        {
+            //$("#i_ds_mod_ids").html(info.vc+'/'+info.ac+'可用').css("color","red"); 
+            //layer.alert(info.info,data.status);
+            
+            h.html(info.cn);
+            $('#input_link_url').val(info.url);
+            //h.css('color','green');
+        }
+        else
+        {
+            h.html(info.cn);
+            $('#input_link_url').val(info.url);
+            layer.alert(info.cn,data.status);      
+        }
+    },'json');
+    return false;
+}
+ 
+</script>
+
+{|include file="$HEADER_END"|}   
+    <div class="place">
+    	<span>当前位置：</span>
+        <ul class="placeul">
+        	<li><a href="/main/center" target="rightFrame">首页</a></li>
+            <li><a href="/ggmaterials/list" target="rightFrame">素材管理</a></li>
+            <li>添加素材</li>
+        </ul>
+    </div>  
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>添加素材</span></div>
+    <form action="doEdit-ac-{|$ac|}" id="upForm" method="POST" enctype="multipart/form-data">
+        <ul class="forminfo">
+       <!--  <li><label>素材类型</label><cite><input name="" type="radio" value="" checked="checked" />文字&nbsp;&nbsp;&nbsp;&nbsp;<input name="" type="radio" value="" />图片</cite></li> -->
+        <li><label>公司ID：</label><input name="mod_id" type="text" class="dfinput" value="{|$list['mod_id']|}" /><i></i></li>
+        <li><label>产品ID：</label><input name="pdt_id" type="text" class="dfinput" value="{|$list['pdt_id']|}" /><i></i></li>
+        <li><label>素材名称：</label><input name="title" type="text" class="dfinput" value="{|$list['title']|}" /><i></i></li>
+        <li>
+            <label>所属规格：</label>
+            <select name="ggs_id" id="standard" >
+                    {|if $list['ggs_id']!=NULL|}
+                      <option value="{|$list['ggs_id']|}" mark="{|$list['ggs_type']|}" __height="{|$list['height']|}" __width="{|$list['width']|}" __length="{|$list['length']|}">{|$list['standard']|}</option>
+                    {|else|}
+                    <option value="0">选择分组</option>
+                    {|/if|}
+                    {|foreach $standard as $k=>$v|}
+                        <option value="{|$v['ggs_id']|}" mark="{|$v['ggs_type']|}" __height="{|$v['height']|}" __width="{|$v['width']|}" __length="{|$v['length']|}" >{|$v['ggs_name']|}</option>
+                    {|/foreach|}
+            </select>
+        </li>
+        
+        <li><label>广告标题：</label><input name="gg_title" type="text" class="dfinput" value="{|$list['gg_title']|}" /><i>最多25个字</i></li>
+        <li><label>广告语：</label><input name="slogan" type="text" class="dfinput" value="{|$list['slogan']|}" /><i>最多14个字</i></li>
+         
+        <input type="hidden" name="__height"  value="{|if $list['__height']==NULL|}0{|else|}{|$list['__height']|}{|/if|}">
+        <input type="hidden" name="__width" value="{|if $list['__width']==NULL|}0{|else|}{|$list['__width']|}{|/if|}">
+        <input type="hidden" name="__length" value="{|if $list['__length']==NULL|}0{|else|}{|$list['__length']|}{|/if|}">
+        <li id="upImg">
+        		<label>&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <div style="float:left; margin-bottom:10px;">
+        		{|if $list['src']|}
+        		<div style="margin-bottom:10px;"><img src="{|$list['src']|}" width="150px" height="120px" alt=""></div>
+                {|/if|}
+				<!--<textarea name="content" id="J_ueditor_content" cols="" rows="" class="J_ueditor_content"></textarea>-->
+                <div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:none;">
+                <ul class="cc">
+                <!--<li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count">4</span>张</li>-->
+                </ul>
+                <a href="" class="pop_close" id="J_fresh_upload_close">删除</a>
+                </div>
+                <span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span>
+                <input type="hidden" id="imgHide" name="src" value="">
+                </div>
+        </li>
+        <li><label>链接地址：</label><input id="input_link_url" style="width: 525px;" name="link_url" type="text" class="dfinput" value="{|$list['link_url']|}" /><i></i></li>
+        <li><label>备　　注：</label><textarea name="description" cols="" rows="" class="textinput">{|$list['description']|}</textarea></li>
+        <li><label>&nbsp;</label><input type="submit" id='btn' class="btn" value="提交"/></li>
+        {|foreach $TOKEN as $k=>$v|}
+            <input type="hidden" name="{|$k|}" value="{|$v|}">
+        {|/foreach|}
+        {|$hidden|}
+        </ul>
+    </form>
+    
+    </div>
+
+<script>
+    var fast_upload_config = {
+            size_limit : 1024,      //图片大小限制
+            num_limit : 1,     //数量限制
+            types : '*'           //上传图片类型，多个类型请用,隔开 如：png,jpg,jpge
+        };
+        KK.ready(document, function(){
+            KK.use('jquery', 'global', 'swfupload', function(){
+                KK.Util.swfHandle();
+            });
+        });
+</script>
+</body>
+
+</html>

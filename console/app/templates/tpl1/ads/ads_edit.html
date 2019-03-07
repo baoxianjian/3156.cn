@@ -1,0 +1,331 @@
+{|include file="$HEADER"|}
+<link href="{|$STYLE_URL|}/swfupload/css/default.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{|$STYLE_URL|}/swfupload/swfupload.js"></script>  
+<script type="text/javascript">
+    var swfu;
+
+    window.onload = function() {
+        swfupload_settings.flash_url="{|$STYLE_URL|}/swfupload/swfupload.swf",
+        swfupload_settings.post_params={"PHPSESSID" : "{|$session_id|}"};
+        swfupload_settings.button_image_url="{|$STYLE_URL|}/swfupload/images/TestImageNoText_65x29.png";
+        swfu = new SWFUpload(swfupload_settings);
+     };
+     
+     function setDefualtPic(o)
+     {
+         o.src='http://s.3156.cn/assets/img/search-default.png';
+     }
+</script>
+<style type="text/css">
+	.placeul li{line-height:23px;margin:0;}
+	.placeul li a{color:#333;}
+	label{width:auto;}
+	ul li{margin-left:0;}
+</style>
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">广告管理</a></li>
+			<li>添加广告管理</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>广告{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+                                
+        
+        <li><label>广告类型：</label>
+            <cite style="padding-top:0;">
+                <label for="qiye" style="text-align:left;"><input name="row[sg_type]" type="radio" value="2" {|$sg_type_checked[2]|}  id="qiye"/>企业</label>
+                <label for="chanping" style="text-align:left;"><input name="row[sg_type]" type="radio" value="1" {|$sg_type_checked[1]|} id="chanping"/>产品</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            </cite>
+        </li>
+
+
+        <li><label>广告标题：</label><input name="row[title]" type="text" class="dfinput" value="{|$row['title']|}" id="title"/><i id="guang">必填</i></li>
+        <li><label>关键字：</label><input name="row[keywords]" type="text" class="dfinput" value="{|$row['keywords']|}" id="keywords"/><i id="guan">用于搜索引擎，必填</i></li>    
+             
+        <li id="qiyeid" {|if !$sg_type_checked[2]|} style="display:none;" {|/if|}  ><label>企业id：</label><input name="row[cmp_id]" type="text" class="dfinput" value="{|$row['cmp_id']|}" id="qyinput"/><i id="qy">数字类型，则必填，且数据库里存在</i></li>
+        <li id="chanpingid" {|if !$sg_type_checked[1]|} style="display:none;" {|/if|} ><label>产品id：</label><input name="row[pdt_id]" type="text" class="dfinput" value="{|$row['pdt_id']|}" id="cpinput"/><i id="cp">数字类型，则必填，且数据库里存在</i></li>    
+      
+        
+        <li><label>选择广告位：</label>
+        <select name="row[sgp_id]">
+            <option value="0">------请选择------</option>
+        {|foreach $list_sgp as $row_sgp|}
+            <option value="{|$row_sgp['sgp_id']|}" {|$sgp_id_selected[$row_sgp['sgp_id']]|}>{|$row_sgp['title']|}</option>
+        {|/foreach|} 
+        </select>
+        <i>用于搜索引擎，必填</i></li>
+        
+         <li><label>广告内容：</label><textarea name="row[content]" cols="" rows="" class="textinput">{|$row['content']|}</textarea></li>
+        <li><label>链接地址：</label><input name="row[link_url]" type="text" class="dfinput" value="{|$row['link_url']|}" id="url"/><i id="lianjie">格式:http://www.3156.cn，必填</i></li>
+        <!--
+        <li><label>图片地址：</label><input name="img_url" type="text" class="dfinput" /><i></i></li>
+        -->
+        <li><label>开始时间：</label><input name="row[start_time]" id="startTime" type="text" class="laydate-icon dfinput" value="{|$row['start_time']|}" /><i>格式：2015-03-22 10:29:44，必填</i></li>
+        <li><label>结束时间：</label><input name="row[end_time]" id="endTime" type="text" class="laydate-icon dfinput" value="{|$row['end_time']|}" /><i>格式：2016-03-22 10:29:44，必填</i></li>
+<!--        <li><label>排序：</label><input name="row[order]" id="order" type="text" class="dfinput" value="{|$row['order']|}" /><i id="shu">数字类型，数字intval()</i></li>-->
+        
+        
+        
+        <li style="margin-left:170px;">
+            
+            <div class="fieldset flash" id="fsUploadProgress">
+                <span class="legend">Upload Queue</span>
+            </div>
+            <div id="divStatus">0 Files Uploaded</div>
+            <div>
+                <span id="spanButtonPlaceHolder"></span>
+                <input id="btnCancel" style="display: none" type="button" value="Cancel All Uploads" onclick="swfu.cancelQueue();" disabled="disabled" style="margin-left: 2px; font-size: 8pt; height: 29px;" />
+                <input id="img_url" name="row[img_url]" type="hidden"  value="{|$row['img_url']|}">
+                <img id="img_show" onerror="setDefualtPic(this);" width="100" src="{|$row['img_url_temp']|}" />
+            </div>
+            
+            
+            
+        </li>
+        
+        <!--
+        <li><label>是否推荐：</label><cite><input name="row[recommend]" type="radio" value="1" {|$recommend_checked[1]|} />是&nbsp;&nbsp;&nbsp;&nbsp;<input name="row[recommend]" type="radio" value="0" {|$recommend_checked[0]|} />否</cite></li>
+        <li><label>广告状态：</label><cite><input name="row[sg_state]" type="radio" value="1" {|$sg_state_checked[1]|} />启用&nbsp;&nbsp;&nbsp;&nbsp;<input name="row[sg_state]" type="radio" value="2" {|$sg_state_checked[2]|} />停用</cite></li>
+        -->
+        
+        
+        
+
+       
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}  
+
+<script type="text/javascript">
+
+       var start = {
+        elem: '#startTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#endTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    laydate.skin('molv');
+
+
+$(".input").blur(function(){
+var name = $(this).attr("name");
+if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+    return ;
+}
+$.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+    if ( data.status == 0 ){
+        $("[name="+name+"]").parent().children("i").css("color","red");
+    }else{
+        $("[name="+name+"]").parent().children("i").css("color","green"); 
+    }
+    $("[name="+name+"]").parent().children("i").text(data.info);
+},'json')
+})
+
+var CL= new Array(4); 
+    
+function  mysubmit()
+{
+    if(!checkAll())
+    {
+        titleCheck();
+        keywordsCheck();
+        urlCheck();
+        myCheck();
+    }
+    return checkAll();
+}
+
+function checkAll()
+{
+    for(var i=0;i<CL.length;i++)
+    {                  
+        if(!isDefined(CL[i]) || !CL[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+function myCheck()
+{
+    var type=2;
+    var id=$('#qyinput').val();
+
+    if(!isDefined($('#qiye').attr('checked')))
+    {
+        type=1;
+        id=$('#cpinput').val(); 
+    }
+     
+     
+    $.post("/ads/checkid",{ajax:1,t:type,id:id},function(data){
+        if ( data.status==1 ){
+            //layer.alert(data.info,1);
+            CL[2]=1;
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","green");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","green"); 
+            }
+        }else{
+            if(type==2)
+            {
+                $("#qy").html(data.info).css("color","red");
+            }
+            else
+            {
+                $("#cp").html(data.info).css("color","red"); 
+            }
+            
+            CL[2]=0;
+            layer.alert(data.info,data.status);
+        }
+    },'json');
+    return false;
+}
+
+
+
+var titleCheck=function (){
+     if($("#title").val()==""){
+         $("#guang").html("标题不能为空！").css("color","red");
+         CL[0]=0;
+    }
+     if($("#title").val()!=""){
+        $("#guang").html("可以使用").css("color","green");
+        CL[0]=1;
+     }
+}
+var keywordsCheck=function(){
+     if($("#keywords").val()==""){
+         $("#guan").html("关键字不能为空！").css("color","red");
+         CL[1]=0;
+    }
+     if($("#keywords").val()!=""){
+        $("#guan").html("可以使用").css("color","green");
+        CL[1]=1;
+     }    
+}
+var urlCheck=function(){
+     if($("#url").val()==""){
+         $("#lianjie").html("连接地址不能为空！").css("color","red");
+         CL[3]=0;
+    }else{
+        var reg = /^((([hH][tT][tT][pP][sS]?|[fF][tT][pP])\:\/\/)?([\w\.\-]+(\:[\w\.\&%\$\-]+)*@)?((([^\s\(\)\<\>\\\"\.\[\]\,@;:]+)(\.[^\s\(\)\<\>\\\"\.\[\]\,@;:]+)*(\.[a-zA-Z]{2,4}))|((([01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}([01]?\d{1,2}|2[0-4]\d|25[0-5])))(\b\:(6553[0-5]|655[0-2]\d|65[0-4]\d{2}|6[0-4]\d{3}|[1-5]\d{4}|[1-9]\d{0,3}|0)\b)?((\/[^\/][\w\.\,\?\'\\\/\+&%\$#\=~_\-@]*)*[^\.\,\?\"\'\(\)\[\]!;<>{}\s\x7F-\xFF])?)$/;
+        if ( reg.test($(this).val()) == false ){
+            $("#lianjie").html("连接地址格式不对！").css("color","red");
+            CL[3]=0;
+        }else{
+            $("#lianjie").html("可以使用").css("color","green");        
+            CL[3]=1;
+        }    
+        
+    }  
+}
+
+
+
+$('#title').blur(titleCheck);
+$("#keywords").blur(keywordsCheck)
+
+$("#cpinput").blur(function(){
+myCheck();
+});
+
+$("#qyinput").blur(function(){
+myCheck();
+});
+
+
+$("#url").blur(urlCheck);
+
+/*
+$('#order').blur(function(){
+	   	     
+		 if($("#order").val()==""){
+			 $("#shu").html("排序不能为空！").css("color","red");
+             CL[4]=0;
+		}else{
+			var reg = /^[1-9]{1,}$/;
+			if ( reg.test($(this).val()) == false ){
+				$("#shu").html("排序要为整数！").css("color","red");
+                CL[4]=0;
+			}else{
+				$("#shu").html("可以使用").css("color","green");		
+                CL[4]=1;
+			}						
+		}
+					
+	});	
+*/
+$('#qiye').click(function(){
+	
+	$("#qiyeid").show()
+	$("#chanpingid").hide();
+	
+});
+$('#chanping').click(function(){
+	
+	$("#chanpingid").show()
+	$("#qiyeid").hide();
+	
+});
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

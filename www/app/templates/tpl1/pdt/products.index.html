@@ -1,0 +1,790 @@
+{|include file="$HEADER"|} 
+    <link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/page.css" />
+
+{|include file="$HEADER_END"|} 	
+	<script>
+		//$(function()
+		//{
+		//	
+		//})	
+		
+		$(document).ready(function(){
+				$(".sub_style_click>a").each(function(){
+		var id=$(this).attr("id");
+		var num=id.replace("yp_","");
+
+		$(this).click(function(){
+			
+			$(".sub_style_click>a").removeClass("change_");
+			$(this).addClass("change_");
+			
+			$(".sub_drug").slideUp();
+			
+			$("#sub_drug_"+num).slideDown();
+			
+			
+			
+		})
+	
+	})
+	$(".Pack").toggle(function(){
+		//$(".sub_area").removeClass("an");
+		$(".Pack").text("收起").css("background-position","35px -14px");
+		$(".sub_area").addClass("an");
+		
+	
+	},function(){
+		
+			$(".Pack").text("展开").css("background-position","35px 5px");
+			$(".sub_area").removeClass("an")
+			
+	
+	})
+	
+	if($(".conditions_sub .txt_1").val()=="请输入你要查询的药品名称"){
+		$(".conditions_sub .txt_1").css("color","#a3a3a3")
+	};
+	$(".conditions_sub .txt_1").focus(function(){
+		if($(this).val()=="请输入你要查询的药品名称"){
+			$(this).val("")
+		}
+	
+	}).blur(function(){
+		if($(this).val()==""){
+			$(this).val("请输入你要查询的药品名称")
+		}
+	})
+	
+		//$(".sub_click a").each(function(){
+		//	$(this).click(function(){
+		//	if($(this).hasClass("selected_click")){
+		//		$(this).removeClass("selected_click")
+		//	}else{
+		//		$(this).addClass("selected_click")
+		//	}
+		//})
+		//
+		//})
+	$('.conditions_sub label a').toggle(function(){
+		$(this).prev('input').prop('checked','checked');
+	},function(){
+		$(this).prev('input').removeAttr("checked")
+	})
+	$(".sub_drug_click").each(function(){
+		var this_=$(this).find("a")
+		this_.click(function(){
+		this_.removeClass("selected_click");
+		$(this).addClass("selected_click")
+	})
+	
+	})
+	
+	
+		
+		
+			$(".click_").mouseover(function()
+				{
+                    var _this = $(this);
+
+                    $.post('AjaxGroup',{pid:_this.attr('mark')},function(data){
+
+                        //清楚子节点
+                        _this.next('.bounced_info').empty();
+
+                        //插入子节点
+                        for ( i=0; i<data.length; i++ ){
+
+                            _this.next('.bounced_info').append("<a href='?seek=1&type2_id="+data[i]['pt_id']+"''>"+data[i]['pt_name']+"</a>");
+
+                        }
+
+                    },'json');
+
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).parent(".list").css('z-index','10');
+					$(this).siblings('.bounced_info').show().css('left',$(this).parents('.agent_list').offset().left-$(this).offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					return false;
+				});
+				$(".agent_list .list").hover(function()
+				{
+					//$(this).find('.bounced_info').show();
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).css('z-index','10');
+					//$(this).find('.bounced_info').show().css('left',$(".click_").parents('.agent_list').offset().left-$(".click_").offset().left+37);
+					
+					$(this).find('.click_').siblings('.bounced_info').show().css('left',$(this).find(".click_").parents('.agent_list').offset().left-$(this).find(".click_").offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					
+				},function(){
+
+					$(this).find('.bounced_info').hide();
+					
+				});
+		})
+	</script>
+</head>
+
+
+
+    <div class="warp Medicines_Co">
+        <p class="dqwz agent">当前位置：<a href="javascript:void(0);">首页</a> > <a href="javascript:void(0);">药品库</a></p>
+		<div class="conditions_sub">
+			<div class="sub_line">
+				<span class="sub_name" style="margin-top:2px;">已选条件：</span>
+				<span class="selected">中药产品<a href="javascript:void(0)">×</a></span>
+				<span class="selected">中药产品<a href="javascript:void(0)">×</a></span>
+				<a href="javascript:void(0);" class="del">删除选中</a>
+			</div>
+			<div class="sub_line sub_style sub_style_click">
+				<span class="sub_name">药品类别：</span>
+				<a id="yp_0" href="javascript:void(0)">全部</a>
+				<a id="yp_1" href="javascript:void(0)">OTC</a>
+				<a id="yp_2" href="javascript:void(0)">保健品</a>
+				<a id="yp_3" href="javascript:void(0)">医疗器械</a>
+				<a id="yp_4" href="javascript:void(0)">药妆</a>
+				<a id="yp_5" href="javascript:void(0)">胶囊</a>
+				<a id="yp_6" href="javascript:void(0)">中药材</a>
+				<a id="yp_7" href="javascript:void(0)">中间体</a>
+				<a id="yp_8" href="javascript:void(0)">消毒剂</a>
+				<a id="yp_9" href="javascript:void(0)">原料药</a>
+				<a id="yp_10" href="javascript:void(0)">药用辅料</a>
+				<a id="yp_11" href="javascript:void(0)">药品包装</a>
+				<a id="yp_12" href="javascript:void(0)">诊断试剂</a>
+				<a id="yp_13" href="javascript:void(0)">计生用品</a>
+				<a id="yp_14" href="javascript:void(0)">医疗器械</a>
+				<a id="yp_15" href="javascript:void(0)">西药产品</a>
+				<a id="yp_16" href="javascript:void(0)">中药产品</a>
+				<div id="sub_drug_16" class="sub_drug sub_drug_click">
+					<a href="javascript:void(0)" class="selected_click">全部</a>
+					<a href="javascript:void(0)">心脑血管</a>
+					<a href="javascript:void(0)">镇痛用药</a>
+					<a href="javascript:void(0)">泻下/固涩/温里药</a>
+					<a href="javascript:void(0)">妇科用药</a>
+					<a href="javascript:void(0)">眼科用药</a>
+					<a href="javascript:void(0)">皮肤科用药</a>
+					<a href="javascript:void(0)">前列腺用药</a>
+					<a href="javascript:void(0)">理血/降脂药</a>
+					<a href="javascript:void(0)">开窍/理气/治风病</a>
+					<a href="javascript:void(0)">儿科用药</a>
+					<a href="javascript:void(0)">肿瘤用药</a>
+					<a href="javascript:void(0)">骨伤科用药</a>
+					<a href="javascript:void(0)">消导化积药</a>
+					<a href="javascript:void(0)">化痰/止咳/平喘药</a>
+					<a href="javascript:void(0)">祛暑/解表/和解药</a>
+					<a href="javascript:void(0)">肝胆用药</a>
+					<a href="javascript:void(0)">风湿用药</a>
+					<a href="javascript:void(0)">糖尿病用药</a>
+					<a href="javascript:void(0)">中风后遗症用药</a>
+					<a href="javascript:void(0)">清热/解毒/消炎药</a>
+					<a href="javascript:void(0)">安神/头昏/补血药</a>
+					<a href="javascript:void(0)">胃肠用药</a>
+					<a href="javascript:void(0)">五官科用药</a>
+					<a href="javascript:void(0)">民族/藏药/蒙药</a>
+					<a href="javascript:void(0)">利湿通淋药</a>
+					<a href="javascript:void(0)">滋阴补肾</a>
+					<a href="javascript:void(0)">活血化瘀</a>
+					<a href="javascript:void(0)">降压药</a>
+					<a href="javascript:void(0)">活血化瘀</a>
+					<a href="javascript:void(0)">其他</a>
+				</div>
+				<div id="sub_drug_15" class="sub_drug">
+				123456
+				</div>
+			</div>
+			<div class="sub_line sub_style">
+				<span class="sub_name">招商区域：</span>
+				<div class="sub_area sub_drug_click">
+					<a href="javascript:void(0)">全部</a>
+					<a href="javascript:void(0)">北京</a>
+					<a href="javascript:void(0)">天津</a>
+					<a href="javascript:void(0)">河北</a>
+					<a href="javascript:void(0)">山西</a>
+					<a href="javascript:void(0)">内蒙古</a>
+					<a href="javascript:void(0)">辽宁</a>
+					<a href="javascript:void(0)">吉林</a>
+					<a href="javascript:void(0)">黑龙江</a>
+					<a href="javascript:void(0)">上海</a>
+					<a href="javascript:void(0)">江苏</a>
+					<a href="javascript:void(0)">浙江</a>
+					<a href="javascript:void(0)">安徽</a>
+					<a href="javascript:void(0)">福建</a>
+					<a href="javascript:void(0)">江西</a>
+					<a href="javascript:void(0)">山东</a>
+					<a href="javascript:void(0)">河南</a>
+					<a href="javascript:void(0)">湖北</a>
+					<a href="javascript:void(0)">湖南</a>
+					<a href="javascript:void(0)">广东</a>
+					<a href="javascript:void(0)">广西</a>
+					<a href="javascript:void(0)">海南</a>
+					<a href="javascript:void(0)">重庆</a>
+					<a href="javascript:void(0)">四川</a>
+					<a href="javascript:void(0)">贵州</a>
+					<a href="javascript:void(0)">云南</a>
+					<a href="javascript:void(0)">西藏</a>
+					<a href="javascript:void(0)">陕西</a>
+					<a href="javascript:void(0)">甘肃</a>
+					<a href="javascript:void(0)">青海</a>
+					<a href="javascript:void(0)">宁夏</a>
+					<a href="javascript:void(0)">新疆</a>
+					<a href="javascript:void(0)">港澳台 </a>
+				</div>
+				<a href="javascript:void(0);" class="Pack">展开</a>
+			</div>
+			<div class="sub_line sub_style sub_drug_click">
+				<span class="sub_name">剂&nbsp;&nbsp;型：</span>
+					<a href="javascript:void(0)">全部</a>
+					<a href="javascript:void(0)">胶囊</a>
+					<a href="javascript:void(0)">栓剂</a>
+					<a href="javascript:void(0)">冲剂</a>
+					<a href="javascript:void(0)">片剂</a>
+					<a href="javascript:void(0)">丸剂</a>
+					<a href="javascript:void(0)">油剂</a>
+					<a href="javascript:void(0)">糖浆剂</a>
+					<a href="javascript:void(0)">口服液</a>
+					<a href="javascript:void(0)">注射剂</a>
+					<a href="javascript:void(0)">膏剂</a>
+					<a href="javascript:void(0)">凝胶剂</a>
+					<a href="javascript:void(0)">散剂</a>
+					<a href="javascript:void(0)">贴敷剂</a>
+					<a href="javascript:void(0)">霜剂</a>
+					<a href="javascript:void(0)">粉剂</a>
+					<a href="javascript:void(0)">洗剂</a>
+					<a href="javascript:void(0)">喷剂</a>
+					<a href="javascript:void(0)">搽剂</a>
+					<a href="javascript:void(0)">干混悬剂</a>
+					<a href="javascript:void(0)">走珠器</a>
+					<a href="javascript:void(0)">滴剂</a>
+			</div>
+			<div class="sub_line">
+				<span class="sub_name" style="margin-top:2px;">特&nbsp;&nbsp;点：</span>
+				<label for=""><input type="checkbox" value="1"/><a href="javascript:void(0)">医保药品</a></label>
+				<label for=""><input type="checkbox"/><a href="javascript:void(0)">中标药品</a></label>
+				<label for=""><input type="checkbox"/><a href="javascript:void(0)">基本药物</a></label>
+				<label for=""><input type="checkbox"/><a href="javascript:void(0)">中药保护</a></label>
+				<label for=""><input type="checkbox"/><a href="javascript:void(0)">专利产品</a></label>
+			</div>
+			<div class="sub_line" style="border-bottom:none;">
+				<span class="sub_name" style="margin-top:2px;">关 键 字：</span>
+                <form action="">
+                    <input type="submit" value="" class="sub"/>
+                    <input type="text" value="请输入你要查询的药品名称" class="txt txt_1"/>
+                </form>
+			</div>
+		
+		</div>
+        <form action="/products/compare" method="post">
+            <div class="agent_table M_C drug_list sub_drug_list">
+            <p class="Medicines_Co_list">
+                <a href="javascript:void(0)" class="cur">></a>
+                <a href="javascript:void(0)"><</a>
+                <span class="The_current The_sum"><b>1</b>/<b>22345</b>页</span>
+                <span class="The_sum">共<b>22345</b>个</span>
+                药品列表
+                <label><input type="checkbox" name="checkbox" val=""/>对比选中产品</label>
+            </p>
+            <div class="M_C_con">
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+                <div class="The_company">
+                    <a href="javascript:void(0)" class="img"><img src="img/mc_img.png" alt=""/></a>
+                    <div class="basic_info">
+						<a href="javascript:void(0);" class="product_name">苗祖百草膏皮肤外用皮炎乳膏手足癣膏手足癣</a>
+                        <p class="com_name"><a href="javascript:void(0)">苗药集团（仁爱）药业有限公司</a></p>
+                        <ul class="drug_info">
+                            <li>中药产品皮肤科用药</li>
+                            <li>|</li>
+                            <li>膏剂</li>
+                            <li>|</li>
+                            <li>20g/支</li>
+                            <li>|</li>
+                            <li>全国招商</li>
+                            <li>|</li>
+                            <li>未中标</li>
+                            <li>|</li>
+                            <li>国家医保甲类</li>
+                        </ul>
+                        <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>
+                    </div>
+                    <div class="button">
+                        <a href="javascript:void(0)">我要代理</a>
+                        <a href="javascript:void(0)" class="To_proxy">产品详情</a>
+                    </div>
+                </div>
+            </div>
+			<div class="list_num">
+				<ul>
+					<li><a href="javascript:void(0)">首页</a></li>
+					<li><a href="javascript:void(0)"><</a></li>
+					<li><a href="javascript:void(0)">1</a></li>
+					<li><a href="javascript:void(0)">2</a></li>
+					<li><span>…</span></li>
+					<li><a href="javascript:void(0)">4</a></li>
+					<li><a href="javascript:void(0)">5</a></li>
+					<li><a href="javascript:void(0)">></a></li>
+					<li><a href="javascript:void(0)">尾页</a></li>
+				</ul>
+			</div>
+        </div>
+        <div class="agent_right">
+            <div class="Recommend right_OTC" style="border:0;border-right:1px solid #e6e6e6;">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药招商企业排行 </p>
+                <ul class="con">
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                    <li><span>1</span><a href="javascript:void(0)">钙片系列产品全国招商 </a></li>
+                </ul>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>推荐医药招商</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>医药新闻</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend Rec_M">
+                <p class="title"><a href="javascript:void(0)">更多>></a>企业动态</p>
+                <div class="con">
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                    <a href="javascript:void(0)">〓医保★农保独家品种〓</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="pic_img"><img src="{|$STYLE_URL|}/img/com_list_img.png" alt=""/></a>
+            <div class="Recommend agent_online">
+                <p class="title">在线咨询</p>
+                <div class="con">
+                    <p><span>客服：</span><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a><a href="javascript:void(0);"><img src="{|$STYLE_URL|}/img/qq_talk.png" alt=""/></a></p>
+                    <p>全天服务热线：18680473282</p>
+                    <p>客服邮箱：choose3156@163.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {|include file="$FOOTER"|}
+    <script>
+     $("#comparison").click(function(){
+           if ( $("[name='check[]']:checked").length > 3  ){
+
+                alert('产品对比不能超过三个');
+                return false;
+
+            }
+
+            if ( $("[name='check[]']:checked").length < 2  ){
+
+                alert('请至少选择两个产品作为对比');
+                return false;
+
+            }
+
+        })
+
+        jQuery(".main_products").slide({titCell:".main_products .name",mainCell:".img_",autoPage:false,effect:"left",vis:4,trigger:"click"});
+        $(".tempWrap").css("width","880px");
+        $(".img_").css("margin-top","20px");
+        $(".list_of1").slide({
+            titCell:".text",
+            targetCell:".text_info",
+            effect:"slideDown",
+            delayTime:300 ,
+            triggerTime:150,
+            defaultPlay:true,
+            returnDefault:true
+        });
+
+
+    </script>

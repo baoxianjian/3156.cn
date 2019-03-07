@@ -1,0 +1,66 @@
+{|include file="$HEADER"|}
+{|include file="$HEADER_END"|}
+<style type="text/css">
+.forminfo li{min-height:34px;line-height:34px;}
+.forminfo li label{min-width:72px;text-align:right;}
+</style>
+    <div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="#">首页</a></li>
+    <li><a href="#">数据表</a></li>
+    <li><a href="#">基本内容</a></li>
+    </ul>
+</div>    
+    <div class="formbody" style="margin-top:40px;">
+    
+    <div class="formtitle"><span>管理员{|$TIP_NAME|}</span></div>
+    
+           
+
+    <form action="edit" method="post">
+        <input name="ac" type="hidden" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" class="dfinput" value="save" />
+        <input name="id" type="hidden" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo">
+                                
+        {|if $id|}
+        <li><label>管理员ID：</label>{|$id|}<i id="sa_id"></i></li>
+        {|/if|}
+        <li><label>管理员名称：</label><input name="row[sa_name]" type="text" class="dfinput" value="{|$row['sa_name']|}"/><i id="sa_id">管理员名称，必填</i></li>    
+        
+        <li><label>所　在　组：</label>
+            <select name="row[sg_id]" >
+                {|foreach $list_grp as $v|}
+                <option value="{|$v['sg_id']|}" {|$grp_selected[$v['sg_id']]|}>{|$v['sg_name']|}/{|$v['sg_level']|}</option>
+                {|/foreach|}
+            </select> 
+        <i id="sa_id">所在管理员组（角色）</i></li>    
+        
+        <li><label>真实姓名：</label><input name="row[real_name]" type="text" class="dfinput" value="{|$row['real_name']|}" id="real_name"/><i id="lianjie">真实姓名，中文</i></li>
+        <li><label>昵       称：</label><input name="row[nick_name]" type="text" class="dfinput" value="{|$row['nick_name']|}" id="nick_name"/><i id="lc">昵称</i></li>
+        <li><label>联系方式：</label><input name="row[contact]" id="contact" type="text" class="dfinput" value="{|$row['contact']|}" /><i>联系方式，如：手机：13754778921</i></li>
+        <li><label>权限级别：</label><input name="row[sa_level]" id="sa_level" type="text" class="dfinput" value="{|$row['sa_level']|}" /><i>数字，小于等于所在组的权限级别且小于等于当前管理员的权限级别</i></li>
+        
+         
+        <li><label>备　　注：</label><textarea name="row[remark]" cols="" rows="" class="textinput">{|$row['remark']|}</textarea></li>
+
+       
+        <li><label>&nbsp;</label><input type="submit" id="sure" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+
+{|include file="$FOOTER"|}
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+ {|include file="$HEADER"|}
+<script type="text/javascript">
+$(function(){	
+	//顶部导航切换
+	$(".nav li a").click(function(){
+		$(".nav li a.selected").removeClass("selected")
+		$(this).addClass("selected");
+	})	
+});
+
+function changeLeftPage(page)
+{
+    window.parent.frames['leftFrame'].location=page;
+    return false;
+}
+	
+</script>
+
+
+</head>
+
+<body style="background:url({|$STYLE_URL|}/images/topbg.gif) repeat-x;">
+
+    <div class="topleft">
+    <a href="http://console.3156.cn/main" target="_parent"><img src="{|$STYLE_URL|}/images/logo.png" title="系统首页" /></a>
+    </div>
+        
+    <ul class="nav">
+    <li><a href="default.html" onClick="return changeLeftPage('left');" target="rightFrame" class="selected"><img src="{|$STYLE_URL|}/images/icon01.png" title="内容" /><h2>内容</h2></a></li>
+    <!--<li><a href="article.html" onClick="return changeLeftPage('left5');" target="rightFrame"><img src="{|$STYLE_URL|}/images/icon1.png" title="资讯" /><h2>资讯</h2></a></li>-->
+    <li><a href="imgtable.html" onClick="return changeLeftPage('left2');" target="rightFrame"><img src="{|$STYLE_URL|}/images/icon02.png" title="业务" /><h2>业务</h2></a></li>
+    <li><a href="imglist.html" onClick="return changeLeftPage('left3');"  target="rightFrame"><img src="{|$STYLE_URL|}/images/icon03.png" title="用户" /><h2>用户</h2></a></li>
+    <li><a href="tab.html" onClick="return changeLeftPage('left4');"  target="rightFrame"><img src="{|$STYLE_URL|}/images/icon06.png" title="系统" /><h2>系统</h2></a></li>
+    </ul>
+            
+    <div class="topright">    
+    <ul>
+    <li><span><img src="{|$STYLE_URL|}/images/help.png" title="帮助"  class="helpimg"/></span><a href="#">帮助</a></li>
+    <li><a href="#">关于</a></li>
+    <li><a href="/console/logout" target="_parent">退出</a></li>
+    </ul>
+     
+    <div class="user">
+    <span>{|$sa_name|}</span>
+    <i>消息</i>
+    <b>5</b>
+    </div>    
+    
+    </div>
+	
+</body>
+</html>

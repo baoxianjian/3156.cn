@@ -1,0 +1,351 @@
+{|include file="$HEADER"|} 
+    <link type="text/css" rel="stylesheet" href="{|$CSS_URL|}/2.0/www/page.css" />
+<script type="text/javascript">var c_webid = '1101', referrer = document.referrer;</script>
+{|include file="$HEADER_END"|} 	
+	<script>		
+		/*$(document).ready(function(){
+			$(".Pack").toggle(function(){
+			//$(".sub_area").removeClass("an");
+			$(".Pack").text("收起").css("background-position","35px -14px");
+			$(".sub_area").addClass("an");
+			
+		
+		},function(){
+			
+				$(".Pack").text("展开").css("background-position","35px 5px");
+				$(".sub_area").removeClass("an")
+				
+		
+		})
+		*/
+		$(".sub_style_click>a").each(function(){
+			var id=$(this).attr("id");
+			var num=id.replace("yp_","");
+		
+			$(this).click(function(){
+				
+				$(".sub_style_click>a").removeClass("change_");
+				$(this).addClass("change_");
+				
+				$(".sub_drug").slideUp();
+				
+				$("#sub_drug_"+num).slideDown();
+				
+				return false;
+			})
+		
+		});
+        
+
+		
+						
+	
+	
+/*	if($(".conditions_sub .txt_1").val()=="请输入你要查询的药品名称"){
+		$(".conditions_sub .txt_1").css("color","#a3a3a3")
+	};
+	$(".conditions_sub .txt_1").focus(function(){
+		if($(this).val()=="请输入你要查询的药品名称"){
+			$(this).val("")
+		}
+	
+	}).blur(function(){
+		if($(this).val()==""){
+			$(this).val("请输入你要查询的药品名称")
+		}
+	})
+*/	
+		//$(".sub_click a").each(function(){
+		//	$(this).click(function(){
+		//	if($(this).hasClass("selected_click")){
+		//		$(this).removeClass("selected_click")
+		//	}else{
+		//		$(this).addClass("selected_click")
+		//	}
+		//})
+		//
+		//})
+$('.conditions_sub label a').toggle(function(){
+		$(this).prev('input').prop('checked','checked');
+	},function(){
+		$(this).prev('input').removeAttr("checked")
+	})	
+	$(".sub_drug_click").each(function(){
+		var this_=$(this).find("a")
+		this_.click(function(){
+		this_.removeClass("selected_click");
+		$(this).addClass("selected_click")
+	})
+	
+	})
+/*	
+	
+		
+		
+			$(".click_").mouseover(function()
+				{
+                    var _this = $(this);
+
+                    $.post('AjaxGroup',{pid:_this.attr('mark')},function(data){
+
+                        //清楚子节点
+                        _this.next('.bounced_info').empty();
+
+                        //插入子节点
+                        for ( i=0; i<data.length; i++ ){
+
+                            _this.next('.bounced_info').append("<a href='?seek=1&type2_id="+data[i]['pt_id']+"''>"+data[i]['pt_name']+"</a>");
+
+                        }
+
+                    },'json');
+
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).parent(".list").css('z-index','10');
+					$(this).siblings('.bounced_info').show().css('left',$(this).parents('.agent_list').offset().left-$(this).offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					return false;
+				});
+				$(".agent_list .list").hover(function()
+				{
+					//$(this).find('.bounced_info').show();
+					var top_=$(".click_").offset().top-392;
+					$(".list").css('z-index','1');
+					$(".bounced_info").hide();
+					$(this).css('z-index','10');
+					//$(this).find('.bounced_info').show().css('left',$(".click_").parents('.agent_list').offset().left-$(".click_").offset().left+37);
+					
+					$(this).find('.click_').siblings('.bounced_info').show().css('left',$(this).find(".click_").parents('.agent_list').offset().left-$(this).find(".click_").offset().left+37);
+					$(".bounced_info").css("margin-top",top_);
+					
+				},function(){
+
+					$(this).find('.bounced_info').hide();
+					
+				});*/
+		})
+		
+	</script>
+
+
+    
+    <div class="warp Medicines_Co">
+        <p class="dqwz agent">当前位置：<a href="{|$WWW_URL|}/">3156医药网</a> > <a href="{|$WWW_URL|}/product">药品库</a></p>
+		<div class="conditions_sub">
+		 {|if $srow['t1']!='' || $srow['area']!='' || $srow['mdt']!='' || $srow['f']!='' |}
+			<div class="sub_line">			
+				<span class="sub_name" style="margin-top:2px;">已选条件：</span>
+				{|if $srow['t1']!='' |}<span class="selected">   
+				     {|if $s_type2_name|}
+                         {|$s_type2_name|} 
+                     {|else|}
+                        {|$s_type1_name|} 
+                     {|/if|}                 
+                     <!--<a href="/product/index-type1_id--type2_id--area-{|$srow['area']|}-medicament_type-{|$row['medicament_type']|}-f-{|$row['f']|}">×</a>-->
+                     <a href="{|purl('t1:,t2:')|}">×</a>
+                     
+                </span> 
+                {|/if|}  
+                {|if $srow['area']|}
+                <span class="selected">
+                     {|$srow['area']|}
+                  <a href="{|purl('area:')|}">×</a>
+                </span> 
+                {|/if|}
+                {|if $srow['mdt']|}
+                <span class="selected">
+                     {|$srow['mdt']|}
+                  <a href="{|purl('mdt:')|}">×</a>
+                </span> 
+                {|/if|}
+                {|if $srow['f']!='' |}
+                <span class="selected">
+                      {|if $srow['f']==1 |}医保药品{|elseif $srow['f']==2 |}中标药品{|elseif $srow['f']==3 |}基本药物
+                      {|elseif $srow['f']==4 |}中药保护{|elseif $srow['f']==5 |}专利产品{|/if|}
+                      <a href="{|purl('f:')|}">×</a>   
+                </span>
+                {|/if|} 
+				<a href="/product/index" class="del">清空条件</a>
+			</div>
+			{|else|}
+            {|/if|}
+			<div class="sub_line sub_style sub_style_click">
+					
+				<span class="sub_name">药品类别：</span>
+				       
+	 		        <a  href="{|purl('t1:,t2:')|}"    {|if !$srow['t1'] |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;'  {|/if|}>全部</a>
+  		           
+	 		           {|foreach $list_pdtype[0] as $k=>$val |}
+	 		                      
+					    <a  href="{|purl("t1:{|$val['pt_id']|},t2:")|}"  {|if $srow['t1']==$val['pt_id']|} style='color: black;font-weight:bold;' {|/if|}   >{|$val['pt_name']|}</a>
+						
+						<div id="sub_drug_{|$val['pt_id']|}" class="sub_drug sub_drug_click" {|if $srow['t1']==$val['pt_id'] |} style='display:block;' {|/if|} >
+		                    <a href="{|purl("t2:")|}"  {|if $srow['t2']=="" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>全部</a>                   
+						   {|foreach $list_pdtype[$val['pt_id']] as $k2=>$v2 |}
+			    
+								<a href="{|purl("t1:{|$val['pt_id']|},t2:{|$v2['pt_id']|}")|}"   {|if $srow['t2']=={|$v2['pt_id']|} |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >{|$v2['pt_name']|}</a>	
+						
+						    {|/foreach|}
+						</div>
+				
+					   {|/foreach|} 
+						   
+					
+    
+			</div>
+			<div class="sub_line sub_style">
+				<span class="sub_name">招商区域：</span>
+				<div class="sub_area sub_drug_click">
+					<a href="{|purl("area:")|}" {|if $srow['area']=="" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|} >全部</a>
+					 {|foreach $area_list as $v|}
+					   <!--<a href="/product/index-type1_id-{|$srow['t1']|}-type2_id-{|$srow['t2']|}-area-{|$v['name']|}-medicament_type-{|$row['medicament_type']|}-f-{|$row['f']|}" {|if $srow['area']=="{|$v['name']|}" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v['name']|}</a>-->
+                       <a href="{|purl("area:{|$v['name']|}")|}" {|if $srow['area']=="{|$v['name']|}" |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v['name']|}</a>
+					 {|/foreach|}					
+				</div>
+				<!--<a href="javascript:void(0);" class="Pack">展开</a>-->
+			</div>
+			<div class="sub_line sub_style sub_drug_click">
+				<span class="sub_name">剂&nbsp;&nbsp;型：</span>
+					
+                     <a href="{|purl("mdt:")|}" {|if $srow['mdt']=='' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>全部</a>
+					{|foreach $md_type_list as $k=>$v|}
+                         
+                         <a href="{|purl("mdt:{|$v|}")|}" {|if $srow['mdt']=={|$v|}|} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>{|$v|}</a>
+                    {|/foreach|}				
+			</div>
+		 	<!--暂时屏蔽
+			<div class="sub_line sub_style">
+	
+				<span class="sub_name" style="margin-top:2px;">特&nbsp;&nbsp;点：</span>
+				 <a href="{|purl("f:")|}" {|if $srow['f']=='' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>全部</a>
+				 <a href="{|purl("f:1")|}" {|if $srow['f']=='1' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>医保药品</a>
+				 <a href="{|purl("f:2")|}" {|if $srow['f']=='2' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>中标药品</a>
+				 <a href="{|purl("f:3")|}" {|if $srow['f']=='3' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>基本药物</a>
+				 <a href="{|purl("f:4")|}" {|if $srow['f']=='4' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>中药保护</a>
+				 <a href="{|purl("f:5")|}" {|if $srow['f']=='5' |} style='background: none repeat scroll 0 0 #fb8200;color: #fff;' {|/if|}>专利产品</a>
+		
+				<label for="a"><input type="radio" id='a' name='f' onclick="window.location.href='{|purl("f:1")|}'" {|$f_checked[1]|} {|if $row['f']==1 |} checked='checked' {|/if|} /><a href="{|purl("f:1")|}" >医保药品</a></label>								
+				<label for="b"><input type="radio" id='b' name='f' onclick="window.location.href='{|purl("f:2")|}'" {|$f_checked[2]|} {|if $row['f']==2 |} checked='checked' {|/if|} /><a href="{|purl("f:2")|}">中标药品</a></label>
+				<label for="c"><input type="radio" id='c' name='f' onclick="window.location.href='{|purl("f:3")|}'" {|$f_checked[3]|} {|if $row['f']==3 |} checked='checked' {|/if|} /><a href="{|purl("f:3")|}">基本药物</a></label>
+				<label for="d"><input type="radio" id='d' name='f' onclick="window.location.href='{|purl("f:4")|}'" {|$f_checked[4]|} {|if $row['f']==4 |} checked='checked' {|/if|} /><a href="{|purl("f:4")|}">中药保护</a></label>
+				<label for="e"><input type="radio" id='e' name='f' onclick="window.location.href='{|purl("f:5")|}'" {|$f_checked[5]|} {|if $row['f']==5 |} checked='checked' {|/if|} /><a href="{|purl("f:5")|}">专利产品</a></label>
+			
+			</div>
+			-->	
+			<div class="sub_line" style="border-bottom:none;">
+				<span class="sub_name" style="margin-top:2px;">关 键 字：</span>   
+				  <form action=""  method='get'>                                 
+                    <input id="input_k" name="k" type="text" value="{|$srow['k']|}" class="txt txt_1"  placeholder='请输入关键字，如"口服液"' />
+                    <input id="btn_sub" onclick="return searchSub()" type="submit" class="sub" style="cursor: pointer;" value="搜一下"/>
+                  </form>
+				  <script type="text/javascript">
+					function searchSub(){
+					    window.location="{|purl("k:")|}"+"-k-"+encodeURIComponent($('#input_k').val());
+						return false;
+					}
+				  </script>
+			</div>
+		  
+		</div>
+        <form action="/products/compare" method="post">
+            <div class="agent_table M_C drug_list sub_drug_list">
+            <p class="Medicines_Co_list">
+   
+                <a href="{|$nextpg|}" class="cur">></a>
+
+     
+
+                <a href="{|$prepg|}" class="cur"><</a>
+
+                <span class="The_current The_sum"><b>{|$currpage|}</b>/<b>{|$pagenum|}</b>页</span>
+                <span class="The_sum">共<b>{|$totalSize|}</b>个</span>
+                药品列表
+               <!-- <label><input type="checkbox" name="checkbox" val=""/>对比选中产品</label>  --> 
+            </p>
+            <div class="M_C_con">
+              {|foreach $list as $v |}              
+                <div class="The_company">
+                    
+                    <a href="{|$WWW_URL|}/product/{|$v['id']|}.shtml" target='_blank' class="img"><img width="160" height="120" {|if $v['img_url']!='' |} src="{|$v['img_url']|}?w=160&h=120" {|else|} src="{|$STYLE_URL|}/img/3156a.jpg" {|/if|} alt="" /></a>
+                    <div class="basic_info">
+                    	<h1 class="company_name important"><a href="{|$WWW_URL|}/product/{|$v['id']|}.shtml" target='_blank' >{|$v['name_temp']|}</a></h1>
+                        <p class="com_name"><a href="/company/{|$v['cmp_id']|}/" target='_blank' >{|$v['cmp_name']|}</a></p>
+                        <ul class="drug_info">
+                            <li>{|$v['type_name1']|} {|$v['type_name2']|}</li>
+                            {|if $v['medicament_type']|}
+                                <li>|</li><li>{|$v['medicament_type']|}</li>
+                            {|/if|}
+                            {|if $v['spec']|}
+                                <li>|</li><li>{|$v['spec']|}</li>
+                            {|/if|}
+                            {|if $v['area']|}
+                                <li>|</li><li>{|$v['area']|}</li>
+                            {|/if|}
+                            {|if $v['zb_type_temp']|}
+                                <li>|</li><li>{|$v['zb_type_temp']|}</li>
+                            {|/if|}
+                            {|if $v['medicare_type']|}
+                                <li>|</li><li>{|$v['medicare_type']|}</li>
+                            {|/if|}
+                        </ul>
+                       <!--  <label><input type="checkbox" name="checkbox" class="ck" value=""/>加入对比</label>   -->
+                    </div>
+                    <div class="button">
+                       <!-- <a href="javascript:void(0)">免费通话</a>   --> 
+                        <a href="{|$WWW_URL|}/product/{|$v['id']|}.shtml#words" target='_blank' class="To_proxy">我要代理</a>
+                    </div>
+                </div>               
+             {|/foreach|}
+                <div class="agent_num">
+                  {|$pagehtml|}
+                </div>
+            </div>
+			
+        </div>
+        <div class="agent_right">
+            <div class="Recommend right_OTC" style="border:0;border-right:1px solid #e6e6e6;">
+                <p class="title">医药招商企业排行 </p>
+                <ul class="con con2">
+                {|block('id:33')|}
+                </ul>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1648')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">推荐医药招商</p>
+                <ul class="con con3">
+                {|gg('pid:171,gid:172')|}
+                </ul>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1649')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">医药新闻</p>
+                <ul class="con con3">
+                	{|block('id:26')|}
+                </ul>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1650')|}
+            </ul>
+            <div class="Recommend Rec_M">
+                <p class="title">企业新闻</p>
+                <ul class="con con3">
+                {|block('id:28')|}
+                </ul>
+            </div>
+            <ul class="pic_img">
+            {|gg('pid:179,gid:180,id:1651')|}
+            </ul>
+            {|block('id:118')|}
+        </div>
+    </div>
+
+{|assign var="FOOTER_BLOCK_CMD_1" value="id:104"|}       
+{|assign var="FOOTER_BLOCK_CMD_2" value="id:92"|}     
+
+{|include file="$FOOTER"|}

@@ -1,0 +1,379 @@
+{|include file="$HEADER"|}
+<script type="text/javascript" src="{|$STYLE_URL|}/js/uploadFile.js"></script>
+{|include file="$HEADER_END"|}   
+    <style type="text/css">
+		.self_help li .a_photo_flash{width:93px;height:27px;padding-top:7px;float:left;margin-top:140px;margin-bottom:20px;}
+		.cc img{float:left;}
+		.formtitle{ margin-top:24px;}
+		.itab li{ cursor:pointer;}
+		.forminfo li label{min-width:108px;text-align:right;}
+		.forminfo li a.btn{display: inline-block;line-height: 32px;text-align: center;}
+		.forminfo li a.btn:hover{color:#fff;}
+		.forminfo{padding-left:0;}
+	</style>
+    <div class="formbody">
+    <div class="place">
+    <span>当前位置：</span>
+    <ul class="placeul">
+       <li><a href="/main/center"  target="rightFrame">首页</a></li>
+       <li><a href="/cmpcompany/list"  target="rightFrame">厂商管理</a></li>
+       <li>厂商设置</li>
+    </ul>
+    </div>
+    <div class="itab" style="margin-top:40px;">
+    <ul style="margin:10px 0;">
+        <li id='layfolk' class="divButton"><a class="selected">普通</a></li>
+        <li id="advanced" class="divButton"><a>高级</a></li>
+        {|if $list['cmp_type'] == 6|}
+        <li id="self_help" class="divButton"><a>招商页</a></li>
+        {|/if|}
+     </ul>
+	 </div>
+     <div class='layfolk hide'>
+        <form action="doedit" method="POST" enctype="multipart/form-data">
+            <ul class="forminfo">
+            <input type="hidden" name='submitType' value='layfolk'>
+            <input type="hidden" name="cmp_id" value="{|$list['cmp_id']|}">
+            <li><label  >站内来电信息展示：</label><cite><input name="phone_flag" type="radio" {|if $list['phone_flag'] == 1 |} checked="checked" {|/if|} value="1" />显示&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="phone_flag" type="radio" value="2"  {|if $list['phone_flag'] != 1 |} checked="checked" {|/if|} />不显示</cite></li>
+            <li><label  >证　件　展　示：</label><cite><input name="show_credential" type="radio" {|if $list['show_credential'] == 1 |} checked="checked" {|/if|} value="1" />显示&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="show_credential" {|if $list['show_credential'] != 1 |} checked="checked" {|/if|} type="radio" value="2" />不显示</cite></li>
+            <!--<li><label  >Banner图片</label><cite><input name="show_banner" {|if $list['show_banner'] == 1 |} checked="checked" {|/if|} type="radio" checked="checked" value="1" />显示&nbsp;&nbsp;&nbsp;&nbsp;-->
+               <!-- <input name="show_banner" type="radio" {|if $list['show_banner'] != 1 |} checked="checked" {|/if|} value="2" />不显示</cite></li>-->
+            <li><label  >指派销售人员：</label>
+                <select name="seller_id" id="" style="width:220px;height:35px;border:1px solid #ccc">
+                	<option value="">--请选择销售人员--</option>
+                    {|if $sales['sa_id']!=NULL|} <option value="{|$v['sa_id']|}">{|$sales['real_name']|}</option> {|/if|}
+                    {|foreach $list_sales as $k=>$v|}
+                        <option value="{|$v['sa_id']|}">{|$v['real_name']|}</option>
+                    {|/foreach|}
+                </select>
+            </li>
+            <!--<li><label style="width:140px">修改消费金额</label><input name="money" type="text" class="scinput" value="{|$list['money']|}" style="width:220px;" /><i></i></li>-->
+            <li><label  >消费金额：</label><input name="money" type="text" class="scinput" value="{|$list['money']|}" style="width:220px;" /></li>            
+            <li><label  >默认广告语：</label><input name="slogan" type="text" class="scinput" value="{|$list['slogan']|}" style="width:220px;" /></li>
+            <li><label  >商　机　通：</label><cite><input name="phone_api_status" type="radio" {|if $list['phone_api_status'] == 1 |} checked="checked" {|/if|}  value="1" />开启&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="phone_api_status" {|if $list['phone_api_status'] != 1 |} checked="checked" {|/if|} type="radio" value="2" />关闭</cite></li>
+            <li id='api_id'><label  >商机通 ID：</label><input name="phone_api_id" type="text" class="scinput" value="{|$list['phone_api_id']|}" style="width:220px;" /></li>
+            <li><label>&nbsp;</label><input type="submit" id='btn' class="btn submit" value="确认保存"/></li>
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            <input type="hidden" name="ac" value="{|$ac|}">
+            </ul>
+        </form>
+    </div>
+
+    <div class='advanced hide' style="display:none">
+        <form action="doedit" method="POST" enctype="multipart/form-data" >
+            <ul class="forminfo">
+             <input type="hidden" name='submitType' value='forminfo'>
+             <input type="hidden" name="cmp_id" value="{|$list['cmp_id']|}">
+            <li><label  >会员类型：</label><cite><input name="cmp_type" type="radio" {|if $list['cmp_type'] == 6 |} checked="checked" {|/if|} value="6" id="J_type1" />收费&nbsp;&nbsp;&nbsp;&nbsp;
+                <input name="cmp_type" type="radio" {|if $list['cmp_type'] != 6 |} checked="checked" {|/if|} value="2" id="J_type2"/>免费</cite></li>
+            <li id="J_time_html" {|if $list['cmp_type'] != 6 |}style="display:none"{|/if|}><label  >会员到期时间：</label><input name="end_time" class="laydate-icon scinput" id="tTime" type="text" value="{|$list['end_time']|}" style="width:200px;height:27px" /></li>
+            
+            <li><label  >二级密码：</label>{|if $list['userdata']['user_pwd2']|}<a href="javascript:;" class="J_user_pwd2 btn submit" data-type="edit">重置二级密码</a>{|else|}<input name="user_pwd2" type="password" class="scinput J_user_pwd2" value="" style="width:220px;" /><a href="javascript:;" class="J_user_pwd2 btn submit" data-type="save">添加二级密码</a>{|/if|}<span class="J_pwd2_tip" style="display:none;"></span></li>
+            <li><label  >重置登录密码：</label><input type="button" id='rePass' class="btn" value="重置"/></li>
+            <li><label>&nbsp;</label><input type="submit" id='btn' class="btn submit" value="确认保存"/></li>
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            <input type="hidden" name="ac" value="{|$ac|}">
+            </ul>
+        </form>
+    </div>
+
+    <div class='self_help hide' style="display:none">
+        <form action="doedit" method="POST" enctype="multipart/form-data">
+            <ul class="forminfo">
+            <input type="hidden" name='submitType' value='self_help'>
+            <input type="hidden" name="cmp_id" class="J_cmp_id" value="{|$list['cmp_id']|}">
+            <li><label  >公司主页的URL：</label>
+                http://www.3156.cn/zhaoshang/<input style=" width:60px;" class="scinput J_customUrl" id="customUrl" value="{|$list['page_url']|}" name="page_url" type="text">/ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em class="J_tip_customurl"></em >
+                <input name="static_url" value="{|$list['static_url']|}" type="hidden">
+            
+            </li>
+            <li><label  >T　I　T　L　E：</label>
+                <input class="scinput J_title" value="{|$list['title']|}" name="title" type="text" style="width:500px;">
+            </li>
+            <li><label  >KEYWORDS：</label>
+                <input class="scinput J_keywords" value="{|$list['keywords']|}" name="keywords" type="text" style="width:500px;">
+            </li>
+            <li><label  >DESCRIPTION：</label>
+            	<textarea name="description" class="textinput J_description" style=" height:60px;width:500px;">{|$list['description']|}</textarea>
+            </li>
+			<li><label  >FTP地址：</label>
+                /ftptpl/{|$list['cmp_id']|}/
+                <a href="javascript:;" class="J_checkftp btn"/>检测</a> <em class="J_tip_ftp"></em >
+                <input name="is_check" value="{|$list['is_check']|}" class="J_ischeck" type="hidden"/>
+            </li>
+            <li><label  >联系方式：</label>
+                <a href="javascript:;" class="J_checkcontact btn"/>检测</a> <em  class="J_tip_contact"></em >
+            </li>
+           <!--<li>   
+				<label  >上传banner</label>
+                <div id="J_fresh_upload_queue" class="fresh_upload_pictures" style="display:none;">
+                <ul class="cc" style="float:left;">
+                <li class="goon" id="J_fresh_upload_info">你还可以上传<span class="J_count">4</span>张</li>
+                <a href="" class="pop_close" id="J_fresh_upload_close">删除</a>
+                </ul>
+                </div>
+                <span class="a_photo_flash"><span id="J_fresh_swfupload"></span></span>
+				{|foreach $list['page_banner'] as $v|}
+                    <img src="{|$v|}" width="150px" height="120px" alt="" style="margin-left:-110px;float:left;">
+                {|/foreach|}
+           </li>-->
+                
+            <li style="margin-top:25px;"><label>&nbsp;</label><input onclick="mySubmit();" type="submit" id='btn' class="btn submit J_submit" value="确认保存"/></li>
+            {|foreach $TOKEN as $k=>$v|}
+                <input type="hidden" name="{|$k|}" value="{|$v|}">
+            {|/foreach|}
+            <input type="hidden" name="ac" value="{|$ac|}">
+            </ul>
+        </form>
+    </div>
+
+    </div>
+
+<script>
+function mySubmit()
+{       
+    //公司主页
+    
+        var url = $('#customUrl').val();
+        $("[name='static_url']").val('zhaoshang/'+url+"/");
+
+    
+    
+}
+
+        KK.ready(document, function(){
+            KK.use('jquery', 'global', 'swfupload', function(){
+				$('.J_ftptpl').bind('input propertychange', function() {
+					$('.J_ischeck').val(0);
+					$('.J_tip_ftp').text('记得点击检测，否则无法生成新页面');
+				});
+				$('.J_checkftp').on('click', function(){
+					$('.J_tip_ftp').text('检测中，请稍等...');
+					$('.J_checkftp').hide();
+					var $this = $(this),
+						cmpid = $('.J_cmp_id').val(),
+						title = $('.J_title').val(),
+						keywords = $('.J_keywords').val(),
+						description = $('.J_description').val(),
+						customUrl = $('.J_customUrl').val();
+					if(!title){
+						$('.J_ischeck').val(0);
+						layer.alert('TITLE不能为空');
+					}else if(!keywords){
+						$('.J_ischeck').val(0);
+						layer.alert('KEYWORDS不能为空');
+					}else if(!description){
+						$('.J_ischeck').val(0);
+						layer.alert('DESCRIPTION不能为空');
+					}else{
+						$.post('/zhaoshang/index', {'cmpid':cmpid, 'title':title, 'keywords':keywords, 'description':description, 'customurl':customUrl}, function(data){
+							if(data.status == false){
+								$('.J_ischeck').val(0);
+								$('.J_checkftp').show();
+								$('.J_tip_ftp').text(data.msg);
+								return false;
+							}else{
+								$('.J_customUrl').attr('disabled', true);
+								$('.J_checkftp').hide();
+								$('.J_tip_ftp').html(data.msg + '<a href="{|$WWW_URL|}/zhaoshang/'+customUrl+'/" target="_blank">点击浏览</a>');
+								$('.J_ischeck').val(1);
+							}
+						}, "json");
+					}			
+				});
+				$('.J_checkcontact').on('click', function(){
+					$('.J_tip_contact').text('检测中，请稍等...');
+					$('.J_checkcontact').hide();
+					var $this = $(this),
+						cmpid = $('.J_cmp_id').val(),
+						customUrl = $('.J_customUrl').val();
+					$.post('/zhaoshang/contact', {'cmpid':cmpid, 'customurl':customUrl}, function(data){
+						if(data.status == false){
+							$('.J_tip_contact').text(data.msg);
+							$('.J_checkcontact').show();
+							return false;
+						}else{
+							$('.J_checkcontact').hide();
+							$('.J_tip_contact').text(data.msg);
+						}
+					}, "json");
+				});
+				$("input[name='cmp_type']").change(function(){
+					var _this = $(this),
+						val = _this.val();
+					if(val == 6){
+						$("#J_time_html").show();
+					}else{
+						$("#J_time_html").hide();
+					}
+				})
+
+		
+				//重置密码
+			$('#rePass').click(function(){
+		
+					$.post('AjaxRePass',{POST_T:$("[name=POST_T]").val(),POST_T2:$("[name=POST_T2]").val(),POST_K:$("[name=POST_K]").val(),cmp_id:$("[name=cmp_id]").val()},function(data){
+		
+						layer.alert(data.info,1);
+		
+					},'json');
+		
+				})
+
+				
+				
+				//重置二级密码
+				$('.J_user_pwd2').on('click', function(){
+					var _this = $(this),
+						type = _this.data('type'),
+						value = $(".J_user_pwd2").val();
+					if(type == 'edit'){
+						if(confirm('重置后二级密码将为八位随机密码\n谨慎使用，确定要充值二级密码？')){
+							$.post('AjaxRePass2',{POST_T:$("[name=POST_T]").val(),POST_T2:$("[name=POST_T2]").val(),POST_K:$("[name=POST_K]").val(),cmp_id:$("[name=cmp_id]").val(), type:type},function(data){
+								if(data.status ==='success'){
+									_this.hide();
+									$(".J_pwd2_tip").html(data.message).show();
+									return false;
+								}else{
+									layer.alert(data.message,1);
+								}
+				
+							},'json');
+						}
+					}else if(type == 'save'){
+						$.post('AjaxRePass2',{cmp_id:$("[name=cmp_id]").val(), pwd:value, type:type, POST_T:$("[name=POST_T]").val(),POST_T2:$("[name=POST_T2]").val(),POST_K:$("[name=POST_K]").val()},function(data){
+							if(data.status ==='success'){
+								_this.hide();
+								$(".J_pwd2_tip").html(data.message).show();
+							}else{
+								layer.alert(data.message,1);
+							}
+			
+						},'json');
+					}
+				})
+		
+				//修改消费金额
+				$("[name='money']").blur(function(){
+		
+						//费用等级
+					if ( $(this).val() == 0 ){
+						
+						$(this).next('i').text('免费');
+						
+					}else if ( $(this).val() >= 1 && $(this).val() <= 4999 ){
+		
+						 $(this).next('i').text('铜牌');
+						
+					}else if ( $(this).val() > 4999 && $(this).val() <= 9999 ){
+						
+						$(this).next('i').text('银牌');
+						
+					}else if ( $(this).val() > 9999 && $(this).val() <= 19999 ){
+						
+						$(this).next('i').text('金牌');
+						
+					}else if ( $(this).val() >= 20000 ){
+						
+						$(this).next('i').text('砖石');
+						
+					}else{
+						
+					   $(this).next('i').text('暂无');
+						
+					}
+		
+				})
+		
+				//视图切换
+				$('.divButton').click(function(){
+		
+					var _id = $(this).attr('id');
+					$('.hide').hide();
+					$("."+_id).show();
+					/*$('.divButton').css('color','#333');*/
+					$('.divButton').children('a').removeClass('selected');;
+					$(this).css("color","#00A4AC");
+					$(this).children('a').addClass('selected')
+				});
+		
+		
+				//商机通id显示/隐藏
+				if ( $("[name='phone_api_status']:checked").val() == 1 ){
+		
+					$("#api_id").show();
+		
+				}else{
+		
+					$("#api_id").hide();
+		
+				}
+		
+				$("[name='phone_api_status']").click(function(){
+		
+					if ( $(this).val() == 1 ){
+		
+						$("#api_id").show();
+		
+					}else{
+		
+						$("#api_id").hide();
+		
+					}
+		
+				})
+		
+			 //提交
+				$('.J_submit').click(function(){
+				  //  alert('ok');
+					var _form = $(this).parent().parent().parent('form');
+		
+					$.post('doedit',_form.serialize(),function(data){
+		
+						if ( data.status ){
+		
+							layer.alert(data.info,1);
+							setTimeout(function () { 
+								location.reload();
+							}, 200);
+		
+						}else{
+		
+							layer.alert(data.info);
+						}
+		
+					},'json');
+		
+					 return false;
+				})
+            });
+        });
+
+
+       //日期控件
+       var time = {
+            elem: '#tTime',
+            format: 'YYYY-MM-DD',
+            min: '1970-01-01', //设定最小日期为当前日期
+            max: '2099-06-16', //最大日期
+          //  height:40,
+            istime: false,
+            istoday: false,
+            choose: function(datas){
+                 end.min = datas; //开始日选好后，重置结束日的最小日期
+                 end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        laydate.skin('molv');
+        laydate(time);        
+</script>
+</body>
+
+</html>

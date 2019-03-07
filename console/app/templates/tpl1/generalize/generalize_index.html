@@ -1,0 +1,279 @@
+{|include file="$HEADER"|}
+
+  <script>
+function a()
+{
+ layer.alert('请求已发送，由于数据量较大,请稍等片刻后到前台相关搜索页查看效果！',1);
+}
+  $(document).ready(function () {
+      //异步开关推广
+    $('body').on("click","#start",function(){
+      $.post('/generalize/On_off',{status:$(this).attr("index"),id:$(this).attr('ss_id')},function(data){
+        if ( data.status ){
+          location.reload();
+        }else{
+          layer.alert(data.info);
+        }
+      },'json');
+      return false;
+    });
+
+   
+  });
+  
+  
+  
+      //多选异步删除
+   function autoStopOver (){
+    $.post('/generalize/stopover',{ajax:1},function(data){
+        var temp=layer.alert(data.info, data.status, !1);
+                var tostr='';   
+                if(data.tourl=='_reload')
+                    {tostr="window.location.reload();";}
+                else
+                    {tostr="window.location='"+tourl+"'";}
+                
+                setTimeout("layer.close("+temp+");"+tostr, data.timeout);
+        },'json');
+        return false;
+      }
+  
+  </script>
+  <style type="text/css">
+	label{
+		width:242px;
+		height:30px;
+		display:inline-block;
+		float:left;
+		margin-bottom:5px;
+	
+	}
+	.place{
+	position:fixed;
+	top:0;
+	left:0;
+	right:0;
+}
+	.formbody form{
+	background:#F5F9FB;
+	overflow:hidden;
+	padding:8px 0 10px 10px;
+	}
+	a{display:block;}
+	#astopover{width:120px;height:35px;display:block;}
+  </style>
+
+ {|include file="$HEADER_END"|}
+	<div class="place">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li>推广管理</li>
+		</ul>
+	</div>
+    <div class="formbody" style="margin-top:30px;">
+        <form action="index" method="get">
+               <label for="">公司编号：<input type="text" class="scinput"  name="cmp_id" value={|$srow['cmp_id']|}></label>
+               <label for="">产品编号：<input type="text" class="scinput"  name="pdt_id" value={|$srow['pdt_id']|}></label>
+               <label for="">推广类型：<select name="ss_type" class="scinput" value={|$srow['ss_type']|}>
+                    <option value="" selected="selected">全部</option>
+                    <option value="1" {|if $srow['ss_type']==1|}selected="selected"{|/if|}>产品</option>
+                    <option value="2" {|if $srow['ss_type']==2|}selected="selected"{|/if|}>企业</option>                    
+             </select>
+			 </label>
+               <label for="">推广关键词：<input type="text" class="scinput"  name="keywords" value={|$srow['keywords']|}></label>
+       <!--         
+				<label for="">添加时间：<input type="text" class="scinput"  name="dateline"  value={|$srow['dateline']|}></label>
+		--> 
+				<label for="">结束时间：<input type="text" id="startTime" class="laydate-icon scinput"  name="start_time"  value={|$srow['start_time']|}></label>
+				<label for="">到<input type="text" id="endTime" class="laydate-icon scinput"  name="end_time" value={|$srow['end_time']|}></label>
+	   <!--  是否推荐：<select name="recommend" class="scinput"  value={|$srow['recommend']|} >
+	                <option   value="" selected="selected">==请选择==</option>                   
+                    <option value="0" {|if $srow['recommend']==1|}selected="selected"{|/if|}>不推荐</option>
+                    <option value="1" {|if $srow['recommend']==2|}selected="selected"{|/if|}>推荐</option>                    
+             </select>&nbsp;&nbsp;
+       -->
+	     <label for="">开启/停用：<select name="ss_state"  class="scinput"  value={|$srow['ss_state']|} >
+	                <option  value="" selected="selected">全部</option>
+                    <option value="1" {|if $srow['ss_state']==1|}selected="selected"{|/if|}>已开启</option>
+                    <option value="2" {|if $srow['ss_state']==2|}selected="selected"{|/if|}>已停用</option>                    
+               </select>
+		</label>
+		<label for="">过期状态 ：
+            <select  name="overdue" class="scinput"  value={|$srow['overdue']|}> 
+                <option>全部</option>
+                <option value="1" {|$overdue_selected[1]|}>正常</option>
+                <option value="2" {|$overdue_selected[2]|} >过期</option>
+            </select>
+			</label>
+            
+        <label for="">产品状态 ：
+            <select  name="ps" class="scinput"  value={|$srow['ps']|}> 
+                <option value="0">全部</option>
+                <option value="1" {|$pdt_state_selected[1]|}>正常</option>
+                <option value="2" {|$pdt_state_selected[2]|} >404</option>
+            </select>
+            </label>
+            <input type="submit" class="scbtn" value="查询"> 
+        </form>
+        <ul class="toolbar">
+        <li class="click"><a href="/generalize/editge?add=1"><span><img src="{|$STYLE_URL|}/images/t01.png" /></span>添加</a></li>
+<!--         <li class="click"><span><img src="/assets/console/images/t02.png" /></span>修改</li> -->
+       <li id="dels"><span><img src="{|$STYLE_URL|}/images/t03.png" /></span>删除</li>
+     <!--    <li><span><img src="/assets/console/images/t04.png" /></span>统计</li> -->
+        <li><a id="astopover" onclick="return autoStopOver();" href="stopover"><span><img src="/assets/style1/images/time-icon.png" /></span>过期自动停用</a></li>
+        <li><a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-spreadp-t-delta"><span><img src="/assets/style1/images/f5-icon.png" /></span>更新产品推广索引</a></li>
+        <li><a class="f5" target="syn" onclick="a();" href="/remote/datasyn-n-spreadc-t-delta"><span><img src="/assets/style1/images/f5-icon.png" /></span>更新企业推广索引</a></li>
+        
+        
+        </ul>
+ <iframe name="syn" id="syn" src="" width="0" height="0"></iframe>             
+        
+      <!--   <ul class="toolbar1">
+      <li><span><img src="/assets/console/images/t05.png" /></span>设置</li>
+      </ul> -->
+    
+    </div>
+    
+    
+    <form>
+
+    <table class="tablelist">
+      <thead>
+      <tr>
+        <th><input type="checkbox" id="checkAll" value=""/></th>
+        <th>推广编号<i class="sort"><img src="{|$STYLE_URL|}/images/px.gif" /></i></th>
+       <!--  <th>推广标题</th> -->
+        <th>企业编号</th>
+        <th>企业名称</th>
+        <th>产品编号</th>
+        <th>推广类型</th>
+        <th>推广关键词</th>
+        <th>添加时间</th>
+        <th>起始时间</th>
+        <th>到期时间</th>
+        <th>推广排序</th>
+       <!-- <th>是否推荐</th>-->
+        <th>过期状态</th>
+        <th>开启/停用</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+      
+        <tbody>
+        {|foreach $list as $k=>$v|}
+            <tr>
+            <td><input name="check[]" type="checkbox" value="{|$v['ss_id']|}" /></td>            
+            <td>{|$v['ss_id']|}</td>
+            <td>{|$v['cmp_id']|}</td>
+             <td>{|$v['cmp_name']|}</td>
+            <td><a target="_blank" style="color: {|$v['pdt_state_color']|};" href="{|$v['pdt_url']|}">{|$v['pdt_id']|}</a></td>
+           <!--  <td>{|$v['title']|}</td> -->
+            <td>{|if $v['ss_type']==1|}产品{|else|}企业{|/if|}</td>
+            <td>{|$v['keywords']|}</td>
+            <td>{|$v['dateline']|}</td>
+            <td>{|$v['start_time']|}</td>
+            <td>{|$v['end_time']|}</td>
+            <td>{|$v['order']|}</td>
+           <!-- <td>{|if $v['recommend']==0|}不推荐{|else|}推荐{|/if|}</td>-->
+            <td>{|$v['overdue']|}</td> 
+            <td>
+              {|if $v['ss_state']==1|}<a href="#" id="start" class="tablelink" index="{|$v['ss_state']|}" ss_id="{|$v['ss_id']|}" >已开启</a>{|else|}<a href="#" id="start" class="tablelink" index="{|$v['ss_state']|}" style="color:red" ss_id="{|$v['ss_id']|}" >已停用</a>{|/if|}&nbsp;&nbsp;
+             </td> 
+             <td><a href="/generalize/editge?id={|$v['ss_id']|}" class="tablelink">编辑</a>&nbsp;&nbsp;
+              
+              <a onclick="return delConfirm('{|$v['ss_id']|}','/generalize/del');" href="{|$v['del_url']|}" class="tablelink"> 删除</a>
+            </td>
+            </tr> 
+        {|/foreach|}      
+        </tbody>
+      </form>
+    </table>
+{|$pagehtml|}
+
+{|include file="$FOOTER"|}  
+<script type="text/javascript">
+       var start = {
+        elem: '#startTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: '1970-01-01 00:00:00', //设定最小日期为当前日期
+        max: '2099-06-16 23:59:59', //最大日期
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+             end.min = datas; //开始日选好后，重置结束日的最小日期
+             end.start = datas //将结束日的初始值设定为开始日
+        }
+    };
+    var end = {
+        elem: '#endTime',
+        format: 'YYYY-MM-DD hh:mm:ss',
+        min: laydate.now(),
+        max: '2099-06-16 23:59:59',
+        istime: true,
+        istoday: false,
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    };
+    laydate(start);
+    laydate(end);
+    laydate.skin('molv');
+
+$(".input").blur(function(){
+    var name = $(this).attr("name");
+    if ( name == "dateline" || name == "start_time" || name =="end_time" ){
+        return ;
+    }
+    $.post("/Console/CheckGeInput",{name:name+"|"+$(this).val()},function(data){
+        if ( data.status == 0 ){
+            $("[name="+name+"]").parent().children("i").css("color","red");
+        }else{
+            $("[name="+name+"]").parent().children("i").css("color","green"); 
+        }
+        $("[name="+name+"]").parent().children("i").text(data.info);
+    },'json')
+})
+
+</script>   
+<script type="text/javascript">
+  $(document).ready(function(){
+      $('#dels').click(function(){
+            if ( $("[name='check[]']:checked").length <= 0 ){
+              layer.alert('未选择删除数据');
+              return false;
+            }
+            $.layer({
+                shade: [0],
+                area: ['auto','auto'],
+                dialog: {
+                    msg: '您确定删除所选项？',
+                    btns: 2,                    
+                    type: 5,
+                    btn: ['确定','取消'],
+                    yes: function(){
+                        
+                     $.post('/generalize/Delall',$('form').serialize()+"&ajax=1",function(data){
+
+                        if ( data.status==1){
+                            layer.alert(data.info,1);                          
+                                location.reload();
+                          
+                         // window.history.go(0);
+                           
+                        }else{
+                            layer.alert(data.info);
+                        }
+
+                     },'json');
+                    },
+                    
+                }
+              });
+            return false;
+            
+        })
+        
+    
+  })
+</script>

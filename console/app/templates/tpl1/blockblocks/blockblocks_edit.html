@@ -1,0 +1,396 @@
+{|include file="$HEADER"|}
+<style type="text/css">
+	.placeul li{line-height:23px;margin:0;}
+	.placeul li a{color:#333;}
+    .hide{display:none;}
+    .show{display:block;}
+	.forminfo li{min-height:34px;line-height:34px;}
+	.forminfo li label{min-width:84px;text-align:right;}
+</style>
+<script type="text/javascript">
+
+
+
+
+
+$(document).ready(  
+function(){
+$("input[name='row[ds_way]']").click(function(){
+$("li[group='li_ds_way']").attr('class','hide');   
+$("#li_ds_way_"+$(this).val()).attr('class','show');
+});
+    
+$("input[name='row[ds_rule]']").click(function(){
+    var sel_a=$('#sel_ds_mod_tid1');
+    var sel_b=$('#sel_ds_mod_tid2');
+    var sel_c=$('#sel_ds_mod_tid3'); 
+    if($(this).val()=='1')
+    {
+        sel_a.hide(); 
+        sel_b.hide();
+        sel_c.hide();
+        $("#div_ds_mod_ids").show();
+        $("#li_ds_count").hide();
+    }
+    else
+    {
+        if(sel_a.get(0).childElementCount > 1)
+        {
+           sel_a.show(); 
+        }
+        if(sel_b.get(0).childElementCount > 1)
+        {
+           sel_b.show(); 
+        }
+        if(sel_c.get(0).childElementCount > 1)
+        {
+           sel_c.show(); 
+        }
+        $("#div_ds_mod_ids").hide();
+        $("#li_ds_count").show();
+    }
+});
+
+$("input[name='row[bb_type]']").click(function(){
+    var url="/blockblocks/templates"
+    var type=$(this).val();
+    
+    //文字
+    if(type==1)
+    {
+       $("#li_bb_title_length").show();
+       $("#li_bb_abs_length").show();
+       $("#li_bb_standard").hide(); 
+    }
+    else
+    {
+       $("#li_bb_title_length").show();
+       $("#li_bb_abs_length").show();   
+       $("#li_bb_standard").show(); 
+    }
+    
+    $.post(url,{ajax:1,t:type},function(data){
+        var sel_tpl=$("#sel_bt_id");
+        var len=data.length;
+        var opt_str="<option value=''>---请选择---</option>"; 
+        for(var i=0; i<len; i++)
+        {
+            opt_str+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+        }
+        sel_tpl.empty();
+        sel_tpl.append(opt_str);
+     
+    },'json'); 
+}); 
+
+}
+);
+
+//var mtData=new Array();
+function getSubType1(o)  //abc
+{
+    var mt=parseInt(o.value);
+    
+    if(mt==2 || mt==3)  //企业和产品 有收费
+    {
+        $("#div_ds_rule_4").show();
+    }
+    else
+    {
+        $("#div_ds_rule_4").hide();
+    }
+    
+    var url="/blockblocks/modsubtypes";
+    $.post(url,{ajax:1,mt:mt},function(data){
+        var sel_a=$('#sel_ds_mod_tid1');
+        var sel_b=$('#sel_ds_mod_tid2');
+        var sel_c=$('#sel_ds_mod_tid3');
+        if(data==null)
+        {
+            sel_a.empty();  
+            sel_a.hide();      
+            sel_b.empty();  
+            sel_b.hide();
+            sel_c.empty();  
+            sel_c.hide();
+        }
+        else
+        {
+            sel_b.empty();  
+            sel_b.hide();
+            sel_c.empty();  
+            sel_c.hide();
+            
+            var len=data.length;
+            var opt_str="<option value=''>---请选择---</option>";
+
+            sel_a.css({"display":""});
+            
+            for(var i=0; i<len; i++)
+            {
+                opt_str+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+            }
+            
+            sel_a.empty();
+            sel_a.append(opt_str);
+        }
+    },'json'); 
+}
+
+function getSubType2(o) //bc
+{
+    var mt=$("#sel_ds_mod_type").val();
+    var pid=parseInt(o.value);
+    if(pid<0){return;}
+    
+    url="/blockblocks/modsubtypes";
+    $.post(url,{ajax:1,mt:mt,pid:pid},function(data){
+       // var sel_a=$('#sel_ds_mod_tid1');
+        var sel_b=$('#sel_ds_mod_tid2');
+        var sel_c=$('#sel_ds_mod_tid3');
+        if(data==null)
+        {
+            sel_b.empty();
+            sel_b.hide();
+            sel_c.empty(); 
+            sel_c.hide();
+        }
+        else
+        {
+            var len=data.length;
+            var opt_str="<option value=''>---请选择---</option>";
+
+            sel_b.css({"display":""});
+
+            for(var i=0; i<len; i++)
+            {
+                opt_str+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+            }
+            sel_b.empty();
+            sel_b.append(opt_str);
+        }
+    },'json'); 
+}
+
+function getSubType3(o) //c
+{
+    var mt=$("#sel_ds_mod_type").val();
+    var pid=parseInt(o.value);
+    if(pid<0){return;}
+    
+    url="/blockblocks/modsubtypes";
+    $.post(url,{ajax:1,mt:mt,pid:pid},function(data){
+       // var sel_a=$('#sel_ds_mod_tid1');
+        var sel_c=$('#sel_ds_mod_tid3');
+        if(data==null)
+        {
+            sel_c.empty();  
+            sel_c.hide();
+        }
+        else
+        {
+            var len=data.length;
+            var opt_str="<option value=''>---请选择---</option>";
+
+            sel_c.css({"display":""});
+
+            for(var i=0; i<len; i++)
+            {
+                opt_str+="<option value='"+data[i].id+"'>"+data[i].name+"</option>";
+            }
+            sel_c.empty();
+            sel_c.append(opt_str);
+        }
+    },'json'); 
+}
+
+
+function checkModIds()
+{
+    var mt=$("#sel_ds_mod_type").val(); 
+    var ids=$("#ds_mod_ids").val();
+    ids=ids.trim();
+    
+    if(ids=="")
+    {
+        $("#i_ds_mod_ids").html('请输入id').css("color","red"); 
+        return;
+    }
+    
+    url="/blockblocks/checkmodids";
+    $.post(url,{ajax:1,mt:mt,ids:ids},function(data){
+        if(data.status==1)
+        {
+            $("#i_ds_mod_ids").html('所有id全部可用').css("color","green"); 
+        }
+        else
+        {                            
+            info=eval("("+data.info+")");//
+            $("#i_ds_mod_ids").html(info.vc+'/'+info.ac+'可用').css("color","red"); 
+            layer.alert(info.info,data.status);
+        }
+        
+    },'json');  
+}
+
+</script>
+{|include file="$HEADER_END"|}
+	<div class="place" style="position:fixed;top:0;left:0;right:0;">
+		<span>位置：</span>
+		<ul class="placeul">
+			<li><a href="###">首页</a></li>
+			<li><a href="###">区块管理</a></li>
+			<li>{|$TIP_NAME|}</li>
+		</ul>
+	</div> 
+    <div class="formbody" style="margin-top:35px;">
+    
+    <div class="formtitle"><span>区块{|$TIP_NAME|}</span></div>
+
+    <form action="/blockblocks/edit" method="post" onsubmit="return mysubmit();">
+        <input name="ac" type="hidden" type="text" class="dfinput" value="{|$AC_NAME|}" />   
+        <input name="_ac" type="hidden" type="text" class="dfinput" value="save" />
+        <input name="id" type="hidden" type="text" class="dfinput" value="{|$id|}" />
+        <ul class="forminfo"> 
+        {|if $id|}
+        <li><label>区块ID：</label>{|$id|}</li>
+        {|/if|}
+        
+        <li>
+            <label>所在分组：</label>
+            <select name="row[bg_id]" class="scinput">
+               <option value="">---请选择---</option>
+               {|foreach $group_list as $v|}
+               <option value="{|$v['bg_id']|}" {|$group_selected[$v['bg_id']]|}>{|$v['bg_name']|}</option>
+               {|/foreach|}
+            </select>
+        </li>
+        
+        <li><label>区块名称：</label><input name="row[bb_name]" type="text" class="dfinput" value="{|$row['bb_name']|}" id="bb_name"/><i id="i_bb_name">必填</i></li>
+        
+        <li>
+            <label>区块类型：</label>
+            {|foreach $type_list as $k=>$v|}
+            <label for="bb_type_{|$k|}" style="text-align:left;"><input type="radio" name="row[bb_type]" id="bb_type_{|$k|}" value="{|$k|}" {|$type_checked[$k]|} >{|$v|}</label>
+            {|/foreach|}  
+        </li>
+        <li>
+            <label>选择模版：</label>
+            <select id="sel_bt_id" name="row[bt_id]" class="scinput" >
+               <option value="">---请选择---</option>
+               {|foreach $tpl_list as $v|}
+               <option value="{|$v['id']|}" {|$tpl_selected[$v['id']]|}>{|$v['name']|}</option>
+               {|/foreach|}
+            </select>
+        </li>
+        
+        <li id="li_bb_title_length" {|$type_list_show[1]|}>
+            <label>标题长度：</label>
+            <input name="row[bb_title_length]" type="text" class="dfinput" value="{|$row['bb_title_length']|}" id="bb_title_length"/>
+            <i id="i_bb_title_length">数字,0到255之间</i>
+        </li>
+        
+        <li id="li_bb_abs_length" {|$type_list_show[6]|}>
+            <label>摘要长度：</label>
+            <input name="row[bb_abs_length]" type="text" class="dfinput" value="{|$row['bb_abs_length']|}" id="bb_abs_length"/>
+            <i id="i_bb_abs_length">数字,0到255之间</i>
+        </li>
+        
+        <li id="li_bb_standard" {|$type_list_show[2]|}>
+            <label>图片宽高：</label>
+            <input name="row[bb_standard]" type="text" class="dfinput" value="{|$row['bb_standard']|}" id="bb_standard"/>
+            <i id="i_bb_standard">格式为宽度*高度</i>
+        </li>
+        
+        <li><label>数据缓存时间：</label><input name="row[cache_time]" type="text" class="dfinput" value="{|$row['cache_time']|}" id="cache_time"/><i id="i_cache_time">以秒为单位,如：300</i></li>
+        
+        <li>
+            <label>数据来源方式：</label>
+            {|foreach $ds_way_list as $k=>$v|}
+            <label for="ds_way_{|$k|}" style="text-align:left;"><input type="radio" name="row[ds_way]" id="ds_way_{|$k|}" value="{|$k|}" {|$ds_way_checked[$k]|}>{|$v|}</label>
+            {|/foreach|}  
+        </li>
+        
+        <!--手动-->
+        <li group="li_ds_way" id="li_ds_way_1" {|$ds_way_show[1]|}>
+            请在区块数据中添加数据。
+        </li>
+        
+        
+        <!--自动-->
+        <li group="li_ds_way" id="li_ds_way_2" {|$ds_way_show[2]|}>
+            <div>     
+               <ul class="forminfo" style="padding-left: 0px;">
+                  <li>
+                     <label>数据来源：</label>
+                     <select onchange="getSubType1(this);" id="sel_ds_mod_type" name="row[ds_mod_type]" class="scinput" >
+                        <option value="">---请选择---</option>
+                        {|foreach $mt_list as $k=>$v|}
+                        <option value="{|$k|}" {|$mt_selected[$k]|}>{|$v|}</option>
+                        {|/foreach|}
+                    </select>
+                     <select onchange="getSubType2(this);" id="sel_ds_mod_tid1" name="row[ds_mod_tid1]" class="scinput" {|if !$mt_sub_1_show|} style="display: none;"{|/if|} >
+                        <option value="">---请选择---</option>
+                        {|foreach $mt_sub_1_list as $v|}
+                        <option value="{|$v['id']|}" {|$mt_sub_1_selected[$v['id']]|}>{|$v['name']|}</option>
+                        {|/foreach|}
+                    </select>
+                    <select onchange="getSubType3(this);" id="sel_ds_mod_tid2" name="row[ds_mod_tid2]" class="scinput" {|if !$mt_sub_2_show|} style="display: none;"{|/if|} >
+                        <option value="">---请选择---</option>
+                        {|foreach $mt_sub_2_list as $v|}
+                        <option value="{|$v['id']|}" {|$mt_sub_2_selected[$v['id']]|}>{|$v['name']|}</option>
+                        {|/foreach|}
+                    </select>                 
+                    <select id="sel_ds_mod_tid3" name="row[ds_mod_tid3]" class="scinput" {|if !$mt_sub_3_show|} style="display: none;"{|/if|} >
+                        <option value="">---请选择---</option>
+                        {|foreach $mt_sub_3_list as $v|}
+                        <option value="{|$v['id']|}" {|$mt_sub_3_selected[$v['id']]|}>{|$v['name']|}</option>
+                        {|/foreach|}
+                    </select>
+                    
+                    
+                    
+                    
+                  </li>
+                  
+                  <li>
+                      <label>提取规则：</label>
+                      {|foreach $rule_list as $k=>$v|}
+                      <div id="div_ds_rule_{|$k|}"  {|$ds_rule_show[$k]|}><label for="rad_ds_rule_{|$k|}"><input type="radio" name="row[ds_rule]" id="rad_ds_rule_{|$k|}" value="{|$k|}" {|$rule_checked[$k]|} />{|$v|}</label></div>
+                      {|/foreach|} 
+                      <!--提取规则为ID时，出现-->
+                      <div id="div_ds_mod_ids" {|$ds_mod_ids_show|}>
+                      <input name="row[ds_mod_ids]" onblur="checkModIds();" type="text" class="dfinput" style="width: 200px;" value="{|$row['ds_mod_ids']|}" id="ds_mod_ids"/><i id="i_ds_mod_ids">数字且存在于数据源中，多个id用逗号隔开.</i>
+                      </div>
+                  </li>
+                  <!--提取规则不为ID时，出现-->
+                  <li id="li_ds_count" {|$ds_count_show|}><label>提取条数：</label><input name="row[ds_count]" type="text" maxlength="4" class="dfinput" value="{|$row['ds_count']|}" id="ds_count"/><i id="i_ds_count">数字</i></li>
+               </ul>
+            </div>
+        </li>
+        
+        <!--代码块-->
+        <li group="li_ds_way" id="li_ds_way_3" {|$ds_way_show[3]|}><label>HTML代码：</label><textarea name="row[ds_html]" cols="" rows="" class="textinput">{|$row['ds_html']|}</textarea></li> 
+        
+        
+        <li><label>&nbsp;</label><input type="submit" class="btn" value="确认保存"/></li>
+        </ul>
+    </form>
+    
+    </div>
+   <div id="test">
+   
+   </div>
+
+{|include file="$FOOTER"|}
+
+
+
+
+
+
+
+
+
+
+

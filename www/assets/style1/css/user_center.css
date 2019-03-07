@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+.c_right{
+	width:948px;
+	float:left;
+	height:935px;
+	border:1px solid #e0e0e0;
+}
+.c_right .niu{
+	margin:40px 0 52px 50px;
+	width:890px;
+	height:122px;
+}
+.c_right .niu img{
+	float:left;
+	margin-right:36px;
+}
+.c_right .niu .shang{
+	font-size:16px;
+	font-family:'微软雅黑';
+	color:#333333;
+	padding-top:30px;
+}
+.c_right .niu  .zhuce{
+	font-size:14px;
+	margin-top:20px;
+}
+.c_right .niu .time,.c_right .niu .message{
+	font-family:'Arial';
+	margin-right:35px;
+}
+.c_right .warn{
+	margin-left:30px;
+	height:153px;
+	width:870px;
+}
+.c_right .warn img{
+	vertical-align:middle;
+	margin-right:14px;
+}
+.c_right .warn span{
+	height:26px;
+	font-size:18px;
+	font-family:'微软雅黑';
+}
+.c_right .warn p{
+	text-indent:2em;
+	font-size:14px;
+	line-height:26px;
+	margin-top:15px;
+}
+.c_right .maybe p{
+	height:40px;
+	background:#f7f7f7 url(../img/agent/bg1.png) no-repeat 30px center;
+	font-size:16px;
+	font-family:'微软雅黑';
+	line-height:40px;
+	padding-left:45px;
+}
+.c_right .maybe li{
+	width:154px;
+	height:103px;
+	float:left;
+	margin:0 29px 10px 0;
+}
+.c_right .maybe ul{
+	padding:25px 30px 0 30px;
+}
+.c_right .maybe img{
+	border:2px solid #fff;
+}
+.c_right .maybe img:hover{
+	border: 2px solid #fb8200;
+}
+.c_right .maybe .text{
+	line-height:20px;
+}
+.c_right .maybe .text:hover{
+	text-decoration:underline;
+	color:#fb8200;
+}
